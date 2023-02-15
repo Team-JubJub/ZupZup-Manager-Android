@@ -1,7 +1,8 @@
-package com.example.zupzup_manager
+package com.example.zupzup_manager.ui.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.example.zupzup_manager.R
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
