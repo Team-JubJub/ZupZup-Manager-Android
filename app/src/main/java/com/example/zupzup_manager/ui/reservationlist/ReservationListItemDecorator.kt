@@ -14,7 +14,7 @@ class ReservationListItemDecorator : RecyclerView.ItemDecoration() {
     ) {
         super.getItemOffsets(outRect, view, parent, state)
         if(parent.getChildAdapterPosition(view) > 0) {
-            outRect.top = 100
+            outRect.top = 16
         }
     }
 }
