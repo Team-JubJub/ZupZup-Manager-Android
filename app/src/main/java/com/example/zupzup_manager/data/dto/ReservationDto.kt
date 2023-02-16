@@ -1,14 +1,16 @@
 package com.example.zupzup_manager.data.dto
 
+import com.example.zupzup_manager.domain.models.CustomerModel
 import com.example.zupzup_manager.domain.models.ReservationModel
 
 data class ReservationDto(
-    val storeId: Long,
-    val reserveId: Long,
-    val state: String,
-    val visitTime: Int,
-    val customer: CustomerDto,
-    val cartList: List<CartDto>
+    val storeId: Long = 0,
+    val reserveId: Long = 0,
+    val state: String = "",
+    val visitTime: Int = 0,
+    val customerName: String = "",
+    val customerPhone : String ="",
+    val cartList: List<CartDto> = listOf()
 ) {
     fun toReservationModel(): ReservationModel {
         return ReservationModel(
@@ -16,7 +18,7 @@ data class ReservationDto(
             reserveId = reserveId,
             state = state,
             visitTime = visitTime,
-            customer = customer.toCustomerModel(),
+            customer = CustomerModel(customerName, customerPhone),
             cartList = cartList.map { it.toCartModel() }
         )
     }

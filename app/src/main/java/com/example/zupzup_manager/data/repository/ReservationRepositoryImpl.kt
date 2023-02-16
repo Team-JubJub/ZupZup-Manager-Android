@@ -18,7 +18,7 @@ class ReservationRepositoryImpl @Inject constructor(
             }
             Result.success(reservationList.map { it.toReservationModel() })
         } catch (e: Exception) {
-            Result.success(listOf())
+            Result.failure(e)
         }
     }
 }
