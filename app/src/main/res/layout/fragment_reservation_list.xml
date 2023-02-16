@@ -5,13 +5,20 @@
 
     <data>
 
+        <variable
+            name="adapter"
+            type="com.example.zupzup_manager.ui.reservationlist.ReservationListRcvAdapter" />
+
+        <variable
+            name="viewModel"
+            type="com.example.zupzup_manager.ui.reservationlist.ReservationListViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:paddingHorizontal="16dp"
-        tools:context=".ui.fragment.ReservationListFragment">
+        tools:context=".ui.reservationlist.ReservationListFragment">
 
         <TextView
             android:id="@+id/tv_page_title"
@@ -26,12 +33,16 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rcv_reservation_list"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:layout_marginTop="15dp"
+            android:adapter="@{adapter}"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_page_title" />
+            app:layout_constraintTop_toBottomOf="@id/tv_page_title"
+            app:uiState="@{viewModel.reservationListUiState}" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

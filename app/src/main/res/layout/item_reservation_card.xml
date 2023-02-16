@@ -5,6 +5,9 @@
 
     <data>
 
+        <variable
+            name="reservation"
+            type="com.example.zupzup_manager.domain.models.ReservationModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -25,6 +28,7 @@
                 android:id="@+id/tv_reservation_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="@{String.valueOf(reservation.reserveId)}"
                 android:textColor="@color/cool_gray1"
                 android:textSize="15sp"
                 app:layout_constraintStart_toStartOf="parent"
@@ -32,22 +36,29 @@
                 tools:text="2022/12/31 00:00" />
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
+                android:layout_marginEnd="16dp"
+                android:ellipsize="end"
                 android:textColor="@color/text_black"
                 android:textSize="22sp"
                 android:textStyle="bold"
+                app:cartList="@{reservation.cartList}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/tv_reservation_state"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_reservation_date"
                 tools:text="메뉴명" />
 
             <TextView
+                android:id="@+id/tv_reservation_state"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/frame_rectangle_corner_99_white"
                 android:paddingHorizontal="24.5dp"
                 android:paddingVertical="8dp"
+                android:text="@{reservation.state}"
                 android:textColor="@color/text_black"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -78,6 +89,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"
+                android:text="@{String.valueOf(reservation.visitTime)}"
                 android:textColor="@color/text_black"
                 android:textSize="17sp"
                 app:layout_constraintBottom_toBottomOf="@id/iv_clock"
@@ -89,6 +101,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
+                android:text="@{reservation.customer.name}"
                 android:textColor="@color/text_black"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
