@@ -16,6 +16,10 @@ fun Int.toTimeFormat(): String {
     } else "${str.substring(0, 2)}:${str.substring(2)}"
 }
 
-fun Long.toDateFormat(): String {
+fun Long.toSimpleDateFormat(): String {
     return SimpleDateFormat("yyyy/MM/dd HH:mm", Locale.KOREAN).format(this)
+}
+
+fun Long.toDetailDateFormat(): String {
+    return SimpleDateFormat("yyyy년 MM월 dd일 HH:mm", Locale.KOREAN).format(this)
 }

@@ -5,6 +5,9 @@
 
     <data>
 
+        <variable
+            name="description"
+            type="java.lang.String" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -17,6 +20,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:layout_marginBottom="16dp"
+            android:text="@{description}"
             android:textColor="@color/text_black"
             android:textSize="20sp"
             android:textStyle="bold"
