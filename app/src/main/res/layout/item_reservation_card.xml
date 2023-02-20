@@ -33,6 +33,7 @@
                 android:textSize="15sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
+                app:reserveId="@{reservation.reserveId}"
                 tools:text="2022/12/31 00:00" />
 
             <TextView
@@ -58,11 +59,11 @@
                 android:background="@drawable/frame_rectangle_corner_99_white"
                 android:paddingHorizontal="24.5dp"
                 android:paddingVertical="8dp"
-                android:text="@{reservation.state}"
                 android:textColor="@color/text_black"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
+                app:state="@{reservation.state}"
                 tools:text="신규" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -95,6 +96,7 @@
                 app:layout_constraintBottom_toBottomOf="@id/iv_clock"
                 app:layout_constraintStart_toEndOf="@id/iv_clock"
                 app:layout_constraintTop_toTopOf="@id/iv_clock"
+                app:visitTime="@{reservation.visitTime}"
                 tools:text="12:15" />
 
             <TextView

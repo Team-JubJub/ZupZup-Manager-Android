@@ -15,7 +15,7 @@ class GetReservationListUseCase @Inject constructor(
     suspend operator fun invoke(storeId: Long): Flow<DataResult<List<ReservationModel>>> {
         return flow {
             reservationRepository.getReservationList(storeId).onSuccess {
-                emit(DataResult.Success(it))
+                emit(DataResult.Success(it.reversed()))
             }.onFailure {
                 emit(DataResult.Failure(1))
             }
