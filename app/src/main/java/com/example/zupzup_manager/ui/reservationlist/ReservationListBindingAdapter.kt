@@ -1,12 +1,17 @@
 package com.example.zupzup_manager.ui.reservationlist
 
+import android.graphics.drawable.GradientDrawable
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.zupzup_manager.domain.models.CartModel
 import com.example.zupzup_manager.domain.models.ReservationModel
+import com.example.zupzup_manager.ui.common.ReservationStateMapper
 import com.example.zupzup_manager.ui.common.UiState
+import com.example.zupzup_manager.ui.common.toDateFormat
+import com.example.zupzup_manager.ui.common.toTimeFormat
 
 @BindingAdapter("uiState")
 fun bindReservationListToRecyclerView(
@@ -28,11 +33,42 @@ fun bindReservationListToRecyclerView(
 
 @BindingAdapter("cartList")
 fun bindReservationListToRecyclerView(
-    textView : TextView,
-    cartList : List<CartModel>
+    textView: TextView,
+    cartList: List<CartModel>
 ) {
     textView.text = "${cartList[0].name}"
-    if(cartList.size > 1) {
+    if (cartList.size > 1) {
         textView.text = textView.text.toString() + "외 ${cartList.size}개"
     }
+}
+
+@BindingAdapter("state")
+fun bindReservationStateToTextView(
+    textView: TextView,
+    state: String
+) {
+    (textView.background as GradientDrawable).setColor(
+        ContextCompat.getColor(
+            textView.context,
+            ReservationStateMapper.getStateBackgroundColor(state)
+        )
+    )
+
+    textView.text = ReservationStateMapper.getStateDescription(state)
+}
+
+@BindingAdapter("reserveId")
+fun bindReservationDateToTextView(
+    textView: TextView,
+    reserveId: Long
+) {
+    textView.text = reserveId.toDateFormat()
+}
+
+@BindingAdapter("visitTime")
+fun bindReservationVisitTimeToTextView(
+    textView: TextView,
+    visitTime: Int
+) {
+    textView.text = visitTime.toTimeFormat()
 }
