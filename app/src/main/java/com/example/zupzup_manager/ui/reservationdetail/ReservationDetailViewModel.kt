@@ -56,7 +56,12 @@ class ReservationDetailViewModel @Inject constructor() : ViewModel() {
         )
         dataList.add(ReservationDetail.HeaderDescription(header = "주문 내역"))
         reservation.cartList.forEach {
-            dataList.add(ReservationDetail.ReservationCartItem(cartItem = it))
+            dataList.add(
+                ReservationDetail.ReservationCartItem(
+                    cartItem = it,
+                    reservationState = reservation.state
+                )
+            )
         }
         return dataList.toList()
     }
