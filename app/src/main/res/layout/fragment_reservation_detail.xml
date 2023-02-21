@@ -5,6 +5,8 @@
 
     <data>
 
+        <import type="android.view.View" />
+
         <variable
             name="adapter"
             type="com.example.zupzup_manager.ui.reservationdetail.ReservationDetailRcvAdapter" />
@@ -90,29 +92,67 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginStart="16dp"
-            android:paddingVertical="10dp"
             android:layout_marginEnd="16dp"
             android:adapter="@{adapter}"
-            app:layout_constraintBottom_toTopOf="@id/btn_confirm_reservation"
+            android:paddingVertical="10dp"
+            app:layout_constraintBottom_toTopOf="@id/constraint_confirm_state_button"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_reserve_date"
             app:reservationDetailBody="@{viewModel.reservationDetailBody}" />
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_confirm_reservation"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraint_confirm_state_button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
             android:layout_marginBottom="9dp"
-            android:background="@drawable/frame_rectangle_corner_14_main"
-            android:text="예약 확인하기"
-            android:textColor="@color/off_white"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/rcv_reservation" />
+            app:layout_constraintEnd_toEndOf="@id/rcv_reservation"
+            app:layout_constraintStart_toStartOf="@id/rcv_reservation"
+            app:layout_constraintTop_toBottomOf="@id/rcv_reservation">
 
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_confirm_reservation"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/frame_rectangle_corner_14_main"
+                android:text="예약 확인하기"
+                android:textColor="@color/off_white"
+                android:visibility="@{viewModel.reservationDetailHeader.state.equals(`NEW`) ? View.VISIBLE : View.GONE}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_reservation_cancel"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8.5dp"
+                android:background="@drawable/frame_rectangle_corner_14_warning_1"
+                android:text="취소"
+                android:textColor="@color/text_white"
+                android:textSize="17sp"
+                android:visibility="@{viewModel.reservationDetailHeader.state.equals(`CONFIRM`) ? View.VISIBLE : View.GONE}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/btn_reservation_complete"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_reservation_complete"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8.5dp"
+                android:background="@drawable/frame_rectangle_corner_14_green"
+                android:text="완료"
+                android:textColor="@color/text_black"
+                android:textSize="17sp"
+                android:visibility="@{viewModel.reservationDetailHeader.state.equals(`CONFIRM`) ? View.VISIBLE : View.GONE}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/btn_reservation_cancel"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

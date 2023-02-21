@@ -5,7 +5,11 @@
       <map>
         <entry key="app/src/main/res/drawable-v24/frame_rectangle_bottom_corner_12_warmgray3.xml" value="0.1655" />
         <entry key="app/src/main/res/drawable-v24/frame_rectangle_bottom_corner_12_warmgray_3.xml" value="0.1655" />
+        <entry key="app/src/main/res/drawable-v24/frame_rectangle_corner_14_green.xml" value="0.1655" />
         <entry key="app/src/main/res/drawable-v24/frame_rectangle_corner_14_main.xml" value="0.1655" />
+        <entry key="app/src/main/res/drawable-v24/frame_rectangle_corner_14_purple.xml" value="0.1655" />
+        <entry key="app/src/main/res/drawable-v24/frame_rectangle_corner_14_warmgray_3.xml" value="0.1655" />
+        <entry key="app/src/main/res/drawable-v24/frame_rectangle_corner_14_warning_1.xml" value="0.1655" />
         <entry key="app/src/main/res/drawable-v24/frame_rectangle_corner_99_warmgray_5.xml" value="0.1655" />
         <entry key="app/src/main/res/drawable-v24/frame_rectangle_corner_9_warmgray_1.xml" value="0.1655" />
         <entry key="app/src/main/res/drawable-v24/frame_rectangle_top_corner_12_warmgray3.xml" value="0.1655" />
