@@ -5,6 +5,9 @@
 
     <data>
 
+        <variable
+            name="cartItem"
+            type="com.example.zupzup_manager.domain.models.CartModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -18,13 +21,14 @@
             android:id="@+id/tv_item_name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:ellipsize="end"
-            app:layout_constraintEnd_toStartOf="@id/btn_minus"
             android:layout_marginEnd="10dp"
+            android:ellipsize="end"
             android:maxLines="1"
+            android:text="@{cartItem.name}"
             android:textColor="@color/text_black"
             android:textSize="17sp"
             android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@id/btn_minus"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="이름이 엄청 긴 메뉴이름이 너무 길어 더 길어" />
@@ -34,6 +38,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
+            android:text="@{String.valueOf(cartItem.salesPrice) + '원'}"
             android:textColor="@color/main"
             android:textSize="13sp"
             app:layout_constraintStart_toStartOf="@id/tv_item_name"
@@ -58,6 +63,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
+            android:text="@{String.valueOf(cartItem.amount)}"
             android:textColor="@color/text_black"
             app:layout_constraintBottom_toBottomOf="@id/btn_plus"
             app:layout_constraintEnd_toStartOf="@id/btn_plus"
@@ -69,10 +75,10 @@
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:layout_marginTop="11.5dp"
+            android:layout_marginEnd="16dp"
             android:layout_marginBottom="11.5dp"
             android:background="@drawable/frame_oval_warmgray_4"
             android:padding="4dp"
-            android:layout_marginEnd="16dp"
             android:src="@drawable/ic_minus"
             app:layout_constraintBottom_toBottomOf="@id/tv_item_price"
             app:layout_constraintEnd_toStartOf="@id/tv_item_amount"

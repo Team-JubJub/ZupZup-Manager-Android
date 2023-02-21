@@ -5,6 +5,14 @@
 
     <data>
 
+        <import type="kotlin.jvm.functions.Function1" />
+        <import type="com.example.zupzup_manager.domain.models.ReservationModel" />
+        <import type="kotlin.Unit" />
+
+        <variable
+            name="navigate"
+            type="Function1&lt;ReservationModel, Unit>" />
+
         <variable
             name="reservation"
             type="com.example.zupzup_manager.domain.models.ReservationModel" />
@@ -12,7 +20,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:onClick="@{_ -> navigate.invoke(reservation)}">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraint_upper"

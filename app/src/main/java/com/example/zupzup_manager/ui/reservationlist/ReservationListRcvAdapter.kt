@@ -1,6 +1,5 @@
 package com.example.zupzup_manager.ui.reservationlist
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -9,23 +8,31 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.zupzup_manager.databinding.ItemReservationCardBinding
 import com.example.zupzup_manager.domain.models.ReservationModel
 
-class ReservationListRcvAdapter :
+class ReservationListRcvAdapter(
+    private val navigateToReservationDetail: (reservation: ReservationModel) -> Unit
+) :
     ListAdapter<ReservationModel, ReservationListRcvAdapter.ReservationListViewHolder>(
         ReservationModelDiffCallBack()
     ) {
 
-    class ReservationListViewHolder(private val binding: ItemReservationCardBinding) :
+    class ReservationListViewHolder(
+        private val binding: ItemReservationCardBinding,
+        private val navigateToReservationDetail: (reservation: ReservationModel) -> Unit
+    ) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: ReservationModel) {
-            binding.reservation = item
-            binding.executePendingBindings()
+            with(binding) {
+                reservation = item
+                navigate = navigateToReservationDetail
+                executePendingBindings()
+            }
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ReservationListViewHolder {
         val binding =
             ItemReservationCardBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return ReservationListViewHolder(binding)
+        return ReservationListViewHolder(binding, navigateToReservationDetail)
     }
 
     override fun onBindViewHolder(holder: ReservationListViewHolder, position: Int) {

@@ -6,8 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.zupzup_manager.databinding.FragmentReservationListBinding
+import com.example.zupzup_manager.domain.models.ReservationModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -32,11 +34,20 @@ class ReservationListFragment : Fragment() {
         initRecyclerView()
     }
 
+    private fun navigateToReservationDetail(reservation: ReservationModel) {
+        val action =
+            ReservationListFragmentDirections.actionFragReservationListToFragReservationDetail(
+                reservation
+            )
+        findNavController().navigate(action)
+    }
+
     private fun initRecyclerView() {
         with(binding) {
             rcvReservationList.layoutManager = LinearLayoutManager(context)
             rcvReservationList.addItemDecoration(ReservationListItemDecorator())
-            adapter = ReservationListRcvAdapter()
+            adapter =
+                ReservationListRcvAdapter(this@ReservationListFragment::navigateToReservationDetail)
         }
     }
 

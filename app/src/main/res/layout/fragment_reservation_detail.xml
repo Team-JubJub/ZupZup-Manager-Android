@@ -3,7 +3,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <data></data>
+    <data>
+
+        <variable
+            name="adapter"
+            type="com.example.zupzup_manager.ui.reservationdetail.ReservationDetailRcvAdapter" />
+
+        <variable
+            name="viewModel"
+            type="com.example.zupzup_manager.ui.reservationdetail.ReservationDetailViewModel" />
+    </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -40,6 +49,7 @@
             android:layout_marginEnd="8dp"
             android:ellipsize="end"
             android:maxLines="1"
+            android:text="@{viewModel.reservationDetailHeader.title}"
             android:textColor="@color/text_black"
             android:textSize="34sp"
             android:textStyle="bold"
@@ -60,6 +70,7 @@
             app:layout_constraintBottom_toBottomOf="@id/tv_cartList_title"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/tv_cartList_title"
+            app:state="@{viewModel.reservationDetailHeader.state}"
             tools:text="신규" />
 
         <TextView
@@ -69,6 +80,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="4dp"
             android:textColor="@color/warm_gray5"
+            app:detailReserveId="@{viewModel.reservationDetailHeader.reserveId}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_cartList_title"
             tools:text="2022년 11월 22일 09:41" />
@@ -78,13 +90,14 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="10dp"
+            android:paddingVertical="10dp"
             android:layout_marginEnd="16dp"
-            android:layout_marginBottom="8dp"
+            android:adapter="@{adapter}"
             app:layout_constraintBottom_toTopOf="@id/btn_confirm_reservation"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_reserve_date" />
+            app:layout_constraintTop_toBottomOf="@id/tv_reserve_date"
+            app:reservationDetailBody="@{viewModel.reservationDetailBody}" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_confirm_reservation"

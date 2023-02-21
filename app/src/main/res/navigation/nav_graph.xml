@@ -9,5 +9,19 @@
         android:id="@+id/frag_reservationList"
         android:name="com.example.zupzup_manager.ui.reservationlist.ReservationListFragment"
         android:label="ReservationListFragment"
-        tools:layout="@layout/fragment_reservation_list" />
+        tools:layout="@layout/fragment_reservation_list">
+        <action
+            android:id="@+id/action_frag_reservationList_to_frag_reservationDetail"
+            app:destination="@id/frag_reservationDetail" />
+    </fragment>
+    <fragment
+        android:id="@+id/frag_reservationDetail"
+        android:name="com.example.zupzup_manager.ui.reservationdetail.ReservationDetailFragment"
+        android:label="ReservationDetailFragment"
+        tools:layout="@layout/fragment_reservation_detail">
+        <argument
+            android:name="reservation"
+            app:argType="com.example.zupzup_manager.domain.models.ReservationModel"
+            app:nullable="false" />
+    </fragment>
 </navigation>
