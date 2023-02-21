@@ -5,6 +5,12 @@
 
     <data>
 
+        <import type="android.view.View" />
+
+        <variable
+            name="reservationState"
+            type="java.lang.String" />
+
         <variable
             name="cartItem"
             type="com.example.zupzup_manager.domain.models.CartModel" />
@@ -54,6 +60,7 @@
             android:background="@drawable/frame_oval_warmgray_4"
             android:padding="4dp"
             android:src="@drawable/ic_plus"
+            android:visibility="@{reservationState.equals(`NEW`) ? View.VISIBLE : View.GONE}"
             app:layout_constraintBottom_toBottomOf="@id/tv_item_price"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/tv_item_name" />
@@ -80,6 +87,7 @@
             android:background="@drawable/frame_oval_warmgray_4"
             android:padding="4dp"
             android:src="@drawable/ic_minus"
+            android:visibility="@{reservationState.equals(`NEW`) ? View.VISIBLE : View.GONE}"
             app:layout_constraintBottom_toBottomOf="@id/tv_item_price"
             app:layout_constraintEnd_toStartOf="@id/tv_item_amount"
             app:layout_constraintTop_toTopOf="@id/tv_item_name" />

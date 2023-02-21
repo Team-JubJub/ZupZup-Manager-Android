@@ -19,6 +19,7 @@ sealed class ReservationDetail {
 
     data class ReservationCartItem(
         override val viewType: String = "CART_ITEM",
+        val reservationState : String,
         val cartItem: CartModel
     ) : ReservationDetail()
 }

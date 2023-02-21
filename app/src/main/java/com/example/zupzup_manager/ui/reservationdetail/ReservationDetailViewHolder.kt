@@ -33,6 +33,7 @@ sealed class ReservationDetailViewHolder(
     ) : ReservationDetailViewHolder(binding) {
         override fun bind(item: ReservationDetail) {
             binding.cartItem = (item as ReservationDetail.ReservationCartItem).cartItem
+            binding.reservationState = item.reservationState
         }
     }
 }
