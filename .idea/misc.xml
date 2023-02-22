@@ -5,13 +5,16 @@
       <map>
         <entry key="app/src/main/res/drawable-v24/frame_rectangle_bottom_corner_12_warmgray3.xml" value="0.1655" />
         <entry key="app/src/main/res/drawable-v24/frame_rectangle_bottom_corner_12_warmgray_3.xml" value="0.1655" />
+        <entry key="app/src/main/res/drawable-v24/frame_rectangle_corner_12_text_white.xml" value="0.155" />
         <entry key="app/src/main/res/drawable-v24/frame_rectangle_corner_14_green.xml" value="0.1655" />
         <entry key="app/src/main/res/drawable-v24/frame_rectangle_corner_14_main.xml" value="0.1655" />
         <entry key="app/src/main/res/drawable-v24/frame_rectangle_corner_14_purple.xml" value="0.1655" />
+        <entry key="app/src/main/res/drawable-v24/frame_rectangle_corner_14_text_white.xml" value="0.155" />
         <entry key="app/src/main/res/drawable-v24/frame_rectangle_corner_14_warmgray_3.xml" value="0.1655" />
         <entry key="app/src/main/res/drawable-v24/frame_rectangle_corner_14_warning_1.xml" value="0.1655" />
         <entry key="app/src/main/res/drawable-v24/frame_rectangle_corner_99_warmgray_5.xml" value="0.1655" />
         <entry key="app/src/main/res/drawable-v24/frame_rectangle_corner_9_warmgray_1.xml" value="0.1655" />
+        <entry key="app/src/main/res/drawable-v24/frame_rectangle_top_corner_12_text_white.xml" value="0.1645" />
         <entry key="app/src/main/res/drawable-v24/frame_rectangle_top_corner_12_warmgray3.xml" value="0.1655" />
         <entry key="app/src/main/res/drawable-v24/frame_rectangle_top_corner_12_warmgray_3.xml" value="0.1655" />
         <entry key="app/src/main/res/drawable-v24/frame_ㅐㅍ미_white.xml" value="0.1655" />
@@ -23,15 +26,22 @@
         <entry key="app/src/main/res/drawable/frame_rectangle_top_corner_12_warmgray_3.xml" value="0.1655" />
         <entry key="app/src/main/res/drawable/frame_upper.xml" value="0.1655" />
         <entry key="app/src/main/res/drawable/ic_back_button.xml" value="0.1655" />
+        <entry key="app/src/main/res/drawable/ic_clock.xml" value="0.1965" />
         <entry key="app/src/main/res/drawable/ic_user.xml" value="0.1655" />
+        <entry key="app/src/main/res/drawable/test.xml" value="0.155" />
+        <entry key="app/src/main/res/drawable/upper.xml" value="0.155" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1941624479473762" />
+        <entry key="app/src/main/res/layout/fragment_reservation_confirm_bottom_sheet_list_dialog.xml" value="0.17346014492753623" />
+        <entry key="app/src/main/res/layout/fragment_reservation_confirm_bottomsheet.xml" value="0.335" />
         <entry key="app/src/main/res/layout/fragment_reservation_detail.xml" value="0.2921133732450182" />
         <entry key="app/src/main/res/layout/fragment_reservation_list.xml" value="0.21406906415831367" />
         <entry key="app/src/main/res/layout/item_description.xml" value="0.20728366133095563" />
         <entry key="app/src/main/res/layout/item_description_header.xml" value="0.19610507246376813" />
         <entry key="app/src/main/res/layout/item_reservation_card.xml" value="0.3086021505376344" />
         <entry key="app/src/main/res/layout/item_reservation_cart.xml" value="0.3262069702148439" />
+        <entry key="app/src/main/res/layout/item_reservation_confirm_bottom_sheet_cart.xml" value="0.6788624196812727" />
         <entry key="app/src/main/res/layout/item_reservation_customer_info.xml" value="0.31084899902343754" />
+        <entry key="app/src/main/res/layout/test2.xml" value="0.524612183501755" />
         <entry key="app/src/main/res/menu/main_bottom_nav.xml" value="0.2520833333333333" />
       </map>
     </option>
