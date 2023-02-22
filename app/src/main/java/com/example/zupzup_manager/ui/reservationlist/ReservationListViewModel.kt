@@ -18,7 +18,7 @@ class ReservationListViewModel @Inject constructor(
 ) : ViewModel() {
 
     init {
-        getReservationList(1)
+        getReservationList(2)
     }
 
     private var _reservationListUiState =
