@@ -1,5 +1,6 @@
 package com.example.zupzup_manager.ui.common
 
+import java.text.DecimalFormat
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -22,4 +23,8 @@ fun Long.toSimpleDateFormat(): String {
 
 fun Long.toDetailDateFormat(): String {
     return SimpleDateFormat("yyyy년 MM월 dd일 HH:mm", Locale.KOREAN).format(this)
+}
+
+fun Int.toDecimalFormat() : String {
+    return DecimalFormat("#,###").format(this)+"원"
 }

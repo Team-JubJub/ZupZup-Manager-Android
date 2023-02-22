@@ -2,6 +2,8 @@ package com.example.zupzup_manager.ui.reservationdetail
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.zupzup_manager.domain.models.CartModel
+import com.example.zupzup_manager.domain.models.CustomerModel
 import com.example.zupzup_manager.domain.models.ReservationModel
 import com.example.zupzup_manager.ui.reservationdetail.models.ReservationDetail
 import com.example.zupzup_manager.ui.reservationdetail.models.ReservationDetailHeaderModel
@@ -17,6 +19,16 @@ class ReservationDetailViewModel @Inject constructor() : ViewModel() {
     private var _reservationDetailHeader = MutableStateFlow(
         ReservationDetailHeaderModel("", "", 0)
     )
+
+    val testReserve = ReservationModel(
+        0, 0, "NEW", 1234, CustomerModel("test", "010-test-test"),
+        listOf(
+            CartModel(0, 0, "test1", 2000, 3),
+            CartModel(0, 0, "test2", 3000, 5),
+            CartModel(0, 0, "test3", 4000, 6)
+        )
+    )
+
     val reservationDetailHeader = _reservationDetailHeader.asStateFlow()
 
     private var _reservationDetailBody = MutableStateFlow<List<ReservationDetail>>(listOf())

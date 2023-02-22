@@ -16,6 +16,7 @@
         <entry key="app/src/main/res/drawable-v24/frame_rectangle_corner_9_warmgray_1.xml" value="0.1655" />
         <entry key="app/src/main/res/drawable-v24/frame_rectangle_top_corner_12_text_white.xml" value="0.1645" />
         <entry key="app/src/main/res/drawable-v24/frame_rectangle_top_corner_12_warmgray3.xml" value="0.1655" />
+        <entry key="app/src/main/res/drawable-v24/frame_rectangle_top_corner_12_warmgray_2.xml" value="0.1215" />
         <entry key="app/src/main/res/drawable-v24/frame_rectangle_top_corner_12_warmgray_3.xml" value="0.1655" />
         <entry key="app/src/main/res/drawable-v24/frame_ㅐㅍ미_white.xml" value="0.1655" />
         <entry key="app/src/main/res/drawable-v24/ic_clock_white.xml" value="0.1655" />
@@ -32,7 +33,7 @@
         <entry key="app/src/main/res/drawable/upper.xml" value="0.155" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1941624479473762" />
         <entry key="app/src/main/res/layout/fragment_reservation_confirm_bottom_sheet_list_dialog.xml" value="0.17346014492753623" />
-        <entry key="app/src/main/res/layout/fragment_reservation_confirm_bottomsheet.xml" value="0.335" />
+        <entry key="app/src/main/res/layout/fragment_reservation_confirm_bottomsheet.xml" value="0.3507491710574128" />
         <entry key="app/src/main/res/layout/fragment_reservation_detail.xml" value="0.2921133732450182" />
         <entry key="app/src/main/res/layout/fragment_reservation_list.xml" value="0.21406906415831367" />
         <entry key="app/src/main/res/layout/item_description.xml" value="0.20728366133095563" />

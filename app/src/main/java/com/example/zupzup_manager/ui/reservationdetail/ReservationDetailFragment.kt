@@ -9,6 +9,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.zupzup_manager.databinding.FragmentReservationDetailBinding
+import com.example.zupzup_manager.domain.models.ReservationModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -45,11 +46,17 @@ class ReservationDetailFragment : Fragment() {
         reservationDetailViewModel.setArgsToViewModel(args.reservation)
     }
 
+    private fun onReservationConfirmButtonClickListener(reservation: ReservationModel) {
+        ReservationConfirmBottomSheet(reservation).show(parentFragmentManager, null)
+    }
+
     private fun initBinding() {
         with(binding) {
             adapter = ReservationDetailRcvAdapter()
             viewModel = reservationDetailViewModel
             lifecycleOwner = viewLifecycleOwner
+            bindingHelper =
+                ReservationDetailBindingHelper(::onReservationConfirmButtonClickListener)
         }
     }
 
