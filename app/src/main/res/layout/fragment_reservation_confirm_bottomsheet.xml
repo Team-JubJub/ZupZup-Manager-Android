@@ -5,13 +5,18 @@
 
     <data>
 
+        <variable
+            name="reservation"
+            type="com.example.zupzup_manager.domain.models.ReservationModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/frame_rectangle_top_corner_12_warmgray_2"
         android:paddingHorizontal="16dp"
-        android:paddingVertical="32dp">
+        android:paddingTop="32dp"
+        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
         <TextView
             android:id="@+id/tv_bottom_sheet_title"
@@ -72,6 +77,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
+                android:text="@{reservation.customer.name}"
                 android:textColor="@color/text_black"
                 android:textSize="17sp"
                 app:layout_constraintStart_toStartOf="@id/tv_customer_header"
@@ -82,6 +88,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="7dp"
+                android:text="@{reservation.customer.phoneNumber}"
                 android:textColor="@color/warm_gray6"
                 android:textSize="13sp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -122,6 +129,7 @@
                 android:textSize="17sp"
                 app:layout_constraintStart_toStartOf="@id/tv_visitTime_description"
                 app:layout_constraintTop_toBottomOf="@id/tv_visitTime_description"
+                app:visitTime="@{reservation.visitTime}"
                 tools:text="19:00" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -156,6 +164,7 @@
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
+                app:totalPrice="@{reservation.cartList}"
                 tools:text="1,000,000원" />
 
             <com.google.android.material.divider.MaterialDivider
@@ -186,6 +195,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="23dp"
             android:layout_marginEnd="8.5dp"
+            android:layout_marginBottom="32dp"
             android:background="@drawable/frame_rectangle_corner_14_warmgray_3"
             android:text="반려"
             android:textColor="@color/warm_gray6"
@@ -204,7 +214,7 @@
             android:text="확정"
             android:textColor="@color/text_white"
             android:textSize="17sp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/btn_reservation_reject"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/btn_reservation_reject"
             app:layout_constraintTop_toTopOf="@id/btn_reservation_reject" />
