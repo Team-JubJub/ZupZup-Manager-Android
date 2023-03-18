@@ -7,7 +7,7 @@
 
         <variable
             name="reservationInfo"
-            type="com.example.zupzup_manager.ui.reservationdetail.models.ReservationDetail.ReservationCustomerInfo" />
+            type="com.example.zupzup_manager.ui.reservationdetail.models.ReservationDetailViewType.ReservationCustomerInfoViewType" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

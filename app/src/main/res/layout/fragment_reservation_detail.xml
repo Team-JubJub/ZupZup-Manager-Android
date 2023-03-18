@@ -120,7 +120,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:background="@drawable/frame_rectangle_corner_14_main"
-                android:onClick="@{() -> bindingHelper.createReservationConfirmBottomSheet(viewModel.testReserve)}"
+                android:onClick="@{() -> bindingHelper.createReservationConfirmBottomSheet(viewModel.reservationDetailHeader,viewModel.reservationDetailBody)}"
                 android:text="예약 확인하기"
                 android:textColor="@color/off_white"
                 android:visibility="@{viewModel.reservationDetailHeader.state.equals(`NEW`) ? View.VISIBLE : View.GONE}"
