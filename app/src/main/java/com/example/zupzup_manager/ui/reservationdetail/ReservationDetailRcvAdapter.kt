@@ -7,10 +7,13 @@ import androidx.recyclerview.widget.ListAdapter
 import com.example.zupzup_manager.databinding.ItemDescriptionHeaderBinding
 import com.example.zupzup_manager.databinding.ItemReservationCartBinding
 import com.example.zupzup_manager.databinding.ItemReservationCustomerInfoBinding
-import com.example.zupzup_manager.ui.reservationdetail.models.ReservationDetail
+import com.example.zupzup_manager.ui.common.ViewType
+import com.example.zupzup_manager.ui.reservationdetail.models.ReservationDetailViewType
 
-class ReservationDetailRcvAdapter :
-    ListAdapter<ReservationDetail, ReservationDetailViewHolder>(
+class ReservationDetailRcvAdapter(
+    private val reservationDetailBindingHelper: ReservationDetailBindingHelper
+) :
+    ListAdapter<ReservationDetailViewType, ReservationDetailViewHolder>(
         ReservationDetailDiffCallBack()
     ) {
     override fun onCreateViewHolder(
@@ -19,37 +22,37 @@ class ReservationDetailRcvAdapter :
     ): ReservationDetailViewHolder {
         return when (viewType) {
             ViewType.HEADER.ordinal -> {
-                ReservationDetailViewHolder.ReservationDetailHeaderDescriptionViewHolder(
-                    ItemDescriptionHeaderBinding.inflate(
-                        LayoutInflater.from(parent.context),
-                        parent,
-                        false
-                    )
+                val binding = ItemDescriptionHeaderBinding.inflate(
+                    LayoutInflater.from(parent.context),
+                    parent,
+                    false
                 )
+                ReservationDetailViewHolder.ReservationDetailHeaderDescriptionViewHolder(binding)
             }
             ViewType.CUSTOMER_INFO.ordinal -> {
-                ReservationDetailViewHolder.ReservationDetailCustomerInfoViewHolder(
-                    ItemReservationCustomerInfoBinding.inflate(
-                        LayoutInflater.from(parent.context),
-                        parent,
-                        false
-                    )
+                val binding = ItemReservationCustomerInfoBinding.inflate(
+                    LayoutInflater.from(parent.context),
+                    parent,
+                    false
                 )
+                ReservationDetailViewHolder.ReservationDetailCustomerInfoViewHolder(binding)
             }
             else -> {
+                val binding = ItemReservationCartBinding.inflate(
+                    LayoutInflater.from(parent.context),
+                    parent,
+                    false
+                )
                 ReservationDetailViewHolder.ReservationDetailCartItemViewHolder(
-                    ItemReservationCartBinding.inflate(
-                        LayoutInflater.from(parent.context),
-                        parent,
-                        false
-                    )
+                    binding,
+                    reservationDetailBindingHelper
                 )
             }
         }
     }
 
     override fun getItemViewType(position: Int): Int {
-        return ViewType.valueOf(currentList[position].viewType).ordinal
+        return currentList[position].viewType
     }
 
     override fun onBindViewHolder(holder: ReservationDetailViewHolder, position: Int) {
@@ -57,17 +60,21 @@ class ReservationDetailRcvAdapter :
     }
 
 
-    class ReservationDetailDiffCallBack : DiffUtil.ItemCallback<ReservationDetail>() {
+    class ReservationDetailDiffCallBack : DiffUtil.ItemCallback<ReservationDetailViewType>() {
         override fun areItemsTheSame(
-            oldItem: ReservationDetail,
-            newItem: ReservationDetail
+            oldItem: ReservationDetailViewType,
+            newItem: ReservationDetailViewType
         ): Boolean {
-            return oldItem.viewType == newItem.viewType && oldItem.hashCode() == newItem.hashCode()
+            return if (oldItem.viewType == ViewType.CART_ITEM.ordinal && newItem.viewType == ViewType.CART_ITEM.ordinal) {
+                (oldItem as ReservationDetailViewType.ReservationCartItemViewType).cartItem.itemId == (newItem as ReservationDetailViewType.ReservationCartItemViewType).cartItem.itemId
+            } else {
+                oldItem.viewType == newItem.viewType
+            }
         }
 
         override fun areContentsTheSame(
-            oldItem: ReservationDetail,
-            newItem: ReservationDetail
+            oldItem: ReservationDetailViewType,
+            newItem: ReservationDetailViewType
         ): Boolean {
             return oldItem.viewType == newItem.viewType && oldItem.hashCode() == newItem.hashCode()
         }

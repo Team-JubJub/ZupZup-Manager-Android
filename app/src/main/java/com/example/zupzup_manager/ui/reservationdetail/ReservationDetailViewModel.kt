@@ -2,11 +2,10 @@ package com.example.zupzup_manager.ui.reservationdetail
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.zupzup_manager.domain.models.CartModel
-import com.example.zupzup_manager.domain.models.CustomerModel
 import com.example.zupzup_manager.domain.models.ReservationModel
-import com.example.zupzup_manager.ui.reservationdetail.models.ReservationDetail
+import com.example.zupzup_manager.ui.common.ViewType
 import com.example.zupzup_manager.ui.reservationdetail.models.ReservationDetailHeaderModel
+import com.example.zupzup_manager.ui.reservationdetail.models.ReservationDetailViewType
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -17,26 +16,29 @@ import javax.inject.Inject
 class ReservationDetailViewModel @Inject constructor() : ViewModel() {
 
     private var _reservationDetailHeader = MutableStateFlow(
-        ReservationDetailHeaderModel("", "", 0)
-    )
-
-    val testReserve = ReservationModel(
-        0, 0, "NEW", 1234, CustomerModel("test", "010-test-test"),
-        listOf(
-            CartModel(0, 0, "test1", 2000, 3),
-            CartModel(0, 0, "test2", 3000, 5),
-            CartModel(0, 0, "test3", 4000, 6)
-        )
+        ReservationDetailHeaderModel("", "", 0, 0)
     )
 
     val reservationDetailHeader = _reservationDetailHeader.asStateFlow()
 
-    private var _reservationDetailBody = MutableStateFlow<List<ReservationDetail>>(listOf())
+    private var _reservationDetailBody = MutableStateFlow<List<ReservationDetailViewType>>(listOf())
     val reservationDetailBody = _reservationDetailBody.asStateFlow()
 
     fun setArgsToViewModel(reservation: ReservationModel) {
         setReservationDetailHeader(reservation)
         setReservationDetailBody(reservation)
+    }
+
+    fun plusConfirmedAmount(itemId: Long) {
+        (_reservationDetailBody.value.find {
+            it.viewType == ViewType.CART_ITEM.ordinal && (it as ReservationDetailViewType.ReservationCartItemViewType).cartItem.itemId == itemId
+        } as ReservationDetailViewType.ReservationCartItemViewType).plusConfirmedAmount()
+    }
+
+    fun minusConfirmedAmount(itemId: Long) {
+        (_reservationDetailBody.value.find {
+            it.viewType == ViewType.CART_ITEM.ordinal && (it as ReservationDetailViewType.ReservationCartItemViewType).cartItem.itemId == itemId
+        } as ReservationDetailViewType.ReservationCartItemViewType).minusConfirmedAmount()
     }
 
     private fun setReservationDetailHeader(reservation: ReservationModel) {
@@ -46,30 +48,37 @@ class ReservationDetailViewModel @Inject constructor() : ViewModel() {
                 if (cartList.size > 1) {
                     title += "외 ${cartList.size - 1}개"
                 }
-                _reservationDetailHeader.emit(ReservationDetailHeaderModel(title, state, reserveId))
+                _reservationDetailHeader.emit(
+                    ReservationDetailHeaderModel(
+                        title = title,
+                        state = state,
+                        reserveId = reserveId,
+                        storeId = storeId
+                    )
+                )
             }
         }
     }
 
     private fun setReservationDetailBody(reservation: ReservationModel) {
         viewModelScope.launch {
-            _reservationDetailBody.emit(getReservationDetailList(reservation))
+            _reservationDetailBody.emit(makeReservationDetailList(reservation))
         }
     }
 
-    private fun getReservationDetailList(reservation: ReservationModel): List<ReservationDetail> {
-        val dataList = mutableListOf<ReservationDetail>()
-        dataList.add(ReservationDetail.HeaderDescription(header = "주문 정보"))
+    private fun makeReservationDetailList(reservation: ReservationModel): List<ReservationDetailViewType> {
+        val dataList = mutableListOf<ReservationDetailViewType>()
+        dataList.add(ReservationDetailViewType.HeaderDescription(header = "주문 정보"))
         dataList.add(
-            ReservationDetail.ReservationCustomerInfo(
+            ReservationDetailViewType.ReservationCustomerInfoViewType(
                 customer = reservation.customer,
                 visitTime = reservation.visitTime
             )
         )
-        dataList.add(ReservationDetail.HeaderDescription(header = "주문 내역"))
+        dataList.add(ReservationDetailViewType.HeaderDescription(header = "주문 내역"))
         reservation.cartList.forEach {
             dataList.add(
-                ReservationDetail.ReservationCartItem(
+                ReservationDetailViewType.ReservationCartItemViewType(
                     cartItem = it,
                     reservationState = reservation.state
                 )

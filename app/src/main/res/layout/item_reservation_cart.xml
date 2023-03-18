@@ -5,15 +5,21 @@
 
     <data>
 
+        <import type="kotlin.Unit" />
+
         <import type="android.view.View" />
+
+        <variable
+            name="bindingHelper"
+            type="com.example.zupzup_manager.ui.reservationdetail.ReservationDetailBindingHelper" />
 
         <variable
             name="reservationState"
             type="java.lang.String" />
 
         <variable
-            name="cartItem"
-            type="com.example.zupzup_manager.domain.models.CartModel" />
+            name="cart"
+            type="com.example.zupzup_manager.ui.reservationdetail.models.ReservationDetailViewType.ReservationCartItemViewType" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -30,7 +36,7 @@
             android:layout_marginEnd="10dp"
             android:ellipsize="end"
             android:maxLines="1"
-            android:text="@{cartItem.name}"
+            android:text="@{cart.cartItem.name}"
             android:textColor="@color/text_black"
             android:textSize="17sp"
             android:textStyle="bold"
@@ -44,7 +50,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:text="@{String.valueOf(cartItem.salesPrice) + '원'}"
+            android:text="@{String.valueOf(cart.cartItem.salesPrice) + '원'}"
             android:textColor="@color/main"
             android:textSize="13sp"
             app:layout_constraintStart_toStartOf="@id/tv_item_name"
@@ -61,16 +67,20 @@
             android:padding="4dp"
             android:src="@drawable/ic_plus"
             android:visibility="@{reservationState.equals(`NEW`) ? View.VISIBLE : View.GONE}"
+            app:bindingHelper="@{bindingHelper}"
+            app:itemId="@{cart.cartItem.itemId}"
             app:layout_constraintBottom_toBottomOf="@id/tv_item_price"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/tv_item_name" />
+            app:layout_constraintTop_toTopOf="@id/tv_item_name"
+            app:orderAmount="@{cart.cartItem.amount}"
+            app:tvConfirmedAmount="@{tvItemAmount}" />
 
         <TextView
             android:id="@+id/tv_item_amount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
-            android:text="@{String.valueOf(cartItem.amount)}"
+            android:text="@{String.valueOf(cart.getConfirmedAmount())}"
             android:textColor="@color/text_black"
             app:layout_constraintBottom_toBottomOf="@id/btn_plus"
             app:layout_constraintEnd_toStartOf="@id/btn_plus"
@@ -88,8 +98,12 @@
             android:padding="4dp"
             android:src="@drawable/ic_minus"
             android:visibility="@{reservationState.equals(`NEW`) ? View.VISIBLE : View.GONE}"
+            app:bindingHelper="@{bindingHelper}"
+            app:itemId="@{cart.cartItem.itemId}"
             app:layout_constraintBottom_toBottomOf="@id/tv_item_price"
             app:layout_constraintEnd_toStartOf="@id/tv_item_amount"
-            app:layout_constraintTop_toTopOf="@id/tv_item_name" />
+            app:layout_constraintTop_toTopOf="@id/tv_item_name"
+            app:orderAmount="@{cart.cartItem.amount}"
+            app:tvConfirmedAmount="@{tvItemAmount}" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

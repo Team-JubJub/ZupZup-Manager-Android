@@ -1,4 +1,4 @@
-package com.example.zupzup_manager.ui.reservationdetail
+package com.example.zupzup_manager.ui.common
 
 enum class ViewType(viewType: String) {
     HEADER("HEADER"),

@@ -7,7 +7,7 @@ import com.google.firebase.firestore.QuerySnapshot
 import javax.inject.Inject
 
 class ReservationDataSourceImpl @Inject constructor(
-    @FireBaseModule.ReservationRef private val reservationRef : CollectionReference
+    @FireBaseModule.TestReservationRef private val reservationRef : CollectionReference
 ) : ReservationDataSource {
 
     override suspend fun getReservationList(storeId : Long): Task<QuerySnapshot> {

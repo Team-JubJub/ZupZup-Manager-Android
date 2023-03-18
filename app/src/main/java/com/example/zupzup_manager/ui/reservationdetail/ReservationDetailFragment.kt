@@ -10,6 +10,7 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.zupzup_manager.databinding.FragmentReservationDetailBinding
 import com.example.zupzup_manager.domain.models.ReservationModel
+import com.example.zupzup_manager.ui.reservationdetail.models.ReservationDetailHeaderModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -18,6 +19,12 @@ class ReservationDetailFragment : Fragment() {
     private lateinit var binding: FragmentReservationDetailBinding
     private val reservationDetailViewModel: ReservationDetailViewModel by viewModels()
     private val args: ReservationDetailFragmentArgs by navArgs()
+
+    private val reservationDetailBindingHelper = ReservationDetailBindingHelper(
+        ::onReservationConfirmButtonClickListener,
+        { itemId: Long -> reservationDetailViewModel.plusConfirmedAmount(itemId) },
+        { itemId: Long -> reservationDetailViewModel.minusConfirmedAmount(itemId) }
+    )
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -46,17 +53,18 @@ class ReservationDetailFragment : Fragment() {
         reservationDetailViewModel.setArgsToViewModel(args.reservation)
     }
 
-    private fun onReservationConfirmButtonClickListener(reservation: ReservationModel) {
+    private fun onReservationConfirmButtonClickListener(reservation : ReservationModel) {
         ReservationConfirmBottomSheet(reservation).show(parentFragmentManager, null)
     }
 
     private fun initBinding() {
         with(binding) {
-            adapter = ReservationDetailRcvAdapter()
+            adapter = ReservationDetailRcvAdapter(
+                reservationDetailBindingHelper
+            )
             viewModel = reservationDetailViewModel
             lifecycleOwner = viewLifecycleOwner
-            bindingHelper =
-                ReservationDetailBindingHelper(::onReservationConfirmButtonClickListener)
+            bindingHelper = reservationDetailBindingHelper
         }
     }
 

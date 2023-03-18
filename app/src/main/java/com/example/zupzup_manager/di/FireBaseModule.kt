@@ -23,6 +23,10 @@ object FireBaseModule {
     @Retention(AnnotationRetention.BINARY)
     annotation class ReservationRef
 
+    @Qualifier
+    @Retention(AnnotationRetention.BINARY)
+    annotation class TestReservationRef
+
     @Singleton
     @Provides
     @StoreRef
@@ -35,5 +39,12 @@ object FireBaseModule {
     @ReservationRef
     fun provideFirebaseReservationRef(): CollectionReference {
         return Firebase.firestore.collection(Constants.reservationRef)
+    }
+
+    @Singleton
+    @Provides
+    @TestReservationRef
+    fun provideFirebaseTestReservationRef(): CollectionReference {
+        return Firebase.firestore.collection(Constants.testReservationRef)
     }
 }
