@@ -109,7 +109,7 @@ class ReservationDetailFragment : Fragment() {
 
     private fun collectReservationProcessEventState() {
         viewLifecycleOwner.lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 reservationDetailViewModel.reservationProcessingUiState.collect { eventState ->
                     when (eventState) {
                         is UiEventState.Processing -> {
