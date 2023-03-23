@@ -1,5 +1,6 @@
 package com.example.zupzup_manager.ui.reservationlist
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.zupzup_manager.domain.DataResult
@@ -23,16 +24,15 @@ class ReservationListViewModel @Inject constructor(
 
     private var _reservationListUiState =
         MutableStateFlow<UiState<List<ReservationModel>>>(UiState.Loading)
-
     val reservationListUiState = _reservationListUiState.asStateFlow()
+
 
     private fun getReservationList(storeId: Long) {
         viewModelScope.launch {
-            getReservationListUseCase.invoke(storeId).collect {
+            getReservationListUseCase(storeId).collect {
                 if (it is DataResult.Success) {
                     _reservationListUiState.emit(UiState.Success(it.data))
-                }
-                else {
+                } else {
                     _reservationListUiState.emit(UiState.Error("에러입니다."))
                 }
             }

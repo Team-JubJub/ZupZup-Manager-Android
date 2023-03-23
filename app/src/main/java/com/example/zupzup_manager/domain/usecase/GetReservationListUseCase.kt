@@ -14,10 +14,12 @@ class GetReservationListUseCase @Inject constructor(
 ) {
     suspend operator fun invoke(storeId: Long): Flow<DataResult<List<ReservationModel>>> {
         return flow {
-            reservationRepository.getReservationList(storeId).onSuccess {
-                emit(DataResult.Success(it.reversed()))
-            }.onFailure {
-                emit(DataResult.Failure(1))
+            reservationRepository.getReservationList(storeId).collect {
+                it.onSuccess { reservationList ->
+                    emit(DataResult.Success(reservationList))
+                }.onFailure {
+                    emit(DataResult.Failure(1))
+                }
             }
         }.flowOn(Dispatchers.IO)
     }

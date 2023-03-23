@@ -4,21 +4,36 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.zupzup_manager.databinding.FragmentReservationDetailBinding
+import com.example.zupzup_manager.domain.models.CartModel
 import com.example.zupzup_manager.domain.models.ReservationModel
-import com.example.zupzup_manager.ui.reservationdetail.models.ReservationDetailHeaderModel
+import com.example.zupzup_manager.ui.common.UiEventState
+import com.example.zupzup_manager.ui.reservationdetail.binding.ReservationDetailBindingHelper
+import com.example.zupzup_manager.ui.reservationdetail.bottomsheet.ReservationConfirmBottomSheetFragment
+import com.example.zupzup_manager.ui.reservationdetail.progress.ProgressDialogFragment
+import com.example.zupzup_manager.ui.reservationdetail.recyclerview.ReservationDetailItemDecorator
+import com.example.zupzup_manager.ui.reservationdetail.recyclerview.ReservationDetailRcvAdapter
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class ReservationDetailFragment : Fragment() {
 
+    private val args: ReservationDetailFragmentArgs by navArgs()
     private lateinit var binding: FragmentReservationDetailBinding
     private val reservationDetailViewModel: ReservationDetailViewModel by viewModels()
-    private val args: ReservationDetailFragmentArgs by navArgs()
+
+    private var reservationConfirmBottomSheet: ReservationConfirmBottomSheetFragment? = null
+    private val progressDialog = ProgressDialogFragment()
 
     private val reservationDetailBindingHelper = ReservationDetailBindingHelper(
         ::onReservationConfirmButtonClickListener,
@@ -26,10 +41,29 @@ class ReservationDetailFragment : Fragment() {
         { itemId: Long -> reservationDetailViewModel.minusConfirmedAmount(itemId) }
     )
 
+    private val reservationHandler = object : HandleReservationBtnClickListener {
+        override fun confirmReservation(reserveId: Long, cartList: List<CartModel>) {
+            reservationDetailViewModel.confirmReservation(reserveId, cartList)
+        }
+
+        override fun rejectReservation(reserveId: Long) {
+            reservationDetailViewModel.rejectReservation(reserveId)
+        }
+
+        override fun cancelReservation(reserveId: Long) {
+            reservationDetailViewModel.cancelReservation(reserveId)
+        }
+
+        override fun completeReservation(reserveId: Long) {
+            reservationDetailViewModel.completeReservation(reserveId)
+        }
+
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         binding = FragmentReservationDetailBinding.inflate(layoutInflater, container, false)
         return binding.root
@@ -37,9 +71,10 @@ class ReservationDetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initBinding()
         setArgsToViewModel()
+        initBinding()
         initRecyclerView()
+        collectingReservationProcessEventState()
     }
 
     private fun initRecyclerView() {
@@ -53,8 +88,10 @@ class ReservationDetailFragment : Fragment() {
         reservationDetailViewModel.setArgsToViewModel(args.reservation)
     }
 
-    private fun onReservationConfirmButtonClickListener(reservation : ReservationModel) {
-        ReservationConfirmBottomSheet(reservation).show(parentFragmentManager, null)
+    private fun onReservationConfirmButtonClickListener(reservation: ReservationModel) {
+        reservationConfirmBottomSheet =
+            ReservationConfirmBottomSheetFragment(reservation, reservationHandler)
+        reservationConfirmBottomSheet!!.show(parentFragmentManager, null)
     }
 
     private fun initBinding() {
@@ -62,10 +99,45 @@ class ReservationDetailFragment : Fragment() {
             adapter = ReservationDetailRcvAdapter(
                 reservationDetailBindingHelper
             )
+            handler = reservationHandler
             viewModel = reservationDetailViewModel
             lifecycleOwner = viewLifecycleOwner
             bindingHelper = reservationDetailBindingHelper
         }
     }
 
+
+    private fun collectingReservationProcessEventState() {
+
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                reservationDetailViewModel.reservationProcessingUiState.collect { eventState ->
+                    when (eventState) {
+                        is UiEventState.Processing -> {
+                            progressDialog.show(parentFragmentManager, null)
+                        }
+                        is UiEventState.Complete -> {
+                            if (reservationConfirmBottomSheet != null) {
+                                reservationConfirmBottomSheet!!.dismiss()
+                            }
+                            progressDialog.dismiss()
+                            findNavController().popBackStack()
+                        }
+                        is UiEventState.Fail -> {
+                            if (reservationConfirmBottomSheet != null) {
+                                reservationConfirmBottomSheet!!.dismiss()
+                            }
+                            progressDialog.dismiss()
+                            Toast.makeText(
+                                requireContext(),
+                                eventState.errorMessage,
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                    }
+                }
+            }
+
+        }
+    }
 }

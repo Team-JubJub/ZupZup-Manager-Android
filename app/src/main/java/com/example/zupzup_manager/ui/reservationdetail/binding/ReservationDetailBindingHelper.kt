@@ -1,15 +1,16 @@
-package com.example.zupzup_manager.ui.reservationdetail
+package com.example.zupzup_manager.ui.reservationdetail.binding
 
 import com.example.zupzup_manager.domain.models.CartModel
 import com.example.zupzup_manager.domain.models.ReservationModel
 import com.example.zupzup_manager.ui.common.ViewType
 import com.example.zupzup_manager.ui.reservationdetail.models.ReservationDetailHeaderModel
 import com.example.zupzup_manager.ui.reservationdetail.models.ReservationDetailViewType
+import javax.inject.Inject
 
-class ReservationDetailBindingHelper(
+class ReservationDetailBindingHelper @Inject constructor(
     private val onCreateReservationConfirmBottomSheetButtonClick: (reservation: ReservationModel) -> Unit,
     private val plusCartItemConfirmedAmount: (itemId: Long) -> Unit,
-    private val minusCartItemConfirmedAmount: (itemId: Long) -> Unit
+    private val minusCartItemConfirmedAmount: (itemId: Long) -> Unit,
 ) {
     fun createReservationConfirmBottomSheet(
         reservationDetailHeader: ReservationDetailHeaderModel,

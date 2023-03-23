@@ -1,6 +1,7 @@
 package com.example.zupzup_manager.ui.reservationlist
 
 import android.graphics.drawable.GradientDrawable
+import android.util.Log
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
@@ -8,7 +9,11 @@ import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.zupzup_manager.domain.models.CartModel
 import com.example.zupzup_manager.domain.models.ReservationModel
-import com.example.zupzup_manager.ui.common.*
+import com.example.zupzup_manager.ui.common.ReservationStateMapper
+import com.example.zupzup_manager.ui.common.UiState
+import com.example.zupzup_manager.ui.common.toSimpleDateFormat
+import com.example.zupzup_manager.ui.common.toTimeFormat
+import com.example.zupzup_manager.ui.reservationlist.recyclerview.ReservationListRcvAdapter
 
 @BindingAdapter("uiState")
 fun bindReservationListToRecyclerView(
@@ -33,9 +38,11 @@ fun bindReservationListToRecyclerView(
     textView: TextView,
     cartList: List<CartModel>
 ) {
-    textView.text = "${cartList[0].name}"
-    if (cartList.size > 1) {
-        textView.text = textView.text.toString() + "외 ${cartList.size - 1}개"
+    if (cartList.isNotEmpty()) {
+        textView.text = "${cartList[0].name}"
+        if (cartList.size > 1) {
+            textView.text = textView.text.toString() + "외 ${cartList.size - 1}개"
+        }
     }
 }
 

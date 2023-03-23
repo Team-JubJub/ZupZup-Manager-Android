@@ -1,10 +1,11 @@
-package com.example.zupzup_manager.ui.reservationdetail
+package com.example.zupzup_manager.ui.reservationdetail.recyclerview
 
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
 import com.example.zupzup_manager.databinding.ItemDescriptionHeaderBinding
 import com.example.zupzup_manager.databinding.ItemReservationCartBinding
 import com.example.zupzup_manager.databinding.ItemReservationCustomerInfoBinding
+import com.example.zupzup_manager.ui.reservationdetail.binding.ReservationDetailBindingHelper
 import com.example.zupzup_manager.ui.reservationdetail.models.ReservationDetailViewType
 
 sealed class ReservationDetailViewHolder(

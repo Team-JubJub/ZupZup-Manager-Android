@@ -1,4 +1,4 @@
-package com.example.zupzup_manager.ui.reservationdetail
+package com.example.zupzup_manager.ui.reservationdetail.recyclerview
 
 import android.graphics.Rect
 import android.view.View
