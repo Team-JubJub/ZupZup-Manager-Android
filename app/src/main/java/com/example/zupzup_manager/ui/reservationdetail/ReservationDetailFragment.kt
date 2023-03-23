@@ -74,7 +74,7 @@ class ReservationDetailFragment : Fragment() {
         setArgsToViewModel()
         initBinding()
         initRecyclerView()
-        collectingReservationProcessEventState()
+        collectReservationProcessEventState()
     }
 
     private fun initRecyclerView() {
@@ -107,9 +107,8 @@ class ReservationDetailFragment : Fragment() {
     }
 
 
-    private fun collectingReservationProcessEventState() {
-
-        lifecycleScope.launch {
+    private fun collectReservationProcessEventState() {
+        viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 reservationDetailViewModel.reservationProcessingUiState.collect { eventState ->
                     when (eventState) {
