@@ -8,7 +8,7 @@ import com.example.zupzup_manager.ui.reservationdetail.models.ReservationDetailV
 import javax.inject.Inject
 
 class ReservationDetailBindingHelper @Inject constructor(
-    private val onCreateReservationConfirmBottomSheetButtonClick: (reservation: ReservationModel) -> Unit,
+    private val onCreateReservationConfirmBottomSheetButtonClick: (reservation: ReservationModel, isPartial: Boolean) -> Unit,
     private val plusCartItemConfirmedAmount: (itemId: Long) -> Unit,
     private val minusCartItemConfirmedAmount: (itemId: Long) -> Unit,
 ) {
@@ -20,6 +20,7 @@ class ReservationDetailBindingHelper @Inject constructor(
             reservationDetailBody.find { it.viewType == ViewType.CUSTOMER_INFO.ordinal } as ReservationDetailViewType.ReservationCustomerInfoViewType
         val cartList = reservationDetailBody.filter { it.viewType == ViewType.CART_ITEM.ordinal }
             .map { it as ReservationDetailViewType.ReservationCartItemViewType }
+
         val confirmedReservationModel = ReservationModel(
             storeId = reservationDetailHeader.storeId,
             reserveId = reservationDetailHeader.reserveId,
@@ -37,7 +38,8 @@ class ReservationDetailBindingHelper @Inject constructor(
             }
         )
         onCreateReservationConfirmBottomSheetButtonClick(
-            confirmedReservationModel
+            confirmedReservationModel,
+            cartList.find { it.cartItem.amount != it.getConfirmedAmount() } != null
         )
     }
 

@@ -1,14 +1,14 @@
 package com.example.zupzup_manager.ui.reservationdetail
 
-import com.example.zupzup_manager.domain.models.CartModel
+import com.example.zupzup_manager.domain.models.ReservationModel
 
 interface HandleReservationBtnClickListener {
 
-    fun confirmReservation(reserveId : Long, cartList : List<CartModel>)
+    fun confirmReservation(reservationModel: ReservationModel, isPartial: Boolean)
 
-    fun rejectReservation(reserveId: Long)
+    fun rejectReservation(reservationModel: ReservationModel)
 
-    fun cancelReservation(reserveId : Long)
+    fun cancelReservation(reserveId: Long)
 
     fun completeReservation(reserveId: Long)
 }

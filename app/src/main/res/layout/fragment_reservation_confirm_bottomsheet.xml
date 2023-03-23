@@ -4,13 +4,18 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="handler"
             type="com.example.zupzup_manager.ui.reservationdetail.HandleReservationBtnClickListener" />
-        
+
         <variable
             name="reservation"
             type="com.example.zupzup_manager.domain.models.ReservationModel" />
+
+        <variable
+            name="isPartial"
+            type="java.lang.Boolean" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -200,8 +205,8 @@
             android:layout_marginEnd="8.5dp"
             android:layout_marginBottom="32dp"
             android:background="@drawable/frame_rectangle_corner_14_warmgray_3"
+            android:onClick="@{_-> handler.rejectReservation(reservation)}"
             android:text="반려"
-            android:onClick="@{_-> handler.rejectReservation(reservation.reserveId)}"
             android:textColor="@color/warm_gray6"
             android:textSize="17sp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -215,8 +220,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8.5dp"
             android:background="@drawable/frame_rectangle_corner_14_purple"
+            android:onClick="@{_ -> handler.confirmReservation(reservation, isPartial)}"
             android:text="확정"
-            android:onClick="@{_ -> handler.confirmReservation(reservation.reserveId, reservation.cartList)}"
             android:textColor="@color/text_white"
             android:textSize="17sp"
             app:layout_constraintBottom_toBottomOf="@id/btn_reservation_reject"

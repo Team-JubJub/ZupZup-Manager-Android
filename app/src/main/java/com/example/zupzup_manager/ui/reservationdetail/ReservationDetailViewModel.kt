@@ -2,12 +2,8 @@ package com.example.zupzup_manager.ui.reservationdetail
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.zupzup_manager.domain.models.CartModel
 import com.example.zupzup_manager.domain.models.ReservationModel
-import com.example.zupzup_manager.domain.usecase.CancelReservationUseCase
-import com.example.zupzup_manager.domain.usecase.CompleteReservationUseCase
-import com.example.zupzup_manager.domain.usecase.ConfirmReservationUseCase
-import com.example.zupzup_manager.domain.usecase.RejectReservationUseCase
+import com.example.zupzup_manager.domain.usecase.*
 import com.example.zupzup_manager.ui.common.UiEventState
 import com.example.zupzup_manager.ui.common.ViewType
 import com.example.zupzup_manager.ui.reservationdetail.models.ReservationDetailHeaderModel
@@ -25,7 +21,8 @@ class ReservationDetailViewModel @Inject constructor(
     private val confirmReservationUseCase: ConfirmReservationUseCase,
     private val rejectReservationUseCase: RejectReservationUseCase,
     private val cancelReservationUseCase: CancelReservationUseCase,
-    private val completeReservationUseCase: CompleteReservationUseCase
+    private val completeReservationUseCase: CompleteReservationUseCase,
+    private val sendNotificationTalkUseCase: SendNotificationTalkUseCase
 ) : ViewModel() {
 
     private var _reservationDetailHeader = MutableStateFlow(
@@ -102,27 +99,41 @@ class ReservationDetailViewModel @Inject constructor(
         return dataList.toList()
     }
 
-    fun confirmReservation(reserveId: Long, cartList: List<CartModel>) {
+    fun confirmReservation(reservationModel: ReservationModel, isPartial: Boolean) {
         viewModelScope.launch {
             _reservationProcessingUiState.emit(UiEventState.Processing)
-            confirmReservationUseCase(reserveId, cartList).collect {
-                it.onSuccess {
-                    _reservationProcessingUiState.emit(UiEventState.Complete)
-                }.onFailure {
-                    _reservationProcessingUiState.emit(UiEventState.Fail("에러가 발생했습니다."))
+            with(reservationModel) {
+                confirmReservationUseCase(reserveId, cartList).collect {
+                    it.onSuccess {
+                        val newState = if (isPartial) "PARTIAL" else "CONFIRM"
+                        sendNotificationTalkUseCase(this, newState).onSuccess {
+                            _reservationProcessingUiState.emit(UiEventState.Complete)
+                        }.onFailure {
+                            _reservationProcessingUiState.emit(UiEventState.Fail("알림톡 에러가 발생했습니다."))
+                        }
+                    }.onFailure {
+                        _reservationProcessingUiState.emit(UiEventState.Fail("에러가 발생했습니다."))
+                    }
                 }
             }
         }
     }
 
-    fun rejectReservation(reserveId: Long) {
+    fun rejectReservation(reservationModel: ReservationModel) {
         viewModelScope.launch {
             _reservationProcessingUiState.emit(UiEventState.Processing)
-            rejectReservationUseCase(reserveId).collect {
-                it.onSuccess {
-                    _reservationProcessingUiState.emit(UiEventState.Complete)
-                }.onFailure {
-                    _reservationProcessingUiState.emit(UiEventState.Fail("에러가 발생했습니다."))
+            with(reservationModel) {
+                rejectReservationUseCase(reserveId).collect {
+                    it.onSuccess {
+                        val newState = "CANCEL"
+                        sendNotificationTalkUseCase(this, newState).onSuccess {
+                            _reservationProcessingUiState.emit(UiEventState.Complete)
+                        }.onFailure {
+                            _reservationProcessingUiState.emit(UiEventState.Fail("알림톡 에러가 발생했습니다."))
+                        }
+                    }.onFailure {
+                        _reservationProcessingUiState.emit(UiEventState.Fail("에러가 발생했습니다."))
+                    }
                 }
             }
         }
