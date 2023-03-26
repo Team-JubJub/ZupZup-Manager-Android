@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/page_1"
+        android:id="@+id/frag_reservationList"
         android:enabled="true"
         android:icon="@drawable/ic_package"
         android:title=""/>
     <item
-        android:id="@+id/page_2"
+        android:id="@+id/frag_management"
         android:enabled="true"
         android:icon="@drawable/ic_package"
         android:title=""/>
