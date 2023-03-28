@@ -24,4 +24,9 @@
             app:argType="com.example.zupzup_manager.domain.models.ReservationModel"
             app:nullable="false" />
     </fragment>
+    <fragment
+        android:id="@+id/frag_management"
+        android:name="com.example.zupzup_manager.ui.management.ManagementFragment"
+        android:label="ManagementFragment"
+        tools:layout="@layout/fragment_management" />
 </navigation>
