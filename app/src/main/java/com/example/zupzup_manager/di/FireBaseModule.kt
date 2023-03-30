@@ -27,6 +27,10 @@ object FireBaseModule {
     @Retention(AnnotationRetention.BINARY)
     annotation class TestReservationRef
 
+    @Qualifier
+    @Retention(AnnotationRetention.BINARY)
+    annotation class TestStoreRef
+
     @Singleton
     @Provides
     @StoreRef
