@@ -42,12 +42,12 @@ class ReservationDetailFragment : Fragment() {
     )
 
     private val reservationHandler = object : HandleReservationBtnClickListener {
-        override fun confirmReservation(reserveId: Long, cartList: List<CartModel>) {
-            reservationDetailViewModel.confirmReservation(reserveId, cartList)
+        override fun confirmReservation(reservationModel: ReservationModel, isPartial : Boolean) {
+            reservationDetailViewModel.confirmReservation(reservationModel, isPartial )
         }
 
-        override fun rejectReservation(reserveId: Long) {
-            reservationDetailViewModel.rejectReservation(reserveId)
+        override fun rejectReservation(reservationModel: ReservationModel) {
+            reservationDetailViewModel.rejectReservation(reservationModel)
         }
 
         override fun cancelReservation(reserveId: Long) {
@@ -88,9 +88,9 @@ class ReservationDetailFragment : Fragment() {
         reservationDetailViewModel.setArgsToViewModel(args.reservation)
     }
 
-    private fun onReservationConfirmButtonClickListener(reservation: ReservationModel) {
+    private fun onReservationConfirmButtonClickListener(reservation: ReservationModel, isPartial : Boolean) {
         reservationConfirmBottomSheet =
-            ReservationConfirmBottomSheetFragment(reservation, reservationHandler)
+            ReservationConfirmBottomSheetFragment(reservation, isPartial, reservationHandler)
         reservationConfirmBottomSheet!!.show(parentFragmentManager, null)
     }
 

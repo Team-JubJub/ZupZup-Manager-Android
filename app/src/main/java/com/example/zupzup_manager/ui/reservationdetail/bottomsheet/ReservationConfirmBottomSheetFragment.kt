@@ -16,6 +16,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 class ReservationConfirmBottomSheetFragment(
     private val confirmedReservation: ReservationModel,
+    private val isPartialConfirm : Boolean,
     private val reservationHandler: HandleReservationBtnClickListener
 ) : BottomSheetDialogFragment() {
 
@@ -58,6 +59,7 @@ class ReservationConfirmBottomSheetFragment(
     private fun initBinding() {
         with(binding) {
             reservation = confirmedReservation
+            isPartial = isPartialConfirm
             handler = reservationHandler
         }
     }

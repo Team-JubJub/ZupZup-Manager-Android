@@ -1,6 +1,6 @@
-package com.example.zupzup_manager.data.datasource
+package com.example.zupzup_manager.data.datasource.reservation
 
-import com.example.zupzup_manager.data.Constants
+import com.example.zupzup_manager.data.common.Constants
 import com.example.zupzup_manager.data.dto.CartDto
 import com.example.zupzup_manager.di.FireBaseModule
 import com.google.android.gms.tasks.Task

@@ -1,6 +1,8 @@
 package com.example.zupzup_manager.di
 
+import com.example.zupzup_manager.data.repository.LunaSoftRepositoryImpl
 import com.example.zupzup_manager.data.repository.ReservationRepositoryImpl
+import com.example.zupzup_manager.domain.repository.LunaSoftRepository
 import com.example.zupzup_manager.domain.repository.ReservationRepository
 import dagger.Binds
 import dagger.Module
@@ -17,4 +19,10 @@ abstract class RepositoryModule {
     abstract fun bindReservationRepository(
         reservationRepositoryImpl: ReservationRepositoryImpl
     ): ReservationRepository
+
+    @Binds
+    @ViewModelScoped
+    abstract fun bindLunaSoftRepository(
+        lunaSoftRepositoryImpl: LunaSoftRepositoryImpl
+    ): LunaSoftRepository
 }

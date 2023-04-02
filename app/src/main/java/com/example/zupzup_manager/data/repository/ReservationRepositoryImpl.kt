@@ -1,7 +1,7 @@
 package com.example.zupzup_manager.data.repository
 
-import com.example.zupzup_manager.data.datasource.ReservationDataSource
-import com.example.zupzup_manager.data.dto.DtoMapper.toDto
+import com.example.zupzup_manager.data.datasource.reservation.ReservationDataSource
+import com.example.zupzup_manager.data.dto.mapper.DtoMapper.toDto
 import com.example.zupzup_manager.data.dto.ReservationDto
 import com.example.zupzup_manager.domain.models.CartModel
 import com.example.zupzup_manager.domain.models.ReservationModel
