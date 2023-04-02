@@ -8,8 +8,12 @@
         <import type="android.view.View" />
 
         <variable
+            name="handler"
+            type="com.example.zupzup_manager.ui.reservationdetail.HandleReservationBtnClickListener" />
+
+        <variable
             name="adapter"
-            type="com.example.zupzup_manager.ui.reservationdetail.ReservationDetailRcvAdapter" />
+            type="com.example.zupzup_manager.ui.reservationdetail.recyclerview.ReservationDetailRcvAdapter" />
 
         <variable
             name="viewModel"
@@ -17,7 +21,7 @@
 
         <variable
             name="bindingHelper"
-            type="com.example.zupzup_manager.ui.reservationdetail.ReservationDetailBindingHelper" />
+            type="com.example.zupzup_manager.ui.reservationdetail.binding.ReservationDetailBindingHelper" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -135,6 +139,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8.5dp"
                 android:background="@drawable/frame_rectangle_corner_14_warning_1"
+                android:onClick="@{_ -> handler.cancelReservation(viewModel.reservationDetailHeader.reserveId)}"
                 android:text="취소"
                 android:textColor="@color/text_white"
                 android:textSize="17sp"
@@ -150,6 +155,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8.5dp"
                 android:background="@drawable/frame_rectangle_corner_14_green"
+                android:onClick="@{_ -> handler.completeReservation(viewModel.reservationDetailHeader.reserveId)}"
                 android:text="완료"
                 android:textColor="@color/text_black"
                 android:textSize="17sp"

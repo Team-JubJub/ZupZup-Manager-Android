@@ -11,7 +11,7 @@
 
         <variable
             name="bindingHelper"
-            type="com.example.zupzup_manager.ui.reservationdetail.ReservationDetailBindingHelper" />
+            type="com.example.zupzup_manager.ui.reservationdetail.binding.ReservationDetailBindingHelper" />
 
         <variable
             name="reservationState"

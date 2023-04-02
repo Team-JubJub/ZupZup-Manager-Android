@@ -1,6 +1,7 @@
-package com.example.zupzup_manager.ui.reservationdetail
+package com.example.zupzup_manager.ui.reservationdetail.binding
 
 import android.graphics.drawable.GradientDrawable
+import android.util.Log
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
@@ -12,6 +13,7 @@ import com.example.zupzup_manager.ui.common.ReservationStateMapper
 import com.example.zupzup_manager.ui.common.toDecimalFormat
 import com.example.zupzup_manager.ui.common.toDetailDateFormat
 import com.example.zupzup_manager.ui.common.toTimeFormat
+import com.example.zupzup_manager.ui.reservationdetail.recyclerview.ReservationDetailRcvAdapter
 import com.example.zupzup_manager.ui.reservationdetail.models.ReservationDetailViewType
 
 

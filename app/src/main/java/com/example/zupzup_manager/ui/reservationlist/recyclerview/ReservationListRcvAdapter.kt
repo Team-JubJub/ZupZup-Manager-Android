@@ -1,4 +1,4 @@
-package com.example.zupzup_manager.ui.reservationlist
+package com.example.zupzup_manager.ui.reservationlist.recyclerview
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -51,7 +51,7 @@ class ReservationListRcvAdapter(
             oldItem: ReservationModel,
             newItem: ReservationModel
         ): Boolean {
-            return oldItem.reserveId == newItem.reserveId
+            return oldItem.reserveId == newItem.reserveId && oldItem.state == newItem.state
         }
     }
 

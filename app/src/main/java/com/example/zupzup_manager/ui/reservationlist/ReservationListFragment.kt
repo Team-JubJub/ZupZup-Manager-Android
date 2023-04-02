@@ -10,6 +10,8 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.zupzup_manager.databinding.FragmentReservationListBinding
 import com.example.zupzup_manager.domain.models.ReservationModel
+import com.example.zupzup_manager.ui.reservationlist.recyclerview.ReservationListItemDecorator
+import com.example.zupzup_manager.ui.reservationlist.recyclerview.ReservationListRcvAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

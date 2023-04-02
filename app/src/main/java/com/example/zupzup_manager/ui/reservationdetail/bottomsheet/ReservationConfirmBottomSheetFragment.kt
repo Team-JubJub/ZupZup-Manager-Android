@@ -1,4 +1,4 @@
-package com.example.zupzup_manager.ui.reservationdetail
+package com.example.zupzup_manager.ui.reservationdetail.bottomsheet
 
 import android.app.Dialog
 import android.os.Bundle
@@ -10,11 +10,13 @@ import com.example.zupzup_manager.R
 import com.example.zupzup_manager.databinding.FragmentReservationConfirmBottomsheetBinding
 import com.example.zupzup_manager.domain.models.ReservationModel
 import com.example.zupzup_manager.ui.common.toDecimalFormat
+import com.example.zupzup_manager.ui.reservationdetail.HandleReservationBtnClickListener
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
-class ReservationConfirmBottomSheet(
-    private val reservation: ReservationModel
+class ReservationConfirmBottomSheetFragment(
+    private val confirmedReservation: ReservationModel,
+    private val reservationHandler: HandleReservationBtnClickListener
 ) : BottomSheetDialogFragment() {
 
     private lateinit var binding: FragmentReservationConfirmBottomsheetBinding
@@ -40,7 +42,7 @@ class ReservationConfirmBottomSheet(
     }
 
     private fun addDynamicCartList() {
-        reservation.cartList.forEach {
+        confirmedReservation.cartList.forEach {
             val layout = requireActivity().layoutInflater.inflate(
                 R.layout.item_reservation_confirm_bottom_sheet_cart,
                 null
@@ -54,6 +56,9 @@ class ReservationConfirmBottomSheet(
     }
 
     private fun initBinding() {
-        binding.reservation = reservation
+        with(binding) {
+            reservation = confirmedReservation
+            handler = reservationHandler
+        }
     }
 }
