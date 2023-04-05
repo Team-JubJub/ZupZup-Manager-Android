@@ -9,11 +9,9 @@ data class StoreModel (
     val name: String,
     val openTime: String,
     val hostPhoneNumber: String,
-    val longitude: Double,
-    val latitude: Double,
+    val location: Pair<Double, Double>,
     val address: String,
     val eventList: List<String>,
     val merchandiseList: List<MerchandiseModel>,
-    val saleTimeStart: Int = 0,
-    val saleTimeEnd: Int = 0
+    val saleTime: Pair<Int, Int>
 ): Parcelable

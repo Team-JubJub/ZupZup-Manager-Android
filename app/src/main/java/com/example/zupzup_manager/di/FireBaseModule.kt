@@ -51,4 +51,11 @@ object FireBaseModule {
     fun provideFirebaseTestReservationRef(): CollectionReference {
         return Firebase.firestore.collection(Constants.testReservationRef)
     }
+
+    @Singleton
+    @Provides
+    @TestStoreRef
+    fun provideFirebaseTestStoreRef(): CollectionReference {
+        return Firebase.firestore.collection(Constants.testStoreRef)
+    }
 }
