@@ -4,7 +4,21 @@ xmlns:app="http://schemas.android.com/apk/res-auto"
 xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <variable
+            name="itemName"
+            type="java.lang.String" />
+        <variable
+            name="price"
+            type="Integer" />
+        <variable
+            name="discounted"
+            type="Integer" />
+        <variable
+            name="imgUrl"
+            type="java.lang.String" />
+        <variable
+            name="stock"
+            type="Integer" />
     </data>
     
 <androidx.constraintlayout.widget.ConstraintLayout
@@ -18,6 +32,7 @@ xmlns:tools="http://schemas.android.com/tools">
         android:layout_width="84dp"
         android:layout_height="0dp"
         android:layout_marginEnd="8dp"
+        app:imgUrl="@{imgUrl}"
         android:background="@color/transparent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -33,6 +48,7 @@ xmlns:tools="http://schemas.android.com/tools">
         android:layout_marginEnd="4dp"
         android:ellipsize="end"
         android:maxLines="2"
+        android:text="@{itemName}"
         android:textSize="17sp"
         android:letterSpacing="-0.03"
         app:layout_constraintTop_toTopOf="parent"
@@ -44,6 +60,7 @@ xmlns:tools="http://schemas.android.com/tools">
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
+        android:text="@{price.toString() + '원'}"
         android:textColor="@color/warm_gray5"
         android:textSize="13sp"
         android:letterSpacing="-0.03"
@@ -58,6 +75,7 @@ xmlns:tools="http://schemas.android.com/tools">
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
         android:layout_marginBottom="15dp"
+        android:text="@{discounted.toString() + '원'}"
         android:textColor="@color/main"
         android:textSize="13sp"
         android:letterSpacing="-0.03"
@@ -71,6 +89,7 @@ xmlns:tools="http://schemas.android.com/tools">
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginRight="71.5dp"
+        android:text="@{stock.toString()}"
         android:textColor="@color/main"
         android:textSize="17sp"
         android:letterSpacing="-0.03"

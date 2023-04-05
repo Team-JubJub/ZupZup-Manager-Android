@@ -3,6 +3,23 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+        <variable
+            name="name"
+            type="java.lang.String" />
+        <variable
+            name="openTime"
+            type="java.lang.String" />
+        <variable
+            name="event"
+            type="java.lang.String" />
+        <variable
+            name="saleOpenTime"
+            type="java.lang.String" />
+        <variable
+            name="saleCloseTime"
+            type="java.lang.String" />
+    </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -46,6 +63,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
+                android:text="@{name}"
                 android:textColor="@color/text_black"
                 android:textSize="17sp"
                 android:letterSpacing="-0.03"
@@ -58,6 +76,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="7dp"
+                android:text="@{openTime}"
                 android:textColor="@color/warm_gray5"
                 android:textSize="13sp"
                 android:letterSpacing="-0.03"
@@ -106,6 +125,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
+                android:text="@{event}"
                 android:textColor="@color/text_black"
                 android:textSize="15sp"
                 android:letterSpacing="-0.03"
@@ -153,6 +173,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
+                android:text="@{saleOpenTime + ' ' + '~' + ' ' + saleCloseTime}"
                 android:textColor="@color/text_black"
                 android:textSize="17sp"
                 android:letterSpacing="-0.03"
