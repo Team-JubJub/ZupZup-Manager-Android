@@ -47,13 +47,15 @@ xmlns:tools="http://schemas.android.com/tools">
         android:layout_marginTop="15dp"
         android:layout_marginEnd="4dp"
         android:ellipsize="end"
-        android:maxLines="2"
+        android:maxLines="1"
+        android:fontFamily="@font/pretendard_semibold"
         android:text="@{itemName}"
         android:textSize="17sp"
         android:letterSpacing="-0.03"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toEndOf="@+id/iv_merchandise"
-        tools:text="제품명" />
+        app:layout_constraintEnd_toStartOf="@+id/tv_merchandise_amount"
+        tools:text="제품명을 대충 써보자~~~~~~~~~~~~" />
 
     <TextView
         android:id="@+id/tv_merchandise_price"
@@ -102,13 +104,13 @@ xmlns:tools="http://schemas.android.com/tools">
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginRight="46.5dp"
+        android:text="EA"
         android:textColor="@color/warm_gray5"
         android:textSize="17sp"
         android:letterSpacing="-0.03"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="EA" />
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

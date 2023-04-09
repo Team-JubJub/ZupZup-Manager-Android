@@ -5,6 +5,7 @@ import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.example.zupzup_manager.ui.custom.CustomRoundedCornersTransformation
 import com.example.zupzup_manager.ui.management.models.ManagementViewType
 import com.example.zupzup_manager.ui.management.recyclerview.ManagementRcvAdapter
 import kotlin.math.roundToInt
@@ -27,7 +28,7 @@ fun bindImageUrlToImageView(imageView: ImageView, imgUrl: String) {
         .load(imgUrl)
         .transform(
             CenterCrop(),
-            //CustomRoundedCornersTransformation(px)
+            CustomRoundedCornersTransformation(px)
         )
         .into(imageView)
 }

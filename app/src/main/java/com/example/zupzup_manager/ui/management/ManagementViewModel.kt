@@ -19,12 +19,8 @@ class ManagementViewModel @Inject constructor(
 ): ViewModel() {
 
     init {
-        getStoreDetail(0)
+        getStoreDetail(1)
     }
-
-    private var _storeDetailUiState =
-        MutableStateFlow<UiState<List<ManagementViewType>>>(UiState.Loading)
-    val storeDetailUiState = _storeDetailUiState.asStateFlow()
 
     private var _managementDetailBody = MutableStateFlow<List<ManagementViewType>>(listOf())
     val managementDetailBody = _managementDetailBody.asStateFlow()
@@ -63,9 +59,9 @@ class ManagementViewModel @Inject constructor(
         viewModelScope.launch {
             getStoreDetailUseCase(storeId).collect {
                 if (it is DataResult.Success) {
-                    _storeDetailUiState.emit(UiState.Success(getManagementViewTypeList(it.data)))
+                    _managementDetailBody.emit(getManagementViewTypeList(it.data))
                 } else {
-                    _storeDetailUiState.emit(UiState.Error("에러입니다."))
+                    _managementDetailBody.emit(listOf())
                 }
             }
         }
