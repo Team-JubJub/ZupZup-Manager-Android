@@ -2,6 +2,7 @@ package com.example.zupzup_manager.ui.management
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.zupzup_manager.data.common.toTimeString
 import com.example.zupzup_manager.domain.DataResult
 import com.example.zupzup_manager.domain.models.StoreModel
 import com.example.zupzup_manager.domain.usecase.GetStoreDetailUseCase
@@ -33,8 +34,8 @@ class ManagementViewModel @Inject constructor(
                 name = storeModel.name,
                 openTime = storeModel.openTime,
                 eventList = storeModel.eventList.joinToString("\n"),
-                saleOpenTime = storeModel.saleTime.toString(),
-                saleCloseTime = storeModel.saleTime.second.toString())
+                saleOpenTime = storeModel.saleTime.first.toTimeString(),
+                saleCloseTime = storeModel.saleTime.second.toTimeString())
         )
         viewTypeList.add(
             ManagementViewType.MerchandiseModifyViewType(
