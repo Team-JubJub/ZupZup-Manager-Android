@@ -1,7 +1,6 @@
 package com.example.zupzup_manager.di
 
 import com.google.firebase.firestore.CollectionReference
-import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import dagger.Module
@@ -22,6 +21,10 @@ object FireBaseModule {
     @Qualifier
     @Retention(AnnotationRetention.BINARY)
     annotation class ReservationRef
+
+    @Qualifier
+    @Retention(AnnotationRetention.BINARY)
+    annotation class AdminRef
 
     @Qualifier
     @Retention(AnnotationRetention.BINARY)
@@ -57,5 +60,12 @@ object FireBaseModule {
     @TestStoreRef
     fun provideFirebaseTestStoreRef(): CollectionReference {
         return Firebase.firestore.collection(Constants.testStoreRef)
+    }
+
+    @Singleton
+    @Provides
+    @TestStoreRef
+    fun provideFirebaseAdminRef(): CollectionReference {
+        return Firebase.firestore.collection(Constants.adminRef)
     }
 }
