@@ -7,8 +7,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
+import javax.inject.Inject
 
-class GetStoreDetailUseCase(
+class GetStoreDetailUseCase @Inject constructor(
     private val storeRepository: StoreRepository
 ) {
     suspend operator fun invoke(storeId: Long): Flow<DataResult<StoreModel>> {
