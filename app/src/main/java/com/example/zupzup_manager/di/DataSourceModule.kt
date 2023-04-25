@@ -1,5 +1,9 @@
 package com.example.zupzup_manager.di
 
+import com.example.zupzup_manager.data.datasource.admin.AdminDataSource
+import com.example.zupzup_manager.data.datasource.admin.AdminDataSourceImpl
+import com.example.zupzup_manager.data.datasource.admin.SharedPreferenceDataSource
+import com.example.zupzup_manager.data.datasource.admin.SharedPreferenceDataSourceImpl
 import com.example.zupzup_manager.data.datasource.lunasoft.LunaSoftDataSource
 import com.example.zupzup_manager.data.datasource.lunasoft.LunaSoftDateSourceImpl
 import com.example.zupzup_manager.data.datasource.reservation.ReservationDataSource
@@ -25,4 +29,16 @@ abstract class DataSourceModule {
     abstract fun bindLunaSoftDataSource(
         lunaSoftDateSourceImpl: LunaSoftDateSourceImpl
     ): LunaSoftDataSource
+
+    @Binds
+    @Singleton
+    abstract fun bindAdminDataSource(
+        adminDataSourceImpl: AdminDataSourceImpl
+    ): AdminDataSource
+
+    @Binds
+    @Singleton
+    abstract fun bindSharedPreferenceDataSource(
+        sharedPreferenceDataSourceImpl: SharedPreferenceDataSourceImpl
+    ): SharedPreferenceDataSource
 }

@@ -1,6 +1,7 @@
 package com.example.zupzup_manager.domain.usecase
 
 import com.example.zupzup_manager.domain.DataResult
+import com.example.zupzup_manager.domain.models.AdminModel
 import com.example.zupzup_manager.domain.repository.AdminRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -11,7 +12,7 @@ import javax.inject.Inject
 class LoginUseCase @Inject constructor(
     private val adminRepository: AdminRepository
 ) {
-    suspend operator fun invoke(id: String, pw: String): Flow<DataResult<Int>> {
+    suspend operator fun invoke(id: String, pw: String): Flow<DataResult<AdminModel>> {
         return flow {
             adminRepository.login(id, pw).onSuccess {
                 emit(DataResult.Success(it))
@@ -19,7 +20,9 @@ class LoginUseCase @Inject constructor(
                 if (it is NullPointerException) {
                     emit(DataResult.Failure(0))
                 }
-                emit(DataResult.Failure(1))
+                else {
+                    emit(DataResult.Failure(1))
+                }
             }
         }.flowOn(Dispatchers.IO)
     }

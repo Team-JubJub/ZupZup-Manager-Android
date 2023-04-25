@@ -64,7 +64,7 @@ object FireBaseModule {
 
     @Singleton
     @Provides
-    @TestStoreRef
+    @AdminRef
     fun provideFirebaseAdminRef(): CollectionReference {
         return Firebase.firestore.collection(Constants.adminRef)
     }
