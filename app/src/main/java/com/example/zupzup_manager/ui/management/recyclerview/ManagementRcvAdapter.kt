@@ -7,15 +7,17 @@ import androidx.recyclerview.widget.ListAdapter
 import com.example.zupzup_manager.databinding.ItemManagementMerchandiseInfoBinding
 import com.example.zupzup_manager.databinding.ItemManagementStoreInfoBinding
 import com.example.zupzup_manager.databinding.ItemMerchandiseModifyBinding
+import com.example.zupzup_manager.domain.models.ReservationModel
 import com.example.zupzup_manager.ui.common.ViewType
 import com.example.zupzup_manager.ui.management.models.ManagementViewType
 
-class ManagementRcvAdapter : ListAdapter<ManagementViewType, ManagementViewHolder>(
-        ManagementDiffCallBack()
-    ) {
+class ManagementRcvAdapter(
+    private val navigateToManagementDetail: () -> Unit
+) : ListAdapter<ManagementViewType, ManagementViewHolder>(
+    ManagementDiffCallBack()
+) {
     override fun onCreateViewHolder(
-        parent: ViewGroup,
-        viewType: Int
+        parent: ViewGroup, viewType: Int
     ): ManagementViewHolder {
         return when (viewType) {
             ViewType.STORE_INFO.ordinal -> {
@@ -40,7 +42,7 @@ class ManagementRcvAdapter : ListAdapter<ManagementViewType, ManagementViewHolde
                     parent,
                     false
                 )
-                ManagementViewHolder.ManagementMerchandiseModifyViewHolder(binding)
+                ManagementViewHolder.ManagementMerchandiseModifyViewHolder(binding, navigateToManagementDetail)
             }
         }
     }

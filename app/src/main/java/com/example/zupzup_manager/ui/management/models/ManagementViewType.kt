@@ -6,7 +6,7 @@ sealed class ManagementViewType {
     abstract val viewType: Int
 
     data class MerchandiseModifyViewType(
-        override val viewType: Int = ViewType.MERCHANDISE_MODIFY.ordinal
+        override val viewType: Int = ViewType.MERCHANDISE_MODIFY.ordinal,
     ) : ManagementViewType()
 
     data class StoreInfoViewType(

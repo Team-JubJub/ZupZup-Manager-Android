@@ -28,5 +28,14 @@
         android:id="@+id/frag_management"
         android:name="com.example.zupzup_manager.ui.management.ManagementFragment"
         android:label="ManagementFragment"
-        tools:layout="@layout/fragment_management" />
+        tools:layout="@layout/fragment_management" >
+        <action
+            android:id="@+id/action_frag_management_to_managementDetailFragment"
+            app:destination="@id/managementDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/managementDetailFragment"
+        android:name="com.example.zupzup_manager.ui.managementdetail.ManagementDetailFragment"
+        android:label="ManagementDetailFragment"
+        tools:layout="@layout/fragment_management_detail"/>
 </navigation>
