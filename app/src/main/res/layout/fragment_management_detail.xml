@@ -4,6 +4,22 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <import type="kotlin.jvm.functions.Function1" />
+        <import type="com.example.zupzup_manager.domain.models.StoreModel" />
+        <import type="kotlin.Unit" />
+
+        <variable
+            name="alertDialog"
+            type="Function1&lt;StoreModel, Unit>" />
+        <variable
+            name="store"
+            type="com.example.zupzup_manager.domain.models.StoreModel" />
+        <variable
+            name="adapter"
+            type="com.example.zupzup_manager.ui.managementdetail.recyclerview.ManagementDetailRcvAdapter" />
+        <variable
+            name="viewModel"
+            type="com.example.zupzup_manager.ui.managementdetail.ManagementDetailViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -66,11 +82,14 @@
             android:layout_height="0dp"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
+            android:adapter="@{adapter}"
             android:paddingVertical="10dp"
             app:layout_constraintBottom_toTopOf="@id/constraint_modify_button"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_merchandise_management_title" />
+            app:layout_constraintTop_toBottomOf="@id/tv_merchandise_management_title"
+            app:merchandiseDetailBody="@{viewModel.merchandiseDetailBody}"/>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraint_modify_button"
@@ -95,7 +114,8 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                android:onClick="@{_ -> alertDialog.invoke(store)}" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
