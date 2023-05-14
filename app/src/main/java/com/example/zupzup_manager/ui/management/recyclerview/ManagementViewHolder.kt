@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.zupzup_manager.databinding.ItemManagementMerchandiseInfoBinding
 import com.example.zupzup_manager.databinding.ItemManagementStoreInfoBinding
 import com.example.zupzup_manager.databinding.ItemMerchandiseModifyBinding
+import com.example.zupzup_manager.domain.models.StoreModel
 import com.example.zupzup_manager.ui.management.models.ManagementViewType
 
 sealed class ManagementViewHolder(
@@ -14,10 +15,11 @@ sealed class ManagementViewHolder(
 
     class ManagementMerchandiseModifyViewHolder(
         private val binding: ItemMerchandiseModifyBinding,
-        private val navigateToManagementDetail: () -> Unit
+        private val navigateToManagementDetail: (Long) -> Unit
     ) : ManagementViewHolder(binding) {
         override fun bind(item: ManagementViewType) {
             binding.navigate = navigateToManagementDetail
+            binding.storeId = (item as ManagementViewType.MerchandiseModifyViewType).storeId
         }
     }
 

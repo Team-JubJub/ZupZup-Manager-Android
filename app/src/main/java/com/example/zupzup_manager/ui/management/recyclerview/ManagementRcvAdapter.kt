@@ -8,11 +8,12 @@ import com.example.zupzup_manager.databinding.ItemManagementMerchandiseInfoBindi
 import com.example.zupzup_manager.databinding.ItemManagementStoreInfoBinding
 import com.example.zupzup_manager.databinding.ItemMerchandiseModifyBinding
 import com.example.zupzup_manager.domain.models.ReservationModel
+import com.example.zupzup_manager.domain.models.StoreModel
 import com.example.zupzup_manager.ui.common.ViewType
 import com.example.zupzup_manager.ui.management.models.ManagementViewType
 
 class ManagementRcvAdapter(
-    private val navigateToManagementDetail: () -> Unit
+    private val navigateToManagementDetail: (Long) -> Unit
 ) : ListAdapter<ManagementViewType, ManagementViewHolder>(
     ManagementDiffCallBack()
 ) {
