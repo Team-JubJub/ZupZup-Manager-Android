@@ -2,6 +2,8 @@ package com.example.zupzup_manager.data.repository
 
 import com.example.zupzup_manager.data.datasource.store.StoreDataSource
 import com.example.zupzup_manager.data.dto.StoreDto
+import com.example.zupzup_manager.data.dto.mapper.DtoMapper.toDto
+import com.example.zupzup_manager.domain.models.MerchandiseModel
 import com.example.zupzup_manager.domain.models.StoreModel
 import com.example.zupzup_manager.domain.repository.StoreRepository
 import com.google.firebase.firestore.ktx.toObject
@@ -17,6 +19,18 @@ class StoreRepositoryImpl @Inject constructor(
             val storeDetail = storeDataSource.getStoreDetail(storeId).await().toObject<StoreDto>()
                 ?: throw NullPointerException()
             Result.success(storeDetail.toStoreModel())
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
+    }
+
+    override suspend fun modifyMerchandiseDetail(
+        storeId: Long,
+        merchandiseList: List<MerchandiseModel>
+    ): Result<Int> {
+        return try {
+            storeDataSource.modifyMerchandiseDetail(storeId, merchandiseList.map { it.toDto() }).await()
+            Result.success(0)
         } catch (e: Exception) {
             Result.failure(e)
         }
