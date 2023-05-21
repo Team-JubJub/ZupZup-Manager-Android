@@ -8,7 +8,7 @@ sealed class ManagementViewType {
 
     data class MerchandiseModifyViewType(
         override val viewType: Int = ViewType.MERCHANDISE_MODIFY.ordinal,
-        val storeId: Long
+        val store: StoreModel
     ) : ManagementViewType()
 
     data class StoreInfoViewType(

@@ -6,13 +6,14 @@
     <data>
         <import type="kotlin.jvm.functions.Function1" />
         <import type="kotlin.Unit" />
+        <import type="com.example.zupzup_manager.domain.models.StoreModel" />
 
         <variable
-            name="storeId"
-            type="java.lang.Long" />
+            name="store"
+            type="com.example.zupzup_manager.domain.models.StoreModel" />
         <variable
             name="navigate"
-            type="Function1&lt;Long, Unit>" />
+            type="Function1&lt;StoreModel, Unit>" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -43,7 +44,7 @@
             android:textColor="@color/main"
             android:textSize="20sp"
             android:textStyle="bold"
-            android:onClick="@{_ -> navigate.invoke(storeId)}"
+            android:onClick="@{_ -> navigate.invoke(store)}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

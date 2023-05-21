@@ -13,7 +13,7 @@ import com.example.zupzup_manager.ui.common.ViewType
 import com.example.zupzup_manager.ui.management.models.ManagementViewType
 
 class ManagementRcvAdapter(
-    private val navigateToManagementDetail: (Long) -> Unit
+    private val navigateToManagementDetail: (StoreModel) -> Unit
 ) : ListAdapter<ManagementViewType, ManagementViewHolder>(
     ManagementDiffCallBack()
 ) {

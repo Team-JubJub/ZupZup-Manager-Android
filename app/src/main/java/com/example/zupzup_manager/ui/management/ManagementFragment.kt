@@ -43,10 +43,10 @@ class ManagementFragment : Fragment() {
         initRecyclerView()
     }
 
-    private fun navigateToManagementDetail(storeId: Long) {
+    private fun navigateToManagementDetail(store: StoreModel) {
         val action =
             ManagementFragmentDirections.actionFragManagementToManagementDetailFragment(
-                storeId = storeId
+                store = store
             )
         findNavController().navigate(action)
     }

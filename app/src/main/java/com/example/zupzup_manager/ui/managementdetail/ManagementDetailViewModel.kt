@@ -40,15 +40,9 @@ class ManagementDetailViewModel @Inject constructor(
         }
     }
 
-    fun getMerchandiseList(storeId: Long) {
+    fun setMerchandiseList(merchandiseList: List<MerchandiseModel>) {
         viewModelScope.launch {
-            getStoreDetailUseCase(storeId).collect {
-                if (it is DataResult.Success) {
-                    _merchandiseDetailBody.emit(makeMerchandiseList(it.data))
-                } else {
-                    _merchandiseDetailBody.emit(listOf())
-                }
-            }
+            _merchandiseDetailBody.emit(merchandiseList)
         }
     }
 

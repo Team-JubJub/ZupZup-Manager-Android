@@ -15,11 +15,11 @@ sealed class ManagementViewHolder(
 
     class ManagementMerchandiseModifyViewHolder(
         private val binding: ItemMerchandiseModifyBinding,
-        private val navigateToManagementDetail: (Long) -> Unit
+        private val navigateToManagementDetail: (StoreModel) -> Unit
     ) : ManagementViewHolder(binding) {
         override fun bind(item: ManagementViewType) {
             binding.navigate = navigateToManagementDetail
-            binding.storeId = (item as ManagementViewType.MerchandiseModifyViewType).storeId
+            binding.store = (item as ManagementViewType.MerchandiseModifyViewType).store
         }
     }
 

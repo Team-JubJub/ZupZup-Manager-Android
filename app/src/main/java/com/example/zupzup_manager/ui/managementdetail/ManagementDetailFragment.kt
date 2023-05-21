@@ -45,12 +45,12 @@ class ManagementDetailFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initBinding()
         initRecyclerView()
-        getManagementDetailById()
+        setManagementDetail()
     }
 
-    private fun getManagementDetailById() {
-        val storeId = args.storeId
-        managementDetailViewModel.getMerchandiseList(storeId)
+    private fun setManagementDetail() {
+        val merchandiseList = args.store.merchandiseList
+        managementDetailViewModel.setMerchandiseList(merchandiseList)
     }
 
     private fun navigateToMerchandiseDetail(merchandise: MerchandiseModel) {

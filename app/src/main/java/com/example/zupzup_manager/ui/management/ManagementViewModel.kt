@@ -39,7 +39,7 @@ class ManagementViewModel @Inject constructor(
         )
         viewTypeList.add(
             ManagementViewType.MerchandiseModifyViewType(
-                storeId = storeModel.storeId
+                store = storeModel
             )
         )
         storeModel.merchandiseList.forEach {
