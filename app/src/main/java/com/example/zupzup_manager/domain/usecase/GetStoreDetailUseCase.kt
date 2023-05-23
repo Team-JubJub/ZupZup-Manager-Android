@@ -17,7 +17,7 @@ class GetStoreDetailUseCase @Inject constructor(
             storeRepository.getStoreDetail(storeId).onSuccess {
                 emit(DataResult.Success(it))
             }.onFailure {
-                emit(DataResult.Failure(1))
+                emit(DataResult.Failure("1"))
             }
         }.flowOn(Dispatchers.IO)
     }

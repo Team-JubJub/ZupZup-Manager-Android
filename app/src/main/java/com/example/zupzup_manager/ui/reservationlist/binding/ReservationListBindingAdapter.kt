@@ -1,7 +1,6 @@
-package com.example.zupzup_manager.ui.reservationlist
+package com.example.zupzup_manager.ui.reservationlist.binding
 
 import android.graphics.drawable.GradientDrawable
-import android.util.Log
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat

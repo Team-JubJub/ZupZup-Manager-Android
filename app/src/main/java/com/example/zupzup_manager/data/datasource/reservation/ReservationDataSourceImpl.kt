@@ -1,5 +1,6 @@
 package com.example.zupzup_manager.data.datasource.reservation
 
+import android.util.Log
 import com.example.zupzup_manager.data.common.Constants
 import com.example.zupzup_manager.data.dto.CartDto
 import com.example.zupzup_manager.di.FireBaseModule
@@ -18,7 +19,7 @@ class ReservationDataSourceImpl @Inject constructor(
     override suspend fun getReservationList(storeId: Long): Flow<List<DocumentSnapshot>> {
         return callbackFlow {
             val reservationDoc = reservationRef.whereEqualTo("storeId", storeId)
-
+            Log.d("TAG", "getReservationList: $storeId ")
             val subscription = reservationDoc.addSnapshotListener { value, _ ->
                 if (value == null) {
                     return@addSnapshotListener

@@ -1,12 +1,12 @@
 package com.example.zupzup_manager.ui.reservationlist
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.zupzup_manager.domain.DataResult
 import com.example.zupzup_manager.domain.models.ReservationModel
 import com.example.zupzup_manager.domain.usecase.GetReservationListUseCase
 import com.example.zupzup_manager.ui.common.UiState
+import com.example.zupzup_manager.ui.common.User
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -19,7 +19,7 @@ class ReservationListViewModel @Inject constructor(
 ) : ViewModel() {
 
     init {
-        getReservationList(0)
+        getReservationList(User.getStoreId())
     }
 
     private var _reservationListUiState =

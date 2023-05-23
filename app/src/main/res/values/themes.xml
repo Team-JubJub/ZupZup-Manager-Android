@@ -22,4 +22,15 @@
         <item name="android:windowBackground">@color/transparent</item>
     </style>
 
+    <style name="LoginEditTextStyle" parent="Widget.Design.TextInputLayout">
+        <item name="colorControlNormal">@color/transparent</item>// unFocus 상태일때 밑줄 색.
+        <item name="boxStrokeColor">@color/text_black</item>// Focus 상태일때 밑줄 색.
+        <item name="android:textCursorDrawable">@color/text_black</item>// cursor 색.
+        <item name="android:textColorHint">@color/text_black</item>// hint 색
+        <item name="hintTextColor">@color/text_black</item>// floating hint 색
+        <item name="helperText">@color/text_black</item>// xml 에서 한 속성을 여기서도 할 수 있습니다.
+        <item name="helperTextTextColor">@color/transparent</item>
+        <item name="errorTextColor">@color/warning1</item>
+    </style>
+
 </resources>
