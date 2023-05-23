@@ -1,4 +1,4 @@
-package com.example.zupzup_manager.ui.reservationdetail.progress
+package com.example.zupzup_manager.ui.common.progress
 
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
@@ -7,12 +7,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
-import androidx.navigation.fragment.findNavController
+import androidx.fragment.app.FragmentManager
 import com.example.zupzup_manager.databinding.FragmentProgressDialogBinding
 
-class ProgressDialogFragment : DialogFragment() {
+class ProgressDialogFragment() : DialogFragment() {
     private var _binding: FragmentProgressDialogBinding? = null
     private val binding get() = _binding!!
+
+    private var showState = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -20,7 +22,19 @@ class ProgressDialogFragment : DialogFragment() {
     ): View {
         // Inflate the layout for this fragment
         _binding = FragmentProgressDialogBinding.inflate(layoutInflater, container, false)
-        return _binding!!.root
+        return binding.root
+    }
+
+    fun showProgressDialog(fragmentManager: FragmentManager) {
+        showState = true
+        this.show(fragmentManager, null)
+    }
+
+    fun hideProgressDialog() {
+        if (showState) {
+            this.dismiss()
+            showState = false
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

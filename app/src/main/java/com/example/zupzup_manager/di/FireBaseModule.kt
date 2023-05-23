@@ -24,10 +24,6 @@ object FireBaseModule {
 
     @Qualifier
     @Retention(AnnotationRetention.BINARY)
-    annotation class AdminRef
-
-    @Qualifier
-    @Retention(AnnotationRetention.BINARY)
     annotation class TestReservationRef
 
     @Qualifier
@@ -62,10 +58,4 @@ object FireBaseModule {
         return Firebase.firestore.collection(Constants.testStoreRef)
     }
 
-    @Singleton
-    @Provides
-    @AdminRef
-    fun provideFirebaseAdminRef(): CollectionReference {
-        return Firebase.firestore.collection(Constants.adminRef)
-    }
 }

@@ -9,21 +9,45 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
+import javax.inject.Qualifier
 import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
 object NetworkModule {
 
-    private const val baseUrl = "https://jupiter.lunasoft.co.kr/"
+    private const val lunaSoftBaseUrl = "https://jupiter.lunasoft.co.kr/"
+    private const val manageBaseUrl = "https://zupzuptest.com:8080/"
+
+    @Qualifier
+    @Retention(AnnotationRetention.BINARY)
+    annotation class LunaSoftRetrofitObject
+
+    @Qualifier
+    @Retention(AnnotationRetention.BINARY)
+    annotation class SignInRetrofitObject
 
     @Provides
     @Singleton
-    fun provideRetrofitObject(
+    @LunaSoftRetrofitObject
+    fun provideLunaSoftRetrofitObject(
         client: OkHttpClient
     ): Retrofit {
         return Retrofit.Builder()
-            .baseUrl(baseUrl)
+            .baseUrl(lunaSoftBaseUrl)
+            .client(client)
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+    }
+
+    @Provides
+    @Singleton
+    @SignInRetrofitObject
+    fun provideSignInRetrofitObject(
+        client: OkHttpClient
+    ): Retrofit {
+        return Retrofit.Builder()
+            .baseUrl(manageBaseUrl)
             .client(client)
             .addConverterFactory(GsonConverterFactory.create())
             .build()

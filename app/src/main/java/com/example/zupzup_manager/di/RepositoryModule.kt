@@ -1,10 +1,10 @@
 package com.example.zupzup_manager.di
 
-import com.example.zupzup_manager.data.repository.AdminRepositoryImpl
+import com.example.zupzup_manager.data.repository.SignInRepositoryImpl
 import com.example.zupzup_manager.data.repository.LunaSoftRepositoryImpl
 import com.example.zupzup_manager.data.repository.ReservationRepositoryImpl
 import com.example.zupzup_manager.data.repository.StoreRepositoryImpl
-import com.example.zupzup_manager.domain.repository.AdminRepository
+import com.example.zupzup_manager.domain.repository.SignInRepository
 import com.example.zupzup_manager.domain.repository.LunaSoftRepository
 import com.example.zupzup_manager.domain.repository.ReservationRepository
 import com.example.zupzup_manager.domain.repository.StoreRepository
@@ -39,6 +39,6 @@ abstract class RepositoryModule {
     @Binds
     @ViewModelScoped
     abstract fun bindAdminRepository(
-        adminRepositoryImpl: AdminRepositoryImpl
-    ): AdminRepository
+        signInRepositoryImpl : SignInRepositoryImpl
+    ): SignInRepository
 }

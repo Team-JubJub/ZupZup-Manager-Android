@@ -18,7 +18,7 @@ class GetReservationListUseCase @Inject constructor(
                 it.onSuccess { reservationList ->
                     emit(DataResult.Success(reservationList))
                 }.onFailure {
-                    emit(DataResult.Failure(1))
+                    emit(DataResult.Failure("1"))
                 }
             }
         }.flowOn(Dispatchers.IO)
