@@ -17,18 +17,17 @@ fun bindMerchandiseDetailToRecyclerView(
     (recyclerView.adapter as ManagementDetailRcvAdapter).submitList(dataList.toList())
 }
 
-@BindingAdapter("bindingHelper", "itemId", "tvConfirmedAmount", "orderAmount")
+@BindingAdapter("bindingHelper", "itemId", "tvConfirmedAmount")
 fun bindBindingHelperToAmountButton(
     ivBtnModifyAmount: ImageView,
     bindingHelper: ManagementDetailBindingHelper,
     itemId: Long,
-    tvConfirmedAmount: TextView,
-    orderAmount: Int
+    tvConfirmedAmount: TextView
 ) {
     ivBtnModifyAmount.setOnClickListener {
         when (ivBtnModifyAmount.id) {
             R.id.btn_plus -> {
-                if (tvConfirmedAmount.text.toString().toInt() < orderAmount) {
+                if (tvConfirmedAmount.text.toString().toInt() < 100) {
                     bindingHelper.onPlusMerchandiseModifiedAmountBtnClick(itemId)
                     tvConfirmedAmount.text =
                         tvConfirmedAmount.text.toString().toInt().plus(1).toString()

@@ -1,5 +1,6 @@
 package com.example.zupzup_manager.data.dto.mapper
 
+import android.util.Log
 import com.example.zupzup_manager.data.dto.CartDto
 import com.example.zupzup_manager.data.dto.MerchandiseDto
 import com.example.zupzup_manager.domain.models.CartModel
@@ -25,7 +26,7 @@ object DtoMapper {
             price = price,
             discounted = discounted,
             imgUrl = imgUrl,
-            stock = stock
+            stock = modifiedStock
         )
     }
 

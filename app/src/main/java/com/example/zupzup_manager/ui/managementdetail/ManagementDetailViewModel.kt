@@ -32,22 +32,25 @@ class ManagementDetailViewModel @Inject constructor(
     }
 
     fun plusModifiedAmount(itemId: Long) {
-
+        viewModelScope.launch {
+            _merchandiseDetailBody.value.find{it.itemId == itemId}?.plusModifiedAmount()
+        }
     }
 
     fun minusModifiedAmount(itemId: Long) {
-
+        viewModelScope.launch {
+            _merchandiseDetailBody.value.find{it.itemId == itemId}?.minusModifiedAmount()
+        }
     }
 
-    fun modifyMerchandise(storeModel: StoreModel) {
+    fun modifyMerchandise(merchandiseList: List<MerchandiseModel>) {
+        var storeId = merchandiseList[0].storeId
         viewModelScope.launch {
-            with(storeModel) {
-                modifyMerchandiseUseCase(storeId, merchandiseList).collect {
-                    it.onSuccess {
-                        Log.d("test", "viewmodel success: ")
-                    }.onFailure {
-                        Log.d("test", "viewmodel failure: ")
-                    }
+            modifyMerchandiseUseCase(storeId, merchandiseList).collect {
+                it.onSuccess {
+                    Log.d("test", "viewmodel success: ")
+                }.onFailure {
+                    Log.d("test", "viewmodel failure: ")
                 }
             }
         }

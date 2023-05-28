@@ -26,12 +26,13 @@ class ManagementDetailFragment : Fragment() {
     private lateinit var binding: FragmentManagementDetailBinding
 
     private val args: ManagementDetailFragmentArgs by navArgs()
-
     private val managementDetailBindingHelper = ManagementDetailBindingHelper(
-        ::onCreateMerchandiseModifyDialogButtononClick,
+        ::onCreateStoreModifyDialogButtononClick,
         { itemId: Long -> managementDetailViewModel.plusModifiedAmount(itemId) },
-        { itemId: Long -> managementDetailViewModel.minusModifiedAmount(itemId) }
+        { itemId: Long -> managementDetailViewModel.minusModifiedAmount(itemId) },
+        ::navigateToBackStack
     )
+    private val rcvAdapter = ManagementDetailRcvAdapter(this@ManagementDetailFragment::navigateToMerchandiseDetail, managementDetailBindingHelper)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -53,6 +54,10 @@ class ManagementDetailFragment : Fragment() {
         managementDetailViewModel.setMerchandiseList(merchandiseList)
     }
 
+    private fun navigateToBackStack() {
+        findNavController().popBackStack()
+    }
+
     private fun navigateToMerchandiseDetail(merchandise: MerchandiseModel) {
         val action =
             ManagementDetailFragmentDirections.actionManagementDetailFragmentToMerchandiseDetailFragment(
@@ -61,15 +66,12 @@ class ManagementDetailFragment : Fragment() {
         findNavController().navigate(action)
     }
 
-    private fun onCreateMerchandiseModifyDialogButtononClick(merchandise: MerchandiseModel, isPartial : Boolean) {
-
-    }
-
-    private fun alertDialogListener(storeModel: StoreModel) {
+    private fun onCreateStoreModifyDialogButtononClick(merchandiseList: List<MerchandiseModel>) {
         val dlg = ModifyAlertDialog(this.requireContext())
         dlg.listener = object: ModifyAlertDialog.MerchandiseDialogClickedListener {
             override fun onClicked() {
-                managementDetailViewModel.modifyMerchandise(storeModel)
+                managementDetailViewModel.modifyMerchandise(merchandiseList)
+                rcvAdapter.notifyDataSetChanged()
             }
         }
         dlg.modify()
@@ -83,10 +85,10 @@ class ManagementDetailFragment : Fragment() {
 
     private fun initBinding() {
         with(binding) {
-            adapter = ManagementDetailRcvAdapter(this@ManagementDetailFragment::navigateToMerchandiseDetail)
+            adapter = rcvAdapter
             lifecycleOwner = viewLifecycleOwner
             viewModel = managementDetailViewModel
-            alertDialog = ::alertDialogListener
+            bindingHelper = managementDetailBindingHelper
         }
     }
 }
