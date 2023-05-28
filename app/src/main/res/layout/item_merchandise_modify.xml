@@ -4,7 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <import type="kotlin.jvm.functions.Function0" />
+        <import type="kotlin.Unit" />
 
+        <variable
+            name="navigate"
+            type="Function0&lt;Unit>" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -35,6 +40,7 @@
             android:textColor="@color/main"
             android:textSize="20sp"
             android:textStyle="bold"
+            android:onClick="@{_ -> navigate.invoke()}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

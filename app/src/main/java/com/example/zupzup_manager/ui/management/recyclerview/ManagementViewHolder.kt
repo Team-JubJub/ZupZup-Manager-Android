@@ -13,9 +13,11 @@ sealed class ManagementViewHolder(
     abstract fun bind(item: ManagementViewType)
 
     class ManagementMerchandiseModifyViewHolder(
-        private val binding: ItemMerchandiseModifyBinding
+        private val binding: ItemMerchandiseModifyBinding,
+        private val navigateToManagementDetail: () -> Unit
     ) : ManagementViewHolder(binding) {
         override fun bind(item: ManagementViewType) {
+            binding.navigate = navigateToManagementDetail
         }
     }
 
