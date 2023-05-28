@@ -2,27 +2,32 @@ package com.example.zupzup_manager.ui.managementdetail.recyclerview
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.zupzup_manager.databinding.ItemManagementMerchandiseModifyBinding
 import com.example.zupzup_manager.domain.models.MerchandiseModel
+import com.example.zupzup_manager.ui.managementdetail.ManagementDetailViewModel
+import com.example.zupzup_manager.ui.managementdetail.binding.ManagementDetailBindingHelper
 
 class ManagementDetailRcvAdapter(
-    private val navigateToMerchandiseDetail: (merchandise: MerchandiseModel) -> Unit
+    private val navigateToMerchandiseDetail: (merchandise: MerchandiseModel) -> Unit,
+    private val managementDetailBindingHelper: ManagementDetailBindingHelper
 ) :
     ListAdapter<MerchandiseModel, ManagementDetailRcvAdapter.ManagementDetailViewHolder>(
         MerchandiseModelDiffCallBack()
     ) {
-
     class ManagementDetailViewHolder(
         private val binding: ItemManagementMerchandiseModifyBinding,
-        private val navigateToMerchandiseDetail: (merchandise: MerchandiseModel) -> Unit
+        private val navigateToMerchandiseDetail: (merchandise: MerchandiseModel) -> Unit,
+        private val managementDetailBindingHelper: ManagementDetailBindingHelper
     ) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: MerchandiseModel) {
             with(binding) {
                 merchandise = item
+                bindingHelper = managementDetailBindingHelper
                 navigate = navigateToMerchandiseDetail
                 executePendingBindings()
             }
@@ -32,7 +37,7 @@ class ManagementDetailRcvAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ManagementDetailViewHolder {
         val binding =
             ItemManagementMerchandiseModifyBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return ManagementDetailViewHolder(binding, navigateToMerchandiseDetail)
+        return ManagementDetailViewHolder(binding, navigateToMerchandiseDetail, managementDetailBindingHelper)
     }
 
     override fun onBindViewHolder(holder: ManagementDetailViewHolder, position: Int) {

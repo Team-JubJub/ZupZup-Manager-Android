@@ -1,16 +1,24 @@
 package com.example.zupzup_manager.ui.managementdetail.binding
 
+import com.example.zupzup_manager.domain.models.MerchandiseModel
+import com.example.zupzup_manager.domain.models.ReservationModel
 import javax.inject.Inject
 
 class ManagementDetailBindingHelper @Inject constructor(
-    private val plusCartItemConfirmedAmount: (itemId: Long) -> Unit,
-    private val minusCartItemConfirmedAmount: (itemId: Long) -> Unit,
+    private val onCreateMerchandiseModifyDialogButtononClick: (merchandise: MerchandiseModel, isPartial: Boolean) -> Unit,
+    private val plusMerchandiseModifiedAmount: (itemId: Long) -> Unit,
+    private val minusMerchandiseModifiedAmount: (itemId: Long) -> Unit,
 ) {
-    fun onPlusCartItemConfirmedAmountBtnClick(itemId: Long) {
-        plusCartItemConfirmedAmount(itemId)
+    fun createMerchandiseModifyDialog(
+    ) {
+
     }
 
-    fun onMinusCartItemConfirmedAmountBtnClick(itemId: Long) {
-        minusCartItemConfirmedAmount(itemId)
+    fun onPlusMerchandiseModifiedAmountBtnClick(itemId: Long) {
+        plusMerchandiseModifiedAmount(itemId)
+    }
+
+    fun onMinusMerchandiseModifiedAmountBtnClick(itemId: Long) {
+        minusMerchandiseModifiedAmount(itemId)
     }
 }

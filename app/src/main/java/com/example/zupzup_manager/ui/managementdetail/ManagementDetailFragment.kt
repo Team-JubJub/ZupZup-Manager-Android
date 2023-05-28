@@ -11,8 +11,12 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.zupzup_manager.databinding.FragmentManagementDetailBinding
 import com.example.zupzup_manager.domain.models.MerchandiseModel
+import com.example.zupzup_manager.domain.models.ReservationModel
 import com.example.zupzup_manager.domain.models.StoreModel
+import com.example.zupzup_manager.ui.managementdetail.binding.ManagementDetailBindingHelper
 import com.example.zupzup_manager.ui.managementdetail.recyclerview.ManagementDetailRcvAdapter
+import com.example.zupzup_manager.ui.reservationdetail.binding.ReservationDetailBindingHelper
+import com.example.zupzup_manager.ui.reservationdetail.bottomsheet.ReservationConfirmBottomSheetFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -23,15 +27,11 @@ class ManagementDetailFragment : Fragment() {
 
     private val args: ManagementDetailFragmentArgs by navArgs()
 
-    private fun alertDialogListener(storeModel: StoreModel) {
-        val dlg = ModifyAlertDialog(this.requireContext())
-        dlg.listener = object: ModifyAlertDialog.MerchandiseDialogClickedListener {
-            override fun onClicked() {
-                managementDetailViewModel.modifyMerchandise(storeModel)
-            }
-        }
-        dlg.modify()
-    }
+    private val managementDetailBindingHelper = ManagementDetailBindingHelper(
+        ::onCreateMerchandiseModifyDialogButtononClick,
+        { itemId: Long -> managementDetailViewModel.plusModifiedAmount(itemId) },
+        { itemId: Long -> managementDetailViewModel.minusModifiedAmount(itemId) }
+    )
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -61,6 +61,20 @@ class ManagementDetailFragment : Fragment() {
         findNavController().navigate(action)
     }
 
+    private fun onCreateMerchandiseModifyDialogButtononClick(merchandise: MerchandiseModel, isPartial : Boolean) {
+
+    }
+
+    private fun alertDialogListener(storeModel: StoreModel) {
+        val dlg = ModifyAlertDialog(this.requireContext())
+        dlg.listener = object: ModifyAlertDialog.MerchandiseDialogClickedListener {
+            override fun onClicked() {
+                managementDetailViewModel.modifyMerchandise(storeModel)
+            }
+        }
+        dlg.modify()
+    }
+
     private fun initRecyclerView() {
         with(binding.rcvMerchandiseList) {
             layoutManager = LinearLayoutManager(context)
@@ -72,7 +86,6 @@ class ManagementDetailFragment : Fragment() {
             adapter = ManagementDetailRcvAdapter(this@ManagementDetailFragment::navigateToMerchandiseDetail)
             lifecycleOwner = viewLifecycleOwner
             viewModel = managementDetailViewModel
-            //store = storemodel 업데이트 하는 부분 model 어떻게 넘길지
             alertDialog = ::alertDialogListener
         }
     }

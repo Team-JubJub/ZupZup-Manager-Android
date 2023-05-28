@@ -19,31 +19,24 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ManagementDetailViewModel @Inject constructor(
-    private val getStoreDetailUseCase: GetStoreDetailUseCase,
     private val modifyMerchandiseUseCase: ModifyMerchandiseUseCase
 ): ViewModel() {
 
     private var _merchandiseDetailBody = MutableStateFlow<List<MerchandiseModel>>(listOf())
     val merchandiseDetailBody = _merchandiseDetailBody.asStateFlow()
 
-    private fun makeMerchandiseList(storeModel: StoreModel): List<MerchandiseModel> {
-        return storeModel.merchandiseList.map {
-            MerchandiseModel(
-                itemId = it.itemId,
-                itemName = it.itemName,
-                price = it.price,
-                discounted = it.discounted,
-                imgUrl = it.imgUrl,
-                stock = it.stock,
-                storeId = it.storeId
-            )
-        }
-    }
-
     fun setMerchandiseList(merchandiseList: List<MerchandiseModel>) {
         viewModelScope.launch {
             _merchandiseDetailBody.emit(merchandiseList)
         }
+    }
+
+    fun plusModifiedAmount(itemId: Long) {
+
+    }
+
+    fun minusModifiedAmount(itemId: Long) {
+
     }
 
     fun modifyMerchandise(storeModel: StoreModel) {

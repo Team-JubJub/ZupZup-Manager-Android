@@ -16,6 +16,11 @@ xmlns:tools="http://schemas.android.com/tools">
         <variable
             name="merchandise"
             type="com.example.zupzup_manager.domain.models.MerchandiseModel" />
+
+        <variable
+            name="bindingHelper"
+            type="com.example.zupzup_manager.ui.managementdetail.binding.ManagementDetailBindingHelper" />
+
     </data>
     
 <androidx.constraintlayout.widget.ConstraintLayout
@@ -94,6 +99,10 @@ xmlns:tools="http://schemas.android.com/tools">
         android:background="@drawable/frame_oval_warmgray_4"
         android:padding="4dp"
         android:src="@drawable/ic_minus"
+        app:bindingHelper="@{bindingHelper}"
+        app:itemId="@{merchandise.itemId}"
+        app:orderAmount="@{merchandise.stock}"
+        app:tvConfirmedAmount="@{tvMerchandiseAmount}"
         app:layout_constraintBottom_toBottomOf="@id/tv_merchandise_price"
         app:layout_constraintEnd_toStartOf="@id/tv_merchandise_amount"
         app:layout_constraintTop_toTopOf="@id/tv_merchandise_name" />
@@ -122,6 +131,10 @@ xmlns:tools="http://schemas.android.com/tools">
         android:background="@drawable/frame_oval_warmgray_4"
         android:padding="4dp"
         android:src="@drawable/ic_plus"
+        app:bindingHelper="@{bindingHelper}"
+        app:itemId="@{merchandise.itemId}"
+        app:orderAmount="@{merchandise.stock}"
+        app:tvConfirmedAmount="@{tvMerchandiseAmount}"
         app:layout_constraintBottom_toBottomOf="@id/tv_merchandise_price"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/tv_merchandise_name"/>
