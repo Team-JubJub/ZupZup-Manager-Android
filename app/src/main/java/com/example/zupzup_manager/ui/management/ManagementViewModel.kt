@@ -20,7 +20,7 @@ class ManagementViewModel @Inject constructor(
 ): ViewModel() {
 
     init {
-        getStoreDetail(1)
+        getStoreDetail(2)
     }
 
     private var _managementDetailBody = MutableStateFlow<List<ManagementViewType>>(listOf())
@@ -39,6 +39,7 @@ class ManagementViewModel @Inject constructor(
         )
         viewTypeList.add(
             ManagementViewType.MerchandiseModifyViewType(
+                store = storeModel
             )
         )
         storeModel.merchandiseList.forEach {

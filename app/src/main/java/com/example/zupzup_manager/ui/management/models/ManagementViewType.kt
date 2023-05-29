@@ -1,5 +1,6 @@
 package com.example.zupzup_manager.ui.management.models
 
+import com.example.zupzup_manager.domain.models.StoreModel
 import com.example.zupzup_manager.ui.common.ViewType
 
 sealed class ManagementViewType {
@@ -7,6 +8,7 @@ sealed class ManagementViewType {
 
     data class MerchandiseModifyViewType(
         override val viewType: Int = ViewType.MERCHANDISE_MODIFY.ordinal,
+        val store: StoreModel
     ) : ManagementViewType()
 
     data class StoreInfoViewType(

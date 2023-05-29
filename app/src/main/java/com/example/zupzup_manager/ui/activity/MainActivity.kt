@@ -45,6 +45,12 @@ class MainActivity : AppCompatActivity() {
                 R.id.frag_reservationDetail -> {
                     hideBottomNav()
                 }
+                R.id.frag_management -> {
+                    showBottomNav()
+                }
+                R.id.frag_management_detail -> {
+                    hideBottomNav()
+                }
             }
         }
     }

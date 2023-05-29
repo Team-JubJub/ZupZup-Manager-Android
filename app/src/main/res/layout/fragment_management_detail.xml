@@ -4,6 +4,20 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <import type="com.example.zupzup_manager.domain.models.StoreModel" />
+
+        <variable
+            name="store"
+            type="com.example.zupzup_manager.domain.models.StoreModel" />
+        <variable
+            name="adapter"
+            type="com.example.zupzup_manager.ui.managementdetail.recyclerview.ManagementDetailRcvAdapter" />
+        <variable
+            name="viewModel"
+            type="com.example.zupzup_manager.ui.managementdetail.ManagementDetailViewModel" />
+        <variable
+            name="bindingHelper"
+            type="com.example.zupzup_manager.ui.managementdetail.binding.ManagementDetailBindingHelper" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -18,6 +32,7 @@
             android:layout_marginStart="7dp"
             android:layout_marginTop="9dp"
             android:src="@drawable/ic_back_button"
+            android:onClick="@{_ -> bindingHelper.navigateToBackStack()}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -28,6 +43,7 @@
             android:layout_marginStart="5dp"
             android:text="관리"
             android:textColor="@color/main"
+            android:onClick="@{_ -> bindingHelper.navigateToBackStack()}"
             app:layout_constraintBottom_toBottomOf="@id/btn_back"
             app:layout_constraintStart_toEndOf="@id/btn_back"
             app:layout_constraintTop_toTopOf="@id/btn_back" />
@@ -66,11 +82,14 @@
             android:layout_height="0dp"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
+            android:adapter="@{adapter}"
             android:paddingVertical="10dp"
             app:layout_constraintBottom_toTopOf="@id/constraint_modify_button"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_merchandise_management_title" />
+            app:layout_constraintTop_toBottomOf="@id/tv_merchandise_management_title"
+            app:merchandiseDetailBody="@{viewModel.merchandiseDetailBody}"/>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraint_modify_button"
@@ -95,7 +114,8 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                android:onClick="@{_ -> bindingHelper.createMerchandiseModifyDialog(viewModel.merchandiseDetailBody)}" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>

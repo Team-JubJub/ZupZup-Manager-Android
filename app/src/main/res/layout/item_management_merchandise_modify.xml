@@ -4,35 +4,38 @@ xmlns:app="http://schemas.android.com/apk/res-auto"
 xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
+        <import type="kotlin.jvm.functions.Function1" />
+        <import type="com.example.zupzup_manager.domain.models.MerchandiseModel" />
+        <import type="kotlin.Unit" />
+
         <variable
-            name="itemName"
-            type="java.lang.String" />
+            name="navigate"
+            type="Function1&lt;MerchandiseModel, Unit>" />
+
         <variable
-            name="price"
-            type="Integer" />
+            name="merchandise"
+            type="com.example.zupzup_manager.domain.models.MerchandiseModel" />
+
         <variable
-            name="discounted"
-            type="Integer" />
-        <variable
-            name="imgUrl"
-            type="java.lang.String" />
-        <variable
-            name="stock"
-            type="Integer" />
+            name="bindingHelper"
+            type="com.example.zupzup_manager.ui.managementdetail.binding.ManagementDetailBindingHelper" />
+
     </data>
     
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginTop="8dp"
-    android:background="@drawable/frame_rectangle_corner_14_warmgray_3">
+    android:background="@drawable/frame_rectangle_corner_14_warmgray_3"
+    android:onClick="@{_ -> navigate.invoke(merchandise)">
 
     <ImageView
         android:id="@+id/iv_merchandise"
         android:layout_width="84dp"
         android:layout_height="0dp"
         android:layout_marginEnd="8dp"
-        app:imgUrl="@{imgUrl}"
+        app:imgUrl="@{merchandise.imgUrl}"
         android:background="@color/transparent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -49,7 +52,7 @@ xmlns:tools="http://schemas.android.com/tools">
         android:ellipsize="end"
         android:maxLines="1"
         android:fontFamily="@font/pretendard_semibold"
-        android:text="@{itemName}"
+        android:text="@{merchandise.itemName}"
         android:textSize="17sp"
         android:letterSpacing="-0.03"
         app:layout_constraintTop_toTopOf="parent"
@@ -62,7 +65,7 @@ xmlns:tools="http://schemas.android.com/tools">
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:text="@{price.toString() + '원'}"
+        android:text="@{String.valueOf(merchandise.price) + '원'}"
         android:textColor="@color/warm_gray5"
         android:textSize="13sp"
         android:letterSpacing="-0.03"
@@ -77,7 +80,7 @@ xmlns:tools="http://schemas.android.com/tools">
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
         android:layout_marginBottom="15dp"
-        android:text="@{discounted.toString() + '원'}"
+        android:text="@{String.valueOf(merchandise.discounted) + '원'}"
         android:textColor="@color/main"
         android:textSize="13sp"
         android:letterSpacing="-0.03"
@@ -96,6 +99,9 @@ xmlns:tools="http://schemas.android.com/tools">
         android:background="@drawable/frame_oval_warmgray_4"
         android:padding="4dp"
         android:src="@drawable/ic_minus"
+        app:bindingHelper="@{bindingHelper}"
+        app:itemId="@{merchandise.itemId}"
+        app:tvConfirmedAmount="@{tvMerchandiseAmount}"
         app:layout_constraintBottom_toBottomOf="@id/tv_merchandise_price"
         app:layout_constraintEnd_toStartOf="@id/tv_merchandise_amount"
         app:layout_constraintTop_toTopOf="@id/tv_merchandise_name" />
@@ -105,7 +111,7 @@ xmlns:tools="http://schemas.android.com/tools">
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
-        android:text="@{stock.toString()}"
+        android:text="@{String.valueOf(merchandise.stock)}"
         android:textColor="@color/main"
         android:textSize="17sp"
         android:letterSpacing="-0.03"
@@ -124,6 +130,9 @@ xmlns:tools="http://schemas.android.com/tools">
         android:background="@drawable/frame_oval_warmgray_4"
         android:padding="4dp"
         android:src="@drawable/ic_plus"
+        app:bindingHelper="@{bindingHelper}"
+        app:itemId="@{merchandise.itemId}"
+        app:tvConfirmedAmount="@{tvMerchandiseAmount}"
         app:layout_constraintBottom_toBottomOf="@id/tv_merchandise_price"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/tv_merchandise_name"/>
