@@ -1,7 +1,6 @@
 package com.example.zupzup_manager.di
 
 import com.google.firebase.firestore.CollectionReference
-import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import dagger.Module
@@ -58,4 +57,5 @@ object FireBaseModule {
     fun provideFirebaseTestStoreRef(): CollectionReference {
         return Firebase.firestore.collection(Constants.testStoreRef)
     }
+
 }

@@ -14,12 +14,11 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.zupzup_manager.databinding.FragmentReservationDetailBinding
-import com.example.zupzup_manager.domain.models.CartModel
 import com.example.zupzup_manager.domain.models.ReservationModel
 import com.example.zupzup_manager.ui.common.UiEventState
+import com.example.zupzup_manager.ui.common.progress.ProgressDialogFragment
 import com.example.zupzup_manager.ui.reservationdetail.binding.ReservationDetailBindingHelper
 import com.example.zupzup_manager.ui.reservationdetail.bottomsheet.ReservationConfirmBottomSheetFragment
-import com.example.zupzup_manager.ui.reservationdetail.progress.ProgressDialogFragment
 import com.example.zupzup_manager.ui.reservationdetail.recyclerview.ReservationDetailItemDecorator
 import com.example.zupzup_manager.ui.reservationdetail.recyclerview.ReservationDetailRcvAdapter
 import dagger.hilt.android.AndroidEntryPoint
@@ -42,8 +41,8 @@ class ReservationDetailFragment : Fragment() {
     )
 
     private val reservationHandler = object : HandleReservationBtnClickListener {
-        override fun confirmReservation(reservationModel: ReservationModel, isPartial : Boolean) {
-            reservationDetailViewModel.confirmReservation(reservationModel, isPartial )
+        override fun confirmReservation(reservationModel: ReservationModel, isPartial: Boolean) {
+            reservationDetailViewModel.confirmReservation(reservationModel, isPartial)
         }
 
         override fun rejectReservation(reservationModel: ReservationModel) {
@@ -88,7 +87,10 @@ class ReservationDetailFragment : Fragment() {
         reservationDetailViewModel.setArgsToViewModel(args.reservation)
     }
 
-    private fun onReservationConfirmButtonClickListener(reservation: ReservationModel, isPartial : Boolean) {
+    private fun onReservationConfirmButtonClickListener(
+        reservation: ReservationModel,
+        isPartial: Boolean
+    ) {
         reservationConfirmBottomSheet =
             ReservationConfirmBottomSheetFragment(reservation, isPartial, reservationHandler)
         reservationConfirmBottomSheet!!.show(parentFragmentManager, null)
