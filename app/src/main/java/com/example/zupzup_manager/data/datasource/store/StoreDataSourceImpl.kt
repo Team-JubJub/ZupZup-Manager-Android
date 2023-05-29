@@ -16,9 +16,24 @@ class StoreDataSourceImpl @Inject constructor(
     @FireBaseModule.TestStoreRef private val storeRef: CollectionReference
 ): StoreDataSource {
 
-    override suspend fun getStoreDetail(storeId: Long): Task<DocumentSnapshot> {
-        Log.d("getStoreDetail : ", storeRef.document(storeId.toString()).get().toString())
-        return storeRef.document(storeId.toString()).get()
+    override suspend fun getStoreDetail(storeId: Long): Flow<DocumentSnapshot> {
+        return callbackFlow {
+            val storeDetailDoc = storeRef.document(storeId.toString())
+
+            val subscription = storeDetailDoc.addSnapshotListener { value, error ->
+                if (error != null) {
+                    close()
+                    return@addSnapshotListener
+                }
+                if (value != null) {
+                    trySend(value)
+                }
+            }
+
+            awaitClose {
+                subscription.remove()
+            }
+        }
     }
 
     override suspend fun modifyMerchandiseDetail(

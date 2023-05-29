@@ -71,7 +71,6 @@ class ManagementDetailFragment : Fragment() {
         dlg.listener = object: ModifyAlertDialog.MerchandiseDialogClickedListener {
             override fun onClicked() {
                 managementDetailViewModel.modifyMerchandise(merchandiseList)
-                rcvAdapter.notifyDataSetChanged()
             }
         }
         dlg.modify()

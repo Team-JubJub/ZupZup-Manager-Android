@@ -14,10 +14,12 @@ class GetStoreDetailUseCase @Inject constructor(
 ) {
     suspend operator fun invoke(storeId: Long): Flow<DataResult<StoreModel>> {
         return flow {
-            storeRepository.getStoreDetail(storeId).onSuccess {
-                emit(DataResult.Success(it))
-            }.onFailure {
-                emit(DataResult.Failure(1))
+            storeRepository.getStoreDetail(storeId).collect {
+                it.onSuccess { storeDetail ->
+                    emit(DataResult.Success(storeDetail))
+                }.onFailure {
+                    emit(DataResult.Failure(1))
+                }
             }
         }.flowOn(Dispatchers.IO)
     }

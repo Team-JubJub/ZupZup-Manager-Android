@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface StoreDataSource {
 
-    suspend fun getStoreDetail(storeId: Long): Task<DocumentSnapshot>
+    suspend fun getStoreDetail(storeId: Long): Flow<DocumentSnapshot>
 
     suspend fun modifyMerchandiseDetail(storeId: Long, merchandiseList: List<MerchandiseDto>): Task<Void>
 }
