@@ -18,7 +18,7 @@ class GetStoreDetailUseCase @Inject constructor(
                 it.onSuccess { storeDetail ->
                     emit(DataResult.Success(storeDetail))
                 }.onFailure {
-                    emit(DataResult.Failure(1))
+                    emit(DataResult.Failure("error"))
                 }
             }
         }.flowOn(Dispatchers.IO)
