@@ -32,7 +32,6 @@ class ManagementDetailFragment : Fragment() {
         { itemId: Long -> managementDetailViewModel.minusModifiedAmount(itemId) },
         ::navigateToBackStack
     )
-    private val rcvAdapter = ManagementDetailRcvAdapter(this@ManagementDetailFragment::navigateToMerchandiseDetail, managementDetailBindingHelper)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -84,7 +83,7 @@ class ManagementDetailFragment : Fragment() {
 
     private fun initBinding() {
         with(binding) {
-            adapter = rcvAdapter
+            adapter = ManagementDetailRcvAdapter(this@ManagementDetailFragment::navigateToMerchandiseDetail, managementDetailBindingHelper)
             lifecycleOwner = viewLifecycleOwner
             viewModel = managementDetailViewModel
             bindingHelper = managementDetailBindingHelper

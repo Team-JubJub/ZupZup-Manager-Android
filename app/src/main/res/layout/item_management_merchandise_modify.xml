@@ -27,8 +27,7 @@ xmlns:tools="http://schemas.android.com/tools">
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginTop="8dp"
-    android:background="@drawable/frame_rectangle_corner_14_warmgray_3"
-    android:onClick="@{_ -> navigate.invoke(merchandise)">
+    android:background="@drawable/frame_rectangle_corner_14_warmgray_3">
 
     <ImageView
         android:id="@+id/iv_merchandise"
@@ -36,6 +35,7 @@ xmlns:tools="http://schemas.android.com/tools">
         android:layout_height="0dp"
         android:layout_marginEnd="8dp"
         app:imgUrl="@{merchandise.imgUrl}"
+        android:onClick="@{_ -> navigate.invoke(merchandise)"
         android:background="@color/transparent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
