@@ -9,7 +9,9 @@ class ManagementDetailBindingHelper @Inject constructor(
     private val onCreateMerchandiseModifyDialogButtononClick: (merchandiseList: List<MerchandiseModel>) -> Unit,
     private val plusMerchandiseModifiedAmount: (itemId: Long) -> Unit,
     private val minusMerchandiseModifiedAmount: (itemId: Long) -> Unit,
-    private val navigateBack: () -> Unit
+    private val navigateBack: () -> Unit,
+    private val navigateMerchandiseAdd: () -> Unit,
+    private val navigateMerchandiseModify: (merchandise: MerchandiseModel) -> Unit
 ) {
     fun createMerchandiseModifyDialog(merchandiseDetailBody: List<MerchandiseModel>) {
         onCreateMerchandiseModifyDialogButtononClick(merchandiseDetailBody)
@@ -25,5 +27,13 @@ class ManagementDetailBindingHelper @Inject constructor(
 
     fun navigateToBackStack() {
         navigateBack()
+    }
+
+    fun navigateToMerchandiseAdd() {
+        navigateMerchandiseAdd()
+    }
+
+    fun navigateToMerchandiseModify(merchandise: MerchandiseModel) {
+        navigateMerchandiseModify(merchandise)
     }
 }

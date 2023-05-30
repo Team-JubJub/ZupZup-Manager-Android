@@ -4,11 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <import type="com.example.zupzup_manager.domain.models.StoreModel" />
-
-        <variable
-            name="store"
-            type="com.example.zupzup_manager.domain.models.StoreModel" />
         <variable
             name="adapter"
             type="com.example.zupzup_manager.ui.managementdetail.recyclerview.ManagementDetailRcvAdapter" />
@@ -71,6 +66,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="28dp"
             android:src="@drawable/ic_plus_main"
+            android:onClick="@{_ -> bindingHelper.navigateToMerchandiseAdd()}"
             android:paddingVertical="8dp"
             app:layout_constraintBottom_toBottomOf="@id/tv_merchandise_management_title"
             app:layout_constraintEnd_toEndOf="parent"

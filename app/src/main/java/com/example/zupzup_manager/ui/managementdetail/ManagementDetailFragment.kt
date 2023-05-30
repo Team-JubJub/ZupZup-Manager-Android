@@ -1,6 +1,7 @@
 package com.example.zupzup_manager.ui.managementdetail
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -30,7 +31,9 @@ class ManagementDetailFragment : Fragment() {
         ::onCreateStoreModifyDialogButtononClick,
         { itemId: Long -> managementDetailViewModel.plusModifiedAmount(itemId) },
         { itemId: Long -> managementDetailViewModel.minusModifiedAmount(itemId) },
-        ::navigateToBackStack
+        ::navigateToBackStack,
+        ::navigateToMerchandiseAdd,
+        ::navigateToMerchandiseModify
     )
 
     override fun onCreateView(
@@ -57,7 +60,14 @@ class ManagementDetailFragment : Fragment() {
         findNavController().popBackStack()
     }
 
-    private fun navigateToMerchandiseDetail(merchandise: MerchandiseModel) {
+    private fun navigateToMerchandiseAdd() {
+        val action =
+            ManagementDetailFragmentDirections.actionManagementDetailFragmentToMerchandiseDetailFragment()
+        findNavController().navigate(action)
+    }
+
+    private fun navigateToMerchandiseModify(merchandise: MerchandiseModel) {
+        Log.e("error", "err")
         val action =
             ManagementDetailFragmentDirections.actionManagementDetailFragmentToMerchandiseDetailFragment(
                 merchandise
@@ -76,14 +86,15 @@ class ManagementDetailFragment : Fragment() {
     }
 
     private fun initRecyclerView() {
-        with(binding.rcvMerchandiseList) {
-            layoutManager = LinearLayoutManager(context)
+        with(binding) {
+            rcvMerchandiseList.layoutManager = LinearLayoutManager(context)
+            adapter =
+                ManagementDetailRcvAdapter(managementDetailBindingHelper)
         }
     }
 
     private fun initBinding() {
         with(binding) {
-            adapter = ManagementDetailRcvAdapter(this@ManagementDetailFragment::navigateToMerchandiseDetail, managementDetailBindingHelper)
             lifecycleOwner = viewLifecycleOwner
             viewModel = managementDetailViewModel
             bindingHelper = managementDetailBindingHelper

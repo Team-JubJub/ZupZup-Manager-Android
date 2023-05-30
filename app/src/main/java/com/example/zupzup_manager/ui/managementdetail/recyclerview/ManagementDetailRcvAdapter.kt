@@ -12,7 +12,6 @@ import com.example.zupzup_manager.ui.managementdetail.ManagementDetailViewModel
 import com.example.zupzup_manager.ui.managementdetail.binding.ManagementDetailBindingHelper
 
 class ManagementDetailRcvAdapter(
-    private val navigateToMerchandiseDetail: (merchandise: MerchandiseModel) -> Unit,
     private val managementDetailBindingHelper: ManagementDetailBindingHelper
 ) :
     ListAdapter<MerchandiseModel, ManagementDetailRcvAdapter.ManagementDetailViewHolder>(
@@ -20,7 +19,6 @@ class ManagementDetailRcvAdapter(
     ) {
     class ManagementDetailViewHolder(
         private val binding: ItemManagementMerchandiseModifyBinding,
-        private val navigateToMerchandiseDetail: (merchandise: MerchandiseModel) -> Unit,
         private val managementDetailBindingHelper: ManagementDetailBindingHelper
     ) :
         RecyclerView.ViewHolder(binding.root) {
@@ -28,7 +26,6 @@ class ManagementDetailRcvAdapter(
             with(binding) {
                 merchandise = item
                 bindingHelper = managementDetailBindingHelper
-                navigate = navigateToMerchandiseDetail
                 executePendingBindings()
             }
         }
@@ -37,7 +34,7 @@ class ManagementDetailRcvAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ManagementDetailViewHolder {
         val binding =
             ItemManagementMerchandiseModifyBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return ManagementDetailViewHolder(binding, navigateToMerchandiseDetail, managementDetailBindingHelper)
+        return ManagementDetailViewHolder(binding, managementDetailBindingHelper)
     }
 
     override fun onBindViewHolder(holder: ManagementDetailViewHolder, position: Int) {
