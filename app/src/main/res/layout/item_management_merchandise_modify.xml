@@ -5,21 +5,15 @@ xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
-        <import type="kotlin.jvm.functions.Function1" />
         <import type="com.example.zupzup_manager.domain.models.MerchandiseModel" />
-        <import type="kotlin.Unit" />
-
-        <variable
-            name="navigate"
-            type="Function1&lt;MerchandiseModel, Unit>" />
 
         <variable
             name="merchandise"
             type="com.example.zupzup_manager.domain.models.MerchandiseModel" />
 
         <variable
-            name="bindingHelper"
-            type="com.example.zupzup_manager.ui.managementdetail.binding.ManagementDetailBindingHelper" />
+            name="clickListener"
+            type="com.example.zupzup_manager.ui.managementdetail.ManagementDetailBtnClickListener" />
 
     </data>
     
@@ -35,7 +29,7 @@ xmlns:tools="http://schemas.android.com/tools">
         android:layout_height="0dp"
         android:layout_marginEnd="8dp"
         app:imgUrl="@{merchandise.imgUrl}"
-        android:onClick="@{_ -> bindingHelper.navigateToMerchandiseModify(merchandise)"
+        android:onClick="@{_ -> clickListener.navigateToMerchandiseModify(merchandise)}"
         android:background="@color/transparent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -99,7 +93,7 @@ xmlns:tools="http://schemas.android.com/tools">
         android:background="@drawable/frame_oval_warmgray_4"
         android:padding="4dp"
         android:src="@drawable/ic_minus"
-        app:bindingHelper="@{bindingHelper}"
+        app:clickListener="@{clickListener}"
         app:itemId="@{merchandise.itemId}"
         app:tvConfirmedAmount="@{tvMerchandiseAmount}"
         app:layout_constraintBottom_toBottomOf="@id/tv_merchandise_price"
@@ -130,7 +124,7 @@ xmlns:tools="http://schemas.android.com/tools">
         android:background="@drawable/frame_oval_warmgray_4"
         android:padding="4dp"
         android:src="@drawable/ic_plus"
-        app:bindingHelper="@{bindingHelper}"
+        app:clickListener="@{clickListener}"
         app:itemId="@{merchandise.itemId}"
         app:tvConfirmedAmount="@{tvMerchandiseAmount}"
         app:layout_constraintBottom_toBottomOf="@id/tv_merchandise_price"

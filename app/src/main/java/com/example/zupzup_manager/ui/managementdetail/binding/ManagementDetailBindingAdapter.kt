@@ -6,8 +6,8 @@ import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.zupzup_manager.R
 import com.example.zupzup_manager.domain.models.MerchandiseModel
+import com.example.zupzup_manager.ui.managementdetail.ManagementDetailBtnClickListener
 import com.example.zupzup_manager.ui.managementdetail.recyclerview.ManagementDetailRcvAdapter
-import com.example.zupzup_manager.ui.reservationdetail.binding.ReservationDetailBindingHelper
 
 @BindingAdapter("merchandiseDetailBody")
 fun bindMerchandiseDetailToRecyclerView(
@@ -17,10 +17,10 @@ fun bindMerchandiseDetailToRecyclerView(
     (recyclerView.adapter as ManagementDetailRcvAdapter).submitList(dataList.toList())
 }
 
-@BindingAdapter("bindingHelper", "itemId", "tvConfirmedAmount")
+@BindingAdapter("clickListener", "itemId", "tvConfirmedAmount")
 fun bindBindingHelperToAmountButton(
     ivBtnModifyAmount: ImageView,
-    bindingHelper: ManagementDetailBindingHelper,
+    clickListener: ManagementDetailBtnClickListener,
     itemId: Long,
     tvConfirmedAmount: TextView
 ) {
@@ -28,14 +28,14 @@ fun bindBindingHelperToAmountButton(
         when (ivBtnModifyAmount.id) {
             R.id.btn_plus -> {
                 if (tvConfirmedAmount.text.toString().toInt() < 100) {
-                    bindingHelper.onPlusMerchandiseModifiedAmountBtnClick(itemId)
+                    clickListener.onPlusMerchandiseModifiedAmountBtnClick(itemId)
                     tvConfirmedAmount.text =
                         tvConfirmedAmount.text.toString().toInt().plus(1).toString()
                 }
             }
             R.id.btn_minus -> {
                 if (tvConfirmedAmount.text.toString().toInt() > 0) {
-                    bindingHelper.onMinusMerchandiseModifiedAmountBtnClick(itemId)
+                    clickListener.onMinusMerchandiseModifiedAmountBtnClick(itemId)
                     tvConfirmedAmount.text =
                         tvConfirmedAmount.text.toString().toInt().minus(1).toString()
 

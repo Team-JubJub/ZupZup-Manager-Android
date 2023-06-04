@@ -7,7 +7,6 @@ import android.graphics.drawable.ColorDrawable
 import android.view.Window
 import android.widget.Button
 import com.example.zupzup_manager.R
-import com.example.zupzup_manager.domain.models.StoreModel
 
 class ModifyAlertDialog(context: Context) {
 
