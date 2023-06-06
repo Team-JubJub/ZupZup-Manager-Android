@@ -35,7 +35,7 @@
             android:id="@+id/iv_login_image"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="150dp"
+            android:layout_marginTop="120dp"
             android:src="@drawable/ic_login_image"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -47,7 +47,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
-            android:layout_marginTop="100dp"
+            android:layout_marginTop="210dp"
             android:theme="@style/LoginEditTextStyle"
             app:endIconMode="clear_text"
             app:endIconTint="@color/main"
@@ -60,8 +60,12 @@
                 android:id="@+id/etv_id"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:background="@drawable/frame_rectangle_corner_9_warmgray_1"
+                android:background="@drawable/frame_stroke_corner_8_ivorygray_5"
                 android:hint="아이디"
+                android:fontFamily="@font/pretendard_regular"
+                android:textColor="@color/ivory_gray5"
+                android:letterSpacing="-0.025"
+                android:textSize="17dp"
                 android:maxLines="1"
                 android:paddingStart="16dp"
                 android:textColorHint="@color/text_black" />
@@ -73,10 +77,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="8dp"
             android:theme="@style/LoginEditTextStyle"
             app:endIconMode="clear_text"
             app:endIconTint="@color/main"
-            app:layout_constraintBottom_toTopOf="@id/btn_login"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/text_layout_id">
@@ -85,8 +89,12 @@
                 android:id="@+id/etv_pw"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:background="@drawable/frame_rectangle_corner_9_warmgray_1"
+                android:background="@drawable/frame_stroke_corner_8_ivorygray_5"
                 android:hint="비밀번호"
+                android:fontFamily="@font/pretendard_regular"
+                android:textColor="@color/ivory_gray5"
+                android:letterSpacing="-0.025"
+                android:textSize="17dp"
                 android:inputType="textPassword"
                 android:maxLines="1"
                 android:paddingStart="16dp"
@@ -94,21 +102,21 @@
         </com.google.android.material.textfield.TextInputLayout>
 
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_login"
-            android:layout_width="match_parent"
-            android:layout_height="57dp"
-            android:layout_marginHorizontal="16dp"
-            android:layout_marginBottom="34dp"
-            android:background="@drawable/frame_rectangle_corner_14_main"
-            android:onClick="@{_ -> loginBtnOnClick.onClickLoginButton(etvId.getText().toString(), etvPw.getText().toString())}"
-            android:text="로그인"
-            android:textSize="17sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/text_layout_pw" />
+<!--        <androidx.appcompat.widget.AppCompatButton-->
+<!--            android:id="@+id/btn_login"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="57dp"-->
+<!--            android:layout_marginHorizontal="16dp"-->
+<!--            android:layout_marginBottom="34dp"-->
+<!--            android:background="@drawable/frame_rectangle_corner_14_main"-->
+<!--            android:onClick="@{_ -> loginBtnOnClick.onClickLoginButton(etvId.getText().toString(), etvPw.getText().toString())}"-->
+<!--            android:text="로그인"-->
+<!--            android:textSize="17sp"-->
+<!--            android:textStyle="bold"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@id/text_layout_pw" />-->
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
