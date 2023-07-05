@@ -11,12 +11,7 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.zupzup_manager.databinding.FragmentManagementDetailBinding
 import com.example.zupzup_manager.domain.models.MerchandiseModel
-import com.example.zupzup_manager.domain.models.ReservationModel
-import com.example.zupzup_manager.domain.models.StoreModel
-import com.example.zupzup_manager.ui.managementdetail.binding.ManagementDetailBindingHelper
 import com.example.zupzup_manager.ui.managementdetail.recyclerview.ManagementDetailRcvAdapter
-import com.example.zupzup_manager.ui.reservationdetail.binding.ReservationDetailBindingHelper
-import com.example.zupzup_manager.ui.reservationdetail.bottomsheet.ReservationConfirmBottomSheetFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -26,13 +21,38 @@ class ManagementDetailFragment : Fragment() {
     private lateinit var binding: FragmentManagementDetailBinding
 
     private val args: ManagementDetailFragmentArgs by navArgs()
-    private val managementDetailBindingHelper = ManagementDetailBindingHelper(
-        ::onCreateStoreModifyDialogButtononClick,
-        { itemId: Long -> managementDetailViewModel.plusModifiedAmount(itemId) },
-        { itemId: Long -> managementDetailViewModel.minusModifiedAmount(itemId) },
-        ::navigateToBackStack
-    )
-    private val rcvAdapter = ManagementDetailRcvAdapter(this@ManagementDetailFragment::navigateToMerchandiseDetail, managementDetailBindingHelper)
+
+    private val managementDetailBtnClickListener = object : ManagementDetailBtnClickListener {
+        override fun createMerchandiseModifyDialog(merchandiseDetailBody: List<MerchandiseModel>) {
+            onCreateStoreModifyDialogButtononClick(merchandiseDetailBody)
+        }
+
+        override fun onPlusMerchandiseModifiedAmountBtnClick(itemId: Long) {
+            managementDetailViewModel.plusModifiedAmount(itemId)
+        }
+
+        override fun onMinusMerchandiseModifiedAmountBtnClick(itemId: Long) {
+            managementDetailViewModel.minusModifiedAmount(itemId)
+        }
+
+        override fun navigateToBackStack() {
+            findNavController().popBackStack()
+        }
+
+        override fun navigateToMerchandiseAdd() {
+            val action =
+                ManagementDetailFragmentDirections.actionManagementDetailFragmentToMerchandiseDetailFragment()
+            findNavController().navigate(action)
+        }
+
+        override fun navigateToMerchandiseModify(merchandise: MerchandiseModel) {
+            val action =
+                ManagementDetailFragmentDirections.actionManagementDetailFragmentToMerchandiseDetailFragment(
+                    merchandise
+                )
+            findNavController().navigate(action)
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -54,18 +74,6 @@ class ManagementDetailFragment : Fragment() {
         managementDetailViewModel.setMerchandiseList(merchandiseList)
     }
 
-    private fun navigateToBackStack() {
-        findNavController().popBackStack()
-    }
-
-    private fun navigateToMerchandiseDetail(merchandise: MerchandiseModel) {
-        val action =
-            ManagementDetailFragmentDirections.actionManagementDetailFragmentToMerchandiseDetailFragment(
-                merchandise
-            )
-        findNavController().navigate(action)
-    }
-
     private fun onCreateStoreModifyDialogButtononClick(merchandiseList: List<MerchandiseModel>) {
         val dlg = ModifyAlertDialog(this.requireContext())
         dlg.listener = object: ModifyAlertDialog.MerchandiseDialogClickedListener {
@@ -77,17 +85,18 @@ class ManagementDetailFragment : Fragment() {
     }
 
     private fun initRecyclerView() {
-        with(binding.rcvMerchandiseList) {
-            layoutManager = LinearLayoutManager(context)
+        with(binding) {
+            rcvMerchandiseList.layoutManager = LinearLayoutManager(context)
+            adapter =
+                ManagementDetailRcvAdapter(managementDetailBtnClickListener)
         }
     }
 
     private fun initBinding() {
         with(binding) {
-            adapter = rcvAdapter
             lifecycleOwner = viewLifecycleOwner
             viewModel = managementDetailViewModel
-            bindingHelper = managementDetailBindingHelper
+            clickListener = managementDetailBtnClickListener
         }
     }
 }

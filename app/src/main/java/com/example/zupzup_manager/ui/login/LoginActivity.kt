@@ -1,10 +1,13 @@
 package com.example.zupzup_manager.ui.login
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
@@ -25,16 +28,24 @@ class LoginActivity : AppCompatActivity() {
     private var progressDialog = ProgressDialogFragment()
 
     private val loginButtonOnClickListener = object : LoginButtonClickListener {
-        override fun onClickLoginButton(id: String, pw: String) {
+        override fun onClickLoginButton(id: String, pw: String): Boolean {
             if (id.isEmpty() || pw.isEmpty()) {
                 Toast.makeText(this@LoginActivity, "아이디, 비밀번호를 입력해주세요.", Toast.LENGTH_SHORT).show()
             } else {
                 loginViewModel.signIn(id, pw)
             }
+
+            this@LoginActivity.currentFocus?.let { view ->
+                val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
+                imm?.hideSoftInputFromWindow(view.windowToken, 0)
+            }
+
+            return true
         }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        installSplashScreen()
         super.onCreate(savedInstanceState)
         initView()
         initBinding()
@@ -96,7 +107,8 @@ class LoginActivity : AppCompatActivity() {
         setContentView(view)
     }
 
+
     interface LoginButtonClickListener {
-        fun onClickLoginButton(id: String, pw: String)
+        fun onClickLoginButton(id: String, pw: String): Boolean
     }
 }

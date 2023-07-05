@@ -52,7 +52,8 @@
         tools:layout="@layout/fragment_merchandise_detail">
         <argument
             android:name="merchandise"
+            android:defaultValue="@null"
             app:argType="com.example.zupzup_manager.domain.models.MerchandiseModel"
-            app:nullable="false"/>
+            app:nullable="true"/>
     </fragment>
 </navigation>

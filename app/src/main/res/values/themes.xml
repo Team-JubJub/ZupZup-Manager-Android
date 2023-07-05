@@ -11,6 +11,18 @@
         <item name="android:windowBackground">@color/warm_gray2</item>
     </style>
 
+    <style name="Theme.App.Starting" parent="Theme.SplashScreen">
+        <!-- Set the splash screen background, animated icon, and animation duration. -->
+        <item name="windowSplashScreenBackground">@color/warm_gray2</item>
+        <!-- Use windowSplashScreenAnimatedIcon to add either a drawable or an
+             animated drawable. One of these is required. -->
+        <item name="windowSplashScreenAnimatedIcon">@mipmap/ic_splash_logo</item>
+        <!-- Required for animated icons -->
+        <!-- Set the theme of the Activity that directly follows your splash screen. -->
+        <!-- Required -->
+        <item name="postSplashScreenTheme">@style/Theme.ZupZupManager</item>
+    </style>
+
     <style name="BottomSheetStyle">
         <item name="android:windowFrame">@null</item>
         <item name="android:windowIsFloating">true</item>
