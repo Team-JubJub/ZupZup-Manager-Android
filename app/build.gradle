@@ -105,4 +105,7 @@ dependencies {
     // Glide
     implementation 'com.github.bumptech.glide:glide:4.15.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.15.0'
+
+    // Splash
+    implementation 'androidx.core:core-splashscreen:1.0.0-alpha01'
 }
