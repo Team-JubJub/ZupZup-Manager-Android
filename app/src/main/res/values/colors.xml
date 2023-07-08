@@ -3,7 +3,7 @@
     <color name="transparent">#00000000</color>
     <color name="purple">#855BF9</color>
     <color name="green">#56D578</color>
-    <color name="main">#E49318</color>
+    <color name="main">#F1AD00</color>
     <color name="text_gray">#8C8C8C</color>
     <color name="off_white">#FFFFFF</color>
     <color name="warning1">#E31E1E</color>
@@ -21,5 +21,10 @@
     <color name="warm_gray4">#DED6C9</color>
     <color name="warm_gray5">#C8BCAB</color>
     <color name="warm_gray6">#AFA08A</color>
-    <color name="ivory_gray5">#716A60</color>
+    <color name="ivory_gray_100">#FAF4EC</color>
+    <color name="ivory_gray_200">#DCCEBB</color>
+    <color name="ivory_gray_400">#93897D</color>
+    <color name="ivory_gray_500">#716A60</color>
+    <color name="orange_400">#ED5C15</color>
+
 </resources>
