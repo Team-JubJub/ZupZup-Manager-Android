@@ -3,11 +3,16 @@
     <item
         android:id="@+id/frag_reservationList"
         android:enabled="true"
-        android:icon="@drawable/ic_package"
+        android:icon="@drawable/ic_status"
         android:title=""/>
     <item
         android:id="@+id/frag_management"
         android:enabled="true"
-        android:icon="@drawable/ic_package"
+        android:icon="@drawable/ic_management"
+        android:title=""/>
+    <item
+        android:id="@+id/frag_setting"
+        android:enabled="true"
+        android:icon="@drawable/ic_setting"
         android:title=""/>
 </menu>
