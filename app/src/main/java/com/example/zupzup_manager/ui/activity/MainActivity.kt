@@ -51,6 +51,9 @@ class MainActivity : AppCompatActivity() {
                 R.id.frag_management_detail -> {
                     hideBottomNav()
                 }
+                R.id.frag_setting -> {
+                    showBottomNav()
+                }
             }
         }
     }
