@@ -54,9 +54,7 @@
                 android:maxLines="1"
                 android:text="@{merchandise != null ? merchandise.itemName : `제품 등록`}"
                 tools:text="초코 크로와상"
-                android:textColor="@color/text_black"
-                android:textSize="34sp"
-                android:textStyle="bold"
+                style="@style/UIHero"
                 app:layout_constraintEnd_toStartOf="@id/iv_remove_merchandise"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/btn_back" />
