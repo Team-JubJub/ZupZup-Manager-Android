@@ -12,9 +12,9 @@ import javax.inject.Inject
 class GetReservationListUseCase @Inject constructor(
     private val reservationRepository: ReservationRepository
 ) {
-    suspend operator fun invoke(storeId: Long): Flow<DataResult<List<ReservationModel>>> {
+    suspend operator fun invoke(storeId: Long, state: Int): Flow<DataResult<List<ReservationModel>>> {
         return flow {
-            reservationRepository.getReservationList(storeId).collect {
+            reservationRepository.getReservationList(storeId, state).collect {
                 it.onSuccess { reservationList ->
                     emit(DataResult.Success(reservationList))
                 }.onFailure {
