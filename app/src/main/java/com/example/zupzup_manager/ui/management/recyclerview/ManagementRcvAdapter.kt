@@ -4,9 +4,11 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
+import androidx.recyclerview.widget.RecyclerView
 import com.example.zupzup_manager.databinding.ItemManagementMerchandiseInfoBinding
 import com.example.zupzup_manager.databinding.ItemManagementStoreInfoBinding
 import com.example.zupzup_manager.databinding.ItemMerchandiseModifyBinding
+import com.example.zupzup_manager.domain.models.MerchandiseModel
 import com.example.zupzup_manager.domain.models.ReservationModel
 import com.example.zupzup_manager.domain.models.StoreModel
 import com.example.zupzup_manager.ui.common.ViewType
@@ -14,65 +16,50 @@ import com.example.zupzup_manager.ui.management.models.ManagementViewType
 
 class ManagementRcvAdapter(
     private val navigateToManagementDetail: (StoreModel) -> Unit
-) : ListAdapter<ManagementViewType, ManagementViewHolder>(
-    ManagementDiffCallBack()
+) : ListAdapter<MerchandiseModel, ManagementRcvAdapter.ManagementDetailViewHolder>(
+    MerchandiseModelDiffCallBack()
 ) {
-    override fun onCreateViewHolder(
-        parent: ViewGroup, viewType: Int
-    ): ManagementViewHolder {
-        return when (viewType) {
-            ViewType.STORE_INFO.ordinal -> {
-                val binding = ItemManagementStoreInfoBinding.inflate(
-                    LayoutInflater.from(parent.context),
-                    parent,
-                    false
-                )
-                ManagementViewHolder.ManagementStoreInfoViewHolder(binding)
-            }
-            ViewType.MERCHANDISE_INFO.ordinal -> {
-                val binding = ItemManagementMerchandiseInfoBinding.inflate(
-                    LayoutInflater.from(parent.context),
-                    parent,
-                    false
-                )
-                ManagementViewHolder.ManagementMerchandiseInfoViewHolder(binding)
-            }
-            else -> {
-                val binding = ItemMerchandiseModifyBinding.inflate(
-                    LayoutInflater.from(parent.context),
-                    parent,
-                    false
-                )
-                ManagementViewHolder.ManagementMerchandiseModifyViewHolder(binding, navigateToManagementDetail)
+    class ManagementDetailViewHolder(
+        private val binding: ItemManagementMerchandiseInfoBinding
+        //private val managementDetailBtnClickListener: ManagementDetailBtnClickListener
+    ) : RecyclerView.ViewHolder(binding.root) {
+        fun bind(item: MerchandiseModel) {
+            with(binding) {
+                itemName = item.itemName
+                discounted = item.discounted
+                imgUrl = item.imgUrl
+                stock = item.stock
+//                clickListener = managementDetailBtnClickListener
+//                executePendingBindings()
             }
         }
     }
-
-    override fun getItemViewType(position: Int): Int {
-        return currentList[position].viewType
+    override fun onCreateViewHolder(
+        parent: ViewGroup, viewType: Int
+    ): ManagementDetailViewHolder {
+        val binding =
+            ItemManagementMerchandiseInfoBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return ManagementDetailViewHolder(binding)
+//                ManagementViewHolder.ManagementMerchandiseModifyViewHolder(binding, navigateToManagementDetail)
     }
 
-    override fun onBindViewHolder(holder: ManagementViewHolder, position: Int) {
-        holder.bind(currentList[position])
+    override fun onBindViewHolder(holder: ManagementDetailViewHolder, position: Int) {
+        holder.bind(getItem(position))
     }
 
-    class ManagementDiffCallBack : DiffUtil.ItemCallback<ManagementViewType>() {
+    class MerchandiseModelDiffCallBack : DiffUtil.ItemCallback<MerchandiseModel>() {
         override fun areItemsTheSame(
-            oldItem: ManagementViewType,
-            newItem: ManagementViewType
+            oldItem: MerchandiseModel,
+            newItem: MerchandiseModel
         ): Boolean {
-            return if (oldItem.viewType == ViewType.MERCHANDISE_INFO.ordinal && newItem.viewType == ViewType.MERCHANDISE_INFO.ordinal) {
-                (oldItem as ManagementViewType.MerchandiseInfoViewType).itemId == (newItem as ManagementViewType.MerchandiseInfoViewType).itemId
-            } else {
-                oldItem.viewType == newItem.viewType
-            }
+            return oldItem.itemId == newItem.itemId
         }
 
         override fun areContentsTheSame(
-            oldItem: ManagementViewType,
-            newItem: ManagementViewType
+            oldItem: MerchandiseModel,
+            newItem: MerchandiseModel
         ): Boolean {
-            return oldItem.viewType == newItem.viewType && oldItem.hashCode() == newItem.hashCode()
+            return oldItem.hashCode() == newItem.hashCode()
         }
     }
 }
