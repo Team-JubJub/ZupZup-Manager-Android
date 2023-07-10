@@ -18,7 +18,6 @@ import com.example.zupzup_manager.domain.models.ReservationModel
 import com.example.zupzup_manager.domain.models.StoreModel
 import com.example.zupzup_manager.ui.common.UiEventState
 import com.example.zupzup_manager.ui.management.recyclerview.ManagementRcvAdapter
-import com.example.zupzup_manager.ui.reservationlist.ReservationListFragmentDirections
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 

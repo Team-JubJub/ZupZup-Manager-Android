@@ -10,13 +10,18 @@
         android:name="com.example.zupzup_manager.ui.reservationlist.ReservationListFragment"
         android:label="ReservationListFragment"
         tools:layout="@layout/fragment_reservation_list">
-        <action
-            android:id="@+id/action_frag_reservationList_to_frag_reservationDetail"
-            app:destination="@id/frag_reservationDetail" />
-        <action
-            android:id="@+id/action_frag_reservationList_to_settingFragment"
-            app:destination="@id/frag_setting" />
     </fragment>
+
+    <fragment
+        android:id="@+id/reservationListPageFragment"
+        android:name="com.example.zupzup_manager.ui.reservationlist.viewpager.ReservationListPageFragment"
+        android:label="ReservationListPageFragment"
+        tools:layout="@layout/fragment_reservation_list">
+        <action
+            android:id="@+id/action_reservationListPageFragment_to_frag_reservationDetail"
+            app:destination="@id/frag_reservationDetail" />
+    </fragment>
+
     <fragment
         android:id="@+id/frag_reservationDetail"
         android:name="com.example.zupzup_manager.ui.reservationdetail.ReservationDetailFragment"
