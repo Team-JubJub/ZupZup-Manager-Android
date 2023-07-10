@@ -12,6 +12,7 @@ import com.example.zupzup_manager.databinding.FragmentReservationListBinding
 import com.example.zupzup_manager.databinding.FragmentReservationListPageBinding
 import com.example.zupzup_manager.domain.models.ReservationModel
 import com.example.zupzup_manager.ui.common.User
+import com.example.zupzup_manager.ui.reservationlist.ReservationListFragmentDirections
 import com.example.zupzup_manager.ui.reservationlist.ReservationListViewModel
 import com.example.zupzup_manager.ui.reservationlist.recyclerview.ReservationListItemDecorator
 import com.example.zupzup_manager.ui.reservationlist.recyclerview.ReservationListRcvAdapter
@@ -40,7 +41,7 @@ class ReservationListPageFragment : Fragment() {
 
     private fun navigateToReservationDetail(reservation: ReservationModel) {
         val action =
-            ReservationListPageFragmentDirections.actionReservationListPageFragmentToFragReservationDetail(
+            ReservationListFragmentDirections.actionFragReservationListToFragReservationDetail(
                 reservation
             )
         findNavController().navigate(action)
@@ -68,7 +69,6 @@ class ReservationListPageFragment : Fragment() {
                 ReservationListRcvAdapter(this@ReservationListPageFragment::navigateToReservationDetail)
         }
     }
-
     companion object {
         private const val KEY_INDEX = "index"
 
