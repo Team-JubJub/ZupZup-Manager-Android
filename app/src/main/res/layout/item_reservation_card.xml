@@ -62,19 +62,19 @@
                 app:layout_constraintTop_toBottomOf="@id/tv_reservation_date"
                 tools:text="메뉴명메뉴명메뉴명메뉴명메뉴명" />
 
-            <TextView
-                android:id="@+id/tv_reservation_state"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/frame_rectangle_corner_99_white"
-                android:paddingHorizontal="24.5dp"
-                android:paddingVertical="8dp"
-                android:textColor="@color/text_black"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:state="@{reservation.state}"
-                tools:text="신규" />
+<!--            <TextView-->
+<!--                android:id="@+id/tv_reservation_state"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:background="@drawable/frame_rectangle_corner_99_white"-->
+<!--                android:paddingHorizontal="24.5dp"-->
+<!--                android:paddingVertical="8dp"-->
+<!--                android:textColor="@color/text_black"-->
+<!--                app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                app:layout_constraintTop_toTopOf="parent"-->
+<!--                app:state="@{reservation.state}"-->
+<!--                tools:text="신규" />-->
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -83,6 +83,7 @@
             android:background="@drawable/frame_rectangle_bottom_corner_12_warmgray_4"
             android:paddingHorizontal="16dp"
             android:paddingVertical="12dp"
+            app:state="@{reservation.state}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/constraint_upper">
