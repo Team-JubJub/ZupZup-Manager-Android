@@ -3,6 +3,7 @@ package com.example.zupzup_manager.ui.reservationlist.binding
 import android.graphics.drawable.GradientDrawable
 import android.widget.TextView
 import android.widget.Toast
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -47,17 +48,15 @@ fun bindReservationListToRecyclerView(
 
 @BindingAdapter("state")
 fun bindReservationStateToTextView(
-    textView: TextView,
+    constraintLayout: ConstraintLayout,
     state: String
 ) {
-    (textView.background as GradientDrawable).setColor(
+    (constraintLayout.background as GradientDrawable).setColor(
         ContextCompat.getColor(
-            textView.context,
+            constraintLayout.context,
             ReservationStateMapper.getStateBackgroundColor(state)
         )
     )
-
-    textView.text = ReservationStateMapper.getStateDescription(state)
 }
 
 @BindingAdapter("reserveId")
