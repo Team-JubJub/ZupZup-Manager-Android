@@ -5,10 +5,10 @@ import com.example.zupzup_manager.R
 object ReservationStateMapper {
     fun getStateBackgroundColor(state: String): Int {
         return when (state) {
-            "NEW" -> R.color.bg_2
-            "CONFIRM" -> R.color.purple
-            "COMPLETE" -> R.color.green
-            else -> R.color.warm_gray5
+            "NEW" -> R.color.orange_400
+            "CONFIRM" -> R.color.tangerine_300
+            "COMPLETE" -> R.color.green_300
+            else -> R.color.ivory_gray_400
         }
     }
 

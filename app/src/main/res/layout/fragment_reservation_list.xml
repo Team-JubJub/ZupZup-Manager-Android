@@ -4,13 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <variable
-            name="adapter"
-            type="com.example.zupzup_manager.ui.reservationlist.recyclerview.ReservationListRcvAdapter" />
-
-        <variable
-            name="viewModel"
-            type="com.example.zupzup_manager.ui.reservationlist.ReservationListViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -29,17 +22,37 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rcv_reservation_list"
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tab_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            app:tabIconTint="@color/tab_select"
+            app:tabTextColor="@color/tab_select"
+            app:tabIndicatorColor="@color/tab_select"
+            app:tabIndicatorHeight="2dp"
+            app:tabTextAppearance="@style/UIHeadline"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_page_title"/>
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/view_pager"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginTop="15dp"
-            android:adapter="@{adapter}"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_page_title"
-            app:uiState="@{viewModel.reservationListUiState}" />
+            app:layout_constraintTop_toBottomOf="@id/tab_layout"/>
+        
+<!--        <androidx.recyclerview.widget.RecyclerView-->
+<!--            android:id="@+id/rcv_reservation_list"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="0dp"-->
+<!--            android:layout_marginTop="15dp"-->
+<!--            android:adapter="@{adapter}"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@id/tv_page_title"-->
+<!--            app:uiState="@{viewModel.reservationListUiState}" />-->
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

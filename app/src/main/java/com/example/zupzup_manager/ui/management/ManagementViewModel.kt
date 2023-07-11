@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.zupzup_manager.data.common.toTimeString
 import com.example.zupzup_manager.domain.DataResult
+import com.example.zupzup_manager.domain.models.MerchandiseModel
 import com.example.zupzup_manager.domain.models.StoreModel
 import com.example.zupzup_manager.domain.usecase.GetStoreDetailUseCase
 import com.example.zupzup_manager.ui.common.UiState
@@ -23,45 +24,14 @@ class ManagementViewModel @Inject constructor(
         getStoreDetail(2)
     }
 
-    private var _managementDetailBody = MutableStateFlow<List<ManagementViewType>>(listOf())
+    private var _managementDetailBody = MutableStateFlow<List<MerchandiseModel>>(listOf())
     val managementDetailBody = _managementDetailBody.asStateFlow()
-
-
-    private fun getManagementViewTypeList(storeModel: StoreModel): List<ManagementViewType> {
-        val viewTypeList = mutableListOf<ManagementViewType>()
-        viewTypeList.add(
-            ManagementViewType.StoreInfoViewType(
-                name = storeModel.name,
-                openTime = storeModel.openTime,
-                eventList = storeModel.eventList.joinToString("\n"),
-                saleOpenTime = storeModel.saleTime.first.toTimeString(),
-                saleCloseTime = storeModel.saleTime.second.toTimeString())
-        )
-        viewTypeList.add(
-            ManagementViewType.MerchandiseModifyViewType(
-                store = storeModel
-            )
-        )
-        storeModel.merchandiseList.forEach {
-            viewTypeList.add(
-                ManagementViewType.MerchandiseInfoViewType(
-                    itemId = it.itemId,
-                    itemName = it.itemName,
-                    price = it.price,
-                    discounted = it.discounted,
-                    imgUrl = it.imgUrl,
-                    stock = it.stock
-                )
-            )
-        }
-        return viewTypeList
-    }
 
     private fun getStoreDetail(storeId: Long) {
         viewModelScope.launch {
             getStoreDetailUseCase(storeId).collect {
                 if (it is DataResult.Success) {
-                    _managementDetailBody.emit(getManagementViewTypeList(it.data))
+                    _managementDetailBody.emit(it.data.merchandiseList)
                 } else {
                     _managementDetailBody.emit(listOf())
                 }

@@ -13,10 +13,8 @@
         <action
             android:id="@+id/action_frag_reservationList_to_frag_reservationDetail"
             app:destination="@id/frag_reservationDetail" />
-        <action
-            android:id="@+id/action_frag_reservationList_to_settingFragment"
-            app:destination="@id/frag_setting" />
     </fragment>
+
     <fragment
         android:id="@+id/frag_reservationDetail"
         android:name="com.example.zupzup_manager.ui.reservationdetail.ReservationDetailFragment"

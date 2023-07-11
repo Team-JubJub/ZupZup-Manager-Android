@@ -16,9 +16,16 @@ class ReservationDataSourceImpl @Inject constructor(
     @FireBaseModule.TestReservationRef private val reservationRef: CollectionReference
 ) : ReservationDataSource {
 
-    override suspend fun getReservationList(storeId: Long): Flow<List<DocumentSnapshot>> {
+    override suspend fun getReservationList(storeId: Long, state: Int): Flow<List<DocumentSnapshot>> {
         return callbackFlow {
-            val reservationDoc = reservationRef.whereEqualTo("storeId", storeId)
+            val reservationDoc = reservationRef.whereEqualTo("storeId", storeId).apply {
+                when (state) {
+                    0 -> whereEqualTo("state", "NEW")
+                    1 -> whereEqualTo("state", "CONFIRM")
+                    2 -> whereIn("state", listOf("COMPLETE", "CANCEL"))
+                }
+            }
+
             Log.d("TAG", "getReservationList: $storeId ")
             val subscription = reservationDoc.addSnapshotListener { value, _ ->
                 if (value == null) {

@@ -5,12 +5,6 @@ import com.example.zupzup_manager.ui.common.ViewType
 
 sealed class ManagementViewType {
     abstract val viewType: Int
-
-    data class MerchandiseModifyViewType(
-        override val viewType: Int = ViewType.MERCHANDISE_MODIFY.ordinal,
-        val store: StoreModel
-    ) : ManagementViewType()
-
     data class StoreInfoViewType(
         override val viewType: Int = ViewType.STORE_INFO.ordinal,
         val name: String,

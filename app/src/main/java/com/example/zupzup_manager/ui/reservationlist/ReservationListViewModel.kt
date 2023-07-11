@@ -18,18 +18,18 @@ class ReservationListViewModel @Inject constructor(
     private val getReservationListUseCase: GetReservationListUseCase
 ) : ViewModel() {
 
-    init {
-        getReservationList(User.getStoreId())
-    }
+//    init {
+//        getReservationList(User.getStoreId(), 3)
+//    }
 
     private var _reservationListUiState =
         MutableStateFlow<UiState<List<ReservationModel>>>(UiState.Loading)
     val reservationListUiState = _reservationListUiState.asStateFlow()
 
 
-    private fun getReservationList(storeId: Long) {
+    fun getReservationList(storeId: Long, state: Int) {
         viewModelScope.launch {
-            getReservationListUseCase(storeId).collect {
+            getReservationListUseCase(storeId, state).collect {
                 if (it is DataResult.Success) {
                     _reservationListUiState.emit(UiState.Success(it.data))
                 } else {

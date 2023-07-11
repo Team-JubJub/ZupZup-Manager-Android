@@ -77,7 +77,9 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun setUserStoreId(storeId: Long) {
-        User.setStoreId(storeId)
+        // TODO 수정할 것, 테스트용 아이디
+        User.setStoreId(9)
+//        User.setStoreId(storeId)
     }
 
     private fun navigateMainActivity() {

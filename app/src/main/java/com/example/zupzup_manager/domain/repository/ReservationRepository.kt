@@ -5,7 +5,7 @@ import com.example.zupzup_manager.domain.models.ReservationModel
 import kotlinx.coroutines.flow.Flow
 
 interface ReservationRepository {
-    suspend fun getReservationList(storeId: Long): Flow<Result<List<ReservationModel>>>
+    suspend fun getReservationList(storeId: Long, state: Int): Flow<Result<List<ReservationModel>>>
 
     suspend fun confirmReservation(reserveId: Long, cartList: List<CartModel>): Result<Int>
 
