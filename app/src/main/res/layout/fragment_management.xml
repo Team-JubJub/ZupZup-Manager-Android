@@ -28,6 +28,29 @@
         android:paddingHorizontal="8dp"
         tools:context=".ui.management.ManagementFragment">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:gravity="center_vertical"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+<!--            android:onClick="@{_ -> clickListener.navigateToBackStack()}"-->
+            <ImageView
+                android:id="@+id/btn_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_back_button" />
+            <TextView
+                android:id="@+id/tv_prev_page"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:text="제품 관리"
+                style="@style/UIBody"
+                android:textColor="@color/tangerine_300"/>
+        </LinearLayout>
+
         <RelativeLayout
             android:id="@+id/tv_title_section"
             android:layout_width="match_parent"
