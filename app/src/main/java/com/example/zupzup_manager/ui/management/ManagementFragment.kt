@@ -1,25 +1,20 @@
 package com.example.zupzup_manager.ui.management
 
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.GridLayoutManager
 import com.example.zupzup_manager.databinding.FragmentManagementBinding
-import com.example.zupzup_manager.domain.models.ReservationModel
 import com.example.zupzup_manager.domain.models.StoreModel
-import com.example.zupzup_manager.ui.common.UiEventState
+import com.example.zupzup_manager.ui.common.fromDpToPx
+import com.example.zupzup_manager.ui.custom.GridSpacingItemDecoration
 import com.example.zupzup_manager.ui.management.recyclerview.ManagementRcvAdapter
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
+import kotlin.math.roundToInt
 
 @AndroidEntryPoint
 class ManagementFragment : Fragment() {
@@ -31,7 +26,7 @@ class ManagementFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentManagementBinding.inflate(inflater)
         return binding.root
     }
@@ -60,7 +55,8 @@ class ManagementFragment : Fragment() {
 
     private fun initRecyclerView() {
         with(binding.rcvManagement) {
-            layoutManager = LinearLayoutManager(requireContext())
+            layoutManager = GridLayoutManager(requireContext(), 2)
+            addItemDecoration(GridSpacingItemDecoration(2, 8f.fromDpToPx()))
         }
     }
 

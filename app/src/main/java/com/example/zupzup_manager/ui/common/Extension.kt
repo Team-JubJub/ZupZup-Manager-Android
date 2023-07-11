@@ -1,5 +1,6 @@
 package com.example.zupzup_manager.ui.common
 
+import android.content.res.Resources
 import java.text.DecimalFormat
 import java.text.SimpleDateFormat
 import java.util.*
@@ -27,4 +28,8 @@ fun Long.toDetailDateFormat(): String {
 
 fun Int.toDecimalFormat() : String {
     return DecimalFormat("#,###").format(this)+"원"
+}
+
+fun Float.fromDpToPx(): Int {
+    return (this * Resources.getSystem().displayMetrics.density).toInt()
 }

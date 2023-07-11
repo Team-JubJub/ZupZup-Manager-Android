@@ -26,7 +26,7 @@ fun bindManagementDetailToRecyclerView(
 fun bindImageUrlToImageView(imageView: ImageView, imgUrl: String) {
 
     val density: Float = imageView.context.resources.displayMetrics.density
-    val px = (14.toFloat() * density).roundToInt()
+    val px = (8.toFloat() * density).roundToInt()
     Glide
         .with(imageView.context)
         .load(imgUrl)

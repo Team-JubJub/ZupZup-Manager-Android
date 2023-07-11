@@ -20,97 +20,75 @@ xmlns:tools="http://schemas.android.com/tools">
             name="stock"
             type="Integer" />
     </data>
-    
-<androidx.constraintlayout.widget.ConstraintLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginTop="8dp"
-    android:background="@drawable/frame_rectangle_corner_14_warmgray_3">
 
-    <ImageView
-        android:id="@+id/iv_merchandise"
-        android:layout_width="84dp"
-        android:layout_height="0dp"
-        android:layout_marginEnd="8dp"
-        app:imgUrl="@{imgUrl}"
-        android:background="@color/transparent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/tv_merchandise_name"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/tv_merchandise_name"
-        android:layout_width="0dp"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginEnd="4dp"
-        android:ellipsize="end"
-        android:maxLines="1"
-        android:fontFamily="@font/pretendard_semibold"
-        android:text="@{itemName}"
-        android:textSize="17dp"
-        android:letterSpacing="-0.03"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/iv_merchandise"
-        app:layout_constraintEnd_toStartOf="@+id/tv_merchandise_amount"
-        tools:text="제품명을 대충 써보자~~~~~~~~~~~~" />
+        android:background="@drawable/frame_stroke_rect_corner_8_ivorygray_200_100">
 
-    <TextView
-        android:id="@+id/tv_merchandise_price"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:text="@{price.toString() + '원'}"
-        android:textColor="@color/warm_gray5"
-        android:textSize="13sp"
-        android:letterSpacing="-0.03"
-        app:layout_constraintBottom_toBottomOf="@+id/tv_merchandise_sales_price"
-        app:layout_constraintStart_toEndOf="@+id/tv_merchandise_sales_price"
-        app:layout_constraintTop_toTopOf="@+id/tv_merchandise_sales_price"
-        tools:text="4000원" />
+        <ImageView
+            android:id="@+id/iv_merchandise"
+            android:layout_width="match_parent"
+            android:layout_height="110dp"
+            android:layout_marginTop="1dp"
+            android:layout_marginHorizontal="1dp"
+            android:background="@color/transparent"
+            app:imgUrl="@{imgUrl}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/tv_merchandise_sales_price"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:layout_marginBottom="15dp"
-        android:text="@{discounted.toString() + '원'}"
-        android:textColor="@color/main"
-        android:textSize="13sp"
-        android:letterSpacing="-0.03"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/tv_merchandise_name"
-        app:layout_constraintTop_toBottomOf="@id/tv_merchandise_name"
-        tools:text="3000원" />
+        <TextView
+            android:id="@+id/tv_merchandise_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginHorizontal="8dp"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:text="@{itemName.toString()}"
+            style="@style/UIHeadline"
+            app:layout_constraintTop_toBottomOf="@id/iv_merchandise"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="제품명을 대충 써보자~~~~~~~~~~~~" />
 
-    <TextView
-        android:id="@+id/tv_merchandise_amount"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="71.5dp"
-        android:text="@{stock.toString()}"
-        android:textColor="@color/main"
-        android:textSize="17sp"
-        android:letterSpacing="-0.03"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="8" />
+        <TextView
+            android:id="@+id/tv_merchandise_sales_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="10dp"
+            android:layout_marginStart="8dp"
+            android:text="@{discounted.toString() + '원'}"
+            style="@style/UIHeadline"
+            android:textColor="@color/tangerine_300"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_merchandise_name"
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:text="3000원" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="46.5dp"
-        android:text="EA"
-        android:textColor="@color/warm_gray5"
-        android:textSize="17sp"
-        android:letterSpacing="-0.03"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="10dp"
+            android:text="@{stock.toString()}"
+            style="@style/UISubhead"
+            android:textColor="@color/ivory_gray_400"
+            app:layout_constraintTop_toBottomOf="@id/tv_merchandise_name"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/tv_merchandise_amount"
+            tools:text="8" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/tv_merchandise_amount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="10dp"
+            android:layout_marginEnd="8dp"
+            android:text="개"
+            style="@style/UISubhead"
+            android:textColor="@color/ivory_gray_400"
+            app:layout_constraintTop_toBottomOf="@id/tv_merchandise_name"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
