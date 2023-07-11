@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="transparent">#00000000</color>
+    <color name="black_40">#66000000</color>
     <color name="purple">#855BF9</color>
     <color name="green">#56D578</color>
     <color name="green_300">#08C847</color>
@@ -13,7 +14,7 @@
     <color name="cool_gray1">#535353</color>
     <color name="bg_2">#CCFFBD00</color>
     <color name="bg">#B3000000</color>
-    <color name="text_black">#1E1E1E</color>
+    <color name="pure_black">#000000</color>
     <color name="text_white">#F5F5F5</color>
     <color name="gray_0">#F1EEE9</color>
     <color name="warm_gray1">#F5F1E9</color>

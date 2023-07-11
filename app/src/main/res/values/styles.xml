@@ -2,42 +2,49 @@
 <resources>
     <style name="UIHero">
         <item name="android:fontFamily">@font/suite_heavy</item>
-        <item name="android:textColor">@color/text_black</item>
+        <item name="android:textColor">@color/pure_black</item>
         <item name="android:letterSpacing">-0.04</item>
         <item name="android:textSize">34dp</item>
         <item name="android:includeFontPadding">false</item>
     </style>
     <style name="UIH3">
         <item name="android:fontFamily">@font/suite_heavy</item>
-        <item name="android:textColor">@color/text_black</item>
+        <item name="android:textColor">@color/pure_black</item>
         <item name="android:letterSpacing">-0.04</item>
         <item name="android:textSize">20dp</item>
         <item name="android:includeFontPadding">false</item>
     </style>
     <style name="UIHeadline">
         <item name="android:fontFamily">@font/suite_heavy</item>
-        <item name="android:textColor">@color/text_black</item>
+        <item name="android:textColor">@color/pure_black</item>
+        <item name="android:letterSpacing">-0.03</item>
+        <item name="android:textSize">17dp</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
+    <style name="UIBody">
+        <item name="android:fontFamily">@font/suit_regular</item>
+        <item name="android:textColor">@color/pure_black</item>
         <item name="android:letterSpacing">-0.03</item>
         <item name="android:textSize">17dp</item>
         <item name="android:includeFontPadding">false</item>
     </style>
     <style name="UICallout">
         <item name="android:fontFamily">@font/pretendard_regular</item>
-        <item name="android:textColor">@color/text_black</item>
+        <item name="android:textColor">@color/pure_black</item>
         <item name="android:letterSpacing">-0.02</item>
         <item name="android:textSize">16dp</item>
         <item name="android:includeFontPadding">false</item>
     </style>
     <style name="UISubhead">
         <item name="android:fontFamily">@font/pretendard_regular</item>
-        <item name="android:textColor">@color/text_black</item>
+        <item name="android:textColor">@color/pure_black</item>
         <item name="android:letterSpacing">-0.02</item>
         <item name="android:textSize">15dp</item>
         <item name="android:includeFontPadding">false</item>
     </style>
     <style name="UICaptionSmall">
         <item name="android:fontFamily">@font/pretendard_regular</item>
-        <item name="android:textColor">@color/text_black</item>
+        <item name="android:textColor">@color/pure_black</item>
         <item name="android:textSize">11dp</item>
         <item name="android:includeFontPadding">false</item>
     </style>
