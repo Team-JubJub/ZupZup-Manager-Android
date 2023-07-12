@@ -12,38 +12,40 @@ import com.example.zupzup_manager.domain.models.MerchandiseModel
 import com.example.zupzup_manager.domain.models.ReservationModel
 import com.example.zupzup_manager.domain.models.StoreModel
 import com.example.zupzup_manager.ui.common.ViewType
+import com.example.zupzup_manager.ui.management.ManagementBtnClickListener
+import com.example.zupzup_manager.ui.management.ManagementViewModel
 import com.example.zupzup_manager.ui.management.models.ManagementViewType
+import com.example.zupzup_manager.ui.managementdetail.ManagementDetailBtnClickListener
 
 class ManagementRcvAdapter(
-    private val navigateToManagementDetail: (StoreModel) -> Unit
-) : ListAdapter<MerchandiseModel, ManagementRcvAdapter.ManagementDetailViewHolder>(
+    private val managementBtnClickListener: ManagementBtnClickListener,
+    private val managementViewModel: ManagementViewModel
+) : ListAdapter<MerchandiseModel, ManagementRcvAdapter.ManagementViewHolder>(
     MerchandiseModelDiffCallBack()
 ) {
-    class ManagementDetailViewHolder(
-        private val binding: ItemManagementMerchandiseInfoBinding
-        //private val managementDetailBtnClickListener: ManagementDetailBtnClickListener
+    class ManagementViewHolder(
+        private val binding: ItemManagementMerchandiseInfoBinding,
+        private val managementBtnClickListener: ManagementBtnClickListener,
+        private val managementViewModel: ManagementViewModel
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: MerchandiseModel) {
             with(binding) {
-                itemName = item.itemName
-                discounted = item.discounted
-                imgUrl = item.imgUrl
-                stock = item.stock
-//                clickListener = managementDetailBtnClickListener
-//                executePendingBindings()
+                merchandise = item
+                viewModel = managementViewModel
+                clickListener = managementBtnClickListener
+                executePendingBindings()
             }
         }
     }
     override fun onCreateViewHolder(
         parent: ViewGroup, viewType: Int
-    ): ManagementDetailViewHolder {
+    ): ManagementViewHolder {
         val binding =
             ItemManagementMerchandiseInfoBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return ManagementDetailViewHolder(binding)
-//                ManagementViewHolder.ManagementMerchandiseModifyViewHolder(binding, navigateToManagementDetail)
+        return ManagementViewHolder(binding, managementBtnClickListener, managementViewModel)
     }
 
-    override fun onBindViewHolder(holder: ManagementDetailViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ManagementViewHolder, position: Int) {
         holder.bind(getItem(position))
     }
 

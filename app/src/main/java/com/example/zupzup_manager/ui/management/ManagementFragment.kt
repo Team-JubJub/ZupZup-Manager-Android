@@ -6,22 +6,55 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.zupzup_manager.databinding.FragmentManagementBinding
-import com.example.zupzup_manager.domain.models.StoreModel
+import com.example.zupzup_manager.domain.models.MerchandiseModel
+import com.example.zupzup_manager.ui.common.ManagementState
 import com.example.zupzup_manager.ui.common.fromDpToPx
 import com.example.zupzup_manager.ui.custom.GridSpacingItemDecoration
 import com.example.zupzup_manager.ui.management.recyclerview.ManagementRcvAdapter
+import com.example.zupzup_manager.ui.reservationdetail.bottomsheet.ReservationConfirmBottomSheetFragment
 import dagger.hilt.android.AndroidEntryPoint
-import kotlin.math.roundToInt
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class ManagementFragment : Fragment() {
     private var _binding: FragmentManagementBinding? = null
     private val binding get() = _binding!!
-
+    private var managementStateBottomSheetFragment: ManagementStateBottomSheetFragment? = null
     private val managementViewModel: ManagementViewModel by viewModels()
+
+    private val managementDialogClickListener = object : ManagementDialogClickListener {
+        override fun changeState(state: String) {
+            println("$state state!")
+            println(managementViewModel.managementUiState.value)
+            println(managementViewModel.managementUiState.toString())
+            println(ManagementState.Amount.toString())
+            managementViewModel.changeState(state)
+        }
+    }
+
+    private val managementBtnClickListener = object : ManagementBtnClickListener {
+        override fun createBottomSheet() {
+            managementStateBottomSheetFragment = ManagementStateBottomSheetFragment(managementDialogClickListener)
+            managementStateBottomSheetFragment!!.show(parentFragmentManager, "")
+        }
+
+        override fun onPlusMerchandiseModifiedAmountBtnClick(itemId: Long) {
+            managementViewModel.plusModifiedAmount(itemId)
+        }
+
+        override fun onMinusMerchandiseModifiedAmountBtnClick(itemId: Long) {
+            managementViewModel.minusModifiedAmount(itemId)
+        }
+
+        override fun modifyMerchandise(merchandiseList: List<MerchandiseModel>) {
+            managementViewModel.modifyMerchandise(merchandiseList)
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,21 +68,43 @@ class ManagementFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initBinding()
         initRecyclerView()
+        collectManagementState()
     }
 
-    private fun navigateToManagementDetail(store: StoreModel) {
-        val action =
-            ManagementFragmentDirections.actionFragManagementToManagementDetailFragment(
-                store = store
-            )
-        findNavController().navigate(action)
+    private fun collectManagementState() {
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                managementViewModel.managementUiState.collect {
+                    when (it) {
+                        ManagementState.Default -> {
+                            binding.btnBack.visibility = View.GONE
+                        }
+                        ManagementState.Amount -> {
+                            if (managementStateBottomSheetFragment != null) {
+                                managementStateBottomSheetFragment!!.dismiss()
+                            }
+                            binding.btnBack.visibility = View.VISIBLE
+                        }
+                        ManagementState.Info -> {
+                            if (managementStateBottomSheetFragment != null) {
+                                managementStateBottomSheetFragment!!.dismiss()
+                            }
+                            binding.btnBack.visibility = View.VISIBLE
+                        }
+                    }
+                }
+            }
+        }
     }
 
     private fun initBinding() {
         with(binding) {
-            adapter = ManagementRcvAdapter(this@ManagementFragment::navigateToManagementDetail)
+            adapter = ManagementRcvAdapter(managementBtnClickListener, managementViewModel)
             viewModel = managementViewModel
             lifecycleOwner = viewLifecycleOwner
+            stateClickListener = managementDialogClickListener
+            dialogClickListener = managementBtnClickListener
+
         }
     }
 
