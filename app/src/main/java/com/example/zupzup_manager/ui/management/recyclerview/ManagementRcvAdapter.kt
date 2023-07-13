@@ -6,16 +6,9 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.zupzup_manager.databinding.ItemManagementMerchandiseInfoBinding
-import com.example.zupzup_manager.databinding.ItemManagementStoreInfoBinding
-import com.example.zupzup_manager.databinding.ItemMerchandiseModifyBinding
 import com.example.zupzup_manager.domain.models.MerchandiseModel
-import com.example.zupzup_manager.domain.models.ReservationModel
-import com.example.zupzup_manager.domain.models.StoreModel
-import com.example.zupzup_manager.ui.common.ViewType
-import com.example.zupzup_manager.ui.management.ManagementBtnClickListener
+import com.example.zupzup_manager.ui.management.clicklistener.ManagementBtnClickListener
 import com.example.zupzup_manager.ui.management.ManagementViewModel
-import com.example.zupzup_manager.ui.management.models.ManagementViewType
-import com.example.zupzup_manager.ui.managementdetail.ManagementDetailBtnClickListener
 
 class ManagementRcvAdapter(
     private val managementBtnClickListener: ManagementBtnClickListener,

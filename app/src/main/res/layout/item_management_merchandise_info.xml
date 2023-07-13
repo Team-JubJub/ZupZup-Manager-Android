@@ -5,21 +5,17 @@ xmlns:tools="http://schemas.android.com/tools">
 
     <data>
         <import type="android.view.View"/>
+        <import type="com.example.zupzup_manager.ui.common.ManagementState"/>
+        <import type="com.example.zupzup_manager.ui.common.ManagementState.Amount"/>
         <variable
-            name="itemName"
-            type="java.lang.String" />
+            name="viewModel"
+            type="com.example.zupzup_manager.ui.management.ManagementViewModel" />
         <variable
-            name="price"
-            type="Integer" />
+            name="merchandise"
+            type="com.example.zupzup_manager.domain.models.MerchandiseModel" />
         <variable
-            name="discounted"
-            type="Integer" />
-        <variable
-            name="imgUrl"
-            type="java.lang.String" />
-        <variable
-            name="stock"
-            type="Integer" />
+            name="clickListener"
+            type="com.example.zupzup_manager.ui.management.clicklistener.ManagementBtnClickListener" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -41,7 +37,7 @@ xmlns:tools="http://schemas.android.com/tools">
                 android:layout_marginTop="1dp"
                 android:layout_marginHorizontal="1dp"
                 android:background="@color/transparent"
-                app:imgUrl="@{imgUrl}"
+                app:imgUrl="@{merchandise.imgUrl}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -53,17 +49,21 @@ xmlns:tools="http://schemas.android.com/tools">
                 android:layout_marginHorizontal="8dp"
                 android:ellipsize="end"
                 android:maxLines="2"
-                android:text="@{itemName.toString()}"
+                android:text="@{merchandise.itemName.toString()}"
                 style="@style/UIHeadline"
-                android:textColor="@{stock == 0 ? @color/ivory_gray_500 : @color/pure_black}"
+                android:textColor="@{merchandise.stock == 0 ? @color/ivory_gray_500 : @color/pure_black}"
                 app:layout_constraintTop_toBottomOf="@id/iv_merchandise"
                 app:layout_constraintStart_toStartOf="parent"
                 tools:text="제품명을 대충 써보자~~~~~~~~~~~~" />
 
+            <!--      DEFAULT MODE      -->
+            <!--       가격 및 개수        -->
             <RelativeLayout
+                android:id="@+id/price"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="10dp"
+                android:visibility="@{String.valueOf(viewModel.managementUiState).contains(`Amount`) ? View.GONE : View.VISIBLE}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_merchandise_name"
                 app:layout_constraintBottom_toBottomOf="parent">
@@ -75,22 +75,77 @@ xmlns:tools="http://schemas.android.com/tools">
                     android:layout_marginStart="8dp"
                     android:layout_centerInParent="true"
                     android:layout_alignParentStart="true"
-                    android:text="@{discounted.toString() + '원'}"
+                    android:text="@{String.valueOf(merchandise.discounted) + '원'}"
                     style="@style/UIHeadline"
                     tools:textColor="@color/tangerine_300"
-                    android:textColor="@{stock == 0 ? @color/ivory_gray_400 : @color/tangerine_300}"
+                    android:textColor="@{merchandise.stock == 0 ? @color/ivory_gray_400 : @color/tangerine_300}"
                     tools:text="3000원" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="8dp"
-                    android:layout_alignParentEnd="true"
                     android:layout_centerInParent="true"
-                    android:text="@{stock == 0 ? `품절` : stock.toString() + `개`}"
+                    android:layout_alignParentEnd="true"
+                    android:text="@{merchandise.stock == 0 ? `품절` : String.valueOf(merchandise.stock) + `개`}"
                     style="@style/UISubhead"
                     android:textColor="@color/ivory_gray_400"
                     tools:text="8개" />
+
+            </RelativeLayout>
+
+            <!--      AMOUNT MODE      -->
+            <!--        개수 수정        -->
+            <RelativeLayout
+                android:id="@+id/amount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="10dp"
+                android:layout_marginHorizontal="8dp"
+                android:visibility="@{String.valueOf(viewModel.managementUiState).contains(`Amount`) ? View.VISIBLE : View.GONE}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_merchandise_name"
+                app:layout_constraintBottom_toBottomOf="parent">
+
+                <ImageView
+                    android:id="@+id/btn_minus"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_centerInParent="true"
+                    android:layout_alignParentStart="true"
+                    android:background="@drawable/frame_oval_ivorygray_4"
+                    android:padding="4dp"
+                    android:src="@drawable/ic_minus"
+                    app:clickListener="@{clickListener}"
+                    app:itemId="@{merchandise.itemId}"
+                    app:tvConfirmedAmount="@{tvMerchandiseAmount}" />
+
+                <TextView
+                    android:id="@+id/tv_merchandise_amount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp"
+                    android:layout_centerInParent="true"
+                    android:text="@{String.valueOf(merchandise.stock)}"
+                    style="@style/UIHeadline"
+                    app:layout_constraintBottom_toBottomOf="@id/btn_plus"
+                    app:layout_constraintEnd_toStartOf="@id/btn_plus"
+                    app:layout_constraintTop_toTopOf="@id/btn_plus"
+                    tools:text="8" />
+
+                <ImageView
+                    android:id="@+id/btn_plus"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_centerInParent="true"
+                    android:layout_alignParentEnd="true"
+                    android:background="@drawable/frame_oval_ivorygray_4"
+                    android:padding="4dp"
+                    android:src="@drawable/ic_plus"
+                    app:clickListener="@{clickListener}"
+                    app:itemId="@{merchandise.itemId}"
+                    app:tvConfirmedAmount="@{tvMerchandiseAmount}"/>
+
             </RelativeLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -102,7 +157,8 @@ xmlns:tools="http://schemas.android.com/tools">
             app:layout_constraintEnd_toEndOf="@+id/cl_item"
             app:layout_constraintStart_toStartOf="@+id/cl_item"
             app:layout_constraintTop_toTopOf="@+id/cl_item"
-            android:visibility="@{stock == 0 ? View.VISIBLE : View.GONE}"
+            tools:background="@color/transparent"
+            android:visibility="@{merchandise.stock == 0 ? View.VISIBLE : View.GONE}"
             android:background="@drawable/frame_rectangle_corner_8_black_40" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

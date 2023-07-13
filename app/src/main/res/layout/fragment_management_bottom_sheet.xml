@@ -12,7 +12,7 @@
 
         <variable
             name="clickListener"
-            type="com.example.zupzup_manager.ui.management.ManagementDialogClickListener" />
+            type="com.example.zupzup_manager.ui.management.clicklistener.ManagementDialogClickListener" />
     </data>
 
     <LinearLayout

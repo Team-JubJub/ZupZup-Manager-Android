@@ -15,8 +15,9 @@ import com.example.zupzup_manager.domain.models.MerchandiseModel
 import com.example.zupzup_manager.ui.common.ManagementState
 import com.example.zupzup_manager.ui.common.fromDpToPx
 import com.example.zupzup_manager.ui.custom.GridSpacingItemDecoration
+import com.example.zupzup_manager.ui.management.clicklistener.ManagementBtnClickListener
+import com.example.zupzup_manager.ui.management.clicklistener.ManagementDialogClickListener
 import com.example.zupzup_manager.ui.management.recyclerview.ManagementRcvAdapter
-import com.example.zupzup_manager.ui.reservationdetail.bottomsheet.ReservationConfirmBottomSheetFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -72,8 +73,8 @@ class ManagementFragment : Fragment() {
     }
 
     private fun collectManagementState() {
-        lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 managementViewModel.managementUiState.collect {
                     when (it) {
                         ManagementState.Default -> {

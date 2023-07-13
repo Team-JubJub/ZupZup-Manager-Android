@@ -20,6 +20,14 @@
         <variable
             name="navigate"
             type="Function1&lt;StoreModel, Unit>" />
+        <!--  기본 모드 전환 클릭 리스너  -->
+        <variable
+            name="stateClickListener"
+            type="com.example.zupzup_manager.ui.management.clicklistener.ManagementDialogClickListener" />
+        <!-- BottomSheet Dialog 클릭 리스너  -->
+        <variable
+            name="dialogClickListener"
+            type="com.example.zupzup_manager.ui.management.clicklistener.ManagementBtnClickListener" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -29,20 +37,19 @@
         tools:context=".ui.management.ManagementFragment">
 
         <LinearLayout
+            android:id="@+id/btn_back"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
             android:gravity="center_vertical"
+            android:onClick="@{_ -> stateClickListener.changeState(`DEFAULT`)}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
-<!--            android:onClick="@{_ -> clickListener.navigateToBackStack()}"-->
             <ImageView
-                android:id="@+id/btn_back"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_back_button" />
             <TextView
-                android:id="@+id/tv_prev_page"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
@@ -61,21 +68,21 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <TextView
+                style="@style/UIHero"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="제품 관리"
-                android:layout_centerInParent="true"
                 android:layout_alignParentStart="true"
-                style="@style/UIHero" />
+                android:layout_centerInParent="true"
+                android:text="제품 관리" />
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="10dp"
-                android:src="@drawable/ic_edit"
                 android:layout_alignParentEnd="true"
                 android:layout_centerInParent="true"
-                android:onClick="@{_ -> navigate.invoke(store)}"/>
+                android:layout_marginEnd="10dp"
+                android:onClick="@{_ -> dialogClickListener.createBottomSheet()}"
+                android:src="@drawable/ic_edit" />
         </RelativeLayout>
 
         <androidx.recyclerview.widget.RecyclerView
