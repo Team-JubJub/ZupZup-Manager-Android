@@ -40,6 +40,28 @@ xmlns:tools="http://schemas.android.com/tools">
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:visibility="@{String.valueOf(viewModel.managementUiState).contains(`InfoMode`) ? View.VISIBLE : View.GONE}"
+                app:layout_constraintBottom_toBottomOf="@+id/iv_merchandise"
+                app:layout_constraintEnd_toEndOf="@+id/cl_item"
+                app:layout_constraintStart_toStartOf="@+id/cl_item"
+                app:layout_constraintTop_toTopOf="@+id/cl_item"
+                tools:background="@drawable/frame_rectangle_top_corner_8_black_40"
+                android:background="@drawable/frame_rectangle_top_corner_8_black_40" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="@{String.valueOf(viewModel.managementUiState).contains(`InfoMode`) ? View.VISIBLE : View.GONE}"
+                app:layout_constraintBottom_toBottomOf="@+id/iv_merchandise"
+                app:layout_constraintEnd_toEndOf="@+id/cl_item"
+                app:layout_constraintStart_toStartOf="@+id/cl_item"
+                app:layout_constraintTop_toTopOf="@+id/cl_item"
+                tools:background="@drawable/ic_edit_white"
+                android:background="@drawable/ic_edit_white" />
+
             <TextView
                 android:id="@+id/tv_merchandise_name"
                 android:layout_width="match_parent"
@@ -157,7 +179,7 @@ xmlns:tools="http://schemas.android.com/tools">
             app:layout_constraintStart_toStartOf="@+id/cl_item"
             app:layout_constraintTop_toTopOf="@+id/cl_item"
             tools:background="@color/transparent"
-            android:visibility="@{merchandise.stock == 0 ? View.VISIBLE : View.GONE}"
+            android:visibility="@{(String.valueOf(viewModel.managementUiState).contains(`DefaultMode`) &amp;&amp; merchandise.stock == 0) ? View.VISIBLE : View.GONE}"
             android:background="@drawable/frame_rectangle_corner_8_black_40" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

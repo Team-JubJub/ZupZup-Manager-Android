@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <import type="android.view.View"/>
         <import type="kotlin.jvm.functions.Function1" />
         <import type="kotlin.Unit" />
         <import type="com.example.zupzup_manager.domain.models.StoreModel" />
@@ -20,11 +21,11 @@
         <variable
             name="navigate"
             type="Function1&lt;StoreModel, Unit>" />
-        <!--  기본 모드 전환 클릭 리스너  -->
+        <!--  모드 전환 클릭 리스너  -->
         <variable
             name="stateClickListener"
             type="com.example.zupzup_manager.ui.management.clicklistener.ManagementDialogClickListener" />
-        <!-- BottomSheet Dialog 클릭 리스너  -->
+        <!-- BottomSheet Dialog를 만들고, 제품 수정하고, 기타 등등 클릭 리스너  -->
         <variable
             name="dialogClickListener"
             type="com.example.zupzup_manager.ui.management.clicklistener.ManagementBtnClickListener" />
@@ -42,6 +43,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
             android:gravity="center_vertical"
+            android:visibility="@{String.valueOf(viewModel.managementUiState).contains(`DefaultMode`) ? View.GONE : View.VISIBLE}"
             android:onClick="@{_ -> stateClickListener.changeState(`DefaultMode`)}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -73,6 +75,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
                 android:layout_centerInParent="true"
+                app:managementMode="@{viewModel.managementUiState}"
                 android:text="제품 관리" />
 
             <ImageView
@@ -81,6 +84,7 @@
                 android:layout_alignParentEnd="true"
                 android:layout_centerInParent="true"
                 android:layout_marginEnd="10dp"
+                android:visibility="@{String.valueOf(viewModel.managementUiState).contains(`DefaultMode`) ? View.VISIBLE : View.GONE}"
                 android:onClick="@{_ -> dialogClickListener.createBottomSheet()}"
                 android:src="@drawable/ic_edit" />
         </RelativeLayout>
@@ -91,11 +95,28 @@
             android:layout_height="0dp"
             android:layout_marginTop="15dp"
             android:adapter="@{adapter}"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/btn_complete_modify"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_title_section"
             app:merchandise="@{viewModel.managementDetailBody}"/>
+
+        <TextView
+            android:id="@+id/btn_complete_modify"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="8dp"
+            android:paddingVertical="21dp"
+            android:layout_marginVertical="20dp"
+            android:gravity="center_horizontal"
+            android:onClick="@{_ -> dialogClickListener.modifyMerchandise(String.valueOf(viewModel.managementUiState))}"
+            android:visibility="@{String.valueOf(viewModel.managementUiState).contains(`DefaultMode`) ? View.GONE : View.VISIBLE}"
+            android:background="@drawable/frame_rectangle_corner_14_tangerine_300"
+            style="@style/UIHeadline"
+            android:text="수정 완료"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
