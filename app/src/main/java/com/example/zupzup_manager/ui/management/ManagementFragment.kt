@@ -33,7 +33,7 @@ class ManagementFragment : Fragment() {
             println("$state state!")
             println(managementViewModel.managementUiState.value)
             println(managementViewModel.managementUiState.toString())
-            println(ManagementState.Amount.toString())
+            println(ManagementState.AmountMode.toString())
             managementViewModel.changeState(state)
         }
     }
@@ -77,16 +77,16 @@ class ManagementFragment : Fragment() {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 managementViewModel.managementUiState.collect {
                     when (it) {
-                        ManagementState.Default -> {
+                        ManagementState.DefaultMode -> {
                             binding.btnBack.visibility = View.GONE
                         }
-                        ManagementState.Amount -> {
+                        ManagementState.AmountMode -> {
                             if (managementStateBottomSheetFragment != null) {
                                 managementStateBottomSheetFragment!!.dismiss()
                             }
                             binding.btnBack.visibility = View.VISIBLE
                         }
-                        ManagementState.Info -> {
+                        ManagementState.InfoMode -> {
                             if (managementStateBottomSheetFragment != null) {
                                 managementStateBottomSheetFragment!!.dismiss()
                             }
@@ -100,7 +100,7 @@ class ManagementFragment : Fragment() {
 
     private fun initBinding() {
         with(binding) {
-            adapter = ManagementRcvAdapter(managementBtnClickListener, managementViewModel)
+            adapter = ManagementRcvAdapter(managementBtnClickListener, managementViewModel, viewLifecycleOwner)
             viewModel = managementViewModel
             lifecycleOwner = viewLifecycleOwner
             stateClickListener = managementDialogClickListener

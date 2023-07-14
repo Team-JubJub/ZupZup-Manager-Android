@@ -36,14 +36,14 @@
             android:layout_height="wrap_content"
             android:layout_marginVertical="12dp"
             android:text="수량 수정"
-            android:onClick="@{_ -> clickListener.changeState(`AMOUNT`)}"
+            android:onClick="@{_ -> clickListener.changeState(`AmountMode`)}"
             style="@style/UIBody"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginVertical="12dp"
-            android:onClick="@{_ -> clickListener.changeState(`INFO`)}"
+            android:onClick="@{_ -> clickListener.changeState(`InfoMode`)}"
             android:text="제품 정보 수정"
             style="@style/UIBody"/>
 

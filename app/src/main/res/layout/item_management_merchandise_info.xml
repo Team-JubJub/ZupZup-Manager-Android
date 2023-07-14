@@ -6,7 +6,6 @@ xmlns:tools="http://schemas.android.com/tools">
     <data>
         <import type="android.view.View"/>
         <import type="com.example.zupzup_manager.ui.common.ManagementState"/>
-        <import type="com.example.zupzup_manager.ui.common.ManagementState.Amount"/>
         <variable
             name="viewModel"
             type="com.example.zupzup_manager.ui.management.ManagementViewModel" />
@@ -63,7 +62,7 @@ xmlns:tools="http://schemas.android.com/tools">
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="10dp"
-                android:visibility="@{String.valueOf(viewModel.managementUiState).contains(`Amount`) ? View.GONE : View.VISIBLE}"
+                android:visibility="@{String.valueOf(viewModel.managementUiState).contains(`AmountMode`) ? View.GONE : View.VISIBLE}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_merchandise_name"
                 app:layout_constraintBottom_toBottomOf="parent">
@@ -102,7 +101,7 @@ xmlns:tools="http://schemas.android.com/tools">
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="10dp"
                 android:layout_marginHorizontal="8dp"
-                android:visibility="@{String.valueOf(viewModel.managementUiState).contains(`Amount`) ? View.VISIBLE : View.GONE}"
+                android:visibility="@{String.valueOf(viewModel.managementUiState).contains(`AmountMode`) ? View.VISIBLE : View.GONE}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_merchandise_name"
                 app:layout_constraintBottom_toBottomOf="parent">

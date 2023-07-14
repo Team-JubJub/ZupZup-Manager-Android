@@ -75,7 +75,7 @@ fun hideBackButton(
     managementState: ManagementState
 ) {
     when (managementState) {
-        ManagementState.Default -> {
+        ManagementState.DefaultMode -> {
             println("default")
             backButton.visibility = View.GONE
         }
@@ -94,7 +94,7 @@ fun visibleModifyAmount(
     price: RelativeLayout
 ) {
     when (managementState) {
-        ManagementState.Amount -> {
+        ManagementState.AmountMode -> {
             println("Amount")
             amount.visibility = View.VISIBLE
             price.visibility = View.GONE

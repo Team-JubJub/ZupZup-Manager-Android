@@ -34,18 +34,18 @@ class ManagementViewModel @Inject constructor(
     private var _managementDetailBody = MutableStateFlow<List<MerchandiseModel>>(listOf())
     val managementDetailBody = _managementDetailBody.asStateFlow()
 
-    private var _managementUiState = MutableStateFlow<ManagementState>(ManagementState.Default)
+    private var _managementUiState = MutableStateFlow<ManagementState>(ManagementState.DefaultMode)
     val managementUiState = _managementUiState.asStateFlow()
 
 
     // [CHANGE MODE]
-    // DEFAULT / AMOUNT / INFO 세 개의 state
+    // DefaultMode / AmountMode / InfoMode 세 개의 state
     fun changeState(state: String) {
         viewModelScope.launch {
             when(state){
-                "AMOUNT" -> _managementUiState.emit(ManagementState.Amount)
-                "INFO" -> _managementUiState.emit(ManagementState.Info)
-                else -> _managementUiState.emit(ManagementState.Default)
+                "AmountMode" -> _managementUiState.emit(ManagementState.AmountMode)
+                "InfoMode" -> _managementUiState.emit(ManagementState.InfoMode)
+                else -> _managementUiState.emit(ManagementState.DefaultMode)
             }
         }
     }

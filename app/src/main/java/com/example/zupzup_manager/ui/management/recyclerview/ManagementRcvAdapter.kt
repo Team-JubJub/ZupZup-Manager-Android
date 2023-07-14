@@ -2,6 +2,7 @@ package com.example.zupzup_manager.ui.management.recyclerview
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -12,20 +13,23 @@ import com.example.zupzup_manager.ui.management.ManagementViewModel
 
 class ManagementRcvAdapter(
     private val managementBtnClickListener: ManagementBtnClickListener,
-    private val managementViewModel: ManagementViewModel
+    private val managementViewModel: ManagementViewModel,
+    private val fragmentLifecycleOwner: LifecycleOwner
 ) : ListAdapter<MerchandiseModel, ManagementRcvAdapter.ManagementViewHolder>(
     MerchandiseModelDiffCallBack()
 ) {
     class ManagementViewHolder(
         private val binding: ItemManagementMerchandiseInfoBinding,
         private val managementBtnClickListener: ManagementBtnClickListener,
-        private val managementViewModel: ManagementViewModel
+        private val managementViewModel: ManagementViewModel,
+        private val fragmentLifecycleOwner: LifecycleOwner
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: MerchandiseModel) {
             with(binding) {
                 merchandise = item
-                viewModel = managementViewModel
                 clickListener = managementBtnClickListener
+                lifecycleOwner = fragmentLifecycleOwner
+                viewModel = managementViewModel
                 executePendingBindings()
             }
         }
@@ -35,7 +39,7 @@ class ManagementRcvAdapter(
     ): ManagementViewHolder {
         val binding =
             ItemManagementMerchandiseInfoBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return ManagementViewHolder(binding, managementBtnClickListener, managementViewModel)
+        return ManagementViewHolder(binding, managementBtnClickListener, managementViewModel, fragmentLifecycleOwner)
     }
 
     override fun onBindViewHolder(holder: ManagementViewHolder, position: Int) {
