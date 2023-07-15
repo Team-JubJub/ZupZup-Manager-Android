@@ -31,23 +31,11 @@
         android:label="ManagementFragment"
         tools:layout="@layout/fragment_management" >
         <action
-            android:id="@+id/action_frag_management_to_managementDetailFragment"
-            app:destination="@id/frag_management_detail" />
+            android:id="@+id/action_frag_management_to_merchandiseDetailFragment"
+            app:destination="@id/frag_merchandise_detail" />
     </fragment>
     <fragment
-        android:id="@+id/frag_management_detail"
-        android:name="com.example.zupzup_manager.ui.managementdetail.ManagementDetailFragment"
-        android:label="ManagementDetailFragment"
-        tools:layout="@layout/fragment_management_detail">
-        <argument
-            android:name="store"
-            app:argType="com.example.zupzup_manager.domain.models.StoreModel" />
-        <action
-            android:id="@+id/action_managementDetailFragment_to_merchandiseDetailFragment"
-            app:destination="@id/merchandiseDetailFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/merchandiseDetailFragment"
+        android:id="@+id/frag_merchandise_detail"
         android:name="com.example.zupzup_manager.ui.merchandisedetail.MerchandiseDetailFragment"
         android:label="MerchandiseDetailFragment"
         tools:layout="@layout/fragment_merchandise_detail">

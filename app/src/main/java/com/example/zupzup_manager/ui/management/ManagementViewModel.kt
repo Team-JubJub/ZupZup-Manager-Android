@@ -78,7 +78,7 @@ class ManagementViewModel @Inject constructor(
         }
     }
 
-    fun modifyMerchandise(merchandiseList: List<MerchandiseModel>) {
+    fun modifyMerchandiseList(merchandiseList: List<MerchandiseModel>) {
         var storeId = merchandiseList[0].storeId
         viewModelScope.launch {
             modifyMerchandiseUseCase(storeId, merchandiseList).collect {
