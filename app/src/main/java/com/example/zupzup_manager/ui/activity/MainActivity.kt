@@ -9,10 +9,11 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.zupzup_manager.R
 import com.example.zupzup_manager.databinding.ActivityMainBinding
+import com.example.zupzup_manager.ui.management.ManagementFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), ManagementFragment.NavigationBarVisibilityListener {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var navController: NavController
@@ -34,6 +35,10 @@ class MainActivity : AppCompatActivity() {
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment_container) as NavHostFragment
         navController = navHostFragment.findNavController()
         binding.mainBottomNav.setupWithNavController(navController)
+    }
+
+    override fun setNavigationBarVisibility(isVisible: Boolean) {
+        binding.mainBottomNav.visibility = if (isVisible) View.VISIBLE else View.GONE
     }
 
     private fun initBottomNavState() {

@@ -1,6 +1,9 @@
 package com.example.zupzup_manager.ui.management.binding
 
+import android.view.View
 import android.widget.ImageView
+import android.widget.LinearLayout
+import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -8,10 +11,10 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.example.zupzup_manager.R
 import com.example.zupzup_manager.domain.models.MerchandiseModel
+import com.example.zupzup_manager.ui.common.ManagementState
 import com.example.zupzup_manager.ui.custom.CustomRoundedCornersTransformation
-import com.example.zupzup_manager.ui.management.models.ManagementViewType
+import com.example.zupzup_manager.ui.management.clicklistener.ManagementBtnClickListener
 import com.example.zupzup_manager.ui.management.recyclerview.ManagementRcvAdapter
-import com.example.zupzup_manager.ui.managementdetail.ManagementDetailBtnClickListener
 import kotlin.math.roundToInt
 
 @BindingAdapter("merchandise")
@@ -37,11 +40,10 @@ fun bindImageUrlToImageView(imageView: ImageView, imgUrl: String) {
         .into(imageView)
 }
 
-
 @BindingAdapter("clickListener", "itemId", "tvConfirmedAmount")
 fun bindBindingHelperToAmountButton(
     ivBtnModifyAmount: ImageView,
-    clickListener: ManagementDetailBtnClickListener,
+    clickListener: ManagementBtnClickListener,
     itemId: Long,
     tvConfirmedAmount: TextView
 ) {
@@ -54,6 +56,7 @@ fun bindBindingHelperToAmountButton(
                         tvConfirmedAmount.text.toString().toInt().plus(1).toString()
                 }
             }
+
             R.id.btn_minus -> {
                 if (tvConfirmedAmount.text.toString().toInt() > 0) {
                     clickListener.onMinusMerchandiseModifiedAmountBtnClick(itemId)
@@ -62,6 +65,24 @@ fun bindBindingHelperToAmountButton(
 
                 }
             }
+        }
+    }
+}
+
+@BindingAdapter("managementMode")
+fun changeTitleText(
+    title: TextView,
+    managementState: ManagementState
+) {
+    when (managementState) {
+        ManagementState.DefaultMode -> {
+            title.text = "제품 관리"
+        }
+        ManagementState.AmountMode -> {
+            title.text = "수량 수정"
+        }
+        ManagementState.InfoMode -> {
+            title.text = "정보 수정"
         }
     }
 }

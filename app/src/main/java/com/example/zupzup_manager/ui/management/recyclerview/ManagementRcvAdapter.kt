@@ -2,48 +2,47 @@ package com.example.zupzup_manager.ui.management.recyclerview
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.zupzup_manager.databinding.ItemManagementMerchandiseInfoBinding
-import com.example.zupzup_manager.databinding.ItemManagementStoreInfoBinding
-import com.example.zupzup_manager.databinding.ItemMerchandiseModifyBinding
 import com.example.zupzup_manager.domain.models.MerchandiseModel
-import com.example.zupzup_manager.domain.models.ReservationModel
-import com.example.zupzup_manager.domain.models.StoreModel
-import com.example.zupzup_manager.ui.common.ViewType
-import com.example.zupzup_manager.ui.management.models.ManagementViewType
+import com.example.zupzup_manager.ui.management.clicklistener.ManagementBtnClickListener
+import com.example.zupzup_manager.ui.management.ManagementViewModel
 
 class ManagementRcvAdapter(
-    private val navigateToManagementDetail: (StoreModel) -> Unit
-) : ListAdapter<MerchandiseModel, ManagementRcvAdapter.ManagementDetailViewHolder>(
+    private val managementBtnClickListener: ManagementBtnClickListener,
+    private val managementViewModel: ManagementViewModel,
+    private val fragmentLifecycleOwner: LifecycleOwner
+) : ListAdapter<MerchandiseModel, ManagementRcvAdapter.ManagementViewHolder>(
     MerchandiseModelDiffCallBack()
 ) {
-    class ManagementDetailViewHolder(
-        private val binding: ItemManagementMerchandiseInfoBinding
-        //private val managementDetailBtnClickListener: ManagementDetailBtnClickListener
+    class ManagementViewHolder(
+        private val binding: ItemManagementMerchandiseInfoBinding,
+        private val managementBtnClickListener: ManagementBtnClickListener,
+        private val managementViewModel: ManagementViewModel,
+        private val fragmentLifecycleOwner: LifecycleOwner
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: MerchandiseModel) {
             with(binding) {
-                itemName = item.itemName
-                discounted = item.discounted
-                imgUrl = item.imgUrl
-                stock = item.stock
-//                clickListener = managementDetailBtnClickListener
-//                executePendingBindings()
+                merchandise = item
+                clickListener = managementBtnClickListener
+                lifecycleOwner = fragmentLifecycleOwner
+                viewModel = managementViewModel
+                executePendingBindings()
             }
         }
     }
     override fun onCreateViewHolder(
         parent: ViewGroup, viewType: Int
-    ): ManagementDetailViewHolder {
+    ): ManagementViewHolder {
         val binding =
             ItemManagementMerchandiseInfoBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return ManagementDetailViewHolder(binding)
-//                ManagementViewHolder.ManagementMerchandiseModifyViewHolder(binding, navigateToManagementDetail)
+        return ManagementViewHolder(binding, managementBtnClickListener, managementViewModel, fragmentLifecycleOwner)
     }
 
-    override fun onBindViewHolder(holder: ManagementDetailViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ManagementViewHolder, position: Int) {
         holder.bind(getItem(position))
     }
 
