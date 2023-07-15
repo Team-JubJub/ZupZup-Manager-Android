@@ -10,6 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.zupzup_manager.databinding.FragmentManagementBinding
 import com.example.zupzup_manager.domain.models.MerchandiseModel
@@ -32,11 +33,15 @@ class ManagementFragment : Fragment() {
 
     private val managementDialogClickListener = object : ManagementDialogClickListener {
         override fun changeState(state: String) {
-            println("$state state!")
-            println(managementViewModel.managementUiState.value)
-            println(managementViewModel.managementUiState.toString())
-            println(ManagementState.AmountMode.toString())
             managementViewModel.changeState(state)
+        }
+        override fun navigateToMerchandiseAdd() {
+            if (managementStateBottomSheetFragment != null) {
+                managementStateBottomSheetFragment!!.dismiss()
+            }
+            val action =
+                ManagementFragmentDirections.actionFragManagementToMerchandiseDetailFragment()
+            findNavController().navigate(action)
         }
     }
 
@@ -54,11 +59,20 @@ class ManagementFragment : Fragment() {
             managementViewModel.minusModifiedAmount(itemId)
         }
 
-        override fun modifyMerchandise(state: String) {
+        // 하단 수정 완료 버튼 (depth 들어가지 않은 상태 / 수량 수정 모드로 fragment는 그대로)
+        override fun modifyMerchandiseList(state: String) {
             if (state.contains("AmountMode")) {
-                managementViewModel.modifyMerchandise(managementViewModel.managementDetailBody.value)
+                managementViewModel.modifyMerchandiseList(managementViewModel.managementDetailBody.value)
             }
             managementViewModel.changeState("DefaultMode")
+        }
+
+        override fun navigateToMerchandiseModify(merchandise: MerchandiseModel) {
+            val action =
+                ManagementFragmentDirections.actionFragManagementToMerchandiseDetailFragment(
+                    merchandise
+                )
+            findNavController().navigate(action)
         }
     }
 
@@ -121,7 +135,6 @@ class ManagementFragment : Fragment() {
             lifecycleOwner = viewLifecycleOwner
             stateClickListener = managementDialogClickListener
             dialogClickListener = managementBtnClickListener
-
         }
     }
 

@@ -109,7 +109,7 @@
             android:paddingVertical="21dp"
             android:layout_marginVertical="20dp"
             android:gravity="center_horizontal"
-            android:onClick="@{_ -> dialogClickListener.modifyMerchandise(String.valueOf(viewModel.managementUiState))}"
+            android:onClick="@{_ -> dialogClickListener.modifyMerchandiseList(String.valueOf(viewModel.managementUiState))}"
             android:visibility="@{String.valueOf(viewModel.managementUiState).contains(`DefaultMode`) ? View.GONE : View.VISIBLE}"
             android:background="@drawable/frame_rectangle_corner_14_tangerine_300"
             style="@style/UIHeadline"

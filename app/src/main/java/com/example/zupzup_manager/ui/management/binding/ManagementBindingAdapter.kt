@@ -41,7 +41,7 @@ fun bindImageUrlToImageView(imageView: ImageView, imgUrl: String) {
 }
 
 @BindingAdapter("clickListener", "itemId", "tvConfirmedAmount")
-fun bindBindingHelperToAmountButton(
+fun bindBindingHelperToAmountButtonInList(
     ivBtnModifyAmount: ImageView,
     clickListener: ManagementBtnClickListener,
     itemId: Long,
@@ -62,7 +62,6 @@ fun bindBindingHelperToAmountButton(
                     clickListener.onMinusMerchandiseModifiedAmountBtnClick(itemId)
                     tvConfirmedAmount.text =
                         tvConfirmedAmount.text.toString().toInt().minus(1).toString()
-
                 }
             }
         }

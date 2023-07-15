@@ -19,40 +19,40 @@ class ManagementDetailFragment : Fragment() {
 
     private val managementDetailViewModel: ManagementDetailViewModel by viewModels()
     private lateinit var binding: FragmentManagementDetailBinding
-
-    private val args: ManagementDetailFragmentArgs by navArgs()
-
-    private val managementDetailBtnClickListener = object : ManagementDetailBtnClickListener {
-        override fun createMerchandiseModifyDialog(merchandiseDetailBody: List<MerchandiseModel>) {
-            onCreateStoreModifyDialogButtononClick(merchandiseDetailBody)
-        }
-
-        override fun onPlusMerchandiseModifiedAmountBtnClick(itemId: Long) {
-            managementDetailViewModel.plusModifiedAmount(itemId)
-        }
-
-        override fun onMinusMerchandiseModifiedAmountBtnClick(itemId: Long) {
-            managementDetailViewModel.minusModifiedAmount(itemId)
-        }
-
-        override fun navigateToBackStack() {
-            findNavController().popBackStack()
-        }
-
-        override fun navigateToMerchandiseAdd() {
-            val action =
-                ManagementDetailFragmentDirections.actionManagementDetailFragmentToMerchandiseDetailFragment()
-            findNavController().navigate(action)
-        }
-
-        override fun navigateToMerchandiseModify(merchandise: MerchandiseModel) {
-            val action =
-                ManagementDetailFragmentDirections.actionManagementDetailFragmentToMerchandiseDetailFragment(
-                    merchandise
-                )
-            findNavController().navigate(action)
-        }
-    }
+//
+//    private val args: ManagementDetailFragmentArgs by navArgs()
+//
+//    private val managementDetailBtnClickListener = object : ManagementDetailBtnClickListener {
+//        override fun createMerchandiseModifyDialog(merchandiseDetailBody: List<MerchandiseModel>) {
+//            onCreateStoreModifyDialogButtononClick(merchandiseDetailBody)
+//        }
+//
+//        override fun onPlusMerchandiseModifiedAmountBtnClick(itemId: Long) {
+//            managementDetailViewModel.plusModifiedAmount(itemId)
+//        }
+//
+//        override fun onMinusMerchandiseModifiedAmountBtnClick(itemId: Long) {
+//            managementDetailViewModel.minusModifiedAmount(itemId)
+//        }
+//
+//        override fun navigateToBackStack() {
+//            findNavController().popBackStack()
+//        }
+//
+//        override fun navigateToMerchandiseAdd() {
+//            val action =
+//                ManagementDetailFragmentDirections.actionManagementDetailFragmentToMerchandiseDetailFragment()
+//            findNavController().navigate(action)
+//        }
+//
+//        override fun navigateToMerchandiseModify(merchandise: MerchandiseModel) {
+//            val action =
+//                ManagementDetailFragmentDirections.actionManagementDetailFragmentToMerchandiseDetailFragment(
+//                    merchandise
+//                )
+//            findNavController().navigate(action)
+//        }
+//    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -64,39 +64,39 @@ class ManagementDetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initBinding()
-        initRecyclerView()
-        setManagementDetail()
+//        initBinding()
+//        initRecyclerView()
+//        setManagementDetail()
     }
 
-    private fun setManagementDetail() {
-        val merchandiseList = args.store.merchandiseList
-        managementDetailViewModel.setMerchandiseList(merchandiseList)
-    }
-
-    private fun onCreateStoreModifyDialogButtononClick(merchandiseList: List<MerchandiseModel>) {
-        val dlg = ModifyAlertDialog(this.requireContext())
-        dlg.listener = object: ModifyAlertDialog.MerchandiseDialogClickedListener {
-            override fun onClicked() {
-                managementDetailViewModel.modifyMerchandise(merchandiseList)
-            }
-        }
-        dlg.modify()
-    }
-
-    private fun initRecyclerView() {
-        with(binding) {
-            rcvMerchandiseList.layoutManager = LinearLayoutManager(context)
-            adapter =
-                ManagementDetailRcvAdapter(managementDetailBtnClickListener)
-        }
-    }
-
-    private fun initBinding() {
-        with(binding) {
-            lifecycleOwner = viewLifecycleOwner
-            viewModel = managementDetailViewModel
-            clickListener = managementDetailBtnClickListener
-        }
-    }
+//    private fun setManagementDetail() {
+//        val merchandiseList = args.store.merchandiseList
+//        managementDetailViewModel.setMerchandiseList(merchandiseList)
+//    }
+//
+//    private fun onCreateStoreModifyDialogButtononClick(merchandiseList: List<MerchandiseModel>) {
+//        val dlg = ModifyAlertDialog(this.requireContext())
+//        dlg.listener = object: ModifyAlertDialog.MerchandiseDialogClickedListener {
+//            override fun onClicked() {
+//                managementDetailViewModel.modifyMerchandise(merchandiseList)
+//            }
+//        }
+//        dlg.modify()
+//    }
+//
+//    private fun initRecyclerView() {
+//        with(binding) {
+//            rcvMerchandiseList.layoutManager = LinearLayoutManager(context)
+//            adapter =
+//                ManagementDetailRcvAdapter(managementDetailBtnClickListener)
+//        }
+//    }
+//
+//    private fun initBinding() {
+//        with(binding) {
+//            lifecycleOwner = viewLifecycleOwner
+//            viewModel = managementDetailViewModel
+//            clickListener = managementDetailBtnClickListener
+//        }
+//    }
 }

@@ -53,7 +53,7 @@ class MainActivity : AppCompatActivity(), ManagementFragment.NavigationBarVisibi
                 R.id.frag_management -> {
                     showBottomNav()
                 }
-                R.id.frag_management_detail -> {
+                R.id.frag_merchandise_detail -> {
                     hideBottomNav()
                 }
                 R.id.frag_setting -> {
