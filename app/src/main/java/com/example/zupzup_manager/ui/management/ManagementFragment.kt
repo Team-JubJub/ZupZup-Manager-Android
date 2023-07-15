@@ -1,5 +1,6 @@
 package com.example.zupzup_manager.ui.management
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -27,6 +28,7 @@ class ManagementFragment : Fragment() {
     private val binding get() = _binding!!
     private var managementStateBottomSheetFragment: ManagementStateBottomSheetFragment? = null
     private val managementViewModel: ManagementViewModel by viewModels()
+    private lateinit var navigationBarVisibilityListener: NavigationBarVisibilityListener
 
     private val managementDialogClickListener = object : ManagementDialogClickListener {
         override fun changeState(state: String) {
@@ -52,8 +54,18 @@ class ManagementFragment : Fragment() {
             managementViewModel.minusModifiedAmount(itemId)
         }
 
-        override fun modifyMerchandise(merchandiseList: List<MerchandiseModel>) {
-            managementViewModel.modifyMerchandise(merchandiseList)
+        override fun modifyMerchandise(state: String) {
+            if (state.contains("AmountMode")) {
+                managementViewModel.modifyMerchandise(managementViewModel.managementDetailBody.value)
+            }
+            managementViewModel.changeState("DefaultMode")
+        }
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        if (context is NavigationBarVisibilityListener) {
+            navigationBarVisibilityListener = context
         }
     }
 
@@ -78,24 +90,28 @@ class ManagementFragment : Fragment() {
                 managementViewModel.managementUiState.collect {
                     when (it) {
                         ManagementState.DefaultMode -> {
-                            binding.btnBack.visibility = View.GONE
+                            navigationBarVisibilityListener.setNavigationBarVisibility(true)
                         }
                         ManagementState.AmountMode -> {
                             if (managementStateBottomSheetFragment != null) {
                                 managementStateBottomSheetFragment!!.dismiss()
                             }
-                            binding.btnBack.visibility = View.VISIBLE
+                            navigationBarVisibilityListener.setNavigationBarVisibility(false)
                         }
                         ManagementState.InfoMode -> {
                             if (managementStateBottomSheetFragment != null) {
                                 managementStateBottomSheetFragment!!.dismiss()
                             }
-                            binding.btnBack.visibility = View.VISIBLE
+                            navigationBarVisibilityListener.setNavigationBarVisibility(false)
                         }
                     }
                 }
             }
         }
+    }
+
+    interface NavigationBarVisibilityListener {
+        fun setNavigationBarVisibility(isVisible: Boolean)
     }
 
     private fun initBinding() {

@@ -69,41 +69,20 @@ fun bindBindingHelperToAmountButton(
     }
 }
 
-@BindingAdapter("backButton")
-fun hideBackButton(
-    backButton: LinearLayout,
+@BindingAdapter("managementMode")
+fun changeTitleText(
+    title: TextView,
     managementState: ManagementState
 ) {
     when (managementState) {
         ManagementState.DefaultMode -> {
-            println("default")
-            backButton.visibility = View.GONE
+            title.text = "제품 관리"
         }
-
-        else -> {
-            println("else")
-            backButton.visibility = View.VISIBLE
-        }
-    }
-}
-
-@BindingAdapter("amountState", "price")
-fun visibleModifyAmount(
-    amount: RelativeLayout,
-    managementState: ManagementState,
-    price: RelativeLayout
-) {
-    when (managementState) {
         ManagementState.AmountMode -> {
-            println("Amount")
-            amount.visibility = View.VISIBLE
-            price.visibility = View.GONE
+            title.text = "수량 수정"
         }
-
-        else -> {
-            println("else")
-            amount.visibility = View.GONE
-            price.visibility = View.VISIBLE
+        ManagementState.InfoMode -> {
+            title.text = "정보 수정"
         }
     }
 }

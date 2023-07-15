@@ -27,6 +27,7 @@ class ManagementStateBottomSheetFragment(
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentManagementBottomSheetBinding.inflate(inflater)
+        dialog?.setCanceledOnTouchOutside(true)
         return binding.root
     }
 

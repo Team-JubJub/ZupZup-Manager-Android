@@ -10,7 +10,7 @@ interface ManagementBtnClickListener {
 
     fun onMinusMerchandiseModifiedAmountBtnClick(itemId: Long)
 
-    fun modifyMerchandise(merchandiseList: List<MerchandiseModel>)
+    fun modifyMerchandise(state: String)
 
 //    fun navigateToMerchandiseAdd()
 
