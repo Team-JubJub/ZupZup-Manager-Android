@@ -32,5 +32,9 @@
     <color name="orange_400">#ED5C15</color>
     <color name="tangerine_300">#F1AD00</color>
     <color name="tangerine_800">#1C1400</color>
+    <color name="red_500">#D60040</color>
+    <color name="cyan_400">#188EF3</color>
+    <color name="neutral_gray_150">#DFDFDF</color>
+    <color name="neutral_gray_400">#8B8B8B</color>
 
 </resources>

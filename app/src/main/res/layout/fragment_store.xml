@@ -1,0 +1,409 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="android.view.View"/>
+
+        <variable
+            name="store"
+            type="com.example.zupzup_manager.domain.models.StoreModel" />
+        <variable
+            name="clickListener"
+            type="com.example.zupzup_manager.ui.store.StoreFragment.StoreClickListener" />
+    </data>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".ui.setting.MerchandiseDetailFragment">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp">
+
+            <LinearLayout
+                android:id="@+id/btn_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="11dp"
+                android:layout_alignParentStart="true"
+                android:layout_centerInParent="true"
+                android:onClick="@{_ -> clickListener.navigateToBackStack()}"
+                android:gravity="center_vertical">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_back_button" />
+
+                <TextView
+                    style="@style/UIBody"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:text="설정"
+                    android:textColor="@color/tangerine_300" />
+            </LinearLayout>
+
+            <TextView
+                style="@style/UIHeadline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="가게 정보"
+                tools:text="제품 정보" />
+        </RelativeLayout>
+
+        <ScrollView
+            android:id="@+id/sv_merchandise"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="40dp"
+            android:layout_weight="1">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/iv_store"
+                    android:layout_width="match_parent"
+                    android:layout_height="192dp"
+                    android:visibility="@{store == null ? View.GONE : View.VISIBLE}"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+<!--                    app:detailImgUrl="@{store == null ? null : store.imgUrl}"-->
+
+                <ImageView
+                    android:id="@+id/iv_add_store"
+                    android:layout_width="match_parent"
+                    android:layout_height="192dp"
+                    android:background="@drawable/img_edit"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+<!--                    android:visibility="@{store == null ? View.VISIBLE : View.GONE}"-->
+
+                <ImageView
+                    android:id="@+id/iv_null"
+                    android:layout_width="match_parent"
+                    android:layout_height="192dp"
+                    android:visibility="invisible"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <LinearLayout
+                    android:id="@+id/cl_time"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="14dp"
+                    android:layout_marginHorizontal="16dp"
+                    android:orientation="vertical"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/iv_null">
+
+                    <!--   영업 시간   -->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="영업 시간"
+                        style="@style/UIH3"/>
+
+                    <LinearLayout
+                        android:id="@+id/ll_time1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:padding="16dp"
+                        android:background="@drawable/frame_stroke_rect_corner_8_ivorygray_200_100"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="영업 시간"
+                                android:textColor="@color/orange_400"
+                                style="@style/UICaptionSmall"/>
+                            <TextView
+                                android:id="@+id/openTime"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="09:00"
+                                tools:text="09:00"
+                                app:anotherTextView="@{closeTime}"
+                                app:timePicker="@{openTimePicker}"
+                                app:anotherTimePicker="@{closeTimePicker}"
+                                app:timeLayout="@{llTime1}"
+                                app:line="@{line1}"
+                                app:modifyButton="@{btnCompleteModify}"
+                                style="@style/UIHeadline"/>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="마감 시간"
+                                android:textColor="@color/orange_400"
+                                style="@style/UICaptionSmall"/>
+                            <TextView
+                                android:id="@+id/closeTime"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="21:00"
+                                tools:text="21:00"
+                                app:anotherTextView="@{openTime}"
+                                app:timePicker="@{closeTimePicker}"
+                                app:anotherTimePicker="@{openTimePicker}"
+                                app:timeLayout="@{llTime1}"
+                                app:line="@{line1}"
+                                app:modifyButton="@{btnCompleteModify}"
+                                style="@style/UIHeadline"/>
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <View
+                        android:id="@+id/line1"
+                        android:visibility="gone"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/ivory_gray_200"/>
+
+                    <TimePicker
+                        android:id="@+id/open_time_picker"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone"
+                        android:background="@drawable/frame_price_or_time_bottom"
+                        android:timePickerMode="spinner"
+                        android:theme="@style/CustomTimePicker"/>
+
+                    <TimePicker
+                        android:id="@+id/close_time_picker"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone"
+                        android:background="@drawable/frame_price_or_time_bottom"
+                        android:timePickerMode="spinner"
+                        android:theme="@style/CustomTimePicker"/>
+
+                    <!--   할인 시간   -->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:text="할인 시간"
+                        style="@style/UIH3" />
+
+                    <LinearLayout
+                        android:id="@+id/ll_time2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:padding="16dp"
+                        android:background="@drawable/frame_stroke_rect_corner_8_ivorygray_200_100"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="시작 시간"
+                                android:textColor="@color/orange_400"
+                                style="@style/UICaptionSmall"/>
+                            <TextView
+                                android:id="@+id/saleStartTime"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="09:00"
+                                tools:text="09:00"
+                                app:anotherTextView="@{saleEndTime}"
+                                app:timePicker="@{saleStartTimePicker}"
+                                app:anotherTimePicker="@{saleEndTimePicker}"
+                                app:timeLayout="@{llTime2}"
+                                app:line="@{line2}"
+                                app:modifyButton="@{btnCompleteModify}"
+                                style="@style/UIHeadline"/>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="종료 시간"
+                                android:textColor="@color/orange_400"
+                                style="@style/UICaptionSmall"/>
+                            <TextView
+                                android:id="@+id/saleEndTime"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="21:00"
+                                tools:text="21:00"
+                                app:anotherTextView="@{saleStartTime}"
+                                app:timePicker="@{saleEndTimePicker}"
+                                app:anotherTimePicker="@{saleStartTimePicker}"
+                                app:timeLayout="@{llTime2}"
+                                app:line="@{line2}"
+                                app:modifyButton="@{btnCompleteModify}"
+                                style="@style/UIHeadline"/>
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <View
+                        android:id="@+id/line2"
+                        android:visibility="gone"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/ivory_gray_200"/>
+
+                    <TimePicker
+                        android:id="@+id/sale_start_time_picker"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone"
+                        android:background="@drawable/frame_price_or_time_bottom"
+                        android:timePickerMode="spinner"
+                        android:theme="@style/CustomTimePicker"/>
+
+                    <TimePicker
+                        android:id="@+id/sale_end_time_picker"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone"
+                        android:background="@drawable/frame_price_or_time_bottom"
+                        android:timePickerMode="spinner"
+                        android:theme="@style/CustomTimePicker"/>
+                    
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:text="휴무일"
+                        style="@style/UIH3" />
+                    
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:padding="16dp"
+                        android:background="@drawable/frame_price_or_time_top"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="매주"
+                            android:textColor="@color/orange_400"
+                            style="@style/UICaptionSmall"/>
+
+                        <TextView
+                            android:id="@+id/tv_week"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="월요일, 화요일, 수요일"
+                            app:sun="@{btnSun}"
+                            app:mon="@{btnMon}"
+                            app:tue="@{btnTue}"
+                            app:wed="@{btnWed}"
+                            app:thu="@{btnThu}"
+                            app:fri="@{btnFri}"
+                            app:sat="@{btnSat}"
+                            style="@style/UIHeadline"/>
+
+                    </LinearLayout>
+                    
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/ivory_gray_200"/>
+                    
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="50dp"
+                        android:gravity="center"
+                        android:paddingHorizontal="14dp"
+                        android:background="@drawable/frame_price_or_time_bottom">
+                        <ToggleButton
+                            android:id="@+id/btn_sun"
+                            android:textOff="일"
+                            android:textOn="일"
+                            android:textColor="@color/red_500"
+                            style="@style/CustomWeekToggleBtn" />
+                        <ToggleButton
+                            android:id="@+id/btn_mon"
+                            android:textOff="월"
+                            android:textOn="월"
+                            style="@style/CustomWeekToggleBtn" />
+                        <ToggleButton
+                            android:id="@+id/btn_tue"
+                            android:textOff="화"
+                            android:textOn="화"
+                            style="@style/CustomWeekToggleBtn" />
+                        <ToggleButton
+                            android:id="@+id/btn_wed"
+                            android:textOff="수"
+                            android:textOn="수"
+                            style="@style/CustomWeekToggleBtn" />
+                        <ToggleButton
+                            android:id="@+id/btn_thu"
+                            android:textOff="목"
+                            android:textOn="목"
+                            style="@style/CustomWeekToggleBtn" />
+                        <ToggleButton
+                            android:id="@+id/btn_fri"
+                            android:textOff="금"
+                            android:textOn="금"
+                            style="@style/CustomWeekToggleBtn" />
+                        <ToggleButton
+                            android:id="@+id/btn_sat"
+                            android:textOff="토"
+                            android:textOn="토"
+                            android:textColor="@color/cyan_400"
+                            style="@style/CustomWeekToggleBtn" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </ScrollView>
+
+        <TextView
+            android:id="@+id/btn_complete_modify"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginBottom="20dp"
+            android:paddingVertical="21dp"
+            android:gravity="center_horizontal"
+            android:background="@drawable/frame_rectangle_corner_14_tangerine_300"
+            style="@style/UIHeadline"
+            android:text="수정 완료"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+    </LinearLayout>
+</layout>

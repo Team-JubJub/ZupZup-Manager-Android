@@ -46,7 +46,6 @@ class MerchandiseDetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initBinding()
-//        isAddOrModify()
     }
 
     private fun initBinding() {
@@ -54,15 +53,6 @@ class MerchandiseDetailFragment : Fragment() {
             lifecycleOwner = viewLifecycleOwner
             clickListener = merchandiseDetailClickListener
             merchandise = MerchandiseDetailFragmentArgs.fromBundle(requireArguments()).merchandise
-        }
-    }
-    private fun isAddOrModify() {
-        val merchandiseArgs = MerchandiseDetailFragmentArgs.fromBundle(requireArguments()).merchandise
-
-        if(merchandiseArgs != null) {
-            with(binding){
-                merchandise = merchandiseArgs
-            }
         }
     }
 }
