@@ -49,5 +49,18 @@
         android:id="@+id/frag_setting"
         android:name="com.example.zupzup_manager.ui.setting.SettingFragment"
         android:label="SettingFragment"
-        tools:layout="@layout/fragment_setting"/>
+        tools:layout="@layout/fragment_setting">
+        <action
+            android:id="@+id/action_frag_setting_to_storeFragment"
+            app:destination="@id/frag_store" />
+    </fragment>
+    <fragment
+        android:id="@+id/frag_store"
+        android:name="com.example.zupzup_manager.ui.store.StoreFragment"
+        android:label="StoreFragment"
+        tools:layout="@layout/fragment_store">
+        <argument
+            android:name="store"
+            app:argType="com.example.zupzup_manager.domain.models.StoreModel"/>
+    </fragment>
 </navigation>
