@@ -19,8 +19,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        tools:context=".ui.merchandisedetail.MerchandiseDetailFragment">
+        android:orientation="vertical">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -225,7 +224,7 @@
                         app:amount2="@{tvMerchandiseAmount}"
                         app:merchandise="@{merchandise == null ? null : merchandise}"
                         tools:text="0"
-                        android:background="@drawable/frame_price_top"/>
+                        android:background="@drawable/frame_price_or_time_top"/>
 
                     <View
                         android:layout_width="match_parent"
@@ -238,7 +237,7 @@
                         android:layout_height="wrap_content"
                         android:paddingVertical="14dp"
                         android:layout_marginBottom="50dp"
-                        android:background="@drawable/frame_price_bottom">
+                        android:background="@drawable/frame_price_or_time_bottom">
 
                         <ImageView
                             android:id="@+id/btn_minus"
