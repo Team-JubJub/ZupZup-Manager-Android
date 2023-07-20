@@ -17,9 +17,9 @@ class ReservationRepositoryImpl @Inject constructor(
     private val reservationDataSource: ReservationDataSource
 ) : ReservationRepository {
 
-    override suspend fun getReservationList(storeId: Long, state: Int): Flow<Result<List<ReservationModel>>> {
+    override suspend fun getReservationList(storeId: Long): Flow<Result<List<ReservationModel>>> {
         return flow {
-            reservationDataSource.getReservationList(storeId, state).collect {
+            reservationDataSource.getReservationList(storeId).collect {
                 val reservationList =
                     it.map { doc -> doc.toObject<ReservationDto>()!!.toReservationModel() }
                 emit(Result.success(reservationList))

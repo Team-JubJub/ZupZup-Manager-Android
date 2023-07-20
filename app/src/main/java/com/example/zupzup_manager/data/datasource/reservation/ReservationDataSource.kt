@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface ReservationDataSource {
 
-    suspend fun getReservationList(storeId: Long, state: Int): Flow<List<DocumentSnapshot>>
+    suspend fun getReservationList(storeId: Long): Flow<List<DocumentSnapshot>>
 
     suspend fun confirmReservation(reserveId: Long, cartList: List<CartDto>): Task<Void>
 

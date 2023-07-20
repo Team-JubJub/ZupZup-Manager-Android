@@ -1,6 +1,9 @@
 package com.example.zupzup_manager.ui.reservationlist.binding
 
 import android.graphics.drawable.GradientDrawable
+import android.util.Log
+import android.view.View
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -15,14 +18,26 @@ import com.example.zupzup_manager.ui.common.toSimpleDateFormat
 import com.example.zupzup_manager.ui.common.toTimeFormat
 import com.example.zupzup_manager.ui.reservationlist.recyclerview.ReservationListRcvAdapter
 
-@BindingAdapter("uiState")
+@BindingAdapter("uiState", "filter")
 fun bindReservationListToRecyclerView(
     recyclerView: RecyclerView,
-    uiState: UiState<List<ReservationModel>>
+    uiState: UiState<List<ReservationModel>>?,
+    filter : String
 ) {
     when (uiState) {
         is UiState.Success -> {
-            (recyclerView.adapter as ReservationListRcvAdapter).submitList(uiState.data)
+            val reservationList : List<ReservationModel> = when(filter) {
+                "NEW" -> {
+                    uiState.data.filter { it.state == "NEW" }
+                }
+                "CONFIRM" -> {
+                    uiState.data.filter { it.state == "CONFIRM" }
+                }
+                else -> {
+                    uiState.data.filter { it.state != "NEW" && it.state != "CONFIRM" }
+                }
+            }
+            (recyclerView.adapter as ReservationListRcvAdapter).submitList(reservationList)
         }
         is UiState.Error -> {
             Toast.makeText(recyclerView.context, uiState.errorMessage, Toast.LENGTH_SHORT).show()
@@ -65,12 +80,4 @@ fun bindReservationDateToTextView(
     reserveId: Long
 ) {
     textView.text = reserveId.toSimpleDateFormat()
-}
-
-@BindingAdapter("visitTime")
-fun bindReservationVisitTimeToTextView(
-    textView: TextView,
-    visitTime: Int
-) {
-    textView.text = visitTime.toTimeFormat()
 }
