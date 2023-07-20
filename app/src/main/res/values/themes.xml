@@ -3,17 +3,17 @@
     <style name="Theme.ZupZupManager" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/main</item>
-        <item name="colorPrimaryVariant">@color/warm_gray2</item>
+        <item name="colorPrimaryVariant">@color/pure_white</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
         <!-- Customize your theme here. -->
-        <item name="android:windowBackground">@color/warm_gray2</item>
+        <item name="android:windowBackground">@color/pure_white</item>
     </style>
 
     <style name="Theme.App.Starting" parent="Theme.SplashScreen">
         <!-- Set the splash screen background, animated icon, and animation duration. -->
-        <item name="windowSplashScreenBackground">@color/warm_gray2</item>
+        <item name="windowSplashScreenBackground">@color/pure_white</item>
         <!-- Use windowSplashScreenAnimatedIcon to add either a drawable or an
              animated drawable. One of these is required. -->
         <item name="windowSplashScreenAnimatedIcon">@mipmap/ic_splash_logo</item>

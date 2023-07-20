@@ -10,14 +10,14 @@ import com.example.zupzup_manager.R
 import com.example.zupzup_manager.databinding.FragmentReservationConfirmBottomsheetBinding
 import com.example.zupzup_manager.domain.models.ReservationModel
 import com.example.zupzup_manager.ui.common.toDecimalFormat
-import com.example.zupzup_manager.ui.reservationdetail.HandleReservationBtnClickListener
+import com.example.zupzup_manager.ui.reservationdetail.ReservationDetailFragmentClickListener
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 class ReservationConfirmBottomSheetFragment(
     private val confirmedReservation: ReservationModel,
     private val isPartialConfirm : Boolean,
-    private val reservationHandler: HandleReservationBtnClickListener
+    private val reservationHandler: ReservationDetailFragmentClickListener
 ) : BottomSheetDialogFragment() {
 
     private lateinit var binding: FragmentReservationConfirmBottomsheetBinding

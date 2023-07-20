@@ -35,6 +35,7 @@ class ManagementFragment : Fragment() {
         override fun changeState(state: String) {
             managementViewModel.changeState(state)
         }
+
         override fun navigateToMerchandiseAdd() {
             if (managementStateBottomSheetFragment != null) {
                 managementStateBottomSheetFragment!!.dismiss()
@@ -47,7 +48,8 @@ class ManagementFragment : Fragment() {
 
     private val managementBtnClickListener = object : ManagementBtnClickListener {
         override fun createBottomSheet() {
-            managementStateBottomSheetFragment = ManagementStateBottomSheetFragment(managementDialogClickListener)
+            managementStateBottomSheetFragment =
+                ManagementStateBottomSheetFragment(managementDialogClickListener)
             managementStateBottomSheetFragment!!.show(parentFragmentManager, "")
         }
 
@@ -130,7 +132,11 @@ class ManagementFragment : Fragment() {
 
     private fun initBinding() {
         with(binding) {
-            adapter = ManagementRcvAdapter(managementBtnClickListener, managementViewModel, viewLifecycleOwner)
+            adapter = ManagementRcvAdapter(
+                managementBtnClickListener,
+                managementViewModel,
+                viewLifecycleOwner
+            )
             viewModel = managementViewModel
             lifecycleOwner = viewLifecycleOwner
             stateClickListener = managementDialogClickListener

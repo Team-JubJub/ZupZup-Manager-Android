@@ -9,7 +9,7 @@
 
         <variable
             name="handler"
-            type="com.example.zupzup_manager.ui.reservationdetail.HandleReservationBtnClickListener" />
+            type="com.example.zupzup_manager.ui.reservationdetail.ReservationDetailFragmentClickListener" />
 
         <variable
             name="adapter"
@@ -33,6 +33,7 @@
             android:id="@+id/btn_back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:onClick="@{_ -> handler.onBackBtnClick()}"
             android:layout_marginStart="7dp"
             android:layout_marginTop="9dp"
             android:src="@drawable/ic_back_button"
@@ -44,14 +45,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
-            android:text="예약 상황"
-            android:textColor="@color/main"
+            style="@style/UIBody"
+            android:text="이전으로"
+            android:textColor="@color/tangerine_300"
             app:layout_constraintBottom_toBottomOf="@id/btn_back"
             app:layout_constraintStart_toEndOf="@id/btn_back"
             app:layout_constraintTop_toTopOf="@id/btn_back" />
 
         <TextView
             android:id="@+id/tv_cartList_title"
+            style="@style/UIHero"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -60,8 +63,8 @@
             android:ellipsize="end"
             android:maxLines="1"
             android:text="@{viewModel.reservationDetailHeader.title}"
-            style="@style/UIHero"
-            app:layout_constraintEnd_toStartOf="@id/tv_reservation_state"
+            android:textColor="@color/pure_black"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/btn_back"
             tools:text="제품제품제품제품제품제품" />
@@ -83,11 +86,12 @@
 
         <TextView
             android:id="@+id/tv_reserve_date"
+            style="@style/UISubhead"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="4dp"
-            android:textColor="@color/warm_gray5"
+            android:textColor="@color/ivory_gray_300"
             app:detailReserveId="@{viewModel.reservationDetailHeader.reserveId}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_cartList_title"
@@ -100,6 +104,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
             android:adapter="@{adapter}"
+
             android:paddingVertical="10dp"
             app:layout_constraintBottom_toTopOf="@id/constraint_confirm_state_button"
             app:layout_constraintEnd_toEndOf="parent"
@@ -119,12 +124,13 @@
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_confirm_reservation"
+                style="@style/UIHeadline"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:background="@drawable/frame_rectangle_corner_14_main"
                 android:onClick="@{() -> bindingHelper.createReservationConfirmBottomSheet(viewModel.reservationDetailHeader,viewModel.reservationDetailBody)}"
                 android:text="예약 확정하기"
-                android:textColor="@color/off_white"
+                android:textColor="@color/pure_black"
                 android:visibility="@{viewModel.reservationDetailHeader.state.equals(`NEW`) ? View.VISIBLE : View.GONE}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -133,13 +139,14 @@
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_reservation_cancel"
+                style="@style/UIHeadline"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8.5dp"
-                android:background="@drawable/frame_rectangle_corner_14_warning_1"
+                android:background="@drawable/frame_rectangle_corner_14_neutral_gray_150"
                 android:onClick="@{_ -> handler.cancelReservation(viewModel.reservationDetailHeader.reserveId)}"
                 android:text="취소"
-                android:textColor="@color/text_white"
+                android:textColor="@color/neutral_gray_400"
                 android:textSize="17sp"
                 android:visibility="@{viewModel.reservationDetailHeader.state.equals(`CONFIRM`) ? View.VISIBLE : View.GONE}"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -149,10 +156,11 @@
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_reservation_complete"
+                style="@style/UIHeadline"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8.5dp"
-                android:background="@drawable/frame_rectangle_corner_14_green"
+                android:background="@drawable/frame_rectangle_corner_14_main"
                 android:onClick="@{_ -> handler.completeReservation(viewModel.reservationDetailHeader.reserveId)}"
                 android:text="완료"
                 android:textColor="@color/pure_black"

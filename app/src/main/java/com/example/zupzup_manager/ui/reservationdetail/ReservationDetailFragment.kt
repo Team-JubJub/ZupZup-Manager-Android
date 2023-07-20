@@ -28,7 +28,8 @@ import kotlinx.coroutines.launch
 class ReservationDetailFragment : Fragment() {
 
     private val args: ReservationDetailFragmentArgs by navArgs()
-    private lateinit var binding: FragmentReservationDetailBinding
+    private var _binding: FragmentReservationDetailBinding? = null
+    private val binding get() = _binding!!
     private val reservationDetailViewModel: ReservationDetailViewModel by viewModels()
 
     private var reservationConfirmBottomSheet: ReservationConfirmBottomSheetFragment? = null
@@ -40,7 +41,7 @@ class ReservationDetailFragment : Fragment() {
         { itemId: Long -> reservationDetailViewModel.minusConfirmedAmount(itemId) }
     )
 
-    private val reservationHandler = object : HandleReservationBtnClickListener {
+    private val reservationHandler = object : ReservationDetailFragmentClickListener {
         override fun confirmReservation(reservationModel: ReservationModel, isPartial: Boolean) {
             reservationDetailViewModel.confirmReservation(reservationModel, isPartial)
         }
@@ -57,6 +58,10 @@ class ReservationDetailFragment : Fragment() {
             reservationDetailViewModel.completeReservation(reserveId)
         }
 
+        override fun onBackBtnClick() {
+            findNavController().popBackStack()
+        }
+
     }
 
     override fun onCreateView(
@@ -64,7 +69,7 @@ class ReservationDetailFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         // Inflate the layout for this fragment
-        binding = FragmentReservationDetailBinding.inflate(layoutInflater, container, false)
+        _binding = FragmentReservationDetailBinding.inflate(layoutInflater, container, false)
         return binding.root
     }
 
@@ -108,7 +113,6 @@ class ReservationDetailFragment : Fragment() {
         }
     }
 
-
     private fun collectReservationProcessEventState() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
@@ -140,5 +144,10 @@ class ReservationDetailFragment : Fragment() {
             }
 
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }
