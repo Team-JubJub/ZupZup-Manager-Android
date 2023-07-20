@@ -4,30 +4,90 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <import type="android.view.View"/>
+        <import type="kotlin.jvm.functions.Function1" />
+        <import type="kotlin.Unit" />
+        <import type="com.example.zupzup_manager.domain.models.StoreModel" />
+
         <variable
             name="adapter"
             type="com.example.zupzup_manager.ui.management.recyclerview.ManagementRcvAdapter" />
-
         <variable
             name="viewModel"
             type="com.example.zupzup_manager.ui.management.ManagementViewModel" />
+        <variable
+            name="store"
+            type="com.example.zupzup_manager.domain.models.StoreModel" />
+        <variable
+            name="navigate"
+            type="Function1&lt;StoreModel, Unit>" />
+        <!--  모드 전환 클릭 리스너  -->
+        <variable
+            name="stateClickListener"
+            type="com.example.zupzup_manager.ui.management.clicklistener.ManagementDialogClickListener" />
+        <!-- BottomSheet Dialog를 만들고, 제품 수정하고, 기타 등등 클릭 리스너  -->
+        <variable
+            name="dialogClickListener"
+            type="com.example.zupzup_manager.ui.management.clicklistener.ManagementBtnClickListener" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingHorizontal="16dp"
+        android:paddingHorizontal="8dp"
         tools:context=".ui.management.ManagementFragment">
 
-        <TextView
-            android:id="@+id/tv_page_title"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:id="@+id/btn_back"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="48dp"
-            android:text="관리"
-            style="@style/UIHero"
+            android:layout_marginTop="15dp"
+            android:gravity="center_vertical"
+            android:visibility="@{String.valueOf(viewModel.managementUiState).contains(`DefaultMode`) ? View.GONE : View.VISIBLE}"
+            android:onClick="@{_ -> stateClickListener.changeState(`DefaultMode`)}"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_back_button" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:text="제품 관리"
+                style="@style/UIBody"
+                android:textColor="@color/tangerine_300"/>
+        </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/tv_title_section"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="8dp"
+            android:layout_marginTop="48dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                style="@style/UIHero"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_centerInParent="true"
+                app:managementMode="@{viewModel.managementUiState}"
+                android:text="제품 관리" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerInParent="true"
+                android:layout_marginEnd="10dp"
+                android:visibility="@{String.valueOf(viewModel.managementUiState).contains(`DefaultMode`) ? View.VISIBLE : View.GONE}"
+                android:onClick="@{_ -> dialogClickListener.createBottomSheet()}"
+                android:src="@drawable/ic_edit" />
+        </RelativeLayout>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rcv_management"
@@ -35,11 +95,28 @@
             android:layout_height="0dp"
             android:layout_marginTop="15dp"
             android:adapter="@{adapter}"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/btn_complete_modify"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_page_title"
-            app:managementDetailBody="@{viewModel.managementDetailBody}"/>
+            app:layout_constraintTop_toBottomOf="@id/tv_title_section"
+            app:merchandise="@{viewModel.managementDetailBody}"/>
+
+        <TextView
+            android:id="@+id/btn_complete_modify"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="8dp"
+            android:paddingVertical="21dp"
+            android:layout_marginVertical="20dp"
+            android:gravity="center_horizontal"
+            android:onClick="@{_ -> dialogClickListener.modifyMerchandiseList(String.valueOf(viewModel.managementUiState))}"
+            android:visibility="@{String.valueOf(viewModel.managementUiState).contains(`DefaultMode`) ? View.GONE : View.VISIBLE}"
+            android:background="@drawable/frame_rectangle_corner_14_tangerine_300"
+            style="@style/UIHeadline"
+            android:text="수정 완료"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

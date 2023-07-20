@@ -70,8 +70,23 @@
             tools:text="제품제품제품제품제품제품" />
 
         <TextView
+            android:id="@+id/tv_reservation_state"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/frame_rectangle_corner_99_white"
+            android:paddingHorizontal="24.5dp"
+            android:paddingVertical="8dp"
+            android:textColor="@color/pure_black"
+            app:layout_constraintBottom_toBottomOf="@id/tv_cartList_title"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tv_cartList_title"
+            app:state="@{viewModel.reservationDetailHeader.state}"
+            tools:text="신규" />
+
+        <TextView
             android:id="@+id/tv_reserve_date"
-            style="@style/SUBHEADSubhead"
+            style="@style/UISubhead"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -148,7 +163,7 @@
                 android:background="@drawable/frame_rectangle_corner_14_main"
                 android:onClick="@{_ -> handler.completeReservation(viewModel.reservationDetailHeader.reserveId)}"
                 android:text="완료"
-                android:textColor="@color/text_black"
+                android:textColor="@color/pure_black"
                 android:textSize="17sp"
                 android:visibility="@{viewModel.reservationDetailHeader.state.equals(`CONFIRM`) ? View.VISIBLE : View.GONE}"
                 app:layout_constraintBottom_toBottomOf="parent"

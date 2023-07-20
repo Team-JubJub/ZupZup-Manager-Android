@@ -45,8 +45,6 @@ class CustomRoundedCornersTransformation(private val radius: Int
         }
 
         //캔버스 준비
-
-        //캔버스 준비
         val canvas = Canvas(result!!)
 
         //크레파스 준비
@@ -59,8 +57,10 @@ class CustomRoundedCornersTransformation(private val radius: Int
         val rectF = RectF(rect)
         canvas.drawRoundRect(rectF, radius.toFloat(), radius.toFloat(), paint)
 
-        val rightRect = Rect(width / 2, 0, width, height)
-        canvas.drawRect(rightRect, paint)
+        // 하단 직사각형(destination) 그리기
+        val bottomRect = Rect(0, height / 2, width, height)
+        canvas.drawRect(bottomRect, paint)
+
         paint.xfermode = PorterDuffXfermode(PorterDuff.Mode.SRC_IN)
 
         //블랙펜서 비트맵(source) 그리기

@@ -1,18 +1,11 @@
-package com.example.zupzup_manager.ui.managementdetail
+package com.example.zupzup_manager.ui.management.clicklistener
 
 import com.example.zupzup_manager.domain.models.MerchandiseModel
 
-interface ManagementDetailBtnClickListener {
-
-    fun createMerchandiseModifyDialog(merchandiseDetailBody: List<MerchandiseModel>)
-
+interface ManagementBtnClickListener {
+    fun createBottomSheet()
     fun onPlusMerchandiseModifiedAmountBtnClick(itemId: Long)
-
     fun onMinusMerchandiseModifiedAmountBtnClick(itemId: Long)
-
-    fun navigateToBackStack()
-
-    fun navigateToMerchandiseAdd()
-
+    fun modifyMerchandiseList(state: String)
     fun navigateToMerchandiseModify(merchandise: MerchandiseModel)
 }

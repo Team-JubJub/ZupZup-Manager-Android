@@ -32,7 +32,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="해당 주문을 확정할까요?"
-            android:textColor="@color/pure_black"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -44,7 +43,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text="아래 주문 내역을 확인해주세요."
-            android:textColor="@color/text_black"
+            android:textSize="12sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_bottom_sheet_title" />
 
@@ -87,7 +86,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:text="@{reservation.customer.name}"
-                android:textColor="@color/text_black"
+                android:textColor="@color/pure_black"
                 android:textSize="17sp"
                 app:layout_constraintStart_toStartOf="@id/tv_customer_header"
                 app:layout_constraintTop_toBottomOf="@id/tv_customer_header"
@@ -137,6 +136,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:textColor="@color/pure_black"
+                android:textSize="17sp"
                 app:layout_constraintStart_toStartOf="@id/tv_visitTime_description"
                 app:layout_constraintTop_toBottomOf="@id/tv_visitTime_description"
                 app:visitTime="@{reservation.visitTime}"
@@ -161,7 +161,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2.43dp"
                 android:text="총 합계"
-                android:textColor="@color/pure_black"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 

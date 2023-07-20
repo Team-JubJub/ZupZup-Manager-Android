@@ -79,7 +79,7 @@
                         android:textSize="17dp"
                         android:maxLines="1"
                         android:paddingStart="16dp"
-                        android:textColorHint="@color/text_black"
+                        android:textColorHint="@color/pure_black"
                         android:onEditorAction="@{() -> etvPw.requestFocus()}"/>
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -108,7 +108,7 @@
                         android:inputType="textPassword"
                         android:maxLines="1"
                         android:paddingStart="16dp"
-                        android:textColorHint="@color/text_black"
+                        android:textColorHint="@color/pure_black"
                         android:onEditorAction="@{() -> loginBtnOnClick.onClickLoginButton(etvId.getText().toString(), etvPw.getText().toString())}"/>
                 </com.google.android.material.textfield.TextInputLayout>
 

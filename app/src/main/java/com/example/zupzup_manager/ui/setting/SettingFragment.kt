@@ -7,7 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.example.zupzup_manager.databinding.FragmentSettingBinding
+import com.example.zupzup_manager.ui.common.User
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -16,10 +18,18 @@ class SettingFragment : Fragment() {
     private lateinit var binding: FragmentSettingBinding
     private val settingViewModel: SettingViewModel by viewModels()
 
-    private val storeSettingClickListener = object : StoreSettingClickListener {
+    private val settingClickListener = object : SettingClickListener {
         override fun onToggleBtnClick() {
             Log.e("ok", ".value.toString()")
             settingViewModel.changeStoreStatus()
+        }
+
+        override fun navigateToStore() {
+            val store =
+                settingViewModel.storeInfo.value
+            val action =
+                SettingFragmentDirections.actionFragSettingToStoreFragment(store)
+            findNavController().navigate(action)
         }
     }
 
@@ -40,11 +50,12 @@ class SettingFragment : Fragment() {
         with(binding) {
             lifecycleOwner = viewLifecycleOwner
             viewModel = settingViewModel
-            clickListener = storeSettingClickListener
+            clickListener = settingClickListener
         }
     }
 
-    interface StoreSettingClickListener {
+    interface SettingClickListener {
         fun onToggleBtnClick()
+        fun navigateToStore()
     }
 }

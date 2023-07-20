@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="android.view.View"/>
+
+        <variable
+            name="merchandise"
+            type="com.example.zupzup_manager.domain.models.MerchandiseModel" />
+
+        <variable
+            name="clickListener"
+            type="com.example.zupzup_manager.ui.management.clicklistener.ManagementDialogClickListener" />
+    </data>
+
+    <LinearLayout
+        android:id="@+id/bottomSheet"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="16dp"
+        android:paddingBottom="16dp"
+        android:background="@color/pure_white"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="16dp"
+            android:text="수정하기"
+            style="@style/UIHeadline" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="12dp"
+            android:text="수량 수정"
+            android:onClick="@{_ -> clickListener.changeState(`AmountMode`)}"
+            style="@style/UIBody"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="12dp"
+            android:onClick="@{_ -> clickListener.changeState(`InfoMode`)}"
+            android:text="제품 정보 수정"
+            style="@style/UIBody"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="12dp"
+            android:onClick="@{_ -> clickListener.navigateToMerchandiseAdd()}"
+            android:text="제품 추가"
+            style="@style/UIBody"/>
+    </LinearLayout>
+</layout>

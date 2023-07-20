@@ -2,77 +2,63 @@ package com.example.zupzup_manager.ui.management.recyclerview
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
+import androidx.recyclerview.widget.RecyclerView
 import com.example.zupzup_manager.databinding.ItemManagementMerchandiseInfoBinding
-import com.example.zupzup_manager.databinding.ItemManagementStoreInfoBinding
-import com.example.zupzup_manager.databinding.ItemMerchandiseModifyBinding
-import com.example.zupzup_manager.domain.models.ReservationModel
-import com.example.zupzup_manager.domain.models.StoreModel
-import com.example.zupzup_manager.ui.common.ViewType
-import com.example.zupzup_manager.ui.management.models.ManagementViewType
+import com.example.zupzup_manager.domain.models.MerchandiseModel
+import com.example.zupzup_manager.ui.management.clicklistener.ManagementBtnClickListener
+import com.example.zupzup_manager.ui.management.ManagementViewModel
 
 class ManagementRcvAdapter(
-    private val navigateToManagementDetail: (StoreModel) -> Unit
-) : ListAdapter<ManagementViewType, ManagementViewHolder>(
-    ManagementDiffCallBack()
+    private val managementBtnClickListener: ManagementBtnClickListener,
+    private val managementViewModel: ManagementViewModel,
+    private val fragmentLifecycleOwner: LifecycleOwner
+) : ListAdapter<MerchandiseModel, ManagementRcvAdapter.ManagementViewHolder>(
+    MerchandiseModelDiffCallBack()
 ) {
+    class ManagementViewHolder(
+        private val binding: ItemManagementMerchandiseInfoBinding,
+        private val managementBtnClickListener: ManagementBtnClickListener,
+        private val managementViewModel: ManagementViewModel,
+        private val fragmentLifecycleOwner: LifecycleOwner
+    ) : RecyclerView.ViewHolder(binding.root) {
+        fun bind(item: MerchandiseModel) {
+            with(binding) {
+                merchandise = item
+                clickListener = managementBtnClickListener
+                lifecycleOwner = fragmentLifecycleOwner
+                viewModel = managementViewModel
+                executePendingBindings()
+            }
+        }
+    }
     override fun onCreateViewHolder(
         parent: ViewGroup, viewType: Int
     ): ManagementViewHolder {
-        return when (viewType) {
-            ViewType.STORE_INFO.ordinal -> {
-                val binding = ItemManagementStoreInfoBinding.inflate(
-                    LayoutInflater.from(parent.context),
-                    parent,
-                    false
-                )
-                ManagementViewHolder.ManagementStoreInfoViewHolder(binding)
-            }
-            ViewType.MERCHANDISE_INFO.ordinal -> {
-                val binding = ItemManagementMerchandiseInfoBinding.inflate(
-                    LayoutInflater.from(parent.context),
-                    parent,
-                    false
-                )
-                ManagementViewHolder.ManagementMerchandiseInfoViewHolder(binding)
-            }
-            else -> {
-                val binding = ItemMerchandiseModifyBinding.inflate(
-                    LayoutInflater.from(parent.context),
-                    parent,
-                    false
-                )
-                ManagementViewHolder.ManagementMerchandiseModifyViewHolder(binding, navigateToManagementDetail)
-            }
-        }
-    }
-
-    override fun getItemViewType(position: Int): Int {
-        return currentList[position].viewType
+        val binding =
+            ItemManagementMerchandiseInfoBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return ManagementViewHolder(binding, managementBtnClickListener, managementViewModel, fragmentLifecycleOwner)
     }
 
     override fun onBindViewHolder(holder: ManagementViewHolder, position: Int) {
-        holder.bind(currentList[position])
+        holder.bind(getItem(position))
     }
 
-    class ManagementDiffCallBack : DiffUtil.ItemCallback<ManagementViewType>() {
+    class MerchandiseModelDiffCallBack : DiffUtil.ItemCallback<MerchandiseModel>() {
         override fun areItemsTheSame(
-            oldItem: ManagementViewType,
-            newItem: ManagementViewType
+            oldItem: MerchandiseModel,
+            newItem: MerchandiseModel
         ): Boolean {
-            return if (oldItem.viewType == ViewType.MERCHANDISE_INFO.ordinal && newItem.viewType == ViewType.MERCHANDISE_INFO.ordinal) {
-                (oldItem as ManagementViewType.MerchandiseInfoViewType).itemId == (newItem as ManagementViewType.MerchandiseInfoViewType).itemId
-            } else {
-                oldItem.viewType == newItem.viewType
-            }
+            return oldItem.itemId == newItem.itemId
         }
 
         override fun areContentsTheSame(
-            oldItem: ManagementViewType,
-            newItem: ManagementViewType
+            oldItem: MerchandiseModel,
+            newItem: MerchandiseModel
         ): Boolean {
-            return oldItem.viewType == newItem.viewType && oldItem.hashCode() == newItem.hashCode()
+            return oldItem.hashCode() == newItem.hashCode()
         }
     }
 }

@@ -11,7 +11,7 @@
 
         <variable
             name="clickListener"
-            type="com.example.zupzup_manager.ui.setting.SettingFragment.StoreSettingClickListener" />
+            type="com.example.zupzup_manager.ui.setting.SettingFragment.SettingClickListener" />
 
     </data>
     <ScrollView
@@ -22,7 +22,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingHorizontal="16dp"
-            tools:context=".ui.setting.ReservationListFragment">
+            tools:context=".ui.setting.SettingFragment">
 
             <TextView
                 android:id="@+id/tv_page_title"
@@ -65,8 +65,9 @@
                         android:id="@+id/iv_store_status"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:background="@{viewModel.storeStatus ? @drawable/ic_day : @drawable/ic_night}"
+                        android:background="@drawable/ic_day"
                         tools:background="@drawable/ic_day"/>
+<!--                        android:background="@{viewModel.storeStatus ? @drawable/ic_day : @drawable/ic_night}"-->
 
                     <LinearLayout
                         android:layout_width="0dp"
@@ -85,8 +86,9 @@
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="@{viewModel.storeStatus ? `지금 영업 중이에요!` : `지금은 문을 닫았어요`}"
+                            android:text="지금 영업 중이에요!"
                             style="@style/UISubhead"/>
+<!--                            android:text="@{viewModel.storeStatus ? `지금 영업 중이에요!` : `지금은 문을 닫았어요`}"-->
 
                     </LinearLayout>
 
@@ -109,6 +111,7 @@
                     android:layout_marginTop="16dp"
                     android:paddingHorizontal="16dp"
                     android:paddingVertical="18dp"
+                    android:onClick="@{_ -> clickListener.navigateToStore()}"
                     android:background="@drawable/frame_stroke_rect_corner_16_ivorygray_200_100"
                     android:orientation="vertical">
 
