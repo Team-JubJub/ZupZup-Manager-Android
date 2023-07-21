@@ -8,6 +8,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.example.zupzup_manager.R
 import com.example.zupzup_manager.domain.models.MerchandiseModel
@@ -22,6 +23,8 @@ fun bindDetailImageUrlToImageView(imageView: ImageView, imgUrl: String?) {
             .transform(
                 CenterCrop()
             )
+            // disk 캐싱 추가
+            .diskCacheStrategy(DiskCacheStrategy.ALL)
             .into(imageView)
     }
 }
