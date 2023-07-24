@@ -1,32 +1,29 @@
 package com.example.zupzup_manager.data.dto.mapper
 
-import android.util.Log
-import com.example.zupzup_manager.data.dto.CartDto
-import com.example.zupzup_manager.data.dto.MerchandiseDto
-import com.example.zupzup_manager.domain.models.CartModel
+import com.example.zupzup_manager.data.dto.order.OrderSpecificDto
+import com.example.zupzup_manager.data.dto.merchandise.MerchandiseDto
+import com.example.zupzup_manager.domain.models.OrderSpecificModel
 import com.example.zupzup_manager.domain.models.MerchandiseModel
 
 object DtoMapper {
 
-    fun CartModel.toDto(): CartDto {
-        return CartDto(
+    fun OrderSpecificModel.toDto(): OrderSpecificDto {
+        return OrderSpecificDto(
             itemId = itemId,
-            storeId = storeId,
-            name = name,
-            salesPrice = salesPrice,
-            amount = amount
+            itemName = itemName,
+            itemPrice = itemPrice,
+            itemCount = itemCount
         )
     }
 
     fun MerchandiseModel.toDto(): MerchandiseDto {
         return MerchandiseDto(
             itemId = itemId,
-            storeId = storeId,
             itemName = itemName,
-            price = price,
-            discounted = discounted,
-            imgUrl = imgUrl,
-            stock = modifiedStock
+            imageUrl = imageUrl,
+            itemPrice = itemPrice,
+            salePrice = salePrice,
+            itemCount = itemCount
         )
     }
 

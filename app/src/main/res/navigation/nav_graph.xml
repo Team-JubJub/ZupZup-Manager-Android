@@ -3,26 +3,26 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/frag_reservationList">
+    app:startDestination="@id/frag_orderList">
 
     <fragment
-        android:id="@+id/frag_reservationList"
-        android:name="com.example.zupzup_manager.ui.reservationlist.ReservationListFragment"
-        android:label="ReservationListFragment"
-        tools:layout="@layout/fragment_reservation_list">
+        android:id="@+id/frag_orderList"
+        android:name="com.example.zupzup_manager.ui.orderlist.OrderListFragment"
+        android:label="OrderListFragment"
+        tools:layout="@layout/fragment_order_list">
         <action
-            android:id="@+id/action_frag_reservationList_to_frag_reservationDetail"
-            app:destination="@id/frag_reservationDetail" />
+            android:id="@+id/action_frag_orderList_to_frag_orderDetail"
+            app:destination="@id/frag_orderDetail" />
     </fragment>
 
     <fragment
-        android:id="@+id/frag_reservationDetail"
-        android:name="com.example.zupzup_manager.ui.reservationdetail.ReservationDetailFragment"
-        android:label="ReservationDetailFragment"
-        tools:layout="@layout/fragment_reservation_detail">
+        android:id="@+id/frag_orderDetail"
+        android:name="com.example.zupzup_manager.ui.orderdetail.OrderDetailFragment"
+        android:label="OrderDetailFragment"
+        tools:layout="@layout/fragment_order_detail">
         <argument
-            android:name="reservation"
-            app:argType="com.example.zupzup_manager.domain.models.ReservationModel"
+            android:name="order"
+            app:argType="com.example.zupzup_manager.domain.models.OrderModel"
             app:nullable="false" />
     </fragment>
     <fragment

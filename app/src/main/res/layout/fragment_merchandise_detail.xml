@@ -85,7 +85,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="192dp"
                     android:visibility="@{merchandise == null ? View.GONE : View.VISIBLE}"
-                    app:detailImgUrl="@{merchandise == null ? null : merchandise.imgUrl}"
+                    app:detailImgUrl="@{merchandise == null ? null : merchandise.imageUrl}"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -173,7 +173,7 @@
                         android:paddingHorizontal="130dp"
                         android:textAlignment="center"
                         style="@style/UIH3"
-                        android:text="@{merchandise != null ? `₩` + String.valueOf(merchandise.discounted) : `₩0`}"
+                        android:text="@{merchandise != null ? `₩` + String.valueOf(merchandise.salePrice) : `₩0`}"
                         tools:text="₩1,500"
                         android:inputType="number"
                         android:maxLength="7"
@@ -195,7 +195,7 @@
                         android:paddingHorizontal="130dp"
                         android:textAlignment="center"
                         style="@style/UIH3"
-                        android:text="@{merchandise != null ? `₩` + String.valueOf(merchandise.price) : `₩0`}"
+                        android:text="@{merchandise != null ? `₩` + String.valueOf(merchandise.salePrice) : `₩0`}"
                         tools:text="₩2,000"
                         android:maxLength="7"
                         android:inputType="number"
@@ -260,7 +260,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginEnd="16dp"
                             android:layout_centerInParent="true"
-                            android:text="@{merchandise != null ? String.valueOf(merchandise.stock) : `0`}"
+                            android:text="@{merchandise != null ? String.valueOf(merchandise.itemCount) : `0`}"
                             style="@style/UIH3"
                             tools:text="8" />
 

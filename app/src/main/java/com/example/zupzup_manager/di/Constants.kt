@@ -2,8 +2,8 @@ package com.example.zupzup_manager.di
 
 object Constants {
     const val storeRef = "Store"
-    const val reservationRef = "Reservation"
+    const val orderRef = "Order"
 
-    const val testReservationRef = "TestReservation"
+    const val testOrderRef = "TestOrder"
     const val testStoreRef = "TestStore"
 }

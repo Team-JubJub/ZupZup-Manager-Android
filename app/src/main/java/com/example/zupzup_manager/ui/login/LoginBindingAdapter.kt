@@ -7,7 +7,7 @@ import androidx.databinding.BindingAdapter
 import com.example.zupzup_manager.ui.common.UiEventState
 
 @BindingAdapter("loginEventState")
-fun bindReservationListToRecyclerView(
+fun bindOrderListToRecyclerView(
     progress: ProgressBar,
     loginEventState: UiEventState
 ) {

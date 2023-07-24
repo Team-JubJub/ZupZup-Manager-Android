@@ -36,7 +36,7 @@ fun bindTwoAmountSame(
     merchandise: MerchandiseModel?
 ){
     if (merchandise != null) {
-        amount.setText(merchandise.stock.toString())
+        amount.setText(merchandise.itemCount.toString())
     } else {
         amount.setText("0")
     }

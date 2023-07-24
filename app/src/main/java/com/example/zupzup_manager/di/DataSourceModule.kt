@@ -6,8 +6,8 @@ import com.example.zupzup_manager.data.datasource.admin.SignInDataSource
 import com.example.zupzup_manager.data.datasource.admin.SignInDataSourceImpl
 import com.example.zupzup_manager.data.datasource.lunasoft.LunaSoftDataSource
 import com.example.zupzup_manager.data.datasource.lunasoft.LunaSoftDateSourceImpl
-import com.example.zupzup_manager.data.datasource.reservation.ReservationDataSource
-import com.example.zupzup_manager.data.datasource.reservation.ReservationDataSourceImpl
+import com.example.zupzup_manager.data.datasource.order.OrderDataSource
+import com.example.zupzup_manager.data.datasource.order.OrderDataSourceImpl
 import com.example.zupzup_manager.data.datasource.store.StoreDataSource
 import com.example.zupzup_manager.data.datasource.store.StoreDataSourceImpl
 import dagger.Binds
@@ -28,9 +28,9 @@ abstract class DataSourceModule {
 
     @Binds
     @Singleton
-    abstract fun bindReservationDataSource(
-        reservationRemoteDataSourceImpl: ReservationDataSourceImpl
-    ): ReservationDataSource
+    abstract fun bindOrderDataSource(
+        orderRemoteDataSourceImpl: OrderDataSourceImpl
+    ): OrderDataSource
 
     @Binds
     @Singleton

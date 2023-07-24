@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="kotlin.Unit" />
+
+        <import type="android.view.View" />
+
+        <variable
+            name="bindingHelper"
+            type="com.example.zupzup_manager.ui.orderdetail.binding.OrderDetailBindingHelper" />
+
+        <variable
+            name="orderStatus"
+            type="java.lang.String" />
+
+        <variable
+            name="order"
+            type="com.example.zupzup_manager.ui.orderdetail.models.OrderDetailViewType.OrderItemViewType" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/frame_rectangle_corner_9_warmgray_1"
+        android:paddingHorizontal="16dp"
+        android:paddingVertical="15dp">
+
+        <TextView
+            android:id="@+id/tv_item_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="@{order.orderItem.itemName}"
+            android:textColor="@color/pure_black"
+            android:textSize="17sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@id/btn_minus"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="이름이 엄청 긴 메뉴이름이 너무 길어 더 길어" />
+
+        <TextView
+            android:id="@+id/tv_item_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="@{String.valueOf(order.orderItem.itemPrice) + '원'}"
+            android:textColor="@color/main"
+            android:textSize="13sp"
+            app:layout_constraintStart_toStartOf="@id/tv_item_name"
+            app:layout_constraintTop_toBottomOf="@id/tv_item_name"
+            tools:text="3000원" />
+
+        <ImageView
+            android:id="@+id/btn_plus"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginTop="11.5dp"
+            android:layout_marginBottom="11.5dp"
+            android:background="@drawable/frame_oval_ivorygray_4"
+            android:padding="4dp"
+            android:src="@drawable/ic_plus"
+            android:visibility="@{orderStatus.equals(`NEW`) ? View.VISIBLE : View.GONE}"
+            app:bindingHelper="@{bindingHelper}"
+            app:itemId="@{order.orderItem.itemId}"
+            app:layout_constraintBottom_toBottomOf="@id/tv_item_price"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tv_item_name"
+            app:orderAmount="@{order.orderItem.itemCount}"
+            app:tvConfirmedAmount="@{tvItemAmount}" />
+
+        <TextView
+            android:id="@+id/tv_item_amount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:text="@{String.valueOf(order.getConfirmedAmount())}"
+            android:textColor="@color/pure_black"
+            app:layout_constraintBottom_toBottomOf="@id/btn_plus"
+            app:layout_constraintEnd_toStartOf="@id/btn_plus"
+            app:layout_constraintTop_toTopOf="@id/btn_plus"
+            tools:text="1" />
+
+        <ImageView
+            android:id="@+id/btn_minus"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginTop="11.5dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="11.5dp"
+            android:background="@drawable/frame_oval_ivorygray_4"
+            android:padding="4dp"
+            android:src="@drawable/ic_minus"
+            android:visibility="@{orderStatus.equals(`NEW`) ? View.VISIBLE : View.GONE}"
+            app:bindingHelper="@{bindingHelper}"
+            app:itemId="@{order.orderItem.itemId}"
+            app:layout_constraintBottom_toBottomOf="@id/tv_item_price"
+            app:layout_constraintEnd_toStartOf="@id/tv_item_amount"
+            app:layout_constraintTop_toTopOf="@id/tv_item_name"
+            app:orderAmount="@{order.orderItem.itemCount}"
+            app:tvConfirmedAmount="@{tvItemAmount}" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

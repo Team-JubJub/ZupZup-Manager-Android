@@ -1,6 +1,5 @@
 package com.example.zupzup_manager.domain.usecase
 
-import com.example.zupzup_manager.domain.models.CartModel
 import com.example.zupzup_manager.domain.models.MerchandiseModel
 import com.example.zupzup_manager.domain.repository.StoreRepository
 import kotlinx.coroutines.Dispatchers
