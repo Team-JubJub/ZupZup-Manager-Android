@@ -1,5 +1,6 @@
 package com.example.zupzup_manager.di
 
+import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -25,7 +26,7 @@ object NetworkModule {
 
     @Qualifier
     @Retention(AnnotationRetention.BINARY)
-    annotation class SignInRetrofitObject
+    annotation class ZupZupRetrofitObject
 
     @Provides
     @Singleton
@@ -42,8 +43,8 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    @SignInRetrofitObject
-    fun provideSignInRetrofitObject(
+    @ZupZupRetrofitObject
+    fun provideZupZupRetrofitObject(
         client: OkHttpClient
     ): Retrofit {
         return Retrofit.Builder()
