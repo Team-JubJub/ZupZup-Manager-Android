@@ -61,7 +61,7 @@ class LoginActivity : AppCompatActivity() {
                             showProgressDialog()
                         }
                         is UiState.Success -> {
-                            setUserStoreId(it.data)
+                            setUserInfo(it.data)
                             hideProgressDialog()
                             navigateMainActivity()
                         }
@@ -76,10 +76,11 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-    private fun setUserStoreId(storeId: Long) {
+    private fun setUserInfo(userInfo: Pair<String, Long>) {
         // TODO 수정할 것, 테스트용 아이디
-        User.setStoreId(9)
-//        User.setStoreId(storeId)
+//        User.setStoreId(9)
+        User.setAccessToken(userInfo.first)
+        User.setStoreId(userInfo.second)
     }
 
     private fun navigateMainActivity() {

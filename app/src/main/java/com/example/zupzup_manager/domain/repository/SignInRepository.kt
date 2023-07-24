@@ -6,5 +6,5 @@ interface SignInRepository {
 
     suspend fun login(id: String, pw: String): Result<AdminModel>
 
-    suspend fun getStoreIdInLocal() : Result<Long>
+    suspend fun getStoreIdInLocal() : Result<Pair<String, Long>>
 }

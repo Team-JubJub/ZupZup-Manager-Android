@@ -13,7 +13,7 @@ import javax.inject.Inject
 class SignInRepositoryImpl @Inject constructor(
     private val signInDataSource: SignInDataSource,
     private val sharedPreferenceDataSource: SharedPreferenceDataSource,
-    @NetworkModule.SignInRetrofitObject private val signInRetrofitObject: Retrofit
+    @NetworkModule.ZupZupRetrofitObject private val zupzupRetrofitObject: Retrofit
 ) : SignInRepository {
     override suspend fun login(id: String, pw: String): Result<AdminModel> {
         return try {
@@ -21,11 +21,12 @@ class SignInRepositoryImpl @Inject constructor(
             val admin: AdminModel
             if (response.isSuccessful) {
                 with(response.body()!!) {
-                    sharedPreferenceDataSource.insertStoreId(this.fireBaseStoreId)
+                    sharedPreferenceDataSource.insertAccessToken(this.accessToken)
+                    sharedPreferenceDataSource.insertStoreId(this.storeId)
                     admin = this.toAdminModel()
                 }
             } else {
-                admin = signInRetrofitObject.responseBodyConverter<SignInResponse>(
+                admin = zupzupRetrofitObject.responseBodyConverter<SignInResponse>(
                     SignInResponse::class.java,
                     SignInResponse::class.java.annotations
                 ).convert(response.errorBody())!!.toAdminModel()
@@ -36,9 +37,9 @@ class SignInRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun getStoreIdInLocal(): Result<Long> {
+    override suspend fun getStoreIdInLocal(): Result<Pair<String, Long>> {
         return try {
-            Result.success(sharedPreferenceDataSource.getStoreId())
+            Result.success(Pair(sharedPreferenceDataSource.getAccessToken(), sharedPreferenceDataSource.getStoreId()))
         } catch (e: Exception) {
             Result.failure(e)
         }

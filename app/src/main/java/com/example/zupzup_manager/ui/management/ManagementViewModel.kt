@@ -79,7 +79,7 @@ class ManagementViewModel @Inject constructor(
     }
 
     fun modifyMerchandiseList(merchandiseList: List<MerchandiseModel>) {
-        var storeId = merchandiseList[0].storeId
+        var storeId = 4L //merchandiseList[0].storeId
         viewModelScope.launch {
             modifyMerchandiseUseCase(storeId, merchandiseList).collect {
                 it.onSuccess {
