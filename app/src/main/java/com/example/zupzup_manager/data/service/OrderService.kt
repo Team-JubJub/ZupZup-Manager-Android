@@ -3,6 +3,7 @@ package com.example.zupzup_manager.data.service
 import com.example.zupzup_manager.data.dto.order.OrderDto
 import com.example.zupzup_manager.data.dto.order.OrderListDto
 import com.example.zupzup_manager.data.dto.order.OrderSpecificDto
+import com.example.zupzup_manager.data.dto.order.OrderSpecificListDto
 import com.example.zupzup_manager.data.dto.order.PatchOrderResponseDto
 import retrofit2.Response
 import retrofit2.http.Body
@@ -24,7 +25,7 @@ interface OrderService {
         @Header("accessToken") accessToken: String,
         @Path("storeId") storeId: Long,
         @Path("orderId") orderId: Long,
-        @Body body: List<OrderSpecificDto>
+        @Body body: OrderSpecificListDto
     ): Response<PatchOrderResponseDto>
 
     @PATCH("seller/{storeId}/order/new-order/{orderId}/cancel")

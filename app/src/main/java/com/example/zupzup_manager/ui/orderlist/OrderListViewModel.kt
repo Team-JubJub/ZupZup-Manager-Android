@@ -20,7 +20,6 @@ class OrderListViewModel @Inject constructor(
 ) : ViewModel() {
 
     init {
-        Log.d("TAG", ": init viewmodel")
         getOrderList(User.getAccessToken(), User.getStoreId())
     }
 
@@ -29,11 +28,10 @@ class OrderListViewModel @Inject constructor(
     val orderListUiState = _orderListUiState.asStateFlow()
 
 
-    private fun getOrderList(accessToken: String, storeId: Long) {
+    fun getOrderList(accessToken: String, storeId: Long) {
         viewModelScope.launch {
             getOrderListUseCase(accessToken, storeId).collect {
                 if (it is DataResult.Success) {
-                    Log.d("vm TAG", "orderlist test - success")
                     _orderListUiState.emit(UiState.Success(it.data))
                 } else {
                     _orderListUiState.emit(UiState.Error("에러입니다."))

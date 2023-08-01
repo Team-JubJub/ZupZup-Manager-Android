@@ -16,10 +16,8 @@ class GetOrderListUseCase @Inject constructor(
     suspend operator fun invoke(accessToken: String, storeId: Long): Flow<DataResult<List<OrderModel>>> {
         return flow {
             orderRepository.getOrderList(accessToken, storeId).onSuccess { orderList ->
-                Log.d("uc TAG", "orderlist test - success")
                 emit(DataResult.Success(orderList))
             }.onFailure {
-                Log.d("uc TAG", "orderlist test - fail")
                 emit(DataResult.Failure("1"))
             }
         }.flowOn(Dispatchers.IO)

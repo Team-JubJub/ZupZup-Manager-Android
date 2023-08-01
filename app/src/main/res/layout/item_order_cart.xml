@@ -25,7 +25,6 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/frame_rectangle_corner_9_warmgray_1"
         android:paddingHorizontal="16dp"
         android:paddingVertical="15dp">
 
@@ -37,9 +36,7 @@
             android:ellipsize="end"
             android:maxLines="1"
             android:text="@{order.orderItem.itemName}"
-            android:textColor="@color/pure_black"
-            android:textSize="17sp"
-            android:textStyle="bold"
+            style="@style/UIHeadline"
             app:layout_constraintEnd_toStartOf="@id/btn_minus"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -51,8 +48,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:text="@{String.valueOf(order.orderItem.itemPrice) + '원'}"
-            android:textColor="@color/main"
-            android:textSize="13sp"
+            android:textColor="@color/tangerine_300"
+            style="@style/UISubhead"
             app:layout_constraintStart_toStartOf="@id/tv_item_name"
             app:layout_constraintTop_toBottomOf="@id/tv_item_name"
             tools:text="3000원" />
@@ -81,7 +78,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
             android:text="@{String.valueOf(order.getConfirmedAmount())}"
-            android:textColor="@color/pure_black"
+            style="@style/UIBody"
             app:layout_constraintBottom_toBottomOf="@id/btn_plus"
             app:layout_constraintEnd_toStartOf="@id/btn_plus"
             app:layout_constraintTop_toTopOf="@id/btn_plus"

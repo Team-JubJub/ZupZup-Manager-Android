@@ -27,11 +27,8 @@ class OrderRepositoryImpl @Inject constructor(
             if (response.isSuccessful){
                 orderList = response.body()!!.orderList.map { dto -> dto.toOrderModel()}
             }
-            Log.d("rep TAG", "orderlist test - success")
             Result.success(orderList)
         } catch (e: Exception) {
-            Log.d("rep TAG", "orderlist test - fail")
-            Log.d("tag", e.toString())
             Result.failure(e)
         }
     }
@@ -43,7 +40,7 @@ class OrderRepositoryImpl @Inject constructor(
         orderList: List<OrderSpecificModel>
     ): Result<Int> {
         return try {
-            orderDataSource.confirmOrder(accessToken, storeId, orderId, orderList.map { it.toDto() })
+            orderDataSource.confirmOrder(accessToken, storeId, orderId, orderList.toDto())
             Result.success(0)
         } catch (e: Exception) {
             Result.failure(e)

@@ -31,7 +31,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/frame_rectangle_top_corner_12_warmgray_3"
-            android:padding="16dp"
+            android:paddingVertical="26dp"
+            android:paddingHorizontal="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -40,12 +41,10 @@
                 android:id="@+id/tv_order_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{String.valueOf(order.orderTime)}"
-                android:textColor="@color/cool_gray1"
-                android:textSize="15sp"
+                style="@style/UISubhead"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:orderId="@{order.orderId}"
+                app:orderTime="@{order.orderTime}"
                 tools:text="2022/12/31 00:00" />
 
             <TextView
@@ -55,9 +54,7 @@
                 android:layout_marginEnd="16dp"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:textColor="@color/pure_black"
-                android:textSize="22sp"
-                android:textStyle="bold"
+                style="@style/UIH2"
                 android:text="@{order.orderTitle}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -89,12 +86,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"
-                android:textColor="@color/pure_black"
-                android:textSize="17sp"
                 app:layout_constraintBottom_toBottomOf="@id/iv_clock"
                 app:layout_constraintStart_toEndOf="@id/iv_clock"
                 app:layout_constraintTop_toTopOf="@id/iv_clock"
                 app:visitTime="@{order.visitTime.toString()}"
+                style="@style/UIBody"
                 tools:text="12:15" />
 
             <TextView
@@ -102,10 +98,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
                 android:text="@{order.customer.name}"
-                android:textColor="@color/pure_black"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
+                style="@style/UIBody"
                 tools:text="예약자명" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 

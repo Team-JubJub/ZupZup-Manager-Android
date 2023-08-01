@@ -1,5 +1,6 @@
 package com.example.zupzup_manager.ui.orderdetail
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.zupzup_manager.domain.models.OrderModel
@@ -110,12 +111,12 @@ class OrderDetailViewModel @Inject constructor(
             with(orderModel) {
                 confirmOrderUseCase(User.getAccessToken(), storeId, orderId, orderList).collect {
                     it.onSuccess {
-                        val newState = if (isPartial) "PARTIAL" else "CONFIRM"
-                        sendNotificationTalkUseCase(this, newState).onSuccess {
+//                        val newState = if (isPartial) "PARTIAL" else "CONFIRM"
+//                        sendNotificationTalkUseCase(this, newState).onSuccess {
                             _orderProcessingUiState.emit(UiEventState.Complete)
-                        }.onFailure {
-                            _orderProcessingUiState.emit(UiEventState.Fail("알림톡 에러가 발생했습니다."))
-                        }
+//                        }.onFailure {
+//                            _orderProcessingUiState.emit(UiEventState.Fail("알림톡 에러가 발생했습니다."))
+//                        }
                     }.onFailure {
                         _orderProcessingUiState.emit(UiEventState.Fail("에러가 발생했습니다."))
                     }
@@ -128,14 +129,14 @@ class OrderDetailViewModel @Inject constructor(
         viewModelScope.launch {
             _orderProcessingUiState.emit(UiEventState.Processing)
             with(orderModel) {
-                rejectOrderUseCase(User.getAccessToken(), storeId, orderId).collect {
+                rejectOrderUseCase(User.getAccessToken(), User.getStoreId(), orderId).collect {
                     it.onSuccess {
-                        val newState = "CANCEL"
-                        sendNotificationTalkUseCase(this, newState).onSuccess {
+//                        val newState = "CANCEL"
+//                        sendNotificationTalkUseCase(this, newState).onSuccess {
                             _orderProcessingUiState.emit(UiEventState.Complete)
-                        }.onFailure {
-                            _orderProcessingUiState.emit(UiEventState.Fail("알림톡 에러가 발생했습니다."))
-                        }
+//                        }.onFailure {
+//                            _orderProcessingUiState.emit(UiEventState.Fail("알림톡 에러가 발생했습니다."))
+//                        }
                     }.onFailure {
                         _orderProcessingUiState.emit(UiEventState.Fail("에러가 발생했습니다."))
                     }

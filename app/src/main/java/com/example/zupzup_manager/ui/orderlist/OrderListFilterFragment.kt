@@ -5,11 +5,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.zupzup_manager.databinding.FragmentOrderListFilterBinding
 import com.example.zupzup_manager.domain.models.OrderModel
+import com.example.zupzup_manager.ui.common.User
 import com.example.zupzup_manager.ui.orderlist.recyclerview.OrderListItemDecorator
 import com.example.zupzup_manager.ui.orderlist.recyclerview.OrderListRcvAdapter
 
@@ -57,6 +59,10 @@ class OrderListFilterFragment : Fragment() {
             viewModel = orderListViewModel
             adapter = OrderListRcvAdapter(::navigateToOrderDetail)
             filter = filterOption
+            refresh.setOnRefreshListener {
+                refresh.isRefreshing = false
+                orderListViewModel.getOrderList(User.getAccessToken(), User.getStoreId())
+            }
         }
     }
 

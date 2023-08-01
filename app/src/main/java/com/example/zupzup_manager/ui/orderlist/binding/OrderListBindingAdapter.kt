@@ -61,10 +61,23 @@ fun bindOrderStatusToTextView(
     )
 }
 
-@BindingAdapter("orderId")
-fun bindOrderDateToTextView(
+@BindingAdapter("orderTime")
+fun bindOrderTimeToTextView(
     textView: TextView,
-    orderId: Long
+    orderTime: String
 ) {
-    textView.text = orderId.toSimpleDateFormat()
+    val year = orderTime.substring(0, 4)
+    val month = orderTime.substring(5, 7)
+    val day = orderTime.substring(8, 10)
+    val time = orderTime.substring(11, 16)
+
+    textView.text = year + "년 " + month + "월 " + day + "일 " + time
+}
+
+@BindingAdapter("visitTime")
+fun bindOrderVisitTimeToTextView(
+    textView: TextView,
+    visitTime: String
+) {
+    textView.text = visitTime.substring(11, 16)
 }

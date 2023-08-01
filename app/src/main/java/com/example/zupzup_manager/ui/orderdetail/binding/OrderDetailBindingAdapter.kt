@@ -32,7 +32,7 @@ fun bindOrderTitleToTextView(
     orderStatus: String
 ) {
     if (orderStatus == "NEW"){
-        textView.text = "예약"
+        textView.text = "신규 예약"
     } else {
         textView.text = orderTitle
     }
@@ -57,20 +57,17 @@ fun bindOrderStatusToTextView(
     }
 }
 
-@BindingAdapter("detailOrderId")
-fun bindOrderDateToTextView(
+@BindingAdapter("detailOrderTime")
+fun bindOrderTimeToTextView(
     textView: TextView,
-    orderId: Long
+    orderTime: String
 ) {
-    textView.text = orderId.toDetailDateFormat()
-}
+    val year = orderTime.substring(0, 4)
+    val month = orderTime.substring(5, 7)
+    val day = orderTime.substring(8, 10)
+    val time = orderTime.substring(11, 16)
 
-@BindingAdapter("visitTime")
-fun bindOrderVisitTimeToTextView(
-    textView: TextView,
-    visitTime: String
-) {
-    textView.text = visitTime.substring(0, 5)
+    textView.text = year + "년 " + month + "월 " + day + "일 " + time + " (예약한 시간)"
 }
 
 @BindingAdapter("totalPrice")

@@ -33,6 +33,7 @@ class OrderConfirmBottomSheetFragment(
     ): View {
         binding =
             FragmentOrderConfirmBottomsheetBinding.inflate(layoutInflater, container, false)
+        dialog?.setCanceledOnTouchOutside(true)
         return binding.root
     }
 

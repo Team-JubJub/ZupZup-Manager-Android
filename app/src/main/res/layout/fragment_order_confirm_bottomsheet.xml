@@ -32,7 +32,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="해당 주문을 확정할까요?"
-            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -43,7 +42,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text="아래 주문 내역을 확인해주세요."
-            android:textSize="12sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_bottom_sheet_title" />
 
@@ -52,7 +50,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:background="@drawable/frame_rectangle_corner_12_text_white"
             android:padding="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -86,8 +83,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:text="@{order.customer.name}"
-                android:textColor="@color/pure_black"
-                android:textSize="17sp"
                 app:layout_constraintStart_toStartOf="@id/tv_customer_header"
                 app:layout_constraintTop_toBottomOf="@id/tv_customer_header"
                 tools:text="닉네임" />
@@ -99,7 +94,6 @@
                 android:layout_marginTop="7dp"
                 android:text="@{order.customer.phoneNumber}"
                 android:textColor="@color/ivory_gray_300"
-                android:textSize="13sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="@id/tv_customer_name"
                 app:layout_constraintTop_toBottomOf="@id/tv_customer_name"
@@ -135,8 +129,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:textColor="@color/pure_black"
-                android:textSize="17sp"
                 app:layout_constraintStart_toStartOf="@id/tv_visitTime_description"
                 app:layout_constraintTop_toBottomOf="@id/tv_visitTime_description"
                 app:visitTime="@{order.visitTime}"
@@ -148,7 +140,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:background="@drawable/frame_rectangle_corner_12_text_white"
             android:padding="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -180,7 +171,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_marginTop="16dp"
-                android:background="@color/warm_gray3"
+                android:background="@color/ivory_gray_150"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_total_price" />
@@ -197,11 +188,12 @@
                 app:layout_constraintTop_toBottomOf="@id/divider" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <androidx.appcompat.widget.AppCompatButton
+        <TextView
             android:id="@+id/btn_order_reject"
             style="@style/UIHeadline"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:paddingVertical="17dp"
             android:layout_marginTop="23dp"
             android:layout_marginEnd="8.5dp"
             android:layout_marginBottom="32dp"
@@ -209,21 +201,23 @@
             android:onClick="@{_-> handler.rejectOrder(order)}"
             android:text="취소"
             android:textColor="@color/neutral_gray_400"
+            android:textAlignment="center"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/btn_order_confirm"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/constraint_cart_info" />
 
-        <androidx.appcompat.widget.AppCompatButton
+        <TextView
             android:id="@+id/btn_order_confirm"
             style="@style/UIHeadline"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:paddingVertical="17dp"
             android:layout_marginStart="8.5dp"
             android:background="@drawable/frame_rectangle_corner_14_main"
             android:onClick="@{_ -> handler.confirmOrder(order, isPartial)}"
             android:text="확정"
-            android:textColor="@color/pure_black"
+            android:textAlignment="center"
             app:layout_constraintBottom_toBottomOf="@id/btn_order_reject"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/btn_order_reject"

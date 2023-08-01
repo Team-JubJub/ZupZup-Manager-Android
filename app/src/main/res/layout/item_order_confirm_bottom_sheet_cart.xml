@@ -7,27 +7,26 @@
     android:background="@color/transparent">
 
     <TextView
-        android:id="@+id/tv_item_price"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:background="@color/transparent"
-        android:textColor="@color/warm_gray6"
-        android:textSize="15sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="6,000원" />
-
-    <TextView
         android:id="@+id/tv_item_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
         android:background="@color/transparent"
-        android:textColor="@color/pure_black"
-        android:textSize="15sp"
+        style="@style/UISubhead"
         app:layout_constraintEnd_toStartOf="@id/tv_item_price"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="초코 크로와상" />
+
+    <TextView
+        android:id="@+id/tv_item_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:background="@color/transparent"
+        style="@style/UISubhead"
+        android:textColor="@color/ivory_gray_300"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="6,000원" />
 </androidx.constraintlayout.widget.ConstraintLayout>
