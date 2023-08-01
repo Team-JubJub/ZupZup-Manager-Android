@@ -6,7 +6,13 @@ interface SharedPreferenceDataSource {
 
     fun getAccessToken() : String
 
+    fun insertRefreshToken(refreshToken : String)
+
+    fun getRefreshToken() : String
+
     fun insertStoreId(storeId : Long)
 
     fun getStoreId() : Long
+
+    fun deleteData()
 }

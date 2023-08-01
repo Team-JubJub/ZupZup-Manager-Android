@@ -76,11 +76,12 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-    private fun setUserInfo(userInfo: Pair<String, Long>) {
+    private fun setUserInfo(userInfo: Triple<String, String, Long>) {
         // TODO 수정할 것, 테스트용 아이디
 //        User.setStoreId(9)
         User.setAccessToken(userInfo.first)
-        User.setStoreId(userInfo.second)
+        User.setRefreshToken(userInfo.second)
+        User.setStoreId(userInfo.third)
     }
 
     private fun navigateMainActivity() {

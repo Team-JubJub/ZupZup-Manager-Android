@@ -9,7 +9,7 @@ import javax.inject.Inject
 class GetLocalStoreIdUseCase @Inject constructor(
     private val adminRepository: SignInRepository
 ) {
-    suspend operator fun invoke(): Flow<DataResult<Pair<String, Long>>> {
+    suspend operator fun invoke(): Flow<DataResult<Triple<String, String, Long>>> {
         return flow {
             adminRepository.getStoreIdInLocal().onSuccess {
                 emit(DataResult.Success(it))

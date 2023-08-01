@@ -22,6 +22,7 @@ class SignInRepositoryImpl @Inject constructor(
             if (response.isSuccessful) {
                 with(response.body()!!) {
                     sharedPreferenceDataSource.insertAccessToken(this.accessToken)
+                    sharedPreferenceDataSource.insertRefreshToken(this.refreshToken)
                     sharedPreferenceDataSource.insertStoreId(this.storeId)
                     admin = this.toAdminModel()
                 }
@@ -37,11 +38,31 @@ class SignInRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun getStoreIdInLocal(): Result<Pair<String, Long>> {
+    override suspend fun getStoreIdInLocal(): Result<Triple<String, String, Long>> {
         return try {
-            Result.success(Pair(sharedPreferenceDataSource.getAccessToken(), sharedPreferenceDataSource.getStoreId()))
+            Result.success(
+                Triple(
+                    sharedPreferenceDataSource.getAccessToken(),
+                    sharedPreferenceDataSource.getRefreshToken(),
+                    sharedPreferenceDataSource.getStoreId()
+                )
+            )
         } catch (e: Exception) {
             Result.failure(e)
         }
     }
+
+    override suspend fun logout(accessToken: String, refreshToken: String): Result<String> {
+        return try {
+            val response = signInDataSource.logout(accessToken, refreshToken)
+            if (response.isSuccessful) {
+                Log.d("TAG", "로그아웃 완료")
+                sharedPreferenceDataSource.deleteData()
+            }
+            Result.success(response.body().toString())
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
+    }
+
 }
