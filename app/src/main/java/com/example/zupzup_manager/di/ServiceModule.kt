@@ -4,6 +4,7 @@ import com.example.zupzup_manager.data.service.LunaSoftService
 import com.example.zupzup_manager.data.service.MerchandiseService
 import com.example.zupzup_manager.data.service.OrderService
 import com.example.zupzup_manager.data.service.SignInService
+import com.example.zupzup_manager.data.service.StoreService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -46,4 +47,11 @@ object ServiceModule {
     ): MerchandiseService {
         return retrofit.create(MerchandiseService::class.java)
     }
-}
+
+    @Provides
+    @Singleton
+    fun providesStoreService(
+        @NetworkModule.ZupZupRetrofitObject retrofit: Retrofit
+    ): StoreService {
+        return retrofit.create(StoreService::class.java)
+    }}

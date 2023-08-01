@@ -65,9 +65,8 @@
                         android:id="@+id/iv_store_status"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/ic_day"
                         tools:background="@drawable/ic_day"/>
-<!--                        android:background="@{viewModel.storeStatus ? @drawable/ic_day : @drawable/ic_night}"-->
+<!--                        android:background="@{viewModel.storeInfo.isOpen ? @drawable/ic_day : @drawable/ic_night}"/>-->
 
                     <LinearLayout
                         android:layout_width="0dp"
@@ -84,11 +83,11 @@
                             style="@style/UICaptionSmall"/>
 
                         <TextView
+                            android:id="@+id/tv_store_status"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="지금 영업 중이에요!"
                             style="@style/UISubhead"/>
-<!--                            android:text="@{viewModel.storeStatus ? `지금 영업 중이에요!` : `지금은 문을 닫았어요`}"-->
+<!--                            android:text="@{viewModel.storeInfo.isOpen ? `지금 영업 중이에요!` : `지금은 문을 닫았어요`}"/>-->
 
                     </LinearLayout>
 
@@ -97,7 +96,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@drawable/ic_toggle"
-                        android:onClick="@{_ -> clickListener.onToggleBtnClick()}"
+                        android:checked="@{viewModel.storeInfo.isOpen}"
+                        app:isOpenImageView="@{ivStoreStatus}"
+                        app:isOpenTextView="@{tvStoreStatus}"
                         android:minWidth="0dp"
                         android:minHeight="0dp"
                         android:textOff=""
@@ -141,7 +142,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
-                        android:text="가게 이름"
+                        android:text="@{viewModel.storeInfo.storeName}"
                         style="@style/UIH3"/>
 
                 <LinearLayout
@@ -164,11 +165,13 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:text="@{viewModel.storeInfo.openTime + `~` + viewModel.storeInfo.closeTime}"
                             tools:text="09:00 ~ 21:00"
                             style="@style/UIHeadline"/>
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            app:closedDay="@{viewModel.storeInfo.closedDay}"
                             tools:text="금요일 휴무"
                             android:textColor="@color/ivory_gray_400"
                             style="@style/UICaptionSmall"/>
@@ -188,6 +191,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:text="@{viewModel.storeInfo.saleTimeStart + `~` + viewModel.storeInfo.saleTimeEnd}"
                             tools:text="12:00 ~ 13:00"
                             style="@style/UIHeadline"/>
                     </LinearLayout>
@@ -229,6 +233,7 @@
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:text="@{viewModel.storeInfo.saleMatters}"
                             tools:text="안녕하세요. 저희 집은 150년 비법 간독대진갈비만을"
                             android:ellipsize="end"
                             android:maxLines="1"
@@ -284,6 +289,7 @@
 
                 <include layout="@layout/layout_account_menu"
                     android:id="@+id/logout"
+                    android:onClick="@{_ -> clickListener.signout()}"
                     app:titleText="@{`로그아웃`}"/>
 
             </LinearLayout>

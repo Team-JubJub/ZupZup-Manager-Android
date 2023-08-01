@@ -1,5 +1,8 @@
 package com.example.zupzup_manager.ui.setting
 
+import android.content.Context.MODE_PRIVATE
+import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -9,8 +12,11 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.zupzup_manager.databinding.FragmentSettingBinding
+import com.example.zupzup_manager.domain.models.StoreModel
 import com.example.zupzup_manager.ui.common.User
+import com.example.zupzup_manager.ui.login.LoginActivity
 import dagger.hilt.android.AndroidEntryPoint
+
 
 @AndroidEntryPoint
 class SettingFragment : Fragment() {
@@ -19,17 +25,18 @@ class SettingFragment : Fragment() {
     private val settingViewModel: SettingViewModel by viewModels()
 
     private val settingClickListener = object : SettingClickListener {
-        override fun onToggleBtnClick() {
-            Log.e("ok", ".value.toString()")
-            settingViewModel.changeStoreStatus()
+        override fun navigateToStore() {
+            val storeInfo = settingViewModel.storeInfo.value
+            val action =
+                SettingFragmentDirections.actionFragSettingToStoreFragment(storeInfo)
+            findNavController().navigate(action)
         }
 
-        override fun navigateToStore() {
-            val store =
-                settingViewModel.storeInfo.value
-            val action =
-                SettingFragmentDirections.actionFragSettingToStoreFragment(store)
-            findNavController().navigate(action)
+        override fun signout() {
+            settingViewModel.signOut()
+            val loginIntent = Intent(context, LoginActivity::class.java)
+            loginIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK + Intent.FLAG_ACTIVITY_NEW_TASK)
+            startActivity(loginIntent)
         }
     }
 
@@ -51,11 +58,14 @@ class SettingFragment : Fragment() {
             lifecycleOwner = viewLifecycleOwner
             viewModel = settingViewModel
             clickListener = settingClickListener
+            toggleBtn.setOnClickListener{
+                settingViewModel.changeStoreStatus(toggleBtn.isChecked)
+            }
         }
     }
 
     interface SettingClickListener {
-        fun onToggleBtnClick()
         fun navigateToStore()
+        fun signout()
     }
 }

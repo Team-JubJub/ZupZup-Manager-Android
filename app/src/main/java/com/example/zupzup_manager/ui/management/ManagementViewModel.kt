@@ -54,13 +54,13 @@ class ManagementViewModel @Inject constructor(
     // 제품 목록 확인
     private fun getStoreDetail(storeId: Long) {
         viewModelScope.launch {
-            getStoreDetailUseCase(storeId).collect {
-                if (it is DataResult.Success) {
-                    _managementDetailBody.emit(it.data.merchandiseList)
-                } else {
-                    _managementDetailBody.emit(listOf())
-                }
-            }
+//            getStoreDetailUseCase(storeId).collect {
+//                if (it is DataResult.Success) {
+//                    _managementDetailBody.emit(it.data.merchandiseList)
+//                } else {
+//                    _managementDetailBody.emit(listOf())
+//                }
+//            }
         }
     }
 
@@ -81,13 +81,11 @@ class ManagementViewModel @Inject constructor(
     fun modifyMerchandiseList(merchandiseList: List<MerchandiseModel>) {
         var storeId = 4L //merchandiseList[0].storeId
         viewModelScope.launch {
-            modifyMerchandiseUseCase(storeId, merchandiseList).collect {
-                it.onSuccess {
-                    Log.d("test", "viewmodel success: ")
-                }.onFailure {
-                    Log.d("test", "viewmodel failure: ")
-                }
-            }
+//            modifyMerchandiseUseCase(storeId, merchandiseList).collect {
+//                it.onSuccess {
+//                }.onFailure {
+//                }
+//            }
         }
     }
 }
