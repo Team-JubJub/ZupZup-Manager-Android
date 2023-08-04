@@ -1,10 +1,13 @@
 package com.example.zupzup_manager.di
 
+import com.example.zupzup_manager.data.datasource.admin.SharedPreferenceDataSource
+import com.example.zupzup_manager.data.service.SignInService
 import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -29,6 +32,10 @@ object NetworkModule {
     @Qualifier
     @Retention(AnnotationRetention.BINARY)
     annotation class ZupZupRetrofitObject
+
+    @Qualifier
+    @Retention(AnnotationRetention.BINARY)
+    annotation class ZupZupRetrofitObjectNoneInterceptor
 
     @Provides
     @Singleton
@@ -62,12 +69,35 @@ object NetworkModule {
 
     @Provides
     @Singleton
+    @ZupZupRetrofitObjectNoneInterceptor
+    fun provideZupZupRetrofitObjectNoneInterceptor(): Retrofit {
+        val gson = GsonBuilder()
+            .setLenient()
+            .create()
+        return Retrofit.Builder()
+            .baseUrl(manageBaseUrl)
+            .addConverterFactory(ScalarsConverterFactory.create())
+            .addConverterFactory(GsonConverterFactory.create(gson))
+            .build()
+    }
+
+    @Provides
+    @Singleton
+    fun provideAuthInterceptor(
+        sharedPreferenceDataSource: SharedPreferenceDataSource,
+        signInService: SignInService
+    ): Interceptor {
+        return AuthInterceptor(sharedPreferenceDataSource, signInService)
+    }
+
+    @Provides
+    @Singleton
     fun provideOkHttpClient(
-//        authInterceptor: AuthInterceptor
+        authInterceptor: AuthInterceptor
     ): OkHttpClient {
         return OkHttpClient.Builder()
             .connectTimeout(5, TimeUnit.SECONDS)
-//            .addInterceptor(authInterceptor)
+            .addInterceptor(authInterceptor)
             .addInterceptor(HttpLoggingInterceptor().apply {
                 this.level = HttpLoggingInterceptor.Level.BODY
             })

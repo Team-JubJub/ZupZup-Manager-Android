@@ -34,6 +34,14 @@ object ServiceModule {
 
     @Provides
     @Singleton
+    fun provideSignInService2(
+        @NetworkModule.ZupZupRetrofitObjectNoneInterceptor retrofit: Retrofit
+    ): SignInService {
+        return retrofit.create(SignInService::class.java)
+    }
+
+    @Provides
+    @Singleton
     fun providesOrderService(
         @NetworkModule.ZupZupRetrofitObject retrofit: Retrofit
     ): OrderService {
