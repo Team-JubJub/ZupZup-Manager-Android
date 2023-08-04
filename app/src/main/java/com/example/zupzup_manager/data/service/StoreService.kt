@@ -10,6 +10,7 @@ import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.Multipart
 import retrofit2.http.PATCH
+import retrofit2.http.POST
 import retrofit2.http.Part
 import retrofit2.http.Path
 import retrofit2.http.Query
@@ -37,4 +38,11 @@ interface StoreService {
         @Part image: MultipartBody.Part?,
         @Part("data") data: ModifyStoreRequestBody
     ): Response<ModifyStoreResponse>
+
+    @POST("seller/notice/{storeId}")
+    suspend fun modifyStoreMatter(
+        @Path("storeId") storeId: Long,
+        @Header("accessToken") accessToken: String,
+        @Query("storeMatters") storeMatter: String
+    ): Response<String>
 }

@@ -45,4 +45,16 @@ class StoreDataSourceImpl @Inject constructor(
             data = store
         )
     }
+
+    override suspend fun modifyStoreMatter(
+        accessToken: String,
+        storeId: Long,
+        storeMatter: String
+    ): Response<String> {
+        return storeService.modifyStoreMatter(
+            storeId = storeId,
+            accessToken = accessToken,
+            storeMatter = storeMatter
+        )
+    }
 }

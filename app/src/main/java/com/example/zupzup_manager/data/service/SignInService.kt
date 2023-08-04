@@ -26,4 +26,3 @@ interface SignInService {
         @Header("refreshToken") refreshToken: String
     ): Response<SignInRefreshResponse>
 }
-
