@@ -2,17 +2,23 @@ package com.example.zupzup_manager.ui.setting
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.util.Log
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.zupzup_manager.domain.DataResult
 import com.example.zupzup_manager.domain.models.StoreModel
 import com.example.zupzup_manager.domain.usecase.ChangeOpenStatusUseCase
 import com.example.zupzup_manager.domain.usecase.GetStoreDetailUseCase
+import com.example.zupzup_manager.domain.usecase.ModifyStoreMatterUseCase
 import com.example.zupzup_manager.domain.usecase.SignOutUseCase
 import com.example.zupzup_manager.ui.common.UiState
 import com.example.zupzup_manager.ui.common.User
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -20,7 +26,8 @@ import javax.inject.Inject
 class SettingViewModel @Inject constructor(
     private val getStoreDetailUseCase: GetStoreDetailUseCase,
     private val changeOpenStatusUseCase: ChangeOpenStatusUseCase,
-    private val signOutUseCase: SignOutUseCase
+    private val signOutUseCase: SignOutUseCase,
+    private val modifyStoreMatterUseCase: ModifyStoreMatterUseCase
 ) : ViewModel() {
 
     init {
@@ -33,7 +40,9 @@ class SettingViewModel @Inject constructor(
     val storeInfo = _storeInfo
 
     private var _openStatus = MutableStateFlow<Boolean>(storeInfo.value.isOpen)
-    val openStatus = _openStatus
+
+    private val _closeDialogEvent = MutableSharedFlow<Unit>()
+    val closeDialogEvent: Flow<Unit> get() = _closeDialogEvent
 
     fun changeStoreStatus(isOpened: Boolean) {
         viewModelScope.launch {
@@ -51,13 +60,23 @@ class SettingViewModel @Inject constructor(
         }
     }
 
-    private fun getStoreInfo(accessToken: String, storeId: Long) {
+    fun getStoreInfo(accessToken: String, storeId: Long) {
         viewModelScope.launch {
             getStoreDetailUseCase(accessToken, storeId).collect {
                 if (it is DataResult.Success) {
                     _storeInfo.emit(it.data)
                 } else {
                     _storeInfo.emit(initStoreModel)
+                }
+            }
+        }
+    }
+
+    fun modifyStoreMatter(storeMatter: String){
+        viewModelScope.launch {
+            modifyStoreMatterUseCase(User.getAccessToken(), User.getStoreId(), storeMatter).collect {
+                if (it is DataResult.Success) {
+                    _closeDialogEvent.emit(Unit)
                 }
             }
         }

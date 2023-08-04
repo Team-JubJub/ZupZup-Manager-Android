@@ -22,21 +22,21 @@ class StoreViewModel @Inject constructor(
 
     private val initStoreModel = StoreModel()
     private var _storeInfo = MutableStateFlow<StoreModel>(initStoreModel)
-    val storeInfo = _storeInfo
 
-    fun setStoreInfo(storeModel: StoreModel){
-        _storeInfo.value = storeModel
-        Log.d("vm test", storeInfo.value.toString())
+    fun setPreviousStore(store: StoreModel) {
+        _storeInfo.value = store
+    }
+
+    fun isStoreChanged(store: StoreModel): Boolean {
+        return _storeInfo.value != null && _storeInfo.value != store
     }
 
     fun modifyStoreDetail(modifyStoreModel: ModifyStoreModel, image: MultipartBody.Part?) {
         viewModelScope.launch {
             modifyStoreDetailUseCase(User.getAccessToken(), User.getStoreId(), modifyStoreModel, image).collect {
                 if (it is DataResult.Success) {
-                    Log.d("TAG", "바꿈?")
                     _storeInfo.emit(it.data)
                 }
-                Log.d("TAG", "안 바꿈?")
             }
         }
     }

@@ -2,7 +2,6 @@ package com.example.zupzup_manager.ui.store
 
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.media.Image
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
@@ -16,8 +15,6 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.zupzup_manager.databinding.FragmentStoreBinding
 import com.example.zupzup_manager.domain.models.ModifyStoreModel
-import com.example.zupzup_manager.ui.setting.SettingFragmentDirections
-import com.example.zupzup_manager.ui.store.StoreFragmentArgs.Companion.fromBundle
 import dagger.hilt.android.AndroidEntryPoint
 import okhttp3.MultipartBody
 
@@ -36,8 +33,8 @@ class StoreFragment : Fragment() {
         }
 
         override fun modifyStoreDetail(modifyStoreModel: ModifyStoreModel, image: MultipartBody.Part?) {
-            Log.d("TAG", "바꾸냐?")
             storeViewModel.modifyStoreDetail(modifyStoreModel, image)
+            findNavController().popBackStack()
         }
 
         override fun selectImage() {

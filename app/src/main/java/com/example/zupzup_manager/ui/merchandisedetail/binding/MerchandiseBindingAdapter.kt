@@ -62,12 +62,9 @@ fun bindBindingHelperToAmountButtonInDetail(
     tvConfirmedAmount2: TextView
 ) {
     ivBtnModifyAmount.setOnClickListener {
-        Log.d("a", tvConfirmedAmount.text.toString())
-        Log.d("a", ivBtnModifyAmount.id.toString())
         when (ivBtnModifyAmount.id) {
             R.id.btn_plus -> {
                 if (tvConfirmedAmount.text.toString().toInt() < 100) {
-                    Log.d("b", "bb")
                     clickListener.onPlusMerchandiseModifiedAmountBtnClick(itemId)
                     tvConfirmedAmount.text =
                         tvConfirmedAmount.text.toString().toInt().plus(1).toString()
@@ -77,7 +74,6 @@ fun bindBindingHelperToAmountButtonInDetail(
 
             R.id.btn_minus -> {
                 if (tvConfirmedAmount.text.toString().toInt() > 0) {
-                    Log.d("c", "cc")
                     clickListener.onMinusMerchandiseModifiedAmountBtnClick(itemId)
                     tvConfirmedAmount.text =
                         tvConfirmedAmount.text.toString().toInt().minus(1).toString()

@@ -106,7 +106,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="8dp"
-            android:paddingVertical="21dp"
+            android:paddingVertical="17dp"
             android:layout_marginVertical="20dp"
             android:gravity="center_horizontal"
             android:onClick="@{_ -> dialogClickListener.modifyMerchandiseList(String.valueOf(viewModel.managementUiState))}"

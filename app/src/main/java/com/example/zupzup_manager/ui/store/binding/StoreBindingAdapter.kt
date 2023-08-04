@@ -34,18 +34,21 @@ fun bindModifyButton(
     clickListener: StoreFragment.StoreClickListener
 ) {
     val (openTime, closeTime, saleStartTime, saleEndTime, tvWeek) = modifyList
+    val closedDay = if (tvWeek == "휴무일 없음") {
+        null
+    } else {
+        tvWeek.toString()
+    }
 
     val modifyStoreModel = ModifyStoreModel(
         openTime = openTime.toString(),
         closeTime = closeTime.toString(),
         saleTimeStart = saleStartTime.toString(),
         saleTimeEnd = saleEndTime.toString(),
-        closedDay = tvWeek.toString()
+        closedDay = closedDay
     )
 
     textView.setOnClickListener {
-        Log.d("TAG", "바꾸라고")
-        Log.d("TAG", modifyStoreModel.toString())
         clickListener.modifyStoreDetail(modifyStoreModel, null)
     }
 //    Glide
@@ -70,9 +73,6 @@ fun bindTimePickerWithTextView(
     modifyButton: TextView
 ) {
     val initialTime = textView.text.toString()
-    Log.d("initial", textView.text.toString())
-    Log.d("anotherTextView", anotherTime)
-    Log.d("timePicker", timePicker.toString())
     val initialHour = initialTime.substring(0, 2).toInt()
     val initialMinute = initialTime.substring(3, 5).toInt()
 

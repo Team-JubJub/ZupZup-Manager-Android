@@ -291,7 +291,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
             android:layout_marginBottom="20dp"
-            android:paddingVertical="21dp"
+            android:paddingVertical="17dp"
             android:gravity="center_horizontal"
             android:background="@drawable/frame_rectangle_corner_14_tangerine_300"
             style="@style/UIHeadline"
