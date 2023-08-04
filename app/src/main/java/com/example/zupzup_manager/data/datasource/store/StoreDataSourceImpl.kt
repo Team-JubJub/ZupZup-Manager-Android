@@ -1,46 +1,60 @@
 package com.example.zupzup_manager.data.datasource.store
 
-import android.util.Log
-import com.example.zupzup_manager.data.dto.MerchandiseDto
-import com.example.zupzup_manager.di.FireBaseModule
-import com.example.zupzup_manager.domain.models.MerchandiseModel
-import com.google.android.gms.tasks.Task
-import com.google.firebase.firestore.CollectionReference
-import com.google.firebase.firestore.DocumentSnapshot
-import kotlinx.coroutines.channels.awaitClose
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.callbackFlow
+import com.example.zupzup_manager.data.dto.store.parameter.ModifyStoreRequestBody
+import com.example.zupzup_manager.data.dto.store.response.ModifyStoreResponse
+import com.example.zupzup_manager.data.dto.store.response.StoreDetailResponse
+import com.example.zupzup_manager.data.service.OrderService
+import com.example.zupzup_manager.data.service.StoreService
+import okhttp3.MultipartBody
+import retrofit2.Response
 import javax.inject.Inject
 
 class StoreDataSourceImpl @Inject constructor(
-    @FireBaseModule.TestStoreRef private val storeRef: CollectionReference
+    private val storeService: StoreService
 ): StoreDataSource {
 
-    override suspend fun getStoreDetail(storeId: Long): Flow<DocumentSnapshot> {
-        return callbackFlow {
-            val storeDetailDoc = storeRef.document(storeId.toString())
-
-            val subscription = storeDetailDoc.addSnapshotListener { value, error ->
-                if (error != null) {
-                    close()
-                    return@addSnapshotListener
-                }
-                if (value != null) {
-                    trySend(value)
-                }
-            }
-
-            awaitClose {
-                subscription.remove()
-            }
-        }
+    override suspend fun getStoreDetail(accessToken: String, storeId: Long): Response<StoreDetailResponse> {
+        return storeService.getStoreDetail(
+            storeId = storeId,
+            accessToken = accessToken
+        )
     }
 
-    override suspend fun modifyMerchandiseDetail(
+    override suspend fun changeOpenStatus(
+        accessToken: String,
         storeId: Long,
-        merchandiseList: List<MerchandiseDto>
-    ): Task<Void> {
-        return storeRef.document(storeId.toString())
-            .update("merchandiseList", merchandiseList)
+        isOpened: Boolean
+    ): Response<String> {
+        return storeService.changeOpenStatus(
+            storeId = storeId,
+            accessToken = accessToken,
+            isOpened = isOpened
+        )
+    }
+
+    override suspend fun modifyStoreDetail(
+        accessToken: String,
+        storeId: Long,
+        store: ModifyStoreRequestBody,
+        image: MultipartBody.Part?
+    ): Response<ModifyStoreResponse> {
+        return storeService.modifyStoreDetail(
+            storeId = storeId,
+            accessToken = accessToken,
+            image = image,
+            data = store
+        )
+    }
+
+    override suspend fun modifyStoreMatter(
+        accessToken: String,
+        storeId: Long,
+        storeMatter: String
+    ): Response<String> {
+        return storeService.modifyStoreMatter(
+            storeId = storeId,
+            accessToken = accessToken,
+            storeMatter = storeMatter
+        )
     }
 }

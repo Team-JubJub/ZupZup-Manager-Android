@@ -2,7 +2,7 @@ package com.example.zupzup_manager.ui.common
 
 enum class ViewType(viewType: String) {
     HEADER("HEADER"),
-    CART_ITEM("CART_ITEM"),
+    ORDER_ITEM("ORDER_ITEM"),
     CUSTOMER_INFO("CUSTOMER_INFO"),
     STORE_INFO("STORE_INFO"),
     MERCHANDISE_INFO("MERCHANDISE_INFO"),

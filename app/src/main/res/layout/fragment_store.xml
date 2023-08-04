@@ -5,6 +5,7 @@
 
     <data>
         <import type="android.view.View"/>
+        <import type="java.util.List" />
 
         <variable
             name="store"
@@ -72,19 +73,21 @@
                     android:id="@+id/iv_store"
                     android:layout_width="match_parent"
                     android:layout_height="192dp"
-                    android:visibility="@{store == null ? View.GONE : View.VISIBLE}"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-<!--                    app:detailImgUrl="@{store == null ? null : store.imgUrl}"-->
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:visibility="gone"/>
+<!--                    android:visibility="@{store.storeImageUrl == `` ? View.GONE : View.VISIBLE}"/>-->
+<!--                    app:detailImgUrl="@{store == null ? null : store.storeImageUrl}" />-->
 
                 <ImageView
                     android:id="@+id/iv_add_store"
                     android:layout_width="match_parent"
                     android:layout_height="192dp"
                     android:background="@drawable/img_edit"
+                    android:onClick="@{_ -> clickListener.selectImage()}"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-<!--                    android:visibility="@{store == null ? View.VISIBLE : View.GONE}"-->
+                    app:layout_constraintTop_toTopOf="parent"/>
+<!--                    android:visibility="@{store.storeImageUrl == null ? View.VISIBLE : View.GONE}" />-->
 
                 <ImageView
                     android:id="@+id/iv_null"
@@ -136,9 +139,9 @@
                                 android:id="@+id/openTime"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="09:00"
+                                android:text="@{store.openTime}"
                                 tools:text="09:00"
-                                app:anotherTextView="@{closeTime}"
+                                app:anotherTime="@{closeTime.text.toString()}"
                                 app:timePicker="@{openTimePicker}"
                                 app:anotherTimePicker="@{closeTimePicker}"
                                 app:timeLayout="@{llTime1}"
@@ -162,9 +165,9 @@
                                 android:id="@+id/closeTime"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="21:00"
+                                android:text="@{store.closeTime}"
                                 tools:text="21:00"
-                                app:anotherTextView="@{openTime}"
+                                app:anotherTime="@{openTime.text.toString()}"
                                 app:timePicker="@{closeTimePicker}"
                                 app:anotherTimePicker="@{openTimePicker}"
                                 app:timeLayout="@{llTime1}"
@@ -232,9 +235,9 @@
                                 android:id="@+id/saleStartTime"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="09:00"
+                                android:text="@{store.saleTimeStart}"
                                 tools:text="09:00"
-                                app:anotherTextView="@{saleEndTime}"
+                                app:anotherTime="@{saleEndTime.text.toString()}"
                                 app:timePicker="@{saleStartTimePicker}"
                                 app:anotherTimePicker="@{saleEndTimePicker}"
                                 app:timeLayout="@{llTime2}"
@@ -258,9 +261,9 @@
                                 android:id="@+id/saleEndTime"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="21:00"
+                                android:text="@{store.saleTimeEnd}"
                                 tools:text="21:00"
-                                app:anotherTextView="@{saleStartTime}"
+                                app:anotherTime="@{saleStartTime.text.toString()}"
                                 app:timePicker="@{saleEndTimePicker}"
                                 app:anotherTimePicker="@{saleStartTimePicker}"
                                 app:timeLayout="@{llTime2}"
@@ -322,7 +325,7 @@
                             android:id="@+id/tv_week"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="월요일, 화요일, 수요일"
+                            app:closedDay="@{store.closedDay}"
                             app:sun="@{btnSun}"
                             app:mon="@{btnMon}"
                             app:tue="@{btnTue}"
@@ -333,12 +336,12 @@
                             style="@style/UIHeadline"/>
 
                     </LinearLayout>
-                    
+
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:background="@color/ivory_gray_200"/>
-                    
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -397,11 +400,13 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
             android:layout_marginBottom="20dp"
-            android:paddingVertical="21dp"
+            android:paddingVertical="17dp"
             android:gravity="center_horizontal"
             android:background="@drawable/frame_rectangle_corner_14_tangerine_300"
             style="@style/UIHeadline"
             android:text="수정 완료"
+            app:modifyList="@{java.util.Arrays.asList(openTime.getText().toString(), closeTime.getText().toString(), saleStartTime.getText().toString(), saleEndTime.getText().toString(), tvWeek.text)}"
+            app:clickListener="@{clickListener}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"/>

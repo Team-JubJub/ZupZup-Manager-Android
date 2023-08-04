@@ -5,13 +5,20 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class StoreModel (
-    val storeId: Long,
-    val name: String,
-    val openTime: String,
-    val hostPhoneNumber: String,
-    val location: Pair<Double, Double>,
-    val address: String,
-    val eventList: List<String>,
-    val merchandiseList: List<MerchandiseModel>,
-    val saleTime: Pair<Int, Int>
+    val storeId: Long = 0,
+    val sellerId: Long = 0,
+    val storeName: String = "",
+    val storeImageUrl: String = "",
+    val storeAddress: String = "",
+    val category: String = "",
+    val contact: String = "",
+    val longitude: Double = 0.0,
+    val latitude: Double = 0.0,
+    val openTime: String = "",
+    val closeTime: String = "",
+    val saleTimeStart: String = "",
+    val saleTimeEnd: String = "",
+    val saleMatters: String = "",
+    val isOpen: Boolean = false,
+    val closedDay: String? = ""
 ): Parcelable

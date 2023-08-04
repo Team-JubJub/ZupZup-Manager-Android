@@ -36,7 +36,7 @@ xmlns:tools="http://schemas.android.com/tools">
                 android:layout_marginTop="1dp"
                 android:layout_marginHorizontal="1dp"
                 android:background="@color/transparent"
-                app:imgUrl="@{merchandise.imgUrl}"
+                app:imgUrl="@{merchandise.imageUrl}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -74,7 +74,7 @@ xmlns:tools="http://schemas.android.com/tools">
                 android:maxLines="2"
                 android:text="@{merchandise.itemName.toString()}"
                 style="@style/UIHeadline"
-                android:textColor="@{merchandise.stock == 0 ? @color/ivory_gray_500 : @color/pure_black}"
+                android:textColor="@{merchandise.itemCount == 0 ? @color/ivory_gray_500 : @color/pure_black}"
                 app:layout_constraintTop_toBottomOf="@id/iv_merchandise"
                 app:layout_constraintStart_toStartOf="parent"
                 tools:text="제품명을 대충 써보자~~~~~~~~~~~~" />
@@ -98,10 +98,10 @@ xmlns:tools="http://schemas.android.com/tools">
                     android:layout_marginStart="8dp"
                     android:layout_centerInParent="true"
                     android:layout_alignParentStart="true"
-                    android:text="@{String.valueOf(merchandise.discounted) + '원'}"
+                    android:text="@{String.valueOf(merchandise.salePrice) + '원'}"
                     style="@style/UIHeadline"
                     tools:textColor="@color/tangerine_300"
-                    android:textColor="@{merchandise.stock == 0 ? @color/ivory_gray_400 : @color/tangerine_300}"
+                    android:textColor="@{merchandise.itemCount == 0 ? @color/ivory_gray_400 : @color/tangerine_300}"
                     tools:text="3000원" />
 
                 <TextView
@@ -110,7 +110,7 @@ xmlns:tools="http://schemas.android.com/tools">
                     android:layout_marginEnd="8dp"
                     android:layout_centerInParent="true"
                     android:layout_alignParentEnd="true"
-                    android:text="@{merchandise.stock == 0 ? `품절` : String.valueOf(merchandise.stock) + `개`}"
+                    android:text="@{merchandise.itemCount == 0 ? `품절` : String.valueOf(merchandise.itemCount) + `개`}"
                     style="@style/UISubhead"
                     android:textColor="@color/ivory_gray_400"
                     tools:text="8개" />
@@ -149,7 +149,7 @@ xmlns:tools="http://schemas.android.com/tools">
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="16dp"
                     android:layout_centerInParent="true"
-                    android:text="@{String.valueOf(merchandise.stock)}"
+                    android:text="@{String.valueOf(merchandise.itemCount)}"
                     style="@style/UIHeadline"
                     app:layout_constraintBottom_toBottomOf="@id/btn_plus"
                     app:layout_constraintEnd_toStartOf="@id/btn_plus"
@@ -181,7 +181,7 @@ xmlns:tools="http://schemas.android.com/tools">
             app:layout_constraintStart_toStartOf="@+id/cl_item"
             app:layout_constraintTop_toTopOf="@+id/cl_item"
             tools:background="@color/transparent"
-            android:visibility="@{(String.valueOf(viewModel.managementUiState).contains(`DefaultMode`) &amp;&amp; merchandise.stock == 0) ? View.VISIBLE : View.GONE}"
+            android:visibility="@{(String.valueOf(viewModel.managementUiState).contains(`DefaultMode`) &amp;&amp; merchandise.itemCount == 0) ? View.VISIBLE : View.GONE}"
             android:background="@drawable/frame_rectangle_corner_8_black_40" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

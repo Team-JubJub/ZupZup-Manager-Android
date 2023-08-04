@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="handler"
+            type="com.example.zupzup_manager.ui.orderdetail.OrderDetailFragmentClickListener" />
+
+        <variable
+            name="adapter"
+            type="com.example.zupzup_manager.ui.orderdetail.recyclerview.OrderDetailRcvAdapter" />
+
+        <variable
+            name="viewModel"
+            type="com.example.zupzup_manager.ui.orderdetail.OrderDetailViewModel" />
+
+        <variable
+            name="bindingHelper"
+            type="com.example.zupzup_manager.ui.orderdetail.binding.OrderDetailBindingHelper" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.orderdetail.OrderDetailFragment">
+
+        <ImageView
+            android:id="@+id/btn_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="@{_ -> handler.onBackBtnClick()}"
+            android:layout_marginStart="7dp"
+            android:layout_marginTop="9dp"
+            android:src="@drawable/ic_back_button"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_prev_page"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            style="@style/UIBody"
+            android:text="이전으로"
+            android:textColor="@color/tangerine_300"
+            app:layout_constraintBottom_toBottomOf="@id/btn_back"
+            app:layout_constraintStart_toEndOf="@id/btn_back"
+            app:layout_constraintTop_toTopOf="@id/btn_back" />
+
+        <TextView
+            android:id="@+id/tv_cartList_title"
+            style="@style/UIHero"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="11dp"
+            android:layout_marginEnd="8dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            app:orderTitle="@{viewModel.orderDetailHeader.orderTitle}"
+            app:orderStatus="@{viewModel.orderDetailHeader.orderStatus}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btn_back"
+            tools:text="제품제품제품제품제품제품" />
+
+        <TextView
+            android:id="@+id/tv_order_state"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/frame_rectangle_corner_99_white"
+            android:paddingHorizontal="24.5dp"
+            android:paddingVertical="8dp"
+            android:textColor="@color/pure_black"
+            app:layout_constraintBottom_toBottomOf="@id/tv_cartList_title"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tv_cartList_title"
+            app:orderStatus="@{viewModel.orderDetailHeader.orderStatus}"
+            tools:text="신규" />
+
+        <TextView
+            android:id="@+id/tv_reserve_date"
+            style="@style/UISubhead"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="4dp"
+            android:textColor="@color/ivory_gray_300"
+            app:detailOrderTime="@{viewModel.orderDetailHeader.orderTime}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_cartList_title"
+            tools:text="2022년 11월 22일 09:41" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rcv_order"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:adapter="@{adapter}"
+            android:paddingVertical="10dp"
+            app:layout_constraintBottom_toTopOf="@id/constraint_confirm_state_button"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_reserve_date"
+            app:orderDetailBody="@{viewModel.orderDetailBody}" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraint_confirm_state_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="9dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/rcv_order"
+            app:layout_constraintStart_toStartOf="@id/rcv_order"
+            app:layout_constraintTop_toBottomOf="@id/rcv_order">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_confirm_order"
+                style="@style/UIHeadline"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:paddingVertical="17dp"
+                android:background="@drawable/frame_rectangle_corner_14_main"
+                android:onClick="@{() -> bindingHelper.createOrderConfirmBottomSheet(viewModel.orderDetailHeader,viewModel.orderDetailBody)}"
+                android:text="예약 확정하기"
+                android:visibility="@{viewModel.orderDetailHeader.orderStatus.equals(`NEW`) ? View.VISIBLE : View.GONE}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_order_cancel"
+                style="@style/UIHeadline"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:paddingVertical="17dp"
+                android:layout_marginEnd="8.5dp"
+                android:background="@drawable/frame_rectangle_corner_14_neutral_gray_150"
+                android:onClick="@{_ -> handler.cancelOrder(viewModel.orderDetailHeader.orderId)}"
+                android:text="취소"
+                android:textColor="@color/neutral_gray_400"
+                android:visibility="@{viewModel.orderDetailHeader.orderStatus.equals(`CONFIRM`) ? View.VISIBLE : View.GONE}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/btn_order_complete"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_order_complete"
+                style="@style/UIHeadline"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:paddingVertical="17dp"
+                android:layout_marginStart="8.5dp"
+                android:background="@drawable/frame_rectangle_corner_14_main"
+                android:onClick="@{_ -> handler.completeOrder(viewModel.orderDetailHeader.orderId)}"
+                android:text="완료"
+                android:visibility="@{viewModel.orderDetailHeader.orderStatus.equals(`CONFIRM`) ? View.VISIBLE : View.GONE}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/btn_order_cancel"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

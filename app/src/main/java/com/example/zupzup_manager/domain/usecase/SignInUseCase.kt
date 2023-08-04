@@ -1,5 +1,6 @@
 package com.example.zupzup_manager.domain.usecase
 
+import android.util.Log
 import com.example.zupzup_manager.domain.DataResult
 import com.example.zupzup_manager.domain.models.AdminModel
 import com.example.zupzup_manager.domain.repository.SignInRepository
@@ -16,8 +17,8 @@ class SignInUseCase @Inject constructor(
     suspend operator fun invoke(id: String, pw: String): Flow<DataResult<AdminModel>> {
         return flow {
             signInRepository.login(id, pw).onSuccess {
-                when (it.storeId) {
-                    -1L -> {
+                when (it.accessToken) {
+                    "-1" -> {
                         emit(DataResult.Failure("패스워드를 잘못 입력했습니다."))
                     }
                     else -> {

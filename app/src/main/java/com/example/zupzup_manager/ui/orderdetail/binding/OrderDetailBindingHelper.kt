@@ -1,0 +1,57 @@
+package com.example.zupzup_manager.ui.orderdetail.binding
+
+import com.example.zupzup_manager.domain.models.OrderSpecificModel
+import com.example.zupzup_manager.domain.models.OrderModel
+import com.example.zupzup_manager.ui.common.ViewType
+import com.example.zupzup_manager.ui.orderdetail.models.OrderDetailHeaderModel
+import com.example.zupzup_manager.ui.orderdetail.models.OrderDetailViewType
+import javax.inject.Inject
+
+class OrderDetailBindingHelper @Inject constructor(
+    private val onCreateOrderConfirmBottomSheetButtonClick: (order: OrderModel, isPartial: Boolean) -> Unit,
+    private val plusOrderItemConfirmedAmount: (itemId: Long) -> Unit,
+    private val minusOrderItemConfirmedAmount: (itemId: Long) -> Unit,
+) {
+    fun createOrderConfirmBottomSheet(
+        orderDetailHeader: OrderDetailHeaderModel,
+        orderDetailBody: List<OrderDetailViewType>
+    ) {
+        val customerInfo =
+            orderDetailBody.find { it.viewType == ViewType.CUSTOMER_INFO.ordinal } as OrderDetailViewType.OrderCustomerInfoViewType
+        val orderList = orderDetailBody.filter { it.viewType == ViewType.ORDER_ITEM.ordinal }
+            .map { it as OrderDetailViewType.OrderItemViewType }
+
+        val confirmedOrderModel = OrderModel(
+            orderId = orderDetailHeader.orderId,
+            storeId = orderDetailHeader.storeId,
+            customer = customerInfo.customer,
+            orderStatus = orderDetailHeader.orderStatus,
+            orderTitle = orderDetailHeader.orderTitle,
+            orderTime = orderDetailHeader.orderTime,
+            visitTime = customerInfo.visitTime,
+            storeName = orderDetailHeader.storeName,
+            storeAddress = orderDetailHeader.storeAddress,
+            category = orderDetailHeader.category,
+            orderList = orderList.map {
+                OrderSpecificModel(
+                    itemId = it.orderItem.itemId,
+                    itemName = it.orderItem.itemName,
+                    itemPrice = it.orderItem.itemPrice,
+                    itemCount = it.getConfirmedAmount()
+                )
+            }
+        )
+        onCreateOrderConfirmBottomSheetButtonClick(
+            confirmedOrderModel,
+            orderList.find { it.orderItem.itemCount != it.getConfirmedAmount() } != null
+        )
+    }
+
+    fun onPlusOrderItemConfirmedAmountBtnClick(itemId: Long) {
+        plusOrderItemConfirmedAmount(itemId)
+    }
+
+    fun onMinusOrderItemConfirmedAmountBtnClick(itemId: Long) {
+        minusOrderItemConfirmedAmount(itemId)
+    }
+}

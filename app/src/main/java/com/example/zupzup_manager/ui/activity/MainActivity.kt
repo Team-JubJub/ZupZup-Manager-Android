@@ -44,10 +44,10 @@ class MainActivity : AppCompatActivity(), ManagementFragment.NavigationBarVisibi
     private fun initBottomNavState() {
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
-                R.id.frag_reservationList -> {
+                R.id.frag_orderList -> {
                     showBottomNav()
                 }
-                R.id.frag_reservationDetail -> {
+                R.id.frag_orderDetail -> {
                     hideBottomNav()
                 }
                 R.id.frag_management -> {

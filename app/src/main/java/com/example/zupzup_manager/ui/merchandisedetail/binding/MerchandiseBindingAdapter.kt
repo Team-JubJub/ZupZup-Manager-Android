@@ -3,11 +3,13 @@ package com.example.zupzup_manager.ui.merchandisedetail.binding
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
+import android.view.View
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.example.zupzup_manager.R
 import com.example.zupzup_manager.domain.models.MerchandiseModel
@@ -22,6 +24,8 @@ fun bindDetailImageUrlToImageView(imageView: ImageView, imgUrl: String?) {
             .transform(
                 CenterCrop()
             )
+            // disk 캐싱 추가
+            .diskCacheStrategy(DiskCacheStrategy.ALL)
             .into(imageView)
     }
 }
@@ -33,7 +37,7 @@ fun bindTwoAmountSame(
     merchandise: MerchandiseModel?
 ){
     if (merchandise != null) {
-        amount.setText(merchandise.stock.toString())
+        amount.setText(merchandise.itemCount.toString())
     } else {
         amount.setText("0")
     }
@@ -58,12 +62,9 @@ fun bindBindingHelperToAmountButtonInDetail(
     tvConfirmedAmount2: TextView
 ) {
     ivBtnModifyAmount.setOnClickListener {
-        Log.d("a", tvConfirmedAmount.text.toString())
-        Log.d("a", ivBtnModifyAmount.id.toString())
         when (ivBtnModifyAmount.id) {
             R.id.btn_plus -> {
                 if (tvConfirmedAmount.text.toString().toInt() < 100) {
-                    Log.d("b", "bb")
                     clickListener.onPlusMerchandiseModifiedAmountBtnClick(itemId)
                     tvConfirmedAmount.text =
                         tvConfirmedAmount.text.toString().toInt().plus(1).toString()
@@ -73,7 +74,6 @@ fun bindBindingHelperToAmountButtonInDetail(
 
             R.id.btn_minus -> {
                 if (tvConfirmedAmount.text.toString().toInt() > 0) {
-                    Log.d("c", "cc")
                     clickListener.onMinusMerchandiseModifiedAmountBtnClick(itemId)
                     tvConfirmedAmount.text =
                         tvConfirmedAmount.text.toString().toInt().minus(1).toString()

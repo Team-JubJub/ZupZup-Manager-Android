@@ -18,7 +18,7 @@ class LoginViewModel @Inject constructor(
     private val getLocalStoreIdUseCase: GetLocalStoreIdUseCase
 ) : ViewModel() {
 
-    private var _loginState = MutableStateFlow<UiState<Long>>(UiState.Loading)
+    private var _loginState = MutableStateFlow<UiState<Triple<String, String, Long>>>(UiState.Loading)
     val loginState = _loginState.asStateFlow()
 
     init {
@@ -30,7 +30,7 @@ class LoginViewModel @Inject constructor(
             _loginState.emit(UiState.Loading)
             signInUseCase(id, pw).collect {
                 if (it is DataResult.Success) {
-                    _loginState.emit(UiState.Success(it.data.storeId))
+                    _loginState.emit(UiState.Success(Triple(it.data.accessToken, it.data.refreshToken, it.data.storeId)))
                 } else if (it is DataResult.Failure) {
                     _loginState.emit(UiState.Error(it.errorMessage))
                 }

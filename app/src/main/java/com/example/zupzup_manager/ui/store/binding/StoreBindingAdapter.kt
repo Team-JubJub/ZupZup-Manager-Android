@@ -1,5 +1,6 @@
 package com.example.zupzup_manager.ui.store.binding
 
+import android.media.Image
 import android.os.Build
 import android.text.Editable
 import android.text.TextWatcher
@@ -17,14 +18,54 @@ import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.ContextCompat
 import androidx.core.view.setPadding
 import androidx.databinding.BindingAdapter
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.example.zupzup_manager.R
+import com.example.zupzup_manager.domain.models.ModifyStoreModel
 import com.example.zupzup_manager.ui.common.fromDpToPx
+import com.example.zupzup_manager.ui.custom.CustomRoundedCornersTransformation
+import com.example.zupzup_manager.ui.store.StoreFragment
+
+@BindingAdapter("modifyList", "clickListener")
+fun bindModifyButton(
+    textView: TextView,
+    modifyList: List<*>,
+    clickListener: StoreFragment.StoreClickListener
+) {
+    val (openTime, closeTime, saleStartTime, saleEndTime, tvWeek) = modifyList
+    val closedDay = if (tvWeek == "휴무일 없음") {
+        null
+    } else {
+        tvWeek.toString()
+    }
+
+    val modifyStoreModel = ModifyStoreModel(
+        openTime = openTime.toString(),
+        closeTime = closeTime.toString(),
+        saleTimeStart = saleStartTime.toString(),
+        saleTimeEnd = saleEndTime.toString(),
+        closedDay = closedDay
+    )
+
+    textView.setOnClickListener {
+        clickListener.modifyStoreDetail(modifyStoreModel, null)
+    }
+//    Glide
+//        .with(imageView.context)
+//        .transform(
+//            CenterCrop()
+//        )
+//        // disk 캐싱 추가
+//        .diskCacheStrategy(DiskCacheStrategy.ALL)
+//        .into(imageView)
+}
 
 @RequiresApi(Build.VERSION_CODES.M)
-@BindingAdapter("anotherTextView", "timePicker", "anotherTimePicker", "timeLayout", "line", "modifyButton")
+@BindingAdapter("anotherTime", "timePicker", "anotherTimePicker", "timeLayout", "line", "modifyButton")
 fun bindTimePickerWithTextView(
     textView: TextView,
-    anotherTextView: TextView,
+    anotherTime: String,
     timePicker: TimePicker,
     anotherTimePicker: TimePicker,
     timeLayout: LinearLayout,
@@ -65,7 +106,6 @@ fun bindTimePickerWithTextView(
 
     // 타임피커 선택할 때
     timePicker.setOnTimeChangedListener { _, hourOfDay, minute ->
-        val anotherTime = anotherTextView.text.toString()
         val anotherHour = anotherTime.substring(0, 2).toInt()
         val anotherMinute = anotherTime.substring(3, 5).toInt()
 
@@ -110,9 +150,10 @@ fun bindTimePickerWithTextView(
     }
 }
 
-@BindingAdapter("sun", "mon", "tue", "wed", "thu", "fri", "sat")
+@BindingAdapter("closedDay", "sun", "mon", "tue", "wed", "thu", "fri", "sat")
 fun bindWeekWithTextView(
     weekTextView: TextView,
+    closedDay: String?,
     sun: ToggleButton,
     mon: ToggleButton,
     tue: ToggleButton,
@@ -121,6 +162,9 @@ fun bindWeekWithTextView(
     fri: ToggleButton,
     sat: ToggleButton
 ) {
+    if (closedDay == null) weekTextView.text = "휴무일 없음"
+    else weekTextView.text = closedDay
+
     val toggleButtons = listOf(sun, mon, tue, wed, thu, fri, sat)
     val weekdays = listOf("일요일", "월요일", "화요일", "수요일", "목요일", "금요일", "토요일")
     val days = weekTextView.text.toString().split(", ").toMutableList()
@@ -138,7 +182,11 @@ fun bindWeekWithTextView(
             }
             val orderedDays = weekdays.filter { days.contains(it) }
             val selectedDaysString = orderedDays.joinToString(", ")
-            weekTextView.text = selectedDaysString
+            weekTextView.text = if (selectedDaysString.isBlank()) {
+                "휴무일 없음"
+            } else {
+                selectedDaysString
+            }
         }
     }
 }

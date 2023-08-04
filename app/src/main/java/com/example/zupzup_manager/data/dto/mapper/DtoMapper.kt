@@ -1,32 +1,45 @@
 package com.example.zupzup_manager.data.dto.mapper
 
-import android.util.Log
-import com.example.zupzup_manager.data.dto.CartDto
-import com.example.zupzup_manager.data.dto.MerchandiseDto
-import com.example.zupzup_manager.domain.models.CartModel
+import com.example.zupzup_manager.data.dto.order.OrderSpecificDto
+import com.example.zupzup_manager.data.dto.merchandise.MerchandiseDto
+import com.example.zupzup_manager.data.dto.order.OrderSpecificListDto
+import com.example.zupzup_manager.data.dto.store.parameter.ModifyStoreRequestBody
+import com.example.zupzup_manager.domain.models.OrderSpecificModel
 import com.example.zupzup_manager.domain.models.MerchandiseModel
+import com.example.zupzup_manager.domain.models.ModifyStoreModel
 
 object DtoMapper {
 
-    fun CartModel.toDto(): CartDto {
-        return CartDto(
-            itemId = itemId,
-            storeId = storeId,
-            name = name,
-            salesPrice = salesPrice,
-            amount = amount
-        )
+    fun List<OrderSpecificModel>.toDto(): OrderSpecificListDto {
+        val orderSpecificDtoList = this.map {
+            OrderSpecificDto(
+                itemId = it.itemId,
+                itemName = it.itemName,
+                itemPrice = it.itemPrice,
+                itemCount = it.itemCount
+            )
+        }
+        return OrderSpecificListDto(orderSpecificDtoList)
     }
 
     fun MerchandiseModel.toDto(): MerchandiseDto {
         return MerchandiseDto(
             itemId = itemId,
-            storeId = storeId,
             itemName = itemName,
-            price = price,
-            discounted = discounted,
-            imgUrl = imgUrl,
-            stock = modifiedStock
+            imageUrl = imageUrl,
+            itemPrice = itemPrice,
+            salePrice = salePrice,
+            itemCount = itemCount
+        )
+    }
+
+    fun ModifyStoreModel.toDto(): ModifyStoreRequestBody {
+        return ModifyStoreRequestBody(
+            openTime = openTime,
+            closeTime = closeTime,
+            saleTimeStart = saleTimeStart,
+            saleTimeEnd = saleTimeEnd,
+            closedDay = closedDay!!
         )
     }
 

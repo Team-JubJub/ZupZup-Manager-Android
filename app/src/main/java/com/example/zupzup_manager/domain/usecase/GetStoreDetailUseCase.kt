@@ -12,14 +12,12 @@ import javax.inject.Inject
 class GetStoreDetailUseCase @Inject constructor(
     private val storeRepository: StoreRepository
 ) {
-    suspend operator fun invoke(storeId: Long): Flow<DataResult<StoreModel>> {
+    suspend operator fun invoke(accessToken: String, storeId: Long): Flow<DataResult<StoreModel>> {
         return flow {
-            storeRepository.getStoreDetail(storeId).collect {
-                it.onSuccess { storeDetail ->
-                    emit(DataResult.Success(storeDetail))
-                }.onFailure {
-                    emit(DataResult.Failure("error"))
-                }
+            storeRepository.getStoreDetail(accessToken, storeId).onSuccess { store ->
+                emit(DataResult.Success(store))
+            }.onFailure {
+                emit(DataResult.Failure("1"))
             }
         }.flowOn(Dispatchers.IO)
     }

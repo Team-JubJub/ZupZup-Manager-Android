@@ -20,11 +20,11 @@ object FireBaseModule {
 
     @Qualifier
     @Retention(AnnotationRetention.BINARY)
-    annotation class ReservationRef
+    annotation class OrderRef
 
     @Qualifier
     @Retention(AnnotationRetention.BINARY)
-    annotation class TestReservationRef
+    annotation class TestOrderRef
 
     @Qualifier
     @Retention(AnnotationRetention.BINARY)
@@ -39,16 +39,16 @@ object FireBaseModule {
 
     @Singleton
     @Provides
-    @ReservationRef
-    fun provideFirebaseReservationRef(): CollectionReference {
-        return Firebase.firestore.collection(Constants.reservationRef)
+    @OrderRef
+    fun provideFirebaseOrderRef(): CollectionReference {
+        return Firebase.firestore.collection(Constants.orderRef)
     }
 
     @Singleton
     @Provides
-    @TestReservationRef
-    fun provideFirebaseTestReservationRef(): CollectionReference {
-        return Firebase.firestore.collection(Constants.testReservationRef)
+    @TestOrderRef
+    fun provideFirebaseTestOrderRef(): CollectionReference {
+        return Firebase.firestore.collection(Constants.testOrderRef)
     }
 
     @Singleton
