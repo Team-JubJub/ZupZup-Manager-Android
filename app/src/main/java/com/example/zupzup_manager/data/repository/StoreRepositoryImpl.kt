@@ -62,8 +62,23 @@ class StoreRepositoryImpl @Inject constructor(
             }
             Result.success(store!!)
         } catch (e: Exception) {
-            Log.d("에러 체크", "왜 안 바꿈?")
-            Log.d("에러 체크", e.toString())
+            Result.failure(e)
+        }
+    }
+
+    override suspend fun modifyStoreMatter(
+        accessToken: String,
+        storeId: Long,
+        storeMatter: String
+    ): Result<String> {
+        return try {
+            val response = storeDataSource.modifyStoreMatter(accessToken, storeId, storeMatter)
+            if (response.isSuccessful) {
+                Result.success("1")
+            } else {
+                Result.success(response.code().toString())
+            }
+        } catch (e: Exception) {
             Result.failure(e)
         }
     }

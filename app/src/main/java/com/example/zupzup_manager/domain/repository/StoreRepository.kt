@@ -8,4 +8,5 @@ interface StoreRepository {
     suspend fun getStoreDetail(accessToken: String, storeId: Long): Result<StoreModel>
     suspend fun changeOpenStatus(accessToken: String, storeId: Long, isOpened: Boolean): Result<String>
     suspend fun modifyStoreDetail(accessToken: String, storeId: Long, store: ModifyStoreModel, image: MultipartBody.Part?): Result<StoreModel>
+    suspend fun modifyStoreMatter(accessToken: String, storeId: Long, storeMatter: String): Result<String>
 }
