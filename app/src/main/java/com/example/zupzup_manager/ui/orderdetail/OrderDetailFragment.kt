@@ -5,9 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -18,7 +16,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.zupzup_manager.databinding.FragmentOrderDetailBinding
 import com.example.zupzup_manager.domain.models.OrderModel
 import com.example.zupzup_manager.ui.common.UiEventState
-import com.example.zupzup_manager.ui.common.User
 import com.example.zupzup_manager.ui.common.progress.ProgressDialogFragment
 import com.example.zupzup_manager.ui.orderdetail.binding.OrderDetailBindingHelper
 import com.example.zupzup_manager.ui.orderdetail.bottomsheet.OrderConfirmBottomSheetFragment

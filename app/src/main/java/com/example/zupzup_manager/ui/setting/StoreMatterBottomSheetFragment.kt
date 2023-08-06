@@ -3,7 +3,6 @@ package com.example.zupzup_manager.ui.setting
 import android.app.Dialog
 import android.content.DialogInterface
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,7 +10,6 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.example.zupzup_manager.R
 import com.example.zupzup_manager.databinding.FragmentStoreMatterBottomsheetBinding
-import com.example.zupzup_manager.ui.common.User
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment

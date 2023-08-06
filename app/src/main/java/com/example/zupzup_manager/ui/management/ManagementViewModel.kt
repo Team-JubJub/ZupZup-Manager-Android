@@ -1,22 +1,13 @@
 package com.example.zupzup_manager.ui.management
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.zupzup_manager.data.common.toTimeString
-import com.example.zupzup_manager.domain.DataResult
 import com.example.zupzup_manager.domain.models.MerchandiseModel
-import com.example.zupzup_manager.domain.models.StoreModel
 import com.example.zupzup_manager.domain.usecase.GetStoreDetailUseCase
 import com.example.zupzup_manager.domain.usecase.ModifyMerchandiseUseCase
 import com.example.zupzup_manager.ui.common.ManagementState
-import com.example.zupzup_manager.ui.common.UiEventState
-import com.example.zupzup_manager.ui.common.UiState
-import com.example.zupzup_manager.ui.management.models.ManagementViewType
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject

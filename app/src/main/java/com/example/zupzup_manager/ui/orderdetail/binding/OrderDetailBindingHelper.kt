@@ -1,7 +1,7 @@
 package com.example.zupzup_manager.ui.orderdetail.binding
 
-import com.example.zupzup_manager.domain.models.OrderSpecificModel
 import com.example.zupzup_manager.domain.models.OrderModel
+import com.example.zupzup_manager.domain.models.OrderSpecificModel
 import com.example.zupzup_manager.ui.common.ViewType
 import com.example.zupzup_manager.ui.orderdetail.models.OrderDetailHeaderModel
 import com.example.zupzup_manager.ui.orderdetail.models.OrderDetailViewType

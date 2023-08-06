@@ -1,7 +1,7 @@
 package com.example.zupzup_manager.ui.orderdetail.models
 
-import com.example.zupzup_manager.domain.models.OrderSpecificModel
 import com.example.zupzup_manager.domain.models.CustomerModel
+import com.example.zupzup_manager.domain.models.OrderSpecificModel
 import com.example.zupzup_manager.ui.common.ViewType
 
 sealed class OrderDetailViewType {

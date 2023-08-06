@@ -11,10 +11,8 @@ import com.example.zupzup_manager.R
 import com.example.zupzup_manager.domain.models.OrderSpecificModel
 import com.example.zupzup_manager.ui.common.OrderStateMapper
 import com.example.zupzup_manager.ui.common.toDecimalFormat
-import com.example.zupzup_manager.ui.common.toDetailDateFormat
-import com.example.zupzup_manager.ui.common.toTimeFormat
-import com.example.zupzup_manager.ui.orderdetail.recyclerview.OrderDetailRcvAdapter
 import com.example.zupzup_manager.ui.orderdetail.models.OrderDetailViewType
+import com.example.zupzup_manager.ui.orderdetail.recyclerview.OrderDetailRcvAdapter
 
 
 @BindingAdapter("orderDetailBody")

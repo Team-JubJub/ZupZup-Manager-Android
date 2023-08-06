@@ -8,10 +8,8 @@ import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.zupzup_manager.domain.models.OrderModel
-import com.example.zupzup_manager.domain.models.OrderSpecificModel
 import com.example.zupzup_manager.ui.common.OrderStateMapper
 import com.example.zupzup_manager.ui.common.UiState
-import com.example.zupzup_manager.ui.common.toSimpleDateFormat
 import com.example.zupzup_manager.ui.orderlist.recyclerview.OrderListRcvAdapter
 
 @BindingAdapter("uiState", "filter")

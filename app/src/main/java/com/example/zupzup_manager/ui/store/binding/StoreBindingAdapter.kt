@@ -1,30 +1,19 @@
 package com.example.zupzup_manager.ui.store.binding
 
-import android.media.Image
 import android.os.Build
-import android.text.Editable
-import android.text.TextWatcher
-import android.util.Log
 import android.view.View
-import android.widget.EditText
-import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.TimePicker
 import android.widget.Toast
 import android.widget.ToggleButton
 import androidx.annotation.RequiresApi
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.ContextCompat
 import androidx.core.view.setPadding
 import androidx.databinding.BindingAdapter
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.example.zupzup_manager.R
 import com.example.zupzup_manager.domain.models.ModifyStoreModel
 import com.example.zupzup_manager.ui.common.fromDpToPx
-import com.example.zupzup_manager.ui.custom.CustomRoundedCornersTransformation
 import com.example.zupzup_manager.ui.store.StoreFragment
 
 @BindingAdapter("modifyList", "clickListener")

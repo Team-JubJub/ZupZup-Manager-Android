@@ -1,7 +1,6 @@
 package com.example.zupzup_manager.domain.models
 
 import android.os.Parcelable
-import android.util.Log
 import kotlinx.parcelize.Parcelize
 
 @Parcelize

@@ -3,7 +3,7 @@ package com.example.zupzup_manager.ui.common
 import android.content.res.Resources
 import java.text.DecimalFormat
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Locale
 
 fun Int.toTimeFormat(): String {
     val str = this.toString()

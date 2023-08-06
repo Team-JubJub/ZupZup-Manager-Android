@@ -1,10 +1,13 @@
 package com.example.zupzup_manager.ui.orderdetail
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.zupzup_manager.domain.models.OrderModel
-import com.example.zupzup_manager.domain.usecase.*
+import com.example.zupzup_manager.domain.usecase.CancelOrderUseCase
+import com.example.zupzup_manager.domain.usecase.CompleteOrderUseCase
+import com.example.zupzup_manager.domain.usecase.ConfirmOrderUseCase
+import com.example.zupzup_manager.domain.usecase.RejectOrderUseCase
+import com.example.zupzup_manager.domain.usecase.SendNotificationTalkUseCase
 import com.example.zupzup_manager.ui.common.UiEventState
 import com.example.zupzup_manager.ui.common.User
 import com.example.zupzup_manager.ui.common.ViewType
@@ -109,7 +112,7 @@ class OrderDetailViewModel @Inject constructor(
         viewModelScope.launch {
             _orderProcessingUiState.emit(UiEventState.Processing)
             with(orderModel) {
-                confirmOrderUseCase(User.getAccessToken(), storeId, orderId, orderList).collect {
+                confirmOrderUseCase(storeId, orderId, orderList).collect {
                     it.onSuccess {
 //                        val newState = if (isPartial) "PARTIAL" else "CONFIRM"
 //                        sendNotificationTalkUseCase(this, newState).onSuccess {
@@ -129,7 +132,7 @@ class OrderDetailViewModel @Inject constructor(
         viewModelScope.launch {
             _orderProcessingUiState.emit(UiEventState.Processing)
             with(orderModel) {
-                rejectOrderUseCase(User.getAccessToken(), User.getStoreId(), orderId).collect {
+                rejectOrderUseCase(User.getStoreId(), orderId).collect {
                     it.onSuccess {
 //                        val newState = "CANCEL"
 //                        sendNotificationTalkUseCase(this, newState).onSuccess {
@@ -148,7 +151,7 @@ class OrderDetailViewModel @Inject constructor(
     fun cancelOrder(orderId: Long) {
         viewModelScope.launch {
             _orderProcessingUiState.emit(UiEventState.Processing)
-            cancelOrderUseCase(User.getAccessToken(), User.getStoreId(), orderId).collect {
+            cancelOrderUseCase(User.getStoreId(), orderId).collect {
                 it.onSuccess {
                     _orderProcessingUiState.emit(UiEventState.Complete)
                 }.onFailure {
@@ -161,7 +164,7 @@ class OrderDetailViewModel @Inject constructor(
     fun completeOrder(orderId: Long) {
         viewModelScope.launch {
             _orderProcessingUiState.emit(UiEventState.Processing)
-            completeOrderUseCase(User.getAccessToken(), User.getStoreId(), orderId).collect {
+            completeOrderUseCase(User.getStoreId(), orderId).collect {
                 it.onSuccess {
                     _orderProcessingUiState.emit(UiEventState.Complete)
                 }.onFailure {

@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -36,6 +35,11 @@ class OrderListFilterFragment : Fragment() {
         initRecyclerView()
     }
 
+    override fun onResume() {
+        super.onResume()
+        orderListViewModel.getOrderList(User.getStoreId())
+    }
+
     private fun getFilterOption() {
         arguments?.takeIf { it.containsKey("position") }?.apply {
             when (getInt("position")) {
@@ -61,7 +65,7 @@ class OrderListFilterFragment : Fragment() {
             filter = filterOption
             refresh.setOnRefreshListener {
                 refresh.isRefreshing = false
-                orderListViewModel.getOrderList(User.getAccessToken(), User.getStoreId())
+                orderListViewModel.getOrderList(User.getStoreId())
             }
         }
     }

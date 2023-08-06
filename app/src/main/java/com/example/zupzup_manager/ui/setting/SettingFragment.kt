@@ -1,8 +1,6 @@
 package com.example.zupzup_manager.ui.setting
 
-import android.content.Context.MODE_PRIVATE
 import android.content.Intent
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -10,14 +8,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.zupzup_manager.databinding.FragmentSettingBinding
-import com.example.zupzup_manager.domain.models.OrderModel
-import com.example.zupzup_manager.domain.models.StoreModel
 import com.example.zupzup_manager.ui.common.User
 import com.example.zupzup_manager.ui.login.LoginActivity
-import com.example.zupzup_manager.ui.orderdetail.bottomsheet.OrderConfirmBottomSheetFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -38,16 +32,18 @@ class SettingFragment : Fragment() {
 
         override fun signout() {
             settingViewModel.signOut()
+            Log.d("TAG", "로그아웃 완료 -> 액티비티 이동")
             val loginIntent = Intent(context, LoginActivity::class.java)
             loginIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK + Intent.FLAG_ACTIVITY_NEW_TASK)
             startActivity(loginIntent)
+            Log.d("TAG", "액티비티 이동 완료")
         }
 
         override fun modifyStoreMatter() {
             storeMatterBottomSheet =
                 StoreMatterBottomSheetFragment(settingViewModel.storeInfo.value.saleMatters)
             storeMatterBottomSheet!!.setOnDismissListener {
-                settingViewModel.getStoreInfo(User.getAccessToken(), User.getStoreId())
+                settingViewModel.getStoreInfo(User.getStoreId())
             }
             storeMatterBottomSheet!!.show(parentFragmentManager, null)
         }
@@ -68,7 +64,7 @@ class SettingFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        settingViewModel.getStoreInfo(User.getAccessToken(), User.getStoreId())
+        settingViewModel.getStoreInfo(User.getStoreId())
         Log.d("resume test", "resume test")
     }
 

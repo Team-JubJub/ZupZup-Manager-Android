@@ -1,7 +1,5 @@
 package com.example.zupzup_manager.ui.store
 
-import android.util.Log
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.zupzup_manager.domain.DataResult
@@ -33,7 +31,7 @@ class StoreViewModel @Inject constructor(
 
     fun modifyStoreDetail(modifyStoreModel: ModifyStoreModel, image: MultipartBody.Part?) {
         viewModelScope.launch {
-            modifyStoreDetailUseCase(User.getAccessToken(), User.getStoreId(), modifyStoreModel, image).collect {
+            modifyStoreDetailUseCase(User.getStoreId(), modifyStoreModel, image).collect {
                 if (it is DataResult.Success) {
                     _storeInfo.emit(it.data)
                 }

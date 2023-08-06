@@ -1,6 +1,5 @@
 package com.example.zupzup_manager.ui.orderlist
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.zupzup_manager.domain.DataResult
@@ -20,7 +19,7 @@ class OrderListViewModel @Inject constructor(
 ) : ViewModel() {
 
     init {
-        getOrderList(User.getAccessToken(), User.getStoreId())
+        getOrderList(User.getStoreId())
     }
 
     private var _orderListUiState =
@@ -28,9 +27,9 @@ class OrderListViewModel @Inject constructor(
     val orderListUiState = _orderListUiState.asStateFlow()
 
 
-    fun getOrderList(accessToken: String, storeId: Long) {
+    fun getOrderList(storeId: Long) {
         viewModelScope.launch {
-            getOrderListUseCase(accessToken, storeId).collect {
+            getOrderListUseCase(storeId).collect {
                 if (it is DataResult.Success) {
                     _orderListUiState.emit(UiState.Success(it.data))
                 } else {
