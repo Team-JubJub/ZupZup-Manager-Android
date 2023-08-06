@@ -11,9 +11,9 @@ import javax.inject.Inject
 class ConfirmOrderUseCase @Inject constructor(
     private val orderRepository: OrderRepository
 ) {
-    suspend operator fun invoke(accessToken: String, storeId: Long, orderId: Long, orderList: List<OrderSpecificModel>): Flow<Result<Int>> {
+    suspend operator fun invoke(storeId: Long, orderId: Long, orderList: List<OrderSpecificModel>): Flow<Result<Int>> {
         return flow {
-            emit(orderRepository.confirmOrder(accessToken, storeId, orderId, orderList))
+            emit(orderRepository.confirmOrder(storeId, orderId, orderList))
         }.flowOn(Dispatchers.IO)
     }
 }

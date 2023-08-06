@@ -10,9 +10,9 @@ import javax.inject.Inject
 class RejectOrderUseCase @Inject constructor(
     private val orderRepository: OrderRepository
 ) {
-    suspend operator fun invoke(accessToken: String, storeId: Long, orderId: Long): Flow<Result<Int>> {
+    suspend operator fun invoke(storeId: Long, orderId: Long): Flow<Result<Int>> {
         return flow {
-            emit(orderRepository.rejectOrder(accessToken, storeId, orderId))
+            emit(orderRepository.rejectOrder(storeId, orderId))
         }.flowOn(Dispatchers.IO)
     }
 }

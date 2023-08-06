@@ -15,13 +15,12 @@ class ModifyStoreDetailUseCase @Inject constructor(
     private val storeRepository: StoreRepository
 ) {
     suspend operator fun invoke(
-        accessToken: String,
         storeId: Long,
         store: ModifyStoreModel,
         image: MultipartBody.Part?
     ): Flow<DataResult<StoreModel>> {
         return flow {
-            storeRepository.modifyStoreDetail(accessToken, storeId, store, image)
+            storeRepository.modifyStoreDetail(storeId, store, image)
                 .onSuccess { store ->
                     emit(DataResult.Success(store))
                 }.onFailure {

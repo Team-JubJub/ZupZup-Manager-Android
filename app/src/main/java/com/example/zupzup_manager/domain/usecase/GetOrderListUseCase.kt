@@ -1,6 +1,5 @@
 package com.example.zupzup_manager.domain.usecase
 
-import android.util.Log
 import com.example.zupzup_manager.domain.DataResult
 import com.example.zupzup_manager.domain.models.OrderModel
 import com.example.zupzup_manager.domain.repository.OrderRepository
@@ -13,9 +12,9 @@ import javax.inject.Inject
 class GetOrderListUseCase @Inject constructor(
     private val orderRepository: OrderRepository
 ) {
-    suspend operator fun invoke(accessToken: String, storeId: Long): Flow<DataResult<List<OrderModel>>> {
+    suspend operator fun invoke(storeId: Long): Flow<DataResult<List<OrderModel>>> {
         return flow {
-            orderRepository.getOrderList(accessToken, storeId).onSuccess { orderList ->
+            orderRepository.getOrderList(storeId).onSuccess { orderList ->
                 emit(DataResult.Success(orderList))
             }.onFailure {
                 emit(DataResult.Failure("1"))

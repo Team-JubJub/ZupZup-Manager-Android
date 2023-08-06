@@ -10,9 +10,9 @@ import javax.inject.Inject
 class CompleteOrderUseCase @Inject constructor(
     private val orderRepository: OrderRepository
 ) {
-    suspend operator fun invoke(accessToken: String, storeId: Long, orderId: Long): Flow<Result<Int>> {
+    suspend operator fun invoke(storeId: Long, orderId: Long): Flow<Result<Int>> {
         return flow {
-            emit(orderRepository.completeOrder(accessToken, storeId, orderId))
+            emit(orderRepository.completeOrder(storeId, orderId))
         }.flowOn(Dispatchers.IO)
     }
 }

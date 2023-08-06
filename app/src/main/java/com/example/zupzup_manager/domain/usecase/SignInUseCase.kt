@@ -1,6 +1,5 @@
 package com.example.zupzup_manager.domain.usecase
 
-import android.util.Log
 import com.example.zupzup_manager.domain.DataResult
 import com.example.zupzup_manager.domain.models.AdminModel
 import com.example.zupzup_manager.domain.repository.SignInRepository
