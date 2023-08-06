@@ -4,11 +4,12 @@ import com.example.zupzup_manager.data.dto.sign.parameter.SignInRequestBody
 import com.example.zupzup_manager.data.dto.sign.response.SignInResponse
 import com.example.zupzup_manager.data.dto.sign.response.SignOutResponse
 import com.example.zupzup_manager.data.service.SignInService
+import com.example.zupzup_manager.di.ServiceModule
 import retrofit2.Response
 import javax.inject.Inject
 
 class SignInDataSourceImpl @Inject constructor(
-    private val signInService: SignInService
+    @ServiceModule.ZupZupServiceObject private val signInService: SignInService
 ) : SignInDataSource {
     override suspend fun login(
         id: String,

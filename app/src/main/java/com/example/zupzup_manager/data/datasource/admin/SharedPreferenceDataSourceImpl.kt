@@ -1,7 +1,6 @@
 package com.example.zupzup_manager.data.datasource.admin
 
 import android.content.SharedPreferences
-import android.util.Log
 import javax.inject.Inject
 
 class SharedPreferenceDataSourceImpl @Inject constructor(
