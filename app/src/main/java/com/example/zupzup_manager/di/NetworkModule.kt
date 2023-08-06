@@ -1,13 +1,10 @@
 package com.example.zupzup_manager.di
 
-import com.example.zupzup_manager.data.datasource.admin.SharedPreferenceDataSource
-import com.example.zupzup_manager.data.service.SignInService
 import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -37,11 +34,23 @@ object NetworkModule {
     @Retention(AnnotationRetention.BINARY)
     annotation class ZupZupRetrofitObjectNoneInterceptor
 
+    @Qualifier
+    @Retention(AnnotationRetention.BINARY)
+    annotation class ZupZupRetrofitObjectNoneOkHttp
+
+    @Qualifier
+    @Retention(AnnotationRetention.BINARY)
+    annotation class OkHttpClientWithInterceptor
+
+    @Qualifier
+    @Retention(AnnotationRetention.BINARY)
+    annotation class OkHttpClientNoneInterceptor
+
     @Provides
     @Singleton
     @LunaSoftRetrofitObject
     fun provideLunaSoftRetrofitObject(
-        client: OkHttpClient
+        @OkHttpClientWithInterceptor client: OkHttpClient
     ): Retrofit {
         return Retrofit.Builder()
             .baseUrl(lunaSoftBaseUrl)
@@ -50,11 +59,46 @@ object NetworkModule {
             .build()
     }
 
+
+    // 얘를 OkHttpClientNoneInterceptor 가진 걸로 하나 더 만들고 signinservice에서 사용할 것
     @Provides
     @Singleton
     @ZupZupRetrofitObject
     fun provideZupZupRetrofitObject(
-        client: OkHttpClient
+        @OkHttpClientWithInterceptor client: OkHttpClient
+    ): Retrofit {
+        val gson = GsonBuilder()
+            .setLenient()
+            .create()
+        return Retrofit.Builder()
+            .baseUrl(manageBaseUrl)
+            .client(client)
+            .addConverterFactory(ScalarsConverterFactory.create())
+            .addConverterFactory(GsonConverterFactory.create(gson))
+            .build()
+    }
+
+    // 얘는 dependency cycle 방지용 위랑 같이 묶어두기 OkHttp 객체 자체가 안 들어감
+    @Provides
+    @Singleton
+    @ZupZupRetrofitObjectNoneOkHttp
+    fun provideZupZupRetrofitObjectNoneOkHttp(): Retrofit {
+        val gson = GsonBuilder()
+            .setLenient()
+            .create()
+        return Retrofit.Builder()
+            .baseUrl(manageBaseUrl)
+            .addConverterFactory(ScalarsConverterFactory.create())
+            .addConverterFactory(GsonConverterFactory.create(gson))
+            .build()
+    }
+
+    // SignInService(헤더 넣는 애, 안 넣는 애 다 있으므로) 전용 Retrofit 객체
+    @Provides
+    @Singleton
+    @ZupZupRetrofitObjectNoneInterceptor
+    fun provideZupZupRetrofitObjectNoneInterceptor(
+        @OkHttpClientNoneInterceptor client: OkHttpClient
     ): Retrofit {
         val gson = GsonBuilder()
             .setLenient()
@@ -69,35 +113,27 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    @ZupZupRetrofitObjectNoneInterceptor
-    fun provideZupZupRetrofitObjectNoneInterceptor(): Retrofit {
-        val gson = GsonBuilder()
-            .setLenient()
-            .create()
-        return Retrofit.Builder()
-            .baseUrl(manageBaseUrl)
-            .addConverterFactory(ScalarsConverterFactory.create())
-            .addConverterFactory(GsonConverterFactory.create(gson))
+    @OkHttpClientWithInterceptor
+    fun provideOkHttpClientWithInterceptor(
+        authInterceptor: AuthInterceptor,
+        headerInterceptor: HeaderInterceptor
+    ): OkHttpClient {
+        return OkHttpClient.Builder()
+            .connectTimeout(5, TimeUnit.SECONDS)
+            .addInterceptor(authInterceptor)
+            .addInterceptor(headerInterceptor)
+            .addInterceptor(HttpLoggingInterceptor().apply {
+                this.level = HttpLoggingInterceptor.Level.BODY
+            })
             .build()
     }
 
     @Provides
     @Singleton
-    fun provideAuthInterceptor(
-        sharedPreferenceDataSource: SharedPreferenceDataSource,
-        signInService: SignInService
-    ): Interceptor {
-        return AuthInterceptor(sharedPreferenceDataSource, signInService)
-    }
-
-    @Provides
-    @Singleton
-    fun provideOkHttpClient(
-        authInterceptor: AuthInterceptor
-    ): OkHttpClient {
+    @OkHttpClientNoneInterceptor
+    fun provideOkHttpClientNoneInterceptor(): OkHttpClient {
         return OkHttpClient.Builder()
             .connectTimeout(5, TimeUnit.SECONDS)
-            .addInterceptor(authInterceptor)
             .addInterceptor(HttpLoggingInterceptor().apply {
                 this.level = HttpLoggingInterceptor.Level.BODY
             })

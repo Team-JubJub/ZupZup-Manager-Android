@@ -10,11 +10,21 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import retrofit2.Retrofit
+import javax.inject.Qualifier
 import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
 object ServiceModule {
+
+
+    @Qualifier
+    @Retention(AnnotationRetention.BINARY)
+    annotation class ZupZupServiceObject
+
+    @Qualifier
+    @Retention(AnnotationRetention.BINARY)
+    annotation class ZupZupServiceObjectNoneOkHttp
 
     @Provides
     @Singleton
@@ -26,16 +36,18 @@ object ServiceModule {
 
     @Provides
     @Singleton
+    @ZupZupServiceObject
     fun provideSignInService(
-        @NetworkModule.ZupZupRetrofitObject retrofit: Retrofit
+        @NetworkModule.ZupZupRetrofitObjectNoneInterceptor retrofit: Retrofit
     ): SignInService {
         return retrofit.create(SignInService::class.java)
     }
 
     @Provides
     @Singleton
-    fun provideSignInService2(
-        @NetworkModule.ZupZupRetrofitObjectNoneInterceptor retrofit: Retrofit
+    @ZupZupServiceObjectNoneOkHttp
+    fun provideSignInServiceNoneInterceptor(
+        @NetworkModule.ZupZupRetrofitObjectNoneOkHttp retrofit: Retrofit
     ): SignInService {
         return retrofit.create(SignInService::class.java)
     }
