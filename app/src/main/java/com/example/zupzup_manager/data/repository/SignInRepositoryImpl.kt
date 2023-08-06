@@ -56,11 +56,18 @@ class SignInRepositoryImpl @Inject constructor(
         return try {
             val response = signInDataSource.logout(accessToken, refreshToken)
             if (response.isSuccessful) {
-                Log.d("TAG", "로그아웃 완료")
+                Log.d("TAG", "로그아웃 완료 repo")
                 sharedPreferenceDataSource.deleteData()
+            } else {
+                // token 만료 시 refresh로 토큰 갱신하는 처리해줘야 해결됨
+                // 만료된 토큰으로 로그아웃 시 안 됨 -> 앱 데이터, 캐시 삭제 후 재시작
+                Log.d("TAG", "로그아웃 완료?")
+                Log.d("TAG", response.toString())
             }
             Result.success(response.body().toString())
         } catch (e: Exception) {
+            Log.d("TAG", "로그아웃 실패 repo")
+            Log.d("TAG", e.toString())
             Result.failure(e)
         }
     }

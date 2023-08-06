@@ -1,6 +1,5 @@
 package com.example.zupzup_manager.data.repository
 
-import android.util.Log
 import com.example.zupzup_manager.data.datasource.store.StoreDataSource
 import com.example.zupzup_manager.data.dto.mapper.DtoMapper.toDto
 import com.example.zupzup_manager.domain.models.ModifyStoreModel
@@ -14,11 +13,10 @@ class StoreRepositoryImpl @Inject constructor(
 ): StoreRepository {
 
     override suspend fun getStoreDetail(
-        accessToken: String,
         storeId: Long
     ): Result<StoreModel> {
         return try {
-            val response = storeDataSource.getStoreDetail(accessToken, storeId)
+            val response = storeDataSource.getStoreDetail(storeId)
             val store: StoreModel? = if (response.isSuccessful) {
                 response.body()?.toStoreModel()
             } else {
@@ -31,12 +29,11 @@ class StoreRepositoryImpl @Inject constructor(
     }
 
     override suspend fun changeOpenStatus(
-        accessToken: String,
         storeId: Long,
         isOpened: Boolean
     ): Result<String> {
         return try {
-            val response = storeDataSource.changeOpenStatus(accessToken, storeId, isOpened)
+            val response = storeDataSource.changeOpenStatus(storeId, isOpened)
             if (response.isSuccessful) {
                 Result.success("1")
             } else {
@@ -48,13 +45,12 @@ class StoreRepositoryImpl @Inject constructor(
     }
 
     override suspend fun modifyStoreDetail(
-        accessToken: String,
         storeId: Long,
         store: ModifyStoreModel,
         image: MultipartBody.Part?
     ): Result<StoreModel> {
         return try {
-            val response = storeDataSource.modifyStoreDetail(accessToken, storeId, store.toDto(), image)
+            val response = storeDataSource.modifyStoreDetail(storeId, store.toDto(), image)
             val store: StoreModel? = if (response.isSuccessful) {
                 response.body()?.toStoreModel()
             } else {
@@ -67,12 +63,11 @@ class StoreRepositoryImpl @Inject constructor(
     }
 
     override suspend fun modifyStoreMatter(
-        accessToken: String,
         storeId: Long,
         storeMatter: String
     ): Result<String> {
         return try {
-            val response = storeDataSource.modifyStoreMatter(accessToken, storeId, storeMatter)
+            val response = storeDataSource.modifyStoreMatter(storeId, storeMatter)
             if (response.isSuccessful) {
                 Result.success("1")
             } else {
