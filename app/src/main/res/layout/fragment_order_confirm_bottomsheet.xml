@@ -11,7 +11,7 @@
 
         <variable
             name="order"
-            type="com.example.zupzup_manager.domain.models.OrderModel" />
+            type="com.example.zupzup_manager.domain.models.order.OrderModel" />
 
         <variable
             name="isPartial"

@@ -22,27 +22,27 @@
         tools:layout="@layout/fragment_order_detail">
         <argument
             android:name="order"
-            app:argType="com.example.zupzup_manager.domain.models.OrderModel"
-            app:nullable="false" />
+            app:argType="com.example.zupzup_manager.domain.models.order.OrderModel"
+            app:nullable="false"/>
     </fragment>
     <fragment
-        android:id="@+id/frag_management"
-        android:name="com.example.zupzup_manager.ui.management.ManagementFragment"
+        android:id="@+id/frag_item"
+        android:name="com.example.zupzup_manager.ui.item.ItemFragment"
         android:label="ManagementFragment"
-        tools:layout="@layout/fragment_management" >
+        tools:layout="@layout/fragment_item" >
         <action
-            android:id="@+id/action_frag_management_to_merchandiseDetailFragment"
-            app:destination="@id/frag_merchandise_detail" />
+            android:id="@+id/action_frag_item_to_itemDetailFragment"
+            app:destination="@id/frag_item_detail"/>
     </fragment>
     <fragment
-        android:id="@+id/frag_merchandise_detail"
-        android:name="com.example.zupzup_manager.ui.merchandisedetail.MerchandiseDetailFragment"
-        android:label="MerchandiseDetailFragment"
-        tools:layout="@layout/fragment_merchandise_detail">
+        android:id="@+id/frag_item_detail"
+        android:name="com.example.zupzup_manager.ui.itemdetail.ItemDetailFragment"
+        android:label="ItemDetailFragment"
+        tools:layout="@layout/fragment_item_detail">
         <argument
-            android:name="merchandise"
+            android:name="item"
             android:defaultValue="@null"
-            app:argType="com.example.zupzup_manager.domain.models.MerchandiseModel"
+            app:argType="com.example.zupzup_manager.domain.models.item.ItemModel"
             app:nullable="true"/>
     </fragment>
     <fragment
@@ -61,6 +61,6 @@
         tools:layout="@layout/fragment_store">
         <argument
             android:name="store"
-            app:argType="com.example.zupzup_manager.domain.models.StoreModel"/>
+            app:argType="com.example.zupzup_manager.domain.models.store.StoreModel"/>
     </fragment>
 </navigation>

@@ -9,11 +9,11 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.zupzup_manager.R
 import com.example.zupzup_manager.databinding.ActivityMainBinding
-import com.example.zupzup_manager.ui.management.ManagementFragment
+import com.example.zupzup_manager.ui.item.ItemFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity(), ManagementFragment.NavigationBarVisibilityListener {
+class MainActivity : AppCompatActivity(), ItemFragment.NavigationBarVisibilityListener {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var navController: NavController
@@ -50,10 +50,10 @@ class MainActivity : AppCompatActivity(), ManagementFragment.NavigationBarVisibi
                 R.id.frag_orderDetail -> {
                     hideBottomNav()
                 }
-                R.id.frag_management -> {
+                R.id.frag_item -> {
                     showBottomNav()
                 }
-                R.id.frag_merchandise_detail -> {
+                R.id.frag_item_detail -> {
                     hideBottomNav()
                 }
                 R.id.frag_setting -> {

@@ -9,7 +9,7 @@
 
         <variable
             name="store"
-            type="com.example.zupzup_manager.domain.models.StoreModel" />
+            type="com.example.zupzup_manager.domain.models.store.StoreModel" />
         <variable
             name="clickListener"
             type="com.example.zupzup_manager.ui.store.StoreFragment.StoreClickListener" />

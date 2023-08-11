@@ -6,7 +6,7 @@
         android:icon="@drawable/ic_status"
         android:title=""/>
     <item
-        android:id="@+id/frag_management"
+        android:id="@+id/frag_item"
         android:enabled="true"
         android:icon="@drawable/ic_management"
         android:title=""/>
