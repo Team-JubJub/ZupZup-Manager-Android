@@ -1,7 +1,7 @@
 package com.example.zupzup_manager.domain.repository
 
-import com.example.zupzup_manager.domain.models.ModifyStoreModel
-import com.example.zupzup_manager.domain.models.StoreModel
+import com.example.zupzup_manager.domain.models.store.ModifyStoreModel
+import com.example.zupzup_manager.domain.models.store.StoreModel
 import okhttp3.MultipartBody
 
 interface StoreRepository {

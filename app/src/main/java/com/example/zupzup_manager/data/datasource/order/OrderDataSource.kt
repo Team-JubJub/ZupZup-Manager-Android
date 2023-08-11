@@ -1,19 +1,19 @@
 package com.example.zupzup_manager.data.datasource.order
 
-import com.example.zupzup_manager.data.dto.order.OrderListDto
-import com.example.zupzup_manager.data.dto.order.OrderSpecificListDto
-import com.example.zupzup_manager.data.dto.order.PatchOrderResponseDto
+import com.example.zupzup_manager.data.dto.order.parameter.OrderSpecificListRequest
+import com.example.zupzup_manager.data.dto.order.response.OrderListResponse
+import com.example.zupzup_manager.data.dto.order.response.PatchOrderResponse
 import retrofit2.Response
 
 interface OrderDataSource {
 
-    suspend fun getOrderList(storeId: Long): Response<OrderListDto>
+    suspend fun getOrderList(storeId: Long): Response<OrderListResponse>
 
-    suspend fun confirmOrder(storeId: Long, orderId: Long, orderList: OrderSpecificListDto): Response<PatchOrderResponseDto>
+    suspend fun confirmOrder(storeId: Long, orderId: Long, orderList: OrderSpecificListRequest): Response<PatchOrderResponse>
 
-    suspend fun rejectOrder(storeId: Long, orderId: Long): Response<PatchOrderResponseDto>
+    suspend fun rejectOrder(storeId: Long, orderId: Long): Response<PatchOrderResponse>
 
-    suspend fun cancelOrder(storeId: Long, orderId: Long): Response<PatchOrderResponseDto>
+    suspend fun cancelOrder(storeId: Long, orderId: Long): Response<PatchOrderResponse>
 
-    suspend fun completeOrder(storeId: Long, orderId: Long): Response<PatchOrderResponseDto>
+    suspend fun completeOrder(storeId: Long, orderId: Long): Response<PatchOrderResponse>
 }

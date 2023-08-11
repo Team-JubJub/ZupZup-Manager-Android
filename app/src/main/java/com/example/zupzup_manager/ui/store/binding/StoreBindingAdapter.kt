@@ -12,7 +12,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.setPadding
 import androidx.databinding.BindingAdapter
 import com.example.zupzup_manager.R
-import com.example.zupzup_manager.domain.models.ModifyStoreModel
+import com.example.zupzup_manager.domain.models.store.ModifyStoreModel
 import com.example.zupzup_manager.ui.common.fromDpToPx
 import com.example.zupzup_manager.ui.store.StoreFragment
 

@@ -1,6 +1,6 @@
 package com.example.zupzup_manager.domain.repository
 
-import com.example.zupzup_manager.domain.models.AdminModel
+import com.example.zupzup_manager.domain.models.admin.AdminModel
 
 interface SignInRepository {
 

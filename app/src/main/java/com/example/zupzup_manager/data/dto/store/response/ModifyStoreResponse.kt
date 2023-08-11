@@ -1,6 +1,6 @@
 package com.example.zupzup_manager.data.dto.store.response
 
-import com.example.zupzup_manager.domain.models.StoreModel
+import com.example.zupzup_manager.domain.models.store.StoreModel
 
 data class ModifyStoreResponse(
     val storeName: String = "",

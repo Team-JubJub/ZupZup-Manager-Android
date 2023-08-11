@@ -3,9 +3,9 @@ package com.example.zupzup_manager.data.repository
 import android.util.Log
 import com.example.zupzup_manager.data.datasource.admin.SharedPreferenceDataSource
 import com.example.zupzup_manager.data.datasource.admin.SignInDataSource
-import com.example.zupzup_manager.data.dto.sign.response.SignInResponse
+import com.example.zupzup_manager.data.dto.admin.response.SignInResponse
 import com.example.zupzup_manager.di.NetworkModule
-import com.example.zupzup_manager.domain.models.AdminModel
+import com.example.zupzup_manager.domain.models.admin.AdminModel
 import com.example.zupzup_manager.domain.repository.SignInRepository
 import retrofit2.Retrofit
 import javax.inject.Inject

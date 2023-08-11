@@ -3,8 +3,8 @@ package com.example.zupzup_manager.ui.login
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.zupzup_manager.domain.DataResult
-import com.example.zupzup_manager.domain.usecase.GetLocalStoreIdUseCase
-import com.example.zupzup_manager.domain.usecase.SignInUseCase
+import com.example.zupzup_manager.domain.usecase.admin.GetLocalStoreIdUseCase
+import com.example.zupzup_manager.domain.usecase.admin.SignInUseCase
 import com.example.zupzup_manager.ui.common.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow

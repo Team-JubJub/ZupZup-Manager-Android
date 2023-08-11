@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import com.example.zupzup_manager.R
 import com.example.zupzup_manager.databinding.FragmentOrderConfirmBottomsheetBinding
-import com.example.zupzup_manager.domain.models.OrderModel
+import com.example.zupzup_manager.domain.models.order.OrderModel
 import com.example.zupzup_manager.ui.common.toDecimalFormat
 import com.example.zupzup_manager.ui.orderdetail.OrderDetailFragmentClickListener
 import com.google.android.material.bottomsheet.BottomSheetDialog

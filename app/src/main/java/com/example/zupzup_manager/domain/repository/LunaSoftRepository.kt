@@ -1,6 +1,6 @@
 package com.example.zupzup_manager.domain.repository
 
-import com.example.zupzup_manager.domain.models.OrderModel
+import com.example.zupzup_manager.domain.models.order.OrderModel
 
 interface LunaSoftRepository {
 

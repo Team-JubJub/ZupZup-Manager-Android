@@ -2,8 +2,8 @@ package com.example.zupzup_manager.data.repository
 
 import com.example.zupzup_manager.data.datasource.order.OrderDataSource
 import com.example.zupzup_manager.data.dto.mapper.DtoMapper.toDto
-import com.example.zupzup_manager.domain.models.OrderModel
-import com.example.zupzup_manager.domain.models.OrderSpecificModel
+import com.example.zupzup_manager.domain.models.order.OrderModel
+import com.example.zupzup_manager.domain.models.order.OrderSpecificModel
 import com.example.zupzup_manager.domain.repository.OrderRepository
 import javax.inject.Inject
 

@@ -4,11 +4,11 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.zupzup_manager.domain.DataResult
-import com.example.zupzup_manager.domain.models.StoreModel
-import com.example.zupzup_manager.domain.usecase.ChangeOpenStatusUseCase
-import com.example.zupzup_manager.domain.usecase.GetStoreDetailUseCase
-import com.example.zupzup_manager.domain.usecase.ModifyStoreMatterUseCase
-import com.example.zupzup_manager.domain.usecase.SignOutUseCase
+import com.example.zupzup_manager.domain.models.store.StoreModel
+import com.example.zupzup_manager.domain.usecase.store.ChangeOpenStatusUseCase
+import com.example.zupzup_manager.domain.usecase.store.GetStoreDetailUseCase
+import com.example.zupzup_manager.domain.usecase.store.ModifyStoreMatterUseCase
+import com.example.zupzup_manager.domain.usecase.admin.SignOutUseCase
 import com.example.zupzup_manager.ui.common.User
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow

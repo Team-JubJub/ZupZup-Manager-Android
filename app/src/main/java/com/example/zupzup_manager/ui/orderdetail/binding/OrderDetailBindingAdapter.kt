@@ -8,7 +8,7 @@ import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.zupzup_manager.R
-import com.example.zupzup_manager.domain.models.OrderSpecificModel
+import com.example.zupzup_manager.domain.models.order.OrderSpecificModel
 import com.example.zupzup_manager.ui.common.OrderStateMapper
 import com.example.zupzup_manager.ui.common.toDecimalFormat
 import com.example.zupzup_manager.ui.orderdetail.models.OrderDetailViewType

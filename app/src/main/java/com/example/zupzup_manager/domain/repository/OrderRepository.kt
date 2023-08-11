@@ -1,7 +1,7 @@
 package com.example.zupzup_manager.domain.repository
 
-import com.example.zupzup_manager.domain.models.OrderModel
-import com.example.zupzup_manager.domain.models.OrderSpecificModel
+import com.example.zupzup_manager.domain.models.order.OrderModel
+import com.example.zupzup_manager.domain.models.order.OrderSpecificModel
 
 interface OrderRepository {
     suspend fun getOrderList(storeId: Long): Result<List<OrderModel>>

@@ -2,8 +2,8 @@ package com.example.zupzup_manager.data.repository
 
 import com.example.zupzup_manager.data.datasource.store.StoreDataSource
 import com.example.zupzup_manager.data.dto.mapper.DtoMapper.toDto
-import com.example.zupzup_manager.domain.models.ModifyStoreModel
-import com.example.zupzup_manager.domain.models.StoreModel
+import com.example.zupzup_manager.domain.models.store.ModifyStoreModel
+import com.example.zupzup_manager.domain.models.store.StoreModel
 import com.example.zupzup_manager.domain.repository.StoreRepository
 import okhttp3.MultipartBody
 import javax.inject.Inject

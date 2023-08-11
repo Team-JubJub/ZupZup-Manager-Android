@@ -2,7 +2,7 @@ package com.example.zupzup_manager.data.repository
 
 import com.example.zupzup_manager.data.datasource.lunasoft.LunaSoftDataSource
 import com.example.zupzup_manager.data.dto.mapper.LunaSoftMessageMapper
-import com.example.zupzup_manager.domain.models.OrderModel
+import com.example.zupzup_manager.domain.models.order.OrderModel
 import com.example.zupzup_manager.domain.repository.LunaSoftRepository
 import javax.inject.Inject
 

@@ -13,7 +13,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.zupzup_manager.databinding.FragmentStoreBinding
-import com.example.zupzup_manager.domain.models.ModifyStoreModel
+import com.example.zupzup_manager.domain.models.store.ModifyStoreModel
 import dagger.hilt.android.AndroidEntryPoint
 import okhttp3.MultipartBody
 

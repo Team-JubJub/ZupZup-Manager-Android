@@ -1,9 +1,9 @@
 package com.example.zupzup_manager.data.service
 
-import com.example.zupzup_manager.data.dto.sign.parameter.SignInRequestBody
-import com.example.zupzup_manager.data.dto.sign.response.SignInRefreshResponse
-import com.example.zupzup_manager.data.dto.sign.response.SignInResponse
-import com.example.zupzup_manager.data.dto.sign.response.SignOutResponse
+import com.example.zupzup_manager.data.dto.admin.parameter.SignInRequest
+import com.example.zupzup_manager.data.dto.admin.response.SignInRefreshResponse
+import com.example.zupzup_manager.data.dto.admin.response.SignInResponse
+import com.example.zupzup_manager.data.dto.admin.response.SignOutResponse
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.Header
@@ -12,7 +12,7 @@ import retrofit2.http.POST
 interface SignInService {
     @POST("mobile/sign-in")
     suspend fun signIn(
-        @Body body: SignInRequestBody
+        @Body body: SignInRequest
     ): Response<SignInResponse>
 
     @POST("mobile/sign-out")

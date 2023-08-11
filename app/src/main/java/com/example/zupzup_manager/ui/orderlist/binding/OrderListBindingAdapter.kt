@@ -7,7 +7,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.zupzup_manager.domain.models.OrderModel
+import com.example.zupzup_manager.domain.models.order.OrderModel
 import com.example.zupzup_manager.ui.common.OrderStateMapper
 import com.example.zupzup_manager.ui.common.UiState
 import com.example.zupzup_manager.ui.orderlist.recyclerview.OrderListRcvAdapter

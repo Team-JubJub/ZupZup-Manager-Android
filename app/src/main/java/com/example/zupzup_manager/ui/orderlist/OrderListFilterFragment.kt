@@ -9,7 +9,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.zupzup_manager.databinding.FragmentOrderListFilterBinding
-import com.example.zupzup_manager.domain.models.OrderModel
+import com.example.zupzup_manager.domain.models.order.OrderModel
 import com.example.zupzup_manager.ui.common.User
 import com.example.zupzup_manager.ui.orderlist.recyclerview.OrderListItemDecorator
 import com.example.zupzup_manager.ui.orderlist.recyclerview.OrderListRcvAdapter

@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.zupzup_manager.databinding.ItemOrderCardBinding
-import com.example.zupzup_manager.domain.models.OrderModel
+import com.example.zupzup_manager.domain.models.order.OrderModel
 
 class OrderListRcvAdapter(
     private val navigateToOrderDetail: (order: OrderModel) -> Unit

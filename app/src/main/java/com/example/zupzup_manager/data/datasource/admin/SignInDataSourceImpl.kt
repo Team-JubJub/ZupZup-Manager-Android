@@ -1,8 +1,8 @@
 package com.example.zupzup_manager.data.datasource.admin
 
-import com.example.zupzup_manager.data.dto.sign.parameter.SignInRequestBody
-import com.example.zupzup_manager.data.dto.sign.response.SignInResponse
-import com.example.zupzup_manager.data.dto.sign.response.SignOutResponse
+import com.example.zupzup_manager.data.dto.admin.parameter.SignInRequest
+import com.example.zupzup_manager.data.dto.admin.response.SignInResponse
+import com.example.zupzup_manager.data.dto.admin.response.SignOutResponse
 import com.example.zupzup_manager.data.service.SignInService
 import com.example.zupzup_manager.di.ServiceModule
 import retrofit2.Response
@@ -16,7 +16,7 @@ class SignInDataSourceImpl @Inject constructor(
         pw: String
     ): Response<SignInResponse> {
         return signInService.signIn(
-            body = SignInRequestBody(
+            body = SignInRequest(
                 loginId = id,
                 loginPwd = pw
             )

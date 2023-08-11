@@ -3,8 +3,8 @@ package com.example.zupzup_manager.ui.orderlist
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.zupzup_manager.domain.DataResult
-import com.example.zupzup_manager.domain.models.OrderModel
-import com.example.zupzup_manager.domain.usecase.GetOrderListUseCase
+import com.example.zupzup_manager.domain.models.order.OrderModel
+import com.example.zupzup_manager.domain.usecase.order.GetOrderListUseCase
 import com.example.zupzup_manager.ui.common.UiState
 import com.example.zupzup_manager.ui.common.User
 import dagger.hilt.android.lifecycle.HiltViewModel

@@ -14,7 +14,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.zupzup_manager.databinding.FragmentOrderDetailBinding
-import com.example.zupzup_manager.domain.models.OrderModel
+import com.example.zupzup_manager.domain.models.order.OrderModel
 import com.example.zupzup_manager.ui.common.UiEventState
 import com.example.zupzup_manager.ui.common.progress.ProgressDialogFragment
 import com.example.zupzup_manager.ui.orderdetail.binding.OrderDetailBindingHelper

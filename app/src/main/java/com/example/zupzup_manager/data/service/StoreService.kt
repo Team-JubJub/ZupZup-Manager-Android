@@ -1,6 +1,6 @@
 package com.example.zupzup_manager.data.service
 
-import com.example.zupzup_manager.data.dto.store.parameter.ModifyStoreRequestBody
+import com.example.zupzup_manager.data.dto.store.parameter.ModifyStoreRequest
 import com.example.zupzup_manager.data.dto.store.response.ModifyStoreResponse
 import com.example.zupzup_manager.data.dto.store.response.StoreDetailResponse
 import okhttp3.MultipartBody
@@ -31,7 +31,7 @@ interface StoreService {
     suspend fun modifyStoreDetail(
         @Path("storeId") storeId: Long,
         @Part image: MultipartBody.Part?,
-        @Part("data") data: ModifyStoreRequestBody
+        @Part("data") data: ModifyStoreRequest
     ): Response<ModifyStoreResponse>
 
     @POST("seller/notice/{storeId}")

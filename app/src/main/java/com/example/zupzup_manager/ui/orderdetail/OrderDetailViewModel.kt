@@ -2,12 +2,12 @@ package com.example.zupzup_manager.ui.orderdetail
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.zupzup_manager.domain.models.OrderModel
-import com.example.zupzup_manager.domain.usecase.CancelOrderUseCase
-import com.example.zupzup_manager.domain.usecase.CompleteOrderUseCase
-import com.example.zupzup_manager.domain.usecase.ConfirmOrderUseCase
-import com.example.zupzup_manager.domain.usecase.RejectOrderUseCase
-import com.example.zupzup_manager.domain.usecase.SendNotificationTalkUseCase
+import com.example.zupzup_manager.domain.models.order.OrderModel
+import com.example.zupzup_manager.domain.usecase.order.CancelOrderUseCase
+import com.example.zupzup_manager.domain.usecase.order.CompleteOrderUseCase
+import com.example.zupzup_manager.domain.usecase.order.ConfirmOrderUseCase
+import com.example.zupzup_manager.domain.usecase.order.RejectOrderUseCase
+import com.example.zupzup_manager.domain.usecase.lunasoft.SendNotificationTalkUseCase
 import com.example.zupzup_manager.ui.common.UiEventState
 import com.example.zupzup_manager.ui.common.User
 import com.example.zupzup_manager.ui.common.ViewType

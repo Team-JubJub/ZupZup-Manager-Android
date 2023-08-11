@@ -1,8 +1,8 @@
 package com.example.zupzup_manager.data.service
 
-import com.example.zupzup_manager.data.dto.order.OrderListDto
-import com.example.zupzup_manager.data.dto.order.OrderSpecificListDto
-import com.example.zupzup_manager.data.dto.order.PatchOrderResponseDto
+import com.example.zupzup_manager.data.dto.order.response.OrderListResponse
+import com.example.zupzup_manager.data.dto.order.parameter.OrderSpecificListRequest
+import com.example.zupzup_manager.data.dto.order.response.PatchOrderResponse
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -14,30 +14,30 @@ interface OrderService {
     @GET("seller/{storeId}/order")
     suspend fun getOrderList(
         @Path("storeId") storeId: Long
-    ): Response<OrderListDto>
+    ): Response<OrderListResponse>
 
     @PATCH("seller/{storeId}/order/new-order/{orderId}/confirm")
     suspend fun confirmOrder(
         @Path("storeId") storeId: Long,
         @Path("orderId") orderId: Long,
-        @Body body: OrderSpecificListDto
-    ): Response<PatchOrderResponseDto>
+        @Body body: OrderSpecificListRequest
+    ): Response<PatchOrderResponse>
 
     @PATCH("seller/{storeId}/order/new-order/{orderId}/cancel")
     suspend fun rejectOrder(
         @Path("storeId") storeId: Long,
         @Path("orderId") orderId: Long
-    ): Response<PatchOrderResponseDto>
+    ): Response<PatchOrderResponse>
 
     @PATCH("seller/{storeId}/order/confirmed-order/{orderId}/complete")
     suspend fun cancelOrder(
         @Path("storeId") storeId: Long,
         @Path("orderId") orderId: Long
-    ): Response<PatchOrderResponseDto>
+    ): Response<PatchOrderResponse>
 
     @PATCH("seller/{storeId}/order/confirmed-order/{orderId}/cancel")
     suspend fun completeOrder(
         @Path("storeId") storeId: Long,
         @Path("orderId") orderId: Long
-    ): Response<PatchOrderResponseDto>
+    ): Response<PatchOrderResponse>
 }

@@ -1,7 +1,7 @@
 package com.example.zupzup_manager.data.datasource.admin
 
-import com.example.zupzup_manager.data.dto.sign.response.SignInResponse
-import com.example.zupzup_manager.data.dto.sign.response.SignOutResponse
+import com.example.zupzup_manager.data.dto.admin.response.SignInResponse
+import com.example.zupzup_manager.data.dto.admin.response.SignOutResponse
 import retrofit2.Response
 
 interface SignInDataSource {

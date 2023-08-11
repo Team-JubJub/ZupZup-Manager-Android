@@ -3,9 +3,9 @@ package com.example.zupzup_manager.ui.store
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.zupzup_manager.domain.DataResult
-import com.example.zupzup_manager.domain.models.ModifyStoreModel
-import com.example.zupzup_manager.domain.models.StoreModel
-import com.example.zupzup_manager.domain.usecase.ModifyStoreDetailUseCase
+import com.example.zupzup_manager.domain.models.store.ModifyStoreModel
+import com.example.zupzup_manager.domain.models.store.StoreModel
+import com.example.zupzup_manager.domain.usecase.store.ModifyStoreDetailUseCase
 import com.example.zupzup_manager.ui.common.User
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow

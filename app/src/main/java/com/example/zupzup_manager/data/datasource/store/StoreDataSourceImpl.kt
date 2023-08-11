@@ -1,6 +1,6 @@
 package com.example.zupzup_manager.data.datasource.store
 
-import com.example.zupzup_manager.data.dto.store.parameter.ModifyStoreRequestBody
+import com.example.zupzup_manager.data.dto.store.parameter.ModifyStoreRequest
 import com.example.zupzup_manager.data.dto.store.response.ModifyStoreResponse
 import com.example.zupzup_manager.data.dto.store.response.StoreDetailResponse
 import com.example.zupzup_manager.data.service.StoreService
@@ -30,7 +30,7 @@ class StoreDataSourceImpl @Inject constructor(
 
     override suspend fun modifyStoreDetail(
         storeId: Long,
-        store: ModifyStoreRequestBody,
+        store: ModifyStoreRequest,
         image: MultipartBody.Part?
     ): Response<ModifyStoreResponse> {
         return storeService.modifyStoreDetail(
