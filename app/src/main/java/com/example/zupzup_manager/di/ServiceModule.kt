@@ -1,7 +1,7 @@
 package com.example.zupzup_manager.di
 
 import com.example.zupzup_manager.data.service.LunaSoftService
-import com.example.zupzup_manager.data.service.MerchandiseService
+import com.example.zupzup_manager.data.service.ItemService
 import com.example.zupzup_manager.data.service.OrderService
 import com.example.zupzup_manager.data.service.SignInService
 import com.example.zupzup_manager.data.service.StoreService
@@ -62,10 +62,10 @@ object ServiceModule {
 
     @Provides
     @Singleton
-    fun providesMerchandiseService(
+    fun providesItemService(
         @NetworkModule.ZupZupRetrofitObject retrofit: Retrofit
-    ): MerchandiseService {
-        return retrofit.create(MerchandiseService::class.java)
+    ): ItemService {
+        return retrofit.create(ItemService::class.java)
     }
 
     @Provides
