@@ -5,14 +5,14 @@
 
     <data>
         <import type="android.view.View"/>
-        <import type="com.example.zupzup_manager.domain.models.item.ItemModel"/>
+        <import type="zupzup.manager.domain.models.item.ItemModel"/>
 
         <variable
             name="item"
-            type="com.example.zupzup_manager.domain.models.item.ItemModel" />
+            type="zupzup.manager.domain.models.item.ItemModel" />
         <variable
             name="clickListener"
-            type="com.example.zupzup_manager.ui.itemdetail.ItemDetailClickListener" />
+            type="zupzup.manager.ui.itemdetail.ItemDetailClickListener" />
 
     </data>
 

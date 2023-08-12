@@ -9,10 +9,10 @@
 
         <variable
             name="store"
-            type="com.example.zupzup_manager.domain.models.store.StoreModel" />
+            type="zupzup.manager.domain.models.store.StoreModel" />
         <variable
             name="clickListener"
-            type="com.example.zupzup_manager.ui.store.StoreFragment.StoreClickListener" />
+            type="zupzup.manager.ui.store.StoreFragment.StoreClickListener" />
     </data>
     <LinearLayout
         android:layout_width="match_parent"

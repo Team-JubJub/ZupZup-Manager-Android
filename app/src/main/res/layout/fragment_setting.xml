@@ -7,11 +7,11 @@
 
         <variable
             name="viewModel"
-            type="com.example.zupzup_manager.ui.setting.SettingViewModel" />
+            type="zupzup.manager.ui.setting.SettingViewModel" />
 
         <variable
             name="clickListener"
-            type="com.example.zupzup_manager.ui.setting.SettingFragment.SettingClickListener" />
+            type="zupzup.manager.ui.setting.SettingFragment.SettingClickListener" />
 
     </data>
     <ScrollView

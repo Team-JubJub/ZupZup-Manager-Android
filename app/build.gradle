@@ -20,7 +20,7 @@ android {
     compileSdk 32
 
     defaultConfig {
-        applicationId "com.example.zupzup_manager"
+        applicationId "zupzup.manager"
         minSdk 21
         targetSdk 32
         versionCode 1

@@ -8,11 +8,11 @@
 
         <variable
             name="item"
-            type="com.example.zupzup_manager.domain.models.item.ItemModel" />
+            type="zupzup.manager.domain.models.item.ItemModel" />
 
         <variable
             name="clickListener"
-            type="com.example.zupzup_manager.ui.item.clicklistener.ItemDialogClickListener" />
+            type="zupzup.manager.ui.item.clicklistener.ItemDialogClickListener" />
     </data>
 
     <LinearLayout

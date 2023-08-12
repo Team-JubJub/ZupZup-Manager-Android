@@ -11,7 +11,7 @@
 
         <variable
             name="clickListener"
-            type="com.example.zupzup_manager.ui.setting.StoreMatterBottomSheetFragment.StoreMatterClickListener" />
+            type="zupzup.manager.ui.setting.StoreMatterBottomSheetFragment.StoreMatterClickListener" />
 
     </data>
 

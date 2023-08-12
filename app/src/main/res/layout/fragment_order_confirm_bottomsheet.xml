@@ -7,11 +7,11 @@
 
         <variable
             name="handler"
-            type="com.example.zupzup_manager.ui.orderdetail.OrderDetailFragmentClickListener" />
+            type="zupzup.manager.ui.orderdetail.OrderDetailFragmentClickListener" />
 
         <variable
             name="order"
-            type="com.example.zupzup_manager.domain.models.order.OrderModel" />
+            type="zupzup.manager.domain.models.order.OrderModel" />
 
         <variable
             name="isPartial"
