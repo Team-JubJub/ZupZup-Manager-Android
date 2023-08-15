@@ -20,23 +20,31 @@ class AuthInterceptor @Inject constructor(
 
         when (response.code) {
             401 -> {
-                Log.d("TAG", "refresh token 재발급 시도")
-                runBlocking {
+                Log.d("TAG", "access token 갱신 시도")
+                val newAccessToken = runBlocking {
                     try {
                         val refreshResponse =
                             signInService.signInRefresh(sharedPreferenceDataSource.getRefreshToken())
                         if (refreshResponse.isSuccessful) {
-                            Log.d("TAG", "refresh token 재발급 완료")
-                            with(refreshResponse.body()!!) {
-                                sharedPreferenceDataSource.insertAccessToken(this.accessToken)
-                            }
+                            Log.d("TAG", "access token 재발급 완료")
+                            refreshResponse.body()?.accessToken
                         } else {
-                            Log.d("TAG", "refresh token 재발급 실패1")
+                            Log.d("TAG", "access token 재발급 실패1")
+                            null
                         }
                     } catch (e: Exception) {
-                        Log.d("TAG", "refresh token 재발급 실패2")
+                        Log.d("TAG", "access token 재발급 실패2")
                         Log.d("TAG", e.toString())
+                        null
                     }
+                }
+                if (!newAccessToken.isNullOrEmpty()) {
+                    sharedPreferenceDataSource.insertAccessToken(newAccessToken)
+                    // 토큰 갱신 성공한 후에 다시 원래 요청을 호출하도록 처리
+                    val newRequest = request.newBuilder()
+                        .header("accessToken", "$newAccessToken")
+                        .build()
+                    return chain.proceed(newRequest)
                 }
             }
         }
