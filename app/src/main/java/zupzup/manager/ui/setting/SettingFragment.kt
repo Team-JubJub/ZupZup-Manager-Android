@@ -8,11 +8,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import zupzup.manager.databinding.FragmentSettingBinding
 import zupzup.manager.ui.common.User
 import zupzup.manager.ui.login.LoginActivity
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 
 @AndroidEntryPoint
@@ -31,12 +33,14 @@ class SettingFragment : Fragment() {
         }
 
         override fun signout() {
-            settingViewModel.signOut()
-            Log.d("TAG", "로그아웃 완료 -> 액티비티 이동")
-            val loginIntent = Intent(context, LoginActivity::class.java)
-            loginIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK + Intent.FLAG_ACTIVITY_NEW_TASK)
-            startActivity(loginIntent)
-            Log.d("TAG", "액티비티 이동 완료")
+            lifecycleScope.launch {
+                settingViewModel.signOut()
+                Log.d("TAG", "로그아웃 완료 -> 액티비티 이동")
+                val loginIntent = Intent(context, LoginActivity::class.java)
+                loginIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK + Intent.FLAG_ACTIVITY_NEW_TASK)
+                startActivity(loginIntent)
+                Log.d("TAG", "액티비티 이동 완료")
+            }
         }
 
         override fun modifyStoreMatter() {
