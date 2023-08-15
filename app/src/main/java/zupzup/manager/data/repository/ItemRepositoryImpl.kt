@@ -5,9 +5,10 @@ import zupzup.manager.data.datasource.item.ItemDataSource
 import zupzup.manager.data.dto.mapper.DtoMapper.toDto
 import zupzup.manager.domain.models.item.ItemModel
 import zupzup.manager.domain.models.item.ItemQuantityModel
-import zupzup.manager.domain.models.item.ModifyItemModel
+import zupzup.manager.domain.models.item.ItemModifyModel
 import zupzup.manager.domain.repository.ItemRepository
 import okhttp3.MultipartBody
+import zupzup.manager.domain.models.item.ItemAddModel
 import javax.inject.Inject
 
 class ItemRepositoryImpl @Inject constructor(
@@ -32,7 +33,7 @@ class ItemRepositoryImpl @Inject constructor(
 
     override suspend fun addItem(
         storeId: Long,
-        item: ModifyItemModel,
+        item: ItemAddModel,
         image: MultipartBody.Part?
     ): Result<String> {
         return try {
@@ -54,14 +55,11 @@ class ItemRepositoryImpl @Inject constructor(
         return try {
             val response = itemDataSource.modifyItemQuantity(storeId, body.toDto())
             if (response.isSuccessful) {
-                Log.d("TAG", "repo 수량 수정 완료")
                 Result.success("1")
             } else {
-                Log.d("TAG", "repo 수량 수정 실패")
                 Result.success(response.code().toString())
             }
         } catch (e: Exception) {
-            Log.d("TAG", "repo 수량 수정 찐실패")
             Log.d("TAG", e.toString())
             Result.failure(e)
         }
@@ -69,7 +67,7 @@ class ItemRepositoryImpl @Inject constructor(
 
     override suspend fun modifyItem(
         storeId: Long,
-        item: ModifyItemModel,
+        item: ItemModifyModel,
         image: MultipartBody.Part?
     ): Result<String> {
         return try {

@@ -4,9 +4,8 @@ import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class ModifyItemModel (
+data class ItemAddModel (
     val itemName: String,
-    val imageURL: String,
     val itemPrice: Int,
     val salePrice: Int,
     var itemCount: Int

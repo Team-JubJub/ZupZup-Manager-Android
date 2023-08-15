@@ -1,6 +1,6 @@
 package zupzup.manager.data.dto.item.parameter
 
-data class ItemRequest(
+data class ItemModifyRequest(
     val itemName: String,
     val imageURL: String,
     val itemPrice: Int,

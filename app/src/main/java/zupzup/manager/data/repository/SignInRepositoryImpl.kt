@@ -1,6 +1,7 @@
 package zupzup.manager.data.repository
 
 import android.util.Log
+import kotlinx.coroutines.runBlocking
 import zupzup.manager.data.datasource.admin.SharedPreferenceDataSource
 import zupzup.manager.data.datasource.admin.SignInDataSource
 import zupzup.manager.data.dto.admin.response.SignInResponse
@@ -58,11 +59,7 @@ class SignInRepositoryImpl @Inject constructor(
             if (response.isSuccessful) {
                 Log.d("TAG", "로그아웃 완료 repo")
                 sharedPreferenceDataSource.deleteData()
-            } else {
-                // token 만료 시 refresh로 토큰 갱신하는 처리해줘야 해결됨
-                // 만료된 토큰으로 로그아웃 시 안 됨 -> 앱 데이터, 캐시 삭제 후 재시작
-                Log.d("TAG", "로그아웃 완료?")
-                Log.d("TAG", response.toString())
+                Log.d("TAG", "pref 삭제 완료 repo")
             }
             Result.success(response.body().toString())
         } catch (e: Exception) {
@@ -71,5 +68,4 @@ class SignInRepositoryImpl @Inject constructor(
             Result.failure(e)
         }
     }
-
 }

@@ -1,7 +1,7 @@
 package zupzup.manager.data.datasource.item
 
 import zupzup.manager.data.dto.item.parameter.ItemPatchDto
-import zupzup.manager.data.dto.item.parameter.ItemRequest
+import zupzup.manager.data.dto.item.parameter.ItemModifyRequest
 import zupzup.manager.data.dto.item.response.ItemDto
 import zupzup.manager.data.service.ItemService
 import com.google.gson.Gson
@@ -9,6 +9,7 @@ import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import retrofit2.Response
+import zupzup.manager.data.dto.item.parameter.ItemAddRequest
 import javax.inject.Inject
 
 class ItemDataSourceImpl @Inject constructor(
@@ -23,7 +24,7 @@ class ItemDataSourceImpl @Inject constructor(
 
     override suspend fun addItem(
         storeId: Long,
-        item: ItemRequest,
+        item: ItemAddRequest,
         image: MultipartBody.Part?
     ): Response<String> {
         return itemService.addItem(
@@ -49,7 +50,7 @@ class ItemDataSourceImpl @Inject constructor(
 
     override suspend fun modifyItem(
         storeId: Long,
-        item: ItemRequest,
+        item: ItemModifyRequest,
         image: MultipartBody.Part?
     ): Response<String> {
         return itemService.modifyItem(
