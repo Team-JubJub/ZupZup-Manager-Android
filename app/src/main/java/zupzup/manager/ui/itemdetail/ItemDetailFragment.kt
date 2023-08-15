@@ -6,33 +6,55 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import zupzup.manager.databinding.FragmentItemDetailBinding
 import zupzup.manager.ui.item.ItemViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.async
+import kotlinx.coroutines.launch
+import zupzup.manager.domain.models.item.ItemAddModel
+import zupzup.manager.ui.item.recyclerview.ItemRcvAdapter
+import java.io.File
 
 @AndroidEntryPoint
 class ItemDetailFragment : Fragment() {
 
     private lateinit var binding: FragmentItemDetailBinding
-    private val managementViewModel: ItemViewModel by viewModels()
+    private val itemViewModel: ItemViewModel by viewModels()
+    private val itemDetailViewModel: ItemDetailViewModel by viewModels()
 
     private val itemDetailClickListener = object : ItemDetailClickListener {
+        // 여기 뷰모델 수정해야 할 것 같음 -> 얘는 ItemDetailFragmentArgs.fromBundle(requireArguments()).item 이거 써야 하지 않나?
         override fun onPlusItemModifiedAmountBtnClick(itemId: Long) {
-            managementViewModel.plusModifiedAmount(itemId)
+            itemViewModel.plusModifiedAmount(itemId)
         }
 
         override fun onMinusItemModifiedAmountBtnClick(itemId: Long) {
-            managementViewModel.minusModifiedAmount(itemId)
+            itemViewModel.minusModifiedAmount(itemId)
         }
 
         override fun navigateToBackStack() {
             findNavController().popBackStack()
         }
 
+        override fun addItem(item: ItemAddModel, image: File?) {
+//            lifecycleScope.launch {
+//                async {itemDetailViewModel.addItem(item, image)}.await()
+//                findNavController().popBackStack()
+//            }
+            itemDetailViewModel.addItem(item, image)
+        }
+
         override fun modifyItem() {
-            // TODO : 파베에서는 문서 업데이트만 가능하며, 배열 내부에 접근해서 업데이트할 수는 없음
-            //managementViewModel.modifyItemList(managementViewModel.managementDetailBody.value)
+            //itemViewModel.modifyItemList(itemViewModel.managementDetailBody.value)
+        }
+
+        override fun deleteItem(itemId: Long) {
+                itemDetailViewModel.deleteItem(itemId)
+                itemViewModel.deleteItemById(itemId)
+//                findNavController().popBackStack()
+//            }
         }
     }
     override fun onCreateView(

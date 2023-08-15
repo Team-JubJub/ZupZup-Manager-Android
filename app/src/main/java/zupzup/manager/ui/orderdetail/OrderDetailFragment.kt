@@ -32,7 +32,6 @@ class OrderDetailFragment : Fragment() {
     private var _binding: FragmentOrderDetailBinding? = null
     private val binding get() = _binding!!
     private val orderDetailViewModel: OrderDetailViewModel by viewModels()
-    private val orderListViewModel: OrderListViewModel by viewModels()
 
     private var orderConfirmBottomSheet: OrderConfirmBottomSheetFragment? = null
     private val progressDialog = ProgressDialogFragment()

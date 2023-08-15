@@ -62,11 +62,12 @@
                 android:id="@+id/iv_remove_item"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="20dp"
-                android:visibility="@{item != null ? View.VISIBLE : View.GONE}"
                 android:layout_alignParentEnd="true"
                 android:layout_centerInParent="true"
-                android:src="@drawable/ic_trash" />
+                android:layout_marginEnd="20dp"
+                android:src="@drawable/ic_trash"
+                android:onClick="@{_ -> clickListener.deleteItem(item.itemId)}"
+                android:visibility="@{item != null ? View.VISIBLE : View.GONE}" />
         </RelativeLayout>
 
         <ScrollView
@@ -166,6 +167,7 @@
                         style="@style/UIBody" />
 
                     <EditText
+                        android:id="@+id/et_sale_price"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
@@ -188,6 +190,7 @@
                         style="@style/UIBody" />
 
                     <EditText
+                        android:id="@+id/et_item_price"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
@@ -297,6 +300,10 @@
             style="@style/UIHeadline"
             android:text="@{item != null ? `수정 완료` : `제품 등록`}"
             tools:text="수정 완료"
+            app:clickListener="@{clickListener}"
+            app:itemList="@{java.util.Arrays.asList(etItemName, etItemPrice, etSalePrice, tvItemAmount2)}"
+            app:image="@{ivAddItem}"
+            app:item="@{item}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"/>
