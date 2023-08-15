@@ -1,15 +1,18 @@
 package zupzup.manager.data.service
 
-import zupzup.manager.data.dto.item.parameter.ItemRequest
+import zupzup.manager.data.dto.item.parameter.ItemModifyRequest
 import zupzup.manager.data.dto.item.response.ItemDto
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Response
+import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.Multipart
 import retrofit2.http.PATCH
+import retrofit2.http.POST
 import retrofit2.http.Part
 import retrofit2.http.Path
+import zupzup.manager.data.dto.item.parameter.ItemAddRequest
 
 interface ItemService {
 
@@ -19,10 +22,10 @@ interface ItemService {
     ): Response<List<ItemDto>>
 
     @Multipart
-    @PATCH("seller/{storeId}")
+    @POST("seller/{storeId}")
     suspend fun addItem(
         @Path("storeId") storeId: Long,
-        @Part("item") item: ItemRequest,
+        @Part("item") item: ItemAddRequest,
         @Part image: MultipartBody.Part?
     ): Response<String>
 
@@ -37,11 +40,11 @@ interface ItemService {
     @PATCH("seller/{storeId}/{itemId}")
     suspend fun modifyItem(
         @Path("storeId") storeId: Long,
-        @Part("item") item: ItemRequest,
+        @Part("item") item: ItemModifyRequest,
         @Part image: MultipartBody.Part?
     ): Response<String>
 
-    @GET("seller/{storeId}/{itemId}")
+    @DELETE("seller/{storeId}/{itemId}")
     suspend fun deleteItem(
         @Path("storeId") storeId: Long,
         @Path("itemId") itemId: Long

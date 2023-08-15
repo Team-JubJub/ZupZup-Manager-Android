@@ -1,18 +1,16 @@
 package zupzup.manager.domain.usecase.item
 
-import okhttp3.MultipartBody
-import zupzup.manager.domain.models.item.ItemModifyModel
 import zupzup.manager.domain.repository.ItemRepository
 import javax.inject.Inject
 
-class ModifyItemUseCase @Inject constructor(
+class DeleteItemUseCase @Inject constructor(
     private val itemRepository: ItemRepository
 ) {
     suspend operator fun invoke(
-        storeId: Long, item: ItemModifyModel, image: MultipartBody.Part?
+        storeId: Long, itemId: Long
     ): Result<String> {
         return try {
-            val response = itemRepository.modifyItem(storeId, item, image)
+            val response = itemRepository.deleteItem(storeId, itemId)
             if (response.isSuccess) {
                 Result.success("1")
             } else {
