@@ -87,7 +87,6 @@ class ItemViewModel @Inject constructor(
                     _itemDetailBody.emit(listOf())
                 }
             }
-            Log.d("호출", "테스트")
         }
     }
 

@@ -16,11 +16,11 @@ class AuthInterceptor @Inject constructor(
     override fun intercept(chain: Interceptor.Chain): Response {
         val request = chain.request();
         val response = chain.proceed(request);
-        Log.d("TAG", "Auth 인터셉터 작동")
+//        Log.d("TAG", "Auth 인터셉터 작동")
 
         when (response.code) {
             401 -> {
-                Log.d("TAG", "access token 갱신 시도")
+//                Log.d("TAG", "access token 갱신 시도")
                 val newAccessToken = runBlocking {
                     try {
                         val refreshResponse =
@@ -29,11 +29,10 @@ class AuthInterceptor @Inject constructor(
                             Log.d("TAG", "access token 재발급 완료")
                             refreshResponse.body()?.accessToken
                         } else {
-                            Log.d("TAG", "access token 재발급 실패1")
                             null
                         }
                     } catch (e: Exception) {
-                        Log.d("TAG", "access token 재발급 실패2")
+                        Log.d("TAG", "access token 재발급 실패")
                         Log.d("TAG", e.toString())
                         null
                     }

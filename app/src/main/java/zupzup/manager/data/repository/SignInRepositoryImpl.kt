@@ -57,14 +57,10 @@ class SignInRepositoryImpl @Inject constructor(
         return try {
             val response = signInDataSource.logout(accessToken, refreshToken)
             if (response.isSuccessful) {
-                Log.d("TAG", "로그아웃 완료 repo")
                 sharedPreferenceDataSource.deleteData()
-                Log.d("TAG", "pref 삭제 완료 repo")
             }
             Result.success(response.body().toString())
         } catch (e: Exception) {
-            Log.d("TAG", "로그아웃 실패 repo")
-            Log.d("TAG", e.toString())
             Result.failure(e)
         }
     }

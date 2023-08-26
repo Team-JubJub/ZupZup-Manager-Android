@@ -52,7 +52,6 @@ class SettingViewModel @Inject constructor(
     suspend fun signOut() {
         viewModelScope.launch {
             signOutUseCase(User.getAccessToken(), User.getRefreshToken())
-            Log.d("TAG", "로그아웃 완료 vm")
         }.join()
     }
 

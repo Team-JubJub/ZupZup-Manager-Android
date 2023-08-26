@@ -60,7 +60,6 @@ class ItemRepositoryImpl @Inject constructor(
                 Result.success(response.code().toString())
             }
         } catch (e: Exception) {
-            Log.d("TAG", e.toString())
             Result.failure(e)
         }
     }

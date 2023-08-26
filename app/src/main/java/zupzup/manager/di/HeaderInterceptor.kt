@@ -15,7 +15,7 @@ class HeaderInterceptor @Inject constructor(
             .addHeader("accessToken", sharedPreferenceDataSource.getAccessToken())
             .build()
 
-        Log.d("TAG", "Header 인터셉터 작동")
+//        Log.d("TAG", "Header 인터셉터 작동")
         return chain.proceed(request)
     }
 }
