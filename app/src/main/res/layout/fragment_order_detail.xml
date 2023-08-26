@@ -9,19 +9,19 @@
 
         <variable
             name="handler"
-            type="com.example.zupzup_manager.ui.orderdetail.OrderDetailFragmentClickListener" />
+            type="zupzup.manager.ui.orderdetail.OrderDetailFragmentClickListener" />
 
         <variable
             name="adapter"
-            type="com.example.zupzup_manager.ui.orderdetail.recyclerview.OrderDetailRcvAdapter" />
+            type="zupzup.manager.ui.orderdetail.recyclerview.OrderDetailRcvAdapter" />
 
         <variable
             name="viewModel"
-            type="com.example.zupzup_manager.ui.orderdetail.OrderDetailViewModel" />
+            type="zupzup.manager.ui.orderdetail.OrderDetailViewModel" />
 
         <variable
             name="bindingHelper"
-            type="com.example.zupzup_manager.ui.orderdetail.binding.OrderDetailBindingHelper" />
+            type="zupzup.manager.ui.orderdetail.binding.OrderDetailBindingHelper" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

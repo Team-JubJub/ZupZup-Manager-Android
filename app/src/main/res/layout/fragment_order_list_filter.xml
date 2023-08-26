@@ -6,11 +6,11 @@
 
         <variable
             name="adapter"
-            type="com.example.zupzup_manager.ui.orderlist.recyclerview.OrderListRcvAdapter" />
+            type="zupzup.manager.ui.orderlist.recyclerview.OrderListRcvAdapter" />
 
         <variable
             name="viewModel"
-            type="com.example.zupzup_manager.ui.orderlist.OrderListViewModel" />
+            type="zupzup.manager.ui.orderlist.OrderListViewModel" />
 
         <variable
             name="filter"

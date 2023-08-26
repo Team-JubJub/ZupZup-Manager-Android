@@ -46,7 +46,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:881138100497:android:8a4946ffb1997499b884b0",
         "android_client_info": {
-          "package_name": "com.example.zupzup"
+          "package_name": "zupzup.manager"
         }
       },
       "oauth_client": [
@@ -82,7 +82,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:881138100497:android:97b0e8463c78ee5bb884b0",
         "android_client_info": {
-          "package_name": "com.example.zupzup_manager"
+          "package_name": "zupzup.manager"
         }
       },
       "oauth_client": [

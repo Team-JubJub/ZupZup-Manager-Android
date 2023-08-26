@@ -7,7 +7,7 @@
 
         <import type="kotlin.jvm.functions.Function1" />
 
-        <import type="com.example.zupzup_manager.domain.models.OrderModel" />
+        <import type="zupzup.manager.domain.models.order.OrderModel" />
 
         <import type="kotlin.Unit" />
 
@@ -17,7 +17,7 @@
 
         <variable
             name="order"
-            type="com.example.zupzup_manager.domain.models.OrderModel" />
+            type="zupzup.manager.domain.models.order.OrderModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

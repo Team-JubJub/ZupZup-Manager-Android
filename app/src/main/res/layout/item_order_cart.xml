@@ -11,7 +11,7 @@
 
         <variable
             name="bindingHelper"
-            type="com.example.zupzup_manager.ui.orderdetail.binding.OrderDetailBindingHelper" />
+            type="zupzup.manager.ui.orderdetail.binding.OrderDetailBindingHelper" />
 
         <variable
             name="orderStatus"
@@ -19,7 +19,7 @@
 
         <variable
             name="order"
-            type="com.example.zupzup_manager.ui.orderdetail.models.OrderDetailViewType.OrderItemViewType" />
+            type="zupzup.manager.ui.orderdetail.models.OrderDetailViewType.OrderItemViewType" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

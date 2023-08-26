@@ -7,11 +7,11 @@
 
         <variable
             name="viewModel"
-            type="com.example.zupzup_manager.ui.login.LoginViewModel" />
+            type="zupzup.manager.ui.login.LoginViewModel" />
 
         <variable
             name="loginBtnOnClick"
-            type="com.example.zupzup_manager.ui.login.LoginActivity.LoginButtonClickListener" />
+            type="zupzup.manager.ui.login.LoginActivity.LoginButtonClickListener" />
 
     </data>
 

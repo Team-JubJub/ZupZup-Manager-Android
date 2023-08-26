@@ -7,7 +7,7 @@
 
         <variable
             name="orderInfo"
-            type="com.example.zupzup_manager.ui.orderdetail.models.OrderDetailViewType.OrderCustomerInfoViewType" />
+            type="zupzup.manager.ui.orderdetail.models.OrderDetailViewType.OrderCustomerInfoViewType" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
