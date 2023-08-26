@@ -15,6 +15,7 @@ import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import zupzup.manager.R
 import zupzup.manager.domain.models.item.ItemAddModel
 import zupzup.manager.domain.models.item.ItemModel
+import zupzup.manager.domain.models.item.ItemModifyModel
 import zupzup.manager.ui.itemdetail.ItemDetailClickListener
 import java.io.File
 import java.io.FileOutputStream
@@ -26,20 +27,28 @@ fun bindItemAddOrModifyButton(
     itemList: List<*>,
     item: ItemModel?
 ){
-    if (item == null) {
-        button.setOnClickListener{
-            val itemName = itemList[0] as EditText
-            val itemPrice = itemList[1] as EditText
-            val salePrice = itemList[2] as EditText
-            val itemCount = itemList[3] as EditText
-            val regex = Regex("[^0-9]")
-            val itemAddModel = ItemAddModel(
-                itemName = itemName.text.toString(),
-                itemPrice = regex.replace(itemPrice.text.toString(), "").toInt(),
-                salePrice = regex.replace(salePrice.text.toString(), "").toInt(),
-                itemCount = itemCount.text.toString().toInt()
-            )
-            clickListener.addItem(itemAddModel)
+    button.setOnClickListener {
+        val itemNameEditText = itemList[0] as EditText
+        val itemPriceEditText = itemList[1] as EditText
+        val salePriceEditText = itemList[2] as EditText
+        val itemCountEditText = itemList[3] as EditText
+
+        val regex = Regex("[^0-9]")
+        val itemName = itemNameEditText.text.toString()
+        val itemPrice = regex.replace(itemPriceEditText.text.toString(), "").toInt()
+        val salePrice = regex.replace(salePriceEditText.text.toString(), "").toInt()
+        val itemCount = itemCountEditText.text.toString().toInt()
+
+        val itemModel: Any = if (item == null) {
+            ItemAddModel(itemName, itemPrice, salePrice, itemCount)
+        } else {
+            ItemModifyModel(itemName, item.imageURL, itemPrice, salePrice, itemCount)
+        }
+
+        if (item == null) {
+            clickListener.addItem(itemModel as ItemAddModel)
+        } else {
+            clickListener.modifyItem(itemModel as ItemModifyModel, item.itemId)
         }
     }
 }

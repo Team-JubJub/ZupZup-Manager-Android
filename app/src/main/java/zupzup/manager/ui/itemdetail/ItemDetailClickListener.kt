@@ -10,6 +10,6 @@ interface ItemDetailClickListener {
     fun navigateToBackStack()
     fun selectImage()
     fun addItem(item: ItemAddModel)
-    fun modifyItem(updatedItem: ItemModifyModel, image: File?, itemId: Long)
+    fun modifyItem(updatedItem: ItemModifyModel, itemId: Long)
     fun deleteItem(itemId: Long)
 }

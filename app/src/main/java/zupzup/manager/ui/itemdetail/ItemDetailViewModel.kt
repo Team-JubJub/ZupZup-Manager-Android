@@ -57,15 +57,15 @@ class ItemDetailViewModel @Inject constructor(
     }
 
     // 제품 수정
-    fun modifyItem(item: ItemModifyModel, image: File?) {
-        val photo: MultipartBody.Part? = if (image != null) {
-            val fileBody = image.asRequestBody("image/*".toMediaTypeOrNull())
-            MultipartBody.Part.createFormData("image", image.name, fileBody)
-        } else null
-
+    suspend fun modifyItem(itemId: Long, item: ItemModifyModel, image: File?) {
         viewModelScope.launch {
-            modifyItemUseCase(User.getStoreId(), item, photo)
-        }
+            val photo: MultipartBody.Part? = if (image != null) {
+                val fileBody = image.asRequestBody("image/*".toMediaTypeOrNull())
+                MultipartBody.Part.createFormData("image", image.name, fileBody)
+            } else null
+
+            modifyItemUseCase(itemId, User.getStoreId(), item, photo)
+        }.join()
     }
 
     // 제품 삭제

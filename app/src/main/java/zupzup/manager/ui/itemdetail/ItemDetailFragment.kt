@@ -32,7 +32,9 @@ class ItemDetailFragment : Fragment() {
     // 아니면 MutableStateFlow 값이 안 읽히는 문제 생김
     private val itemViewModel: ItemViewModel by activityViewModels()
     private val itemDetailViewModel: ItemDetailViewModel by viewModels()
+    private var imageChanged = false
     private lateinit var mediaPath: Uri
+    private lateinit var file: File
     private val getContent =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
             val dataUri = result.data?.data
@@ -58,18 +60,12 @@ class ItemDetailFragment : Fragment() {
             val galleryIntent = Intent(Intent.ACTION_GET_CONTENT)
             galleryIntent.type = "image/*"
             getContent.launch(galleryIntent)
+            imageChanged = true
         }
 
         override fun addItem(item: ItemAddModel) {
             lifecycleScope.launch {
-                val inputStream = context!!.contentResolver.openInputStream(mediaPath)
-                // device file explorer에 /data/user/0/zupzup.manager/cache 에 저장됨 (내부 저장소)
-                val file = File(context!!.cacheDir, "temp_image.jpg")
-                inputStream?.use { input ->
-                    FileOutputStream(file).use { output ->
-                        input.copyTo(output)
-                    }
-                }
+                uriToFile()
                 itemDetailViewModel.addItem(item, file)
                 // 추가한 뒤 내부 저장소에서는 삭제
                 file.delete()
@@ -77,10 +73,18 @@ class ItemDetailFragment : Fragment() {
             }
         }
 
-        override fun modifyItem(updatedItem: ItemModifyModel, image: File?, itemId: Long) {
+        override fun modifyItem(updatedItem: ItemModifyModel, itemId: Long) {
             lifecycleScope.launch {
-                itemDetailViewModel.modifyItem(updatedItem, image)
-                itemViewModel.modifyItemById(updatedItem, itemId)
+                if (imageChanged) {
+                    uriToFile()
+                    itemDetailViewModel.modifyItem(itemId, updatedItem, file)
+                    file.delete()
+                    itemViewModel.modifyItemById(updatedItem, itemId)
+                } else {
+                    // 이미지가 변경되지 않은 경우 -> null로 보내면 기존 이미지가 초기화됨...ㅠㅠ
+                    itemDetailViewModel.modifyItem(itemId, updatedItem, null)
+                    itemViewModel.modifyItemById(updatedItem, itemId)
+                }
                 findNavController().popBackStack()
             }
         }
@@ -90,6 +94,17 @@ class ItemDetailFragment : Fragment() {
                 itemDetailViewModel.deleteItem(itemId)
                 itemViewModel.deleteItemById(itemId)
                 findNavController().popBackStack()
+            }
+        }
+    }
+
+    private fun uriToFile() {
+        val inputStream = requireContext().contentResolver.openInputStream(mediaPath)
+        // device file explorer에 /data/user/0/zupzup.manager/cache 에 저장됨 (내부 저장소)
+        file = File(requireContext().cacheDir, "temp_image.jpg")
+        inputStream?.use { input ->
+            FileOutputStream(file).use { output ->
+                input.copyTo(output)
             }
         }
     }
