@@ -30,94 +30,100 @@
             name="dialogClickListener"
             type="zupzup.manager.ui.item.clicklistener.ItemBtnClickListener" />
     </data>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/refresh"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingHorizontal="8dp"
-        tools:context=".ui.item.ItemFragment">
+        android:layout_height="match_parent">
 
-        <LinearLayout
-            android:id="@+id/btn_back"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:gravity="center_vertical"
-            android:visibility="@{String.valueOf(viewModel.managementUiState).contains(`DefaultMode`) ? View.GONE : View.VISIBLE}"
-            android:onClick="@{_ -> stateClickListener.changeState(`DefaultMode`)}"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_back_button" />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:text="제품 관리"
-                style="@style/UIBody"
-                android:textColor="@color/tangerine_300"/>
-        </LinearLayout>
-
-        <RelativeLayout
-            android:id="@+id/tv_title_section"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:paddingHorizontal="8dp"
-            android:layout_marginTop="48dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            tools:context=".ui.item.ItemFragment">
 
+            <LinearLayout
+                android:id="@+id/btn_back"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:gravity="center_vertical"
+                android:visibility="@{String.valueOf(viewModel.managementUiState).contains(`DefaultMode`) ? View.GONE : View.VISIBLE}"
+                android:onClick="@{_ -> stateClickListener.changeState(`DefaultMode`)}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_back_button" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:text="제품 관리"
+                    style="@style/UIBody"
+                    android:textColor="@color/tangerine_300"/>
+            </LinearLayout>
+
+            <RelativeLayout
+                android:id="@+id/tv_title_section"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="8dp"
+                android:layout_marginTop="48dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    style="@style/UIHero"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerInParent="true"
+                    app:managementMode="@{viewModel.managementUiState}"
+                    android:text="제품 관리" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerInParent="true"
+                    android:layout_marginEnd="10dp"
+                    android:visibility="@{String.valueOf(viewModel.managementUiState).contains(`DefaultMode`) ? View.VISIBLE : View.GONE}"
+                    android:onClick="@{_ -> dialogClickListener.createBottomSheet()}"
+                    android:src="@drawable/ic_edit" />
+            </RelativeLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rcv_management"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginTop="15dp"
+                android:adapter="@{adapter}"
+                app:layout_constraintBottom_toTopOf="@+id/btn_complete_modify"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_title_section"
+                app:item="@{viewModel.itemDetailBody}"/>
+
+            <!--    수량 수정에서만 작동하며, 정보 수정에서는 작동 안 함    -->
             <TextView
-                style="@style/UIHero"
-                android:layout_width="wrap_content"
+                android:id="@+id/btn_complete_modify"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_centerInParent="true"
-                app:managementMode="@{viewModel.managementUiState}"
-                android:text="제품 관리" />
+                android:layout_marginHorizontal="8dp"
+                android:paddingVertical="17dp"
+                android:layout_marginVertical="20dp"
+                android:gravity="center_horizontal"
+                android:onClick="@{_ -> dialogClickListener.modifyItemQuantity(String.valueOf(viewModel.managementUiState))}"
+                android:visibility="@{String.valueOf(viewModel.managementUiState).contains(`DefaultMode`) ? View.GONE : View.VISIBLE}"
+                android:background="@drawable/frame_rectangle_corner_14_tangerine_300"
+                style="@style/UIHeadline"
+                android:text="수정 완료"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_centerInParent="true"
-                android:layout_marginEnd="10dp"
-                android:visibility="@{String.valueOf(viewModel.managementUiState).contains(`DefaultMode`) ? View.VISIBLE : View.GONE}"
-                android:onClick="@{_ -> dialogClickListener.createBottomSheet()}"
-                android:src="@drawable/ic_edit" />
-        </RelativeLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rcv_management"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginTop="15dp"
-            android:adapter="@{adapter}"
-            app:layout_constraintBottom_toTopOf="@+id/btn_complete_modify"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_title_section"
-            app:item="@{viewModel.itemDetailBody}"/>
-
-        <!--    수량 수정에서만 작동하며, 정보 수정에서는 작동 안 함    -->
-        <TextView
-            android:id="@+id/btn_complete_modify"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="8dp"
-            android:paddingVertical="17dp"
-            android:layout_marginVertical="20dp"
-            android:gravity="center_horizontal"
-            android:onClick="@{_ -> dialogClickListener.modifyItemQuantity(String.valueOf(viewModel.managementUiState))}"
-            android:visibility="@{String.valueOf(viewModel.managementUiState).contains(`DefaultMode`) ? View.GONE : View.VISIBLE}"
-            android:background="@drawable/frame_rectangle_corner_14_tangerine_300"
-            style="@style/UIHeadline"
-            android:text="수정 완료"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </layout>

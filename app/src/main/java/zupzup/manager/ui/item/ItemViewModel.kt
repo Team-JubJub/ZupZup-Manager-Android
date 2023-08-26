@@ -1,5 +1,6 @@
 package zupzup.manager.ui.item
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import zupzup.manager.domain.DataResult
@@ -14,7 +15,11 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import zupzup.manager.domain.models.item.ItemModifyModel
+import zupzup.manager.domain.usecase.item.AddItemUseCase
+import zupzup.manager.ui.item.recyclerview.ItemRcvAdapter
 import javax.inject.Inject
 
 @HiltViewModel
@@ -25,7 +30,7 @@ class ItemViewModel @Inject constructor(
 ): ViewModel() {
 
     init {
-        getItemList(User.getStoreId())
+        getItemList()
     }
 
     private var _itemDetailBody = MutableStateFlow<List<ItemModel>>(listOf())
@@ -34,6 +39,30 @@ class ItemViewModel @Inject constructor(
     private var _managementUiState = MutableStateFlow<ManagementState>(ManagementState.DefaultMode)
     val managementUiState = _managementUiState.asStateFlow()
 
+    // TODO
+    // UI 상에서 리사이클러뷰 업데이트 [추가/수정/삭제]
+    // -> 사진 업데이트 시에는 업데이트된 imageURL을 어떻게 받아야 할지 모르겠음..
+    // -> 업데이트(추가, 수정) 시 url이 변경된다면 백엔드에서 url 던져줄 수 있는지?
+    suspend fun modifyItemById(updatedItem: ItemModifyModel, itemId: Long) {
+        viewModelScope.launch {
+            val updatedItemList = _itemDetailBody.value.toMutableList()
+            val index = updatedItemList.indexOfFirst { it.itemId == itemId }
+            if (index != -1) {
+                updatedItemList[index] = ItemModel(itemId, updatedItem.itemName, updatedItem.imageURL, updatedItem.itemPrice, updatedItem.salePrice, updatedItem.itemCount)
+                _itemDetailBody.emit(updatedItemList.toList())
+            }
+        }.join()
+    }
+    suspend fun deleteItemById(itemId: Long) {
+        viewModelScope.launch {
+            val updatedItemList = _itemDetailBody.value.toMutableList()
+            val index = updatedItemList.indexOfFirst { it.itemId == itemId }
+            if (index != -1) {
+                updatedItemList.removeAt(index)
+                _itemDetailBody.emit(updatedItemList.toList())
+            }
+        }.join()
+    }
 
     // [CHANGE MODE]
     // DefaultMode / AmountMode / InfoMode 세 개의 state
@@ -49,15 +78,16 @@ class ItemViewModel @Inject constructor(
 
     // [DEFAULT MODE]
     // 제품 목록 확인
-    private fun getItemList(storeId: Long) {
+    fun getItemList() {
         viewModelScope.launch {
-            getItemListUseCase(storeId).collect {
+            getItemListUseCase(User.getStoreId()).collect {
                 if (it is DataResult.Success) {
                     _itemDetailBody.emit(it.data)
                 } else {
                     _itemDetailBody.emit(listOf())
                 }
             }
+            Log.d("호출", "테스트")
         }
     }
 
@@ -77,7 +107,20 @@ class ItemViewModel @Inject constructor(
 
     fun modifyItemQuantity(itemList: List<ItemQuantityModel>) {
         viewModelScope.launch {
-            modifyItemQuantityUseCase(User.getStoreId(), itemList)
+            val result = modifyItemQuantityUseCase(User.getStoreId(), itemList)
+            // 리스트 UI에도 업데이트
+            if (result.isSuccess) {
+                val updatedItemList = _itemDetailBody.value.toMutableList()
+
+                itemList.forEach { modifiedItem ->
+                    val index = updatedItemList.indexOfFirst { it.itemId == modifiedItem.itemId }
+                    if (index != -1) {
+                        updatedItemList[index] = updatedItemList[index].copy(itemCount = modifiedItem.itemCount)
+                    }
+                }
+
+                _itemDetailBody.emit(updatedItemList.toList())
+            }
         }
     }
 }

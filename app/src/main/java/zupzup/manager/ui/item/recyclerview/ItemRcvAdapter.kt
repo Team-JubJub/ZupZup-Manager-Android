@@ -44,21 +44,24 @@ class ItemRcvAdapter(
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         holder.bind(getItem(position))
-    }
+        }
 
+    // 비교할 부분 추가완료 -> imageURL은 서버에서 받아와야 이전 값과 비교 가능함 (TODO : ItemViewModel에 구현)
     class ItemModelDiffCallBack : DiffUtil.ItemCallback<ItemModel>() {
         override fun areItemsTheSame(
             oldItem: ItemModel,
             newItem: ItemModel
         ): Boolean {
-            return oldItem.itemId == newItem.itemId
+            return (oldItem.itemId == newItem.itemId) && (oldItem.itemCount == newItem.itemCount) &&
+                (oldItem.itemName == newItem.itemName) && (oldItem.imageURL == newItem.imageURL) &&
+                (oldItem.itemPrice == newItem.itemPrice) && (oldItem.salePrice == newItem.salePrice)
         }
 
         override fun areContentsTheSame(
             oldItem: ItemModel,
             newItem: ItemModel
         ): Boolean {
-            return oldItem.hashCode() == newItem.hashCode()
+            return oldItem.itemId == newItem.itemId
         }
     }
 }
