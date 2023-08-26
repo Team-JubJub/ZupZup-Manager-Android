@@ -85,19 +85,11 @@
                     android:id="@+id/iv_item"
                     android:layout_width="match_parent"
                     android:layout_height="192dp"
-                    android:visibility="@{item == null ? View.GONE : View.VISIBLE}"
+                    android:onClick="@{_ -> clickListener.selectImage()}"
                     app:detailImgUrl="@{item == null ? null : item.imageURL}"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <ImageView
-                    android:id="@+id/iv_add_item"
-                    android:layout_width="match_parent"
-                    android:layout_height="192dp"
-                    android:visibility="@{item == null ? View.VISIBLE : View.GONE}"
-                    android:background="@drawable/img_edit"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:background="@drawable/img_edit" />
 
                 <ImageView
                     android:id="@+id/iv_null"
@@ -302,7 +294,6 @@
             tools:text="수정 완료"
             app:clickListener="@{clickListener}"
             app:itemList="@{java.util.Arrays.asList(etItemName, etItemPrice, etSalePrice, tvItemAmount2)}"
-            app:image="@{ivAddItem}"
             app:item="@{item}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

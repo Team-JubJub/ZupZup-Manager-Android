@@ -19,29 +19,19 @@ import zupzup.manager.ui.itemdetail.ItemDetailClickListener
 import java.io.File
 import java.io.FileOutputStream
 
-
-// 갤러리에서 이미지 선택 후
-//val selectedImageUri: Uri = // 이미지 Uri 가져오기
-//val imageFile: File = File(selectedImageUri.path)
-//imageView.setImageURI(selectedImageUri)
-@BindingAdapter("clickListener", "itemList", "image", "item")
+@BindingAdapter("clickListener", "itemList", "item")
 fun bindItemAddOrModifyButton(
     button: TextView,
     clickListener: ItemDetailClickListener,
     itemList: List<*>,
-    image: ImageView,
     item: ItemModel?
 ){
-//    val imageURL: String,
     if (item == null) {
         button.setOnClickListener{
             val itemName = itemList[0] as EditText
             val itemPrice = itemList[1] as EditText
             val salePrice = itemList[2] as EditText
             val itemCount = itemList[3] as EditText
-
-            Log.d("BINDING TEST", itemList.toString())
-            Log.d("BINDING TEST", image.toString())
             val regex = Regex("[^0-9]")
             val itemAddModel = ItemAddModel(
                 itemName = itemName.text.toString(),
@@ -49,24 +39,9 @@ fun bindItemAddOrModifyButton(
                 salePrice = regex.replace(salePrice.text.toString(), "").toInt(),
                 itemCount = itemCount.text.toString().toInt()
             )
-            val imageFile = saveImageViewImageToFile(image)
-            Log.d("BINDING TEST", imageFile.toString())
-            clickListener.addItem(itemAddModel, imageFile)
+            clickListener.addItem(itemAddModel)
         }
     }
-}
-
-fun saveImageViewImageToFile(imageView: ImageView): File? {
-    val drawable = imageView.drawable
-    if (drawable is BitmapDrawable) {
-        val bitmap = drawable.bitmap
-        val file = File(imageView.context.cacheDir, "temp_image.png")
-        FileOutputStream(file).use { out ->
-            bitmap.compress(Bitmap.CompressFormat.PNG, 100, out)
-        }
-        return file
-    }
-    return null
 }
 
 @BindingAdapter("detailImgUrl")
@@ -81,6 +56,8 @@ fun bindDetailImageUrlToImageView(imageView: ImageView, imgUrl: String?) {
             // disk 캐싱 추가
             .diskCacheStrategy(DiskCacheStrategy.ALL)
             .into(imageView)
+    } else {
+        imageView.setBackgroundResource(R.drawable.img_edit)
     }
 }
 
