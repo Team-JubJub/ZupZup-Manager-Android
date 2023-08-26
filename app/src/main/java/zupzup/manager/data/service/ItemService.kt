@@ -39,6 +39,7 @@ interface ItemService {
     @Multipart
     @PATCH("seller/{storeId}/{itemId}")
     suspend fun modifyItem(
+        @Path("itemId") itemId: Long,
         @Path("storeId") storeId: Long,
         @Part("item") item: ItemModifyRequest,
         @Part image: MultipartBody.Part?

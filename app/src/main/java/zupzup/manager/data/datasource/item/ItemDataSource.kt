@@ -11,6 +11,6 @@ interface ItemDataSource {
     suspend fun getItemList(storeId: Long): Response<List<ItemDto>>
     suspend fun addItem(storeId: Long, item: ItemAddRequest, image: MultipartBody.Part?): Response<String>
     suspend fun modifyItemQuantity(storeId: Long, body: List<ItemPatchDto>): Response<String>
-    suspend fun modifyItem(storeId: Long, item: ItemModifyRequest, image: MultipartBody.Part?): Response<String>
+    suspend fun modifyItem(itemId: Long, storeId: Long, item: ItemModifyRequest, image: MultipartBody.Part?): Response<String>
     suspend fun deleteItem(storeId: Long, itemId: Long): Response<String>
 }

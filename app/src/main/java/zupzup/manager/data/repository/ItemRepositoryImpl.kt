@@ -65,12 +65,13 @@ class ItemRepositoryImpl @Inject constructor(
     }
 
     override suspend fun modifyItem(
+        itemId: Long,
         storeId: Long,
         item: ItemModifyModel,
         image: MultipartBody.Part?
     ): Result<String> {
         return try {
-            val response = itemDataSource.modifyItem(storeId, item.toDto(), image)
+            val response = itemDataSource.modifyItem(itemId, storeId, item.toDto(), image)
             if (response.isSuccessful) {
                 Result.success("1")
             } else {

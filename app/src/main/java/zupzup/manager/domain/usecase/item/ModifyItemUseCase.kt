@@ -9,10 +9,10 @@ class ModifyItemUseCase @Inject constructor(
     private val itemRepository: ItemRepository
 ) {
     suspend operator fun invoke(
-        storeId: Long, item: ItemModifyModel, image: MultipartBody.Part?
+        itemId: Long, storeId: Long, item: ItemModifyModel, image: MultipartBody.Part?
     ): Result<String> {
         return try {
-            val response = itemRepository.modifyItem(storeId, item, image)
+            val response = itemRepository.modifyItem(itemId, storeId, item, image)
             if (response.isSuccess) {
                 Result.success("1")
             } else {

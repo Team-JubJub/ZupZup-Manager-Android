@@ -49,11 +49,13 @@ class ItemDataSourceImpl @Inject constructor(
     }
 
     override suspend fun modifyItem(
+        itemId: Long,
         storeId: Long,
         item: ItemModifyRequest,
         image: MultipartBody.Part?
     ): Response<String> {
         return itemService.modifyItem(
+            itemId = itemId,
             storeId = storeId,
             item = item,
             image = image
