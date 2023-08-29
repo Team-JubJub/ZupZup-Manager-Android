@@ -40,6 +40,7 @@ class ItemDetailFragment : Fragment() {
             val dataUri = result.data?.data
             itemDetailViewModel.loadImageWithCenterCrop(dataUri, binding.ivItem)
             // 갤러리에서 선택한 이미지 uri 전역 변수에 저장함
+            // TODO 여기서 선택 안 하고 뒤로 가기 누르면 NullPointerException 발생
             mediaPath = dataUri!!
         }
 
@@ -66,7 +67,8 @@ class ItemDetailFragment : Fragment() {
         override fun addItem(item: ItemAddModel) {
             lifecycleScope.launch {
                 uriToFile()
-                itemDetailViewModel.addItem(item, file)
+                val addedURL = itemDetailViewModel.addItem(item, file)
+                itemViewModel.addItemWithUpdatedId(item, addedURL)
                 // 추가한 뒤 내부 저장소에서는 삭제
                 file.delete()
                 findNavController().popBackStack()
@@ -77,13 +79,13 @@ class ItemDetailFragment : Fragment() {
             lifecycleScope.launch {
                 if (imageChanged) {
                     uriToFile()
-                    itemDetailViewModel.modifyItem(itemId, updatedItem, file)
+                    val modifiedURL = itemDetailViewModel.modifyItem(itemId, updatedItem, file)
                     file.delete()
-                    itemViewModel.modifyItemById(updatedItem, itemId)
+                    itemViewModel.modifyItemById(updatedItem, itemId, modifiedURL)
                 } else {
                     // 이미지가 변경되지 않은 경우 -> null로 보내면 기존 이미지가 초기화됨...ㅠㅠ
                     itemDetailViewModel.modifyItem(itemId, updatedItem, null)
-                    itemViewModel.modifyItemById(updatedItem, itemId)
+                    itemViewModel.modifyItemById(updatedItem, itemId, null)
                 }
                 findNavController().popBackStack()
             }

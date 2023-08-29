@@ -13,10 +13,13 @@ class ModifyItemUseCase @Inject constructor(
     ): Result<String> {
         return try {
             val response = itemRepository.modifyItem(itemId, storeId, item, image)
+
             if (response.isSuccess) {
-                Result.success("1")
+                val responseBody = response.getOrThrow()
+                Result.success(responseBody)
             } else {
-                Result.success(response.toString())
+                val errorBody = response.exceptionOrNull()?.message ?: response.toString()
+                Result.success(errorBody)
             }
         } catch (e: Exception) {
             Result.failure(e)

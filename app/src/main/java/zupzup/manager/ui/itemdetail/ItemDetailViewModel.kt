@@ -44,7 +44,8 @@ class ItemDetailViewModel @Inject constructor(
     }
 
     // 제품 등록
-    suspend fun addItem(item: ItemAddModel, image: File?) {
+    suspend fun addItem(item: ItemAddModel, image: File?): String {
+        var result = ""
         viewModelScope.launch {
             val photo: MultipartBody.Part? = if (image != null) {
                 val fileBody = image.asRequestBody("image/*".toMediaTypeOrNull())
@@ -52,20 +53,25 @@ class ItemDetailViewModel @Inject constructor(
                 MultipartBody.Part.createFormData("image", image.name, fileBody)
             } else null
 
-            addItemUseCase(User.getStoreId(), item, photo)
+            result = addItemUseCase(User.getStoreId(), item, photo).getOrThrow()
         }.join()
+
+        return getUrlFromResponse(result)
     }
 
     // 제품 수정
-    suspend fun modifyItem(itemId: Long, item: ItemModifyModel, image: File?) {
+    suspend fun modifyItem(itemId: Long, item: ItemModifyModel, image: File?): String {
+        var result = ""
         viewModelScope.launch {
             val photo: MultipartBody.Part? = if (image != null) {
                 val fileBody = image.asRequestBody("image/*".toMediaTypeOrNull())
                 MultipartBody.Part.createFormData("image", image.name, fileBody)
             } else null
 
-            modifyItemUseCase(itemId, User.getStoreId(), item, photo)
+            result = modifyItemUseCase(itemId, User.getStoreId(), item, photo).getOrThrow()
         }.join()
+
+        return getUrlFromResponse(result)
     }
 
     // 제품 삭제
@@ -73,5 +79,11 @@ class ItemDetailViewModel @Inject constructor(
         viewModelScope.launch {
             deleteItemUseCase(User.getStoreId(), itemId)
         }.join()
+    }
+
+    private fun getUrlFromResponse(jsonResponse: String): String {
+        val imageUrlStart = jsonResponse.indexOf("\"imageURL\":\"") + "\"imageURL\":\"".length
+        val imageUrlEnd = jsonResponse.indexOf("\"", imageUrlStart)
+        return jsonResponse.substring(imageUrlStart, imageUrlEnd)
     }
 }

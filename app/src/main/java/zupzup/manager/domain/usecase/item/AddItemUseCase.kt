@@ -13,8 +13,10 @@ class AddItemUseCase @Inject constructor(
     ): Result<String> {
         return try {
             val response = itemRepository.addItem(storeId, item, image)
+
             if (response.isSuccess) {
-                Result.success("1")
+                val responseBody = response.getOrThrow()
+                Result.success(responseBody)
             } else {
                 Result.success(response.toString())
             }
