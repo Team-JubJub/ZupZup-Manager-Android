@@ -38,8 +38,10 @@ class ItemRepositoryImpl @Inject constructor(
     ): Result<String> {
         return try {
             val response = itemDataSource.addItem(storeId, item.toDto(), image)
-            if (response.isSuccessful) {
-                Result.success("1")
+            val responseBody = response.body()
+
+            if (response.isSuccessful && responseBody != null) {
+                Result.success(responseBody)
             } else {
                 Result.success(response.code().toString())
             }
@@ -72,8 +74,10 @@ class ItemRepositoryImpl @Inject constructor(
     ): Result<String> {
         return try {
             val response = itemDataSource.modifyItem(itemId, storeId, item.toDto(), image)
-            if (response.isSuccessful) {
-                Result.success("1")
+            val responseBody = response.body()
+
+            if (response.isSuccessful && responseBody != null) {
+                Result.success(responseBody)
             } else {
                 Result.success(response.code().toString())
             }
