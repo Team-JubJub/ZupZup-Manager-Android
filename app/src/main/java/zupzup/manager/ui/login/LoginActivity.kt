@@ -18,6 +18,7 @@ import zupzup.manager.ui.common.User
 import zupzup.manager.ui.common.progress.ProgressDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import zupzup.manager.ui.fcm.MyFirebaseMessagingService
 
 @AndroidEntryPoint
 class LoginActivity : AppCompatActivity() {
@@ -32,7 +33,9 @@ class LoginActivity : AppCompatActivity() {
             if (id.isEmpty() || pw.isEmpty()) {
                 Toast.makeText(this@LoginActivity, "아이디, 비밀번호를 입력해주세요.", Toast.LENGTH_SHORT).show()
             } else {
-                loginViewModel.signIn(id, pw)
+                MyFirebaseMessagingService().getFirebaseToken {
+                    deviceToken -> loginViewModel.signIn(id, pw, deviceToken)
+                }
             }
 
             this@LoginActivity.currentFocus?.let { view ->
@@ -70,6 +73,7 @@ class LoginActivity : AppCompatActivity() {
                             Toast.makeText(applicationContext, it.errorMessage, Toast.LENGTH_SHORT)
                                 .show()
                         }
+                        else -> {}
                     }
                 }
             }
