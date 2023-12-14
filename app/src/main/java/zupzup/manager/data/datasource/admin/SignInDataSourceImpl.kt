@@ -13,12 +13,14 @@ class SignInDataSourceImpl @Inject constructor(
 ) : SignInDataSource {
     override suspend fun login(
         id: String,
-        pw: String
+        pw: String,
+        deviceToken: String
     ): Response<SignInResponse> {
         return signInService.signIn(
             body = SignInRequest(
                 loginId = id,
-                loginPwd = pw
+                loginPwd = pw,
+                deviceToken = deviceToken
             )
         )
     }

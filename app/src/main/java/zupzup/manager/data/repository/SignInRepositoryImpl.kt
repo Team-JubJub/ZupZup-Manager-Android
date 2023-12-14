@@ -16,9 +16,9 @@ class SignInRepositoryImpl @Inject constructor(
     private val sharedPreferenceDataSource: SharedPreferenceDataSource,
     @NetworkModule.ZupZupRetrofitObject private val zupzupRetrofitObject: Retrofit
 ) : SignInRepository {
-    override suspend fun login(id: String, pw: String): Result<AdminModel> {
+    override suspend fun login(id: String, pw: String, deviceToken: String): Result<AdminModel> {
         return try {
-            val response = signInDataSource.login(id, pw)
+            val response = signInDataSource.login(id, pw, deviceToken)
             val admin: AdminModel
             if (response.isSuccessful) {
                 with(response.body()!!) {

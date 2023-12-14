@@ -13,9 +13,9 @@ import javax.inject.Inject
 class SignInUseCase @Inject constructor(
     private val signInRepository: SignInRepository
 ) {
-    suspend operator fun invoke(id: String, pw: String): Flow<DataResult<AdminModel>> {
+    suspend operator fun invoke(id: String, pw: String, deviceToken: String): Flow<DataResult<AdminModel>> {
         return flow {
-            signInRepository.login(id, pw).onSuccess {
+            signInRepository.login(id, pw, deviceToken).onSuccess {
                 when (it.accessToken) {
                     "-1" -> {
                         emit(DataResult.Failure("패스워드를 잘못 입력했습니다."))
