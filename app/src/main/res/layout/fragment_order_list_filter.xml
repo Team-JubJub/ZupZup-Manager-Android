@@ -38,6 +38,36 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:uiState="@{viewModel.orderListUiState}" />
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:uiState="@{viewModel.orderListUiState}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/image_empty"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_empty_order"
+                    app:layout_constraintTop_toTopOf="@id/rcv_order_list"
+                    app:layout_constraintBottom_toBottomOf="@id/rcv_order_list"
+                    app:layout_constraintStart_toStartOf="@id/rcv_order_list"
+                    app:layout_constraintEnd_toEndOf="@id/rcv_order_list" />
+
+                <TextView
+                    style="@style/UIBody"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:textAlignment="center"
+                    android:text="지금은 신규 주문이 없어요"
+                    android:textColor="@color/ivory_gray_500" />
+            </LinearLayout>
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
