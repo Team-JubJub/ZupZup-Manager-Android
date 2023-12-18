@@ -64,4 +64,13 @@ class SignInRepositoryImpl @Inject constructor(
             Result.failure(e)
         }
     }
+
+    override suspend fun leave(id: Long): Result<String> {
+        return try {
+            val response = signInDataSource.leaveZupzup(id)
+            Result.success(response.body().toString())
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
+    }
 }

@@ -107,5 +107,5 @@ fun bindOrderVisitTimeToTextView(
     textView: TextView,
     visitTime: String
 ) {
-    textView.text = visitTime.substring(11, 16)
+    textView.text = visitTime.substring(11, 15)
 }

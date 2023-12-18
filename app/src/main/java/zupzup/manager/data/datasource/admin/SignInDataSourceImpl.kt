@@ -1,11 +1,11 @@
 package zupzup.manager.data.datasource.admin
 
+import retrofit2.Response
 import zupzup.manager.data.dto.admin.parameter.SignInRequest
 import zupzup.manager.data.dto.admin.response.SignInResponse
 import zupzup.manager.data.dto.admin.response.SignOutResponse
 import zupzup.manager.data.service.SignInService
 import zupzup.manager.di.ServiceModule
-import retrofit2.Response
 import javax.inject.Inject
 
 class SignInDataSourceImpl @Inject constructor(
@@ -24,6 +24,7 @@ class SignInDataSourceImpl @Inject constructor(
             )
         )
     }
+
     override suspend fun logout(
         accessToken: String,
         refreshToken: String
@@ -31,6 +32,14 @@ class SignInDataSourceImpl @Inject constructor(
         return signInService.signOut(
             accessToken = accessToken,
             refreshToken = refreshToken
+        )
+    }
+
+    override suspend fun leaveZupzup(
+        id: Long
+    ): Response<String> {
+        return signInService.leaveZupzup(
+            id = id
         )
     }
 }

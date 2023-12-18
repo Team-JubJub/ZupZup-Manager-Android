@@ -9,4 +9,6 @@ interface SignInRepository {
     suspend fun getStoreIdInLocal() : Result<Triple<String, String, Long>>
 
     suspend fun logout(accessToken: String, refreshToken: String): Result<String>
+
+    suspend fun leave(id: Long): Result<String>
 }

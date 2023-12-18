@@ -141,7 +141,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
-                        android:text="@{viewModel.storeInfo.storeName}"
+                        android:text="@{viewModel.storeInfo.sellerName}"
                         style="@style/UIH3"/>
 
                     <LinearLayout
@@ -273,14 +273,14 @@
                     android:id="@+id/service_center"
                     app:titleText="@{`고객 센터`}"/>
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/ivory_gray_200"/>
+<!--                <View-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="1dp"-->
+<!--                    android:background="@color/ivory_gray_200"/>-->
 
-                <include layout="@layout/layout_account_menu"
-                    android:id="@+id/change_location"
-                    app:titleText="@{`가게 위치 이전`}"/>
+<!--                <include layout="@layout/layout_account_menu"-->
+<!--                    android:id="@+id/change_location"-->
+<!--                    app:titleText="@{`가게 위치 이전`}"/>-->
 
                 <View
                     android:layout_width="match_parent"
@@ -291,6 +291,16 @@
                     android:id="@+id/logout"
                     android:onClick="@{_ -> clickListener.signout()}"
                     app:titleText="@{`로그아웃`}"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/ivory_gray_200"/>
+
+                <include layout="@layout/layout_account_menu"
+                    android:id="@+id/delete"
+                    android:onClick="@{_ -> clickListener.navigateToLeave()}"
+                    app:titleText="@{`회원 탈퇴`}"/>
 
             </LinearLayout>
 

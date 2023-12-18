@@ -7,7 +7,9 @@ import zupzup.manager.data.dto.admin.response.SignOutResponse
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.Header
+import retrofit2.http.PATCH
 import retrofit2.http.POST
+import retrofit2.http.Path
 
 interface SignInService {
     @POST("mobile/sign-in")
@@ -25,4 +27,9 @@ interface SignInService {
     suspend fun signInRefresh(
         @Header("refreshToken") refreshToken: String
     ): Response<SignInRefreshResponse>
+
+    @PATCH("cancel/{id}")
+    suspend fun leaveZupzup(
+        @Path("id") id: Long
+    ): Response<String>
 }
