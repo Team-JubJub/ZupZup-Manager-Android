@@ -25,10 +25,10 @@ class LoginViewModel @Inject constructor(
         autoLogin()
     }
 
-    fun signIn(id: String, pw: String) {
+    fun signIn(id: String, pw: String, deviceToken: String) {
         viewModelScope.launch {
             _loginState.emit(UiState.Loading)
-            signInUseCase(id, pw).collect {
+            signInUseCase(id, pw, deviceToken).collect {
                 if (it is DataResult.Success) {
                     _loginState.emit(UiState.Success(Triple(it.data.accessToken, it.data.refreshToken, it.data.storeId)))
                 } else if (it is DataResult.Failure) {

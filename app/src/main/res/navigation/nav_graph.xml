@@ -53,6 +53,17 @@
         <action
             android:id="@+id/action_frag_setting_to_storeFragment"
             app:destination="@id/frag_store" />
+        <action
+            android:id="@+id/action_frag_setting_to_leaveFragment"
+            app:destination="@id/frag_leave" />
+    </fragment>
+    <fragment
+        android:id="@+id/frag_leave"
+        android:name="zupzup.manager.ui.setting.LeaveFragment"
+        android:label="StoreFragment"
+        tools:layout="@layout/fragment_store">
+        <argument
+            android:name="sellerName"/>
     </fragment>
     <fragment
         android:id="@+id/frag_store"

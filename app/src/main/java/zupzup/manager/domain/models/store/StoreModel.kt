@@ -11,7 +11,9 @@ data class StoreModel (
     val storeImageUrl: String = "",
     val storeAddress: String = "",
     val category: String = "",
-    val contact: String = "",
+    val sellerName: String = "",
+    val sellerContact: String = "",
+    val storeContact: String = "",
     val longitude: Double = 0.0,
     val latitude: Double = 0.0,
     val openTime: String = "",
@@ -20,5 +22,7 @@ data class StoreModel (
     val saleTimeEnd: String = "",
     val saleMatters: String = "",
     val isOpen: Boolean = false,
-    val closedDay: String? = ""
+    val closedDay: String? = "",
+    val starredUsers: List<Long> = listOf(),
+    val crNumber: String = ""
 ): Parcelable

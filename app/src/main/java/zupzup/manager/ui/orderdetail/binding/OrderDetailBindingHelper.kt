@@ -36,7 +36,9 @@ class OrderDetailBindingHelper @Inject constructor(
                 OrderSpecificModel(
                     itemId = it.orderItem.itemId,
                     itemName = it.orderItem.itemName,
+                    imageUrl = it.orderItem.imageUrl,
                     itemPrice = it.orderItem.itemPrice,
+                    salePrice = it.orderItem.salePrice,
                     itemCount = it.getConfirmedAmount()
                 )
             }

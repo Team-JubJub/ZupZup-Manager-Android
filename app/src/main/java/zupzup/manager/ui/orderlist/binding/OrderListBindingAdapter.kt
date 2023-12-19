@@ -1,6 +1,8 @@
 package zupzup.manager.ui.orderlist.binding
 
 import android.graphics.drawable.GradientDrawable
+import android.view.View
+import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -40,8 +42,36 @@ fun bindOrderListToRecyclerView(
             Toast.makeText(recyclerView.context, uiState.errorMessage, Toast.LENGTH_SHORT).show()
         }
 
+        is UiState.Empty -> {
+            recyclerView.visibility = View.GONE
+        }
+
         else -> {
             Toast.makeText(recyclerView.context, "로딩중", Toast.LENGTH_SHORT).show()
+        }
+    }
+}
+
+
+@BindingAdapter("uiState")
+fun bindEmptyListToLinearLayout(
+    linearLayout: LinearLayout,
+    uiState: UiState<List<OrderModel>>?
+) {
+    when (uiState) {
+        is UiState.Success -> {
+            linearLayout.visibility = View.GONE
+        }
+
+        is UiState.Error -> {
+            Toast.makeText(linearLayout.context, uiState.errorMessage, Toast.LENGTH_SHORT).show()
+        }
+
+        is UiState.Empty -> {
+        }
+
+        else -> {
+            Toast.makeText(linearLayout.context, "로딩중", Toast.LENGTH_SHORT).show()
         }
     }
 }
@@ -77,5 +107,5 @@ fun bindOrderVisitTimeToTextView(
     textView: TextView,
     visitTime: String
 ) {
-    textView.text = visitTime.substring(11, 16)
+    textView.text = visitTime.substring(11, 15)
 }

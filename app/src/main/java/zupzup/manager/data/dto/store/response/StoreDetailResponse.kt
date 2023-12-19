@@ -9,7 +9,9 @@ data class StoreDetailResponse(
     val storeImageUrl: String = "",
     val storeAddress: String = "",
     val category: String = "",
-    val contact: String = "",
+    val sellerName: String = "",
+    val sellerContact: String = "",
+    val storeContact: String = "",
     val longitude: Double = 0.0,
     val latitude: Double = 0.0,
     val openTime: String = "",
@@ -17,8 +19,11 @@ data class StoreDetailResponse(
     val saleTimeStart: String = "",
     val saleTimeEnd: String = "",
     val saleMatters: String = "",
+    val promotion: String = "",
     val isOpen: Boolean = false,
-    val closedDay: String? = ""
+    val closedDay: String? = "",
+    val starredUsers: List<Long> = listOf(),
+    val crNumber: String = ""
 ) {
     fun toStoreModel(): StoreModel {
         return StoreModel(
@@ -28,7 +33,9 @@ data class StoreDetailResponse(
             storeImageUrl = storeImageUrl,
             storeAddress = storeAddress,
             category = category,
-            contact = contact,
+            sellerName = sellerName,
+            sellerContact = sellerContact,
+            storeContact = storeContact,
             longitude = longitude,
             latitude = latitude,
             openTime = openTime,
@@ -37,7 +44,9 @@ data class StoreDetailResponse(
             saleTimeEnd = saleTimeEnd,
             saleMatters = saleMatters,
             isOpen = isOpen,
-            closedDay = closedDay
+            closedDay = closedDay,
+            starredUsers = starredUsers,
+            crNumber = crNumber
         )
     }
 }

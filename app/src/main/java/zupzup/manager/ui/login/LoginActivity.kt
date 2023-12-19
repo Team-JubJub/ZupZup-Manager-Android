@@ -1,9 +1,13 @@
 package zupzup.manager.ui.login
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.view.inputmethod.InputMethodManager
+import android.webkit.WebView
+import android.webkit.WebViewClient
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -18,6 +22,7 @@ import zupzup.manager.ui.common.User
 import zupzup.manager.ui.common.progress.ProgressDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import zupzup.manager.ui.fcm.MyFirebaseMessagingService
 
 @AndroidEntryPoint
 class LoginActivity : AppCompatActivity() {
@@ -25,6 +30,7 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
     private val loginViewModel: LoginViewModel by viewModels()
 
+    private val webViewFragment = WebViewFragment()
     private var progressDialog = ProgressDialogFragment()
 
     private val loginButtonOnClickListener = object : LoginButtonClickListener {
@@ -32,7 +38,9 @@ class LoginActivity : AppCompatActivity() {
             if (id.isEmpty() || pw.isEmpty()) {
                 Toast.makeText(this@LoginActivity, "아이디, 비밀번호를 입력해주세요.", Toast.LENGTH_SHORT).show()
             } else {
-                loginViewModel.signIn(id, pw)
+                MyFirebaseMessagingService().getFirebaseToken {
+                    deviceToken -> loginViewModel.signIn(id, pw, deviceToken)
+                }
             }
 
             this@LoginActivity.currentFocus?.let { view ->
@@ -41,6 +49,27 @@ class LoginActivity : AppCompatActivity() {
             }
 
             return true
+        }
+
+        override fun findIdWebView() {
+            openWebView("https://zupzupofficial.com/find_id_main")
+        }
+
+        override fun findPwdWebView() {
+            openWebView("https://zupzupofficial.com/find_pw_main")
+        }
+
+        override fun signUpWebView() {
+            openWebView("https://zupzupofficial.com/signin_terms")
+        }
+
+        private fun openWebView(url: String) {
+            val fragmentManager = supportFragmentManager
+            val fragmentTransaction = fragmentManager.beginTransaction()
+            val webViewFragment = WebViewFragment.newInstance(url)
+            fragmentTransaction.replace(binding.fragmentContainer.id, webViewFragment)
+            fragmentTransaction.addToBackStack(null)
+            fragmentTransaction.commit()
         }
     }
 
@@ -70,6 +99,7 @@ class LoginActivity : AppCompatActivity() {
                             Toast.makeText(applicationContext, it.errorMessage, Toast.LENGTH_SHORT)
                                 .show()
                         }
+                        else -> {}
                     }
                 }
             }
@@ -112,5 +142,8 @@ class LoginActivity : AppCompatActivity() {
 
     interface LoginButtonClickListener {
         fun onClickLoginButton(id: String, pw: String): Boolean
+        fun findIdWebView()
+        fun findPwdWebView()
+        fun signUpWebView()
     }
 }

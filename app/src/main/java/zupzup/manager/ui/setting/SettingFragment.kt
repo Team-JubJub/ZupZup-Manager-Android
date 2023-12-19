@@ -35,10 +35,19 @@ class SettingFragment : Fragment() {
         override fun signout() {
             lifecycleScope.launch {
                 settingViewModel.signOut()
+                Log.d("TAG", "로그아웃 완료 -> 액티비티 이동")
                 val loginIntent = Intent(context, LoginActivity::class.java)
                 loginIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK + Intent.FLAG_ACTIVITY_NEW_TASK)
                 startActivity(loginIntent)
+                Log.d("TAG", "액티비티 이동 완료")
             }
+        }
+
+        override fun navigateToLeave() {
+            val sellerName = settingViewModel.storeInfo.value.sellerName
+            val action =
+                SettingFragmentDirections.actionFragSettingToLeaveFragment(sellerName)
+            findNavController().navigate(action)
         }
 
         override fun modifyStoreMatter() {
@@ -83,6 +92,7 @@ class SettingFragment : Fragment() {
     interface SettingClickListener {
         fun navigateToStore()
         fun signout()
+        fun navigateToLeave()
         fun modifyStoreMatter()
     }
 }
