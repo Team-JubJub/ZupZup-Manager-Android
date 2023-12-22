@@ -1,20 +1,20 @@
 package zupzup.manager.ui.setting
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import zupzup.manager.domain.DataResult
-import zupzup.manager.domain.models.store.StoreModel
-import zupzup.manager.domain.usecase.store.ChangeOpenStatusUseCase
-import zupzup.manager.domain.usecase.store.GetStoreDetailUseCase
-import zupzup.manager.domain.usecase.store.ModifyStoreMatterUseCase
-import zupzup.manager.domain.usecase.admin.SignOutUseCase
-import zupzup.manager.ui.common.User
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
+import zupzup.manager.data.datasource.admin.SharedPreferenceDataSource
+import zupzup.manager.domain.DataResult
+import zupzup.manager.domain.models.store.StoreModel
+import zupzup.manager.domain.usecase.admin.SignOutUseCase
+import zupzup.manager.domain.usecase.store.ChangeOpenStatusUseCase
+import zupzup.manager.domain.usecase.store.GetStoreDetailUseCase
+import zupzup.manager.domain.usecase.store.ModifyStoreMatterUseCase
+import zupzup.manager.ui.common.User
 import javax.inject.Inject
 
 @HiltViewModel
@@ -22,7 +22,8 @@ class SettingViewModel @Inject constructor(
     private val getStoreDetailUseCase: GetStoreDetailUseCase,
     private val changeOpenStatusUseCase: ChangeOpenStatusUseCase,
     private val signOutUseCase: SignOutUseCase,
-    private val modifyStoreMatterUseCase: ModifyStoreMatterUseCase
+    private val modifyStoreMatterUseCase: ModifyStoreMatterUseCase,
+    private val sharedPreferenceDataSource: SharedPreferenceDataSource
 ) : ViewModel() {
 
     init {
@@ -30,6 +31,7 @@ class SettingViewModel @Inject constructor(
     }
 
     private val initStoreModel = StoreModel()
+
     // 가게 상태 DB에서 읽어서 상태 초기화 필요, 임시로 기본값 false 지정
     private var _storeInfo = MutableStateFlow<StoreModel>(initStoreModel)
     val storeInfo = _storeInfo
@@ -53,6 +55,10 @@ class SettingViewModel @Inject constructor(
         viewModelScope.launch {
             signOutUseCase(User.getAccessToken(), User.getRefreshToken())
         }.join()
+
+        viewModelScope.launch {
+            sharedPreferenceDataSource.deleteData()
+        }.join()
     }
 
     fun getStoreInfo(storeId: Long) {
@@ -67,7 +73,7 @@ class SettingViewModel @Inject constructor(
         }
     }
 
-    fun modifyStoreMatter(storeMatter: String){
+    fun modifyStoreMatter(storeMatter: String) {
         viewModelScope.launch {
             modifyStoreMatterUseCase(User.getStoreId(), storeMatter).collect {
                 if (it is DataResult.Success) {

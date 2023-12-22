@@ -1,13 +1,9 @@
 package zupzup.manager.ui.login
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
 import android.view.inputmethod.InputMethodManager
-import android.webkit.WebView
-import android.webkit.WebViewClient
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -15,13 +11,13 @@ import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 import zupzup.manager.databinding.ActivityLoginBinding
 import zupzup.manager.ui.activity.MainActivity
 import zupzup.manager.ui.common.UiState
 import zupzup.manager.ui.common.User
 import zupzup.manager.ui.common.progress.ProgressDialogFragment
-import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
 import zupzup.manager.ui.fcm.MyFirebaseMessagingService
 
 @AndroidEntryPoint
@@ -38,8 +34,8 @@ class LoginActivity : AppCompatActivity() {
             if (id.isEmpty() || pw.isEmpty()) {
                 Toast.makeText(this@LoginActivity, "아이디, 비밀번호를 입력해주세요.", Toast.LENGTH_SHORT).show()
             } else {
-                MyFirebaseMessagingService().getFirebaseToken {
-                    deviceToken -> loginViewModel.signIn(id, pw, deviceToken)
+                MyFirebaseMessagingService().getFirebaseToken { deviceToken ->
+                    loginViewModel.signIn(id, pw, deviceToken)
                 }
             }
 
@@ -89,16 +85,19 @@ class LoginActivity : AppCompatActivity() {
                         is UiState.Loading -> {
                             showProgressDialog()
                         }
+
                         is UiState.Success -> {
                             setUserInfo(it.data)
                             hideProgressDialog()
                             navigateMainActivity()
                         }
+
                         is UiState.Error -> {
                             hideProgressDialog()
                             Toast.makeText(applicationContext, it.errorMessage, Toast.LENGTH_SHORT)
                                 .show()
                         }
+
                         else -> {}
                     }
                 }

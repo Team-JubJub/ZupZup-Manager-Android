@@ -56,9 +56,6 @@ class SignInRepositoryImpl @Inject constructor(
     override suspend fun logout(accessToken: String, refreshToken: String): Result<String> {
         return try {
             val response = signInDataSource.logout(accessToken, refreshToken)
-            if (response.isSuccessful) {
-                sharedPreferenceDataSource.deleteData()
-            }
             Result.success(response.body().toString())
         } catch (e: Exception) {
             Result.failure(e)
