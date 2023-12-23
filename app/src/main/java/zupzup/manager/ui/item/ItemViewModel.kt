@@ -29,6 +29,8 @@ class ItemViewModel @Inject constructor(
 
     private var _itemDetailBody = MutableStateFlow<List<ItemModel>>(listOf())
     val itemDetailBody = _itemDetailBody.asStateFlow()
+    val empty: Boolean
+        get() = itemDetailBody.value.isEmpty()
 
     private var _managementUiState = MutableStateFlow<ManagementState>(ManagementState.DefaultMode)
     val managementUiState = _managementUiState.asStateFlow()
