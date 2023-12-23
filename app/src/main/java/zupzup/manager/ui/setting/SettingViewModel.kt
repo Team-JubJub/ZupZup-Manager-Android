@@ -10,6 +10,7 @@ import kotlinx.coroutines.launch
 import zupzup.manager.data.datasource.admin.SharedPreferenceDataSource
 import zupzup.manager.domain.DataResult
 import zupzup.manager.domain.models.store.StoreModel
+import zupzup.manager.domain.usecase.admin.LeaveUseCase
 import zupzup.manager.domain.usecase.admin.SignOutUseCase
 import zupzup.manager.domain.usecase.store.ChangeOpenStatusUseCase
 import zupzup.manager.domain.usecase.store.GetStoreDetailUseCase
@@ -22,6 +23,7 @@ class SettingViewModel @Inject constructor(
     private val getStoreDetailUseCase: GetStoreDetailUseCase,
     private val changeOpenStatusUseCase: ChangeOpenStatusUseCase,
     private val signOutUseCase: SignOutUseCase,
+    private val leaveUseCase: LeaveUseCase,
     private val modifyStoreMatterUseCase: ModifyStoreMatterUseCase,
     private val sharedPreferenceDataSource: SharedPreferenceDataSource
 ) : ViewModel() {
@@ -54,6 +56,16 @@ class SettingViewModel @Inject constructor(
     suspend fun signOut() {
         viewModelScope.launch {
             signOutUseCase(User.getAccessToken(), User.getRefreshToken())
+        }.join()
+
+        viewModelScope.launch {
+            sharedPreferenceDataSource.deleteData()
+        }.join()
+    }
+
+    suspend fun leaveZupZup() {
+        viewModelScope.launch {
+            leaveUseCase(User.getStoreId())
         }.join()
 
         viewModelScope.launch {
