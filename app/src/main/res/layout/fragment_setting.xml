@@ -65,8 +65,8 @@
                         android:id="@+id/iv_store_status"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        tools:background="@drawable/ic_day"/>
-<!--                        android:background="@{viewModel.storeInfo.isOpen ? @drawable/ic_day : @drawable/ic_night}"/>-->
+                        tools:background="@drawable/ic_day"
+                        android:background="@{viewModel.storeInfo.isOpen ? @drawable/ic_day : @drawable/ic_night}"/>
 
                     <LinearLayout
                         android:layout_width="0dp"
@@ -86,8 +86,8 @@
                             android:id="@+id/tv_store_status"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            style="@style/UISubhead"/>
-<!--                            android:text="@{viewModel.storeInfo.isOpen ? `지금 영업 중이에요!` : `지금은 문을 닫았어요`}"/>-->
+                            style="@style/UISubhead"
+                            android:text="@{viewModel.storeInfo.isOpen ? `지금 영업 중이에요!` : `지금은 문을 닫았어요`}"/>
 
                     </LinearLayout>
 
@@ -97,8 +97,6 @@
                         android:layout_height="wrap_content"
                         android:background="@drawable/ic_toggle"
                         android:checked="@{viewModel.storeInfo.isOpen}"
-                        app:isOpenImageView="@{ivStoreStatus}"
-                        app:isOpenTextView="@{tvStoreStatus}"
                         android:minWidth="0dp"
                         android:minHeight="0dp"
                         android:textOff=""

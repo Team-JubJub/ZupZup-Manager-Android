@@ -1,9 +1,12 @@
 package zupzup.manager.ui.store
 
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.provider.MediaStore
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -32,8 +35,20 @@ class StoreFragment : Fragment() {
         }
 
         override fun modifyStoreDetail(modifyStoreModel: ModifyStoreModel, image: MultipartBody.Part?) {
-            storeViewModel.modifyStoreDetail(modifyStoreModel, image)
-            findNavController().popBackStack()
+            AlertDialog.Builder(requireContext())
+                .setTitle("가게 정보 수정하기")
+                .setMessage("가게 정보를 수정합니다.")
+                .setPositiveButton("확인") { _, _ ->
+                    Log.d("가게 정보 수정", "확인")
+                    storeViewModel.modifyStoreDetail(modifyStoreModel, image)
+                    findNavController().popBackStack()
+                }
+                .setNegativeButton("취소") { _, _ ->
+                    Log.d("가게 정보 수정", "취소")
+                    findNavController().popBackStack()
+                }
+                .create()
+                .show()
         }
 
         override fun selectImage() {

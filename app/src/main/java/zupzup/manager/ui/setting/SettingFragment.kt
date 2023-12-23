@@ -1,5 +1,7 @@
 package zupzup.manager.ui.setting
 
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -10,11 +12,11 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 import zupzup.manager.databinding.FragmentSettingBinding
 import zupzup.manager.ui.common.User
 import zupzup.manager.ui.login.LoginActivity
-import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
 
 
 @AndroidEntryPoint
@@ -83,8 +85,26 @@ class SettingFragment : Fragment() {
             lifecycleOwner = viewLifecycleOwner
             viewModel = settingViewModel
             clickListener = settingClickListener
-            toggleBtn.setOnClickListener{
-                settingViewModel.changeStoreStatus(toggleBtn.isChecked)
+            toggleBtn.setOnClickListener {
+                val titleText = if (toggleBtn.isChecked) "가게 영업하기" else "가게 문 닫기"
+                val messageText = if (toggleBtn.isChecked) "가게를 영업합니다." else "가게 문을 닫습니다."
+
+                AlertDialog.Builder(requireContext())
+                    .setTitle(titleText)
+                    .setMessage(messageText)
+                    .setPositiveButton("확인", object : DialogInterface.OnClickListener {
+                        override fun onClick(dialog: DialogInterface, which: Int) {
+                            Log.d("가게 영업", "확인")
+                            settingViewModel.changeStoreStatus(toggleBtn.isChecked)
+                        }
+                    })
+                    .setNegativeButton("취소", object : DialogInterface.OnClickListener {
+                        override fun onClick(dialog: DialogInterface, which: Int) {
+                            Log.d("가게 영업", "취소")
+                        }
+                    })
+                    .create()
+                    .show()
             }
         }
     }
