@@ -16,6 +16,10 @@
             type="zupzup.manager.ui.orderdetail.recyclerview.OrderDetailRcvAdapter" />
 
         <variable
+            name="order"
+            type="zupzup.manager.domain.models.order.OrderModel" />
+
+        <variable
             name="viewModel"
             type="zupzup.manager.ui.orderdetail.OrderDetailViewModel" />
 
@@ -144,7 +148,7 @@
                 android:paddingVertical="17dp"
                 android:layout_marginEnd="8.5dp"
                 android:background="@drawable/frame_rectangle_corner_14_neutral_gray_150"
-                android:onClick="@{_ -> handler.cancelOrder(viewModel.orderDetailHeader.orderId)}"
+                android:onClick="@{() -> handler.cancelOrder(viewModel.orderDetailHeader, viewModel.orderDetailBody)}"
                 android:text="취소"
                 android:textColor="@color/neutral_gray_400"
                 android:visibility="@{viewModel.orderDetailHeader.orderStatus.equals(`CONFIRM`) ? View.VISIBLE : View.GONE}"

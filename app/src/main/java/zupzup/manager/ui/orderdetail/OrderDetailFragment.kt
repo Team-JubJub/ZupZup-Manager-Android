@@ -1,6 +1,7 @@
 package zupzup.manager.ui.orderdetail
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -24,6 +25,8 @@ import zupzup.manager.ui.orderdetail.recyclerview.OrderDetailRcvAdapter
 import zupzup.manager.ui.orderlist.OrderListViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import zupzup.manager.ui.orderdetail.models.OrderDetailHeaderModel
+import zupzup.manager.ui.orderdetail.models.OrderDetailViewType
 
 @AndroidEntryPoint
 class OrderDetailFragment : Fragment() {
@@ -51,8 +54,9 @@ class OrderDetailFragment : Fragment() {
             orderDetailViewModel.rejectOrder(orderModel)
         }
 
-        override fun cancelOrder(orderId: Long) {
-            orderDetailViewModel.cancelOrder(orderId)
+        override fun cancelOrder(orderDetailHeader: OrderDetailHeaderModel, orderDetailBody: List<OrderDetailViewType>) {
+            val orderModel = orderDetailBindingHelper.createOrderModel(orderDetailHeader, orderDetailBody)
+            orderDetailViewModel.cancelOrder(orderModel)
         }
 
         override fun completeOrder(orderId: Long) {

@@ -2,6 +2,7 @@ package zupzup.manager.data.repository
 
 import zupzup.manager.data.datasource.order.OrderDataSource
 import zupzup.manager.data.dto.mapper.DtoMapper.toDto
+import zupzup.manager.data.dto.order.parameter.OrderSpecificListRequest
 import zupzup.manager.domain.models.order.OrderModel
 import zupzup.manager.domain.models.order.OrderSpecificModel
 import zupzup.manager.domain.repository.OrderRepository
@@ -61,10 +62,11 @@ class OrderRepositoryImpl @Inject constructor(
 
     override suspend fun cancelOrder(
         storeId: Long,
-        orderId: Long
+        orderId: Long,
+        orderList: List<OrderSpecificModel>
     ): Result<Int> {
         return try {
-            orderDataSource.cancelOrder(storeId, orderId)
+            orderDataSource.cancelOrder(storeId, orderId, orderList.toDto())
             Result.success(0)
         } catch (e: Exception) {
             Result.failure(e)
