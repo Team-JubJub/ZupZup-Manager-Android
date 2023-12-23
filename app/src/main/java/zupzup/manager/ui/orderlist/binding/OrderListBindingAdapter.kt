@@ -97,7 +97,7 @@ fun bindOrderTimeToTextView(
     val year = orderTime.substring(0, 4)
     val month = orderTime.substring(5, 7)
     val day = orderTime.substring(8, 10)
-    val time = orderTime.substring(11, 16)
+    val time = orderTime.substring(11)
 
     textView.text = year + "년 " + month + "월 " + day + "일 " + time
 }
@@ -107,5 +107,11 @@ fun bindOrderVisitTimeToTextView(
     textView: TextView,
     visitTime: String
 ) {
-    textView.text = visitTime.substring(11, 15)
+    val timePattern = Regex("\\d{4}-\\d{2}-\\d{2} (\\d{1,2}):(\\d{2})")
+    val matchResult = timePattern.find(visitTime)
+    if (matchResult != null) {
+        // HH:MM 형태로 포맷팅
+        val (hour, minute) = matchResult.destructured
+        textView.text = "${hour.padStart(2, '0')}:${minute}"
+    }
 }
