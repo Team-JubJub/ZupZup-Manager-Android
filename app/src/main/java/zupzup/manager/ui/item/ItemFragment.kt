@@ -1,5 +1,6 @@
 package zupzup.manager.ui.item
 
+import android.app.AlertDialog
 import android.content.Context
 import android.os.Bundle
 import android.util.Log
@@ -69,10 +70,21 @@ class ItemFragment : Fragment() {
         // 하단 수정 완료 버튼 클릭 이벤트 -> 수량 수정에서만 작동함!
         override fun modifyItemQuantity(state: String) {
             if (state.contains("AmountMode")) {
-                val itemQuantityList = itemViewModel.itemDetailBody.value.map { item ->
-                    ItemQuantityModel(item.itemId, item.modifiedStock)
-                }
-                itemViewModel.modifyItemQuantity(itemQuantityList)
+                AlertDialog.Builder(requireContext())
+                    .setTitle("제품 수량 수정하기")
+                    .setMessage("제품 수량을 수정합니다.")
+                    .setPositiveButton("확인") { _, _ ->
+                        Log.d("제품 수량 수정", "확인")
+                        val itemQuantityList = itemViewModel.itemDetailBody.value.map { item ->
+                            ItemQuantityModel(item.itemId, item.modifiedStock)
+                        }
+                        itemViewModel.modifyItemQuantity(itemQuantityList)
+                    }
+                    .setNegativeButton("취소") { _, _ ->
+                        Log.d("제품 수량 수정", "취소")
+                    }
+                    .create()
+                    .show()
             }
             itemViewModel.changeState("DefaultMode")
         }
