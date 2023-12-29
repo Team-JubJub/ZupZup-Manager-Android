@@ -1,5 +1,6 @@
 package zupzup.manager.ui.item.binding
 
+import android.util.Log
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
@@ -20,6 +21,7 @@ fun bindManagementDetailToRecyclerView(
     recyclerView: RecyclerView,
     dataList: List<ItemModel>
 ) {
+    Log.d("TAG", "bindManagementDetailToRecyclerView: $dataList")
     (recyclerView.adapter as ItemRcvAdapter).submitList(dataList.toList())
 }
 

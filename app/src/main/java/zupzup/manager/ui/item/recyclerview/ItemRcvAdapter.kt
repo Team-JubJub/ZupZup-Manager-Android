@@ -1,5 +1,6 @@
 package zupzup.manager.ui.item.recyclerview
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.lifecycle.LifecycleOwner
