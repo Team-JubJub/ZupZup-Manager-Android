@@ -10,10 +10,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import zupzup.manager.R
 import zupzup.manager.databinding.FragmentSettingBinding
 import zupzup.manager.ui.common.User
 import zupzup.manager.ui.login.LoginActivity
@@ -35,14 +38,7 @@ class SettingFragment : Fragment() {
         }
 
         override fun signout() {
-            lifecycleScope.launch {
-                settingViewModel.signOut()
-                Log.d("TAG", "로그아웃 완료 -> 액티비티 이동")
-                val loginIntent = Intent(context, LoginActivity::class.java)
-                loginIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK + Intent.FLAG_ACTIVITY_NEW_TASK)
-                startActivity(loginIntent)
-                Log.d("TAG", "액티비티 이동 완료")
-            }
+            showSignOutAlertDialog()
         }
 
         override fun navigateToLeave() {
@@ -62,6 +58,26 @@ class SettingFragment : Fragment() {
         }
     }
 
+    private fun showSignOutAlertDialog() {
+        AlertDialog.Builder(requireContext())
+            .setTitle("로그아웃 하기")
+            .setMessage("정말 로그아웃 하시겠습니까?")
+            .setPositiveButton("로그아웃") { dialog, which ->
+                lifecycleScope.launch {
+                    settingViewModel.signOut()
+                    val loginIntent = Intent(context, LoginActivity::class.java)
+                    loginIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK + Intent.FLAG_ACTIVITY_NEW_TASK)
+                    startActivity(loginIntent)
+                }
+            }
+            .setNegativeButton(
+                "취소"
+            ) { dialog, which -> }
+            .create()
+            .show()
+    }
+
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -73,6 +89,24 @@ class SettingFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initBinding()
+        initCollect()
+    }
+
+    private fun initCollect() {
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                launch {
+                    settingViewModel.openStatus.collect {
+                        Log.d("TAG", "initCollect:$it ")
+                        if(it) {
+                          binding.toggleBtn.setImageResource(R.drawable.ic_switch_on)
+                        } else {
+                            binding.toggleBtn.setImageResource(R.drawable.ic_switch_off)
+                        }
+                    }
+                }
+            }
+        }
     }
 
     override fun onResume() {
@@ -86,8 +120,10 @@ class SettingFragment : Fragment() {
             viewModel = settingViewModel
             clickListener = settingClickListener
             toggleBtn.setOnClickListener {
-                val titleText = if (toggleBtn.isChecked) "가게 영업하기" else "가게 문 닫기"
-                val messageText = if (toggleBtn.isChecked) "가게를 영업합니다." else "가게 문을 닫습니다."
+                Log.d("TAG", "initBinding: ")
+                val isOpen = settingViewModel.openStatus.value
+                val titleText = if (!isOpen) "가게 영업하기" else "가게 문 닫기"
+                val messageText = if (!isOpen) "가게를 영업합니다." else "가게 문을 닫습니다."
 
                 AlertDialog.Builder(requireContext())
                     .setTitle(titleText)
@@ -95,7 +131,7 @@ class SettingFragment : Fragment() {
                     .setPositiveButton("확인", object : DialogInterface.OnClickListener {
                         override fun onClick(dialog: DialogInterface, which: Int) {
                             Log.d("가게 영업", "확인")
-                            settingViewModel.changeStoreStatus(toggleBtn.isChecked)
+                            settingViewModel.changeStoreStatus(!isOpen)
                         }
                     })
                     .setNegativeButton("취소", object : DialogInterface.OnClickListener {
@@ -105,6 +141,8 @@ class SettingFragment : Fragment() {
                     })
                     .create()
                     .show()
+
+
             }
         }
     }

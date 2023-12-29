@@ -9,31 +9,42 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
+import zupzup.manager.R
 import zupzup.manager.domain.models.order.OrderModel
 import zupzup.manager.ui.common.OrderStateMapper
 import zupzup.manager.ui.common.UiState
 import zupzup.manager.ui.orderlist.recyclerview.OrderListRcvAdapter
 
-@BindingAdapter("uiState", "filter")
+@BindingAdapter("uiState", "filter", "emptyIconLayout")
 fun bindOrderListToRecyclerView(
     recyclerView: RecyclerView,
     uiState: UiState<List<OrderModel>>?,
-    filter: String
+    filter: String,
+    emptyIconLayout: LinearLayout
 ) {
     when (uiState) {
         is UiState.Success -> {
             val orderList: List<OrderModel> = when (filter) {
                 "NEW" -> {
+                    emptyIconLayout.findViewById<TextView>(R.id.tv_empty_text).text =
+                        "지금은 신규 주문이 없어요"
                     uiState.data.filter { it.orderStatus == "NEW" }
                 }
 
                 "CONFIRM" -> {
+                    emptyIconLayout.findViewById<TextView>(R.id.tv_empty_text).text =
+                        "지금은 확정된 주문이 없어요"
                     uiState.data.filter { it.orderStatus == "CONFIRM" }
                 }
 
                 else -> {
+                    emptyIconLayout.findViewById<TextView>(R.id.tv_empty_text).text =
+                        "지금은 완료 및 취소 주문이 없어요"
                     uiState.data.filter { it.orderStatus != "NEW" && it.orderStatus != "CONFIRM" }
                 }
+            }
+            if (orderList.isNotEmpty()) {
+                emptyIconLayout.visibility = View.GONE
             }
             (recyclerView.adapter as OrderListRcvAdapter).submitList(orderList)
         }
@@ -60,7 +71,6 @@ fun bindEmptyListToLinearLayout(
 ) {
     when (uiState) {
         is UiState.Success -> {
-            linearLayout.visibility = View.GONE
         }
 
         is UiState.Error -> {

@@ -14,7 +14,10 @@ class OrderListItemDecorator : RecyclerView.ItemDecoration() {
     ) {
         super.getItemOffsets(outRect, view, parent, state)
         if(parent.getChildAdapterPosition(view) > 0) {
-            outRect.top = 16
+            outRect.top = 24
+        }
+        if(parent.getChildAdapterPosition(view) == parent.childCount) {
+            outRect.bottom = 24
         }
     }
 }

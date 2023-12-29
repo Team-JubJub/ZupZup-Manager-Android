@@ -1,11 +1,13 @@
 package zupzup.manager.ui.setting
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import zupzup.manager.data.datasource.admin.SharedPreferenceDataSource
 import zupzup.manager.domain.DataResult
@@ -38,7 +40,8 @@ class SettingViewModel @Inject constructor(
     private var _storeInfo = MutableStateFlow<StoreModel>(initStoreModel)
     val storeInfo = _storeInfo
 
-    private var _openStatus = MutableStateFlow<Boolean>(storeInfo.value.isOpen)
+    private var _openStatus = MutableStateFlow<Boolean>(false)
+    val openStatus get() = _openStatus.asStateFlow()
 
     private val _closeDialogEvent = MutableSharedFlow<Unit>()
     val closeDialogEvent: Flow<Unit> get() = _closeDialogEvent
@@ -46,8 +49,9 @@ class SettingViewModel @Inject constructor(
     fun changeStoreStatus(isOpened: Boolean) {
         viewModelScope.launch {
             changeOpenStatusUseCase(User.getStoreId(), isOpened).collect {
+                Log.d("TAG", "changeOpenStatus:$it ")
                 if (it is DataResult.Success) {
-                    _openStatus.emit(it.data.toBoolean())
+                    _openStatus.emit(isOpened)
                 }
             }
         }
@@ -78,6 +82,7 @@ class SettingViewModel @Inject constructor(
             getStoreDetailUseCase(storeId).collect {
                 if (it is DataResult.Success) {
                     _storeInfo.emit(it.data)
+                    _openStatus.emit(it.data.isOpen)
                 } else {
                     _storeInfo.emit(initStoreModel)
                 }

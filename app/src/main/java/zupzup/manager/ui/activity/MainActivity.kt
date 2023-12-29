@@ -62,6 +62,9 @@ class MainActivity : AppCompatActivity(), ItemFragment.NavigationBarVisibilityLi
                 R.id.frag_store -> {
                     hideBottomNav()
                 }
+                R.id.frag_leave -> {
+                    hideBottomNav()
+                }
             }
         }
     }
