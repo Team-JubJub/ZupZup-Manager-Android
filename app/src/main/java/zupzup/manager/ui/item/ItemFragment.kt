@@ -31,7 +31,7 @@ import zupzup.manager.ui.item.recyclerview.ItemRcvAdapter
 
 @AndroidEntryPoint
 class ItemFragment : Fragment() {
-    private var _binding: FragmentItemBinding? = null
+    private var _binding: zupzup.manager.databinding.FragmentItemBinding? = null
     private val binding get() = _binding!!
     private var itemStateBottomSheetFragment: ItemManagementStateBottomSheetFragment? = null
     private val itemViewModel: ItemViewModel by activityViewModels()
@@ -42,6 +42,7 @@ class ItemFragment : Fragment() {
         override fun changeState(state: String) {
             if (itemViewModel.managementUiState.value is ManagementState.AmountMode && state == "DefaultMode") {
                 restoreModifiedAmountItem()
+                itemViewModel.restoreItemDetailBody()
             }
             itemViewModel.changeState(state)
         }
@@ -58,10 +59,11 @@ class ItemFragment : Fragment() {
 
     private fun restoreModifiedAmountItem() {
         with(binding) {
-            rcvManagement.children.forEachIndexed {index, view ->
+            rcvManagement.children.forEachIndexed { index, view ->
                 val itemList = itemViewModel.itemDetailBody.value
-                if(itemList[index].itemCount != itemList[index].modifiedStock) {
-                    view.findViewById<TextView>(R.id.tv_item_amount).text = itemList[index].itemCount.toString()
+                if (itemList[index].itemCount != itemList[index].modifiedStock) {
+                    view.findViewById<TextView>(R.id.tv_item_amount).text =
+                        itemList[index].itemCount.toString()
                 }
 
             }
@@ -103,6 +105,8 @@ class ItemFragment : Fragment() {
                     }
                     .create()
                     .show()
+            } else {
+                itemViewModel.changeState("DefaultMode")
             }
         }
 
@@ -165,7 +169,12 @@ class ItemFragment : Fragment() {
                 }
                 launch {
                     itemViewModel.itemDetailBody.collect {
-                        Log.d("itemDetailBody collect", it.toString())
+                        if (it.isEmpty()) {
+                            binding.linearLayoutEmptyIcon.visibility = View.VISIBLE
+                        }
+                        else {
+                            binding.linearLayoutEmptyIcon.visibility = View.GONE
+                        }
                     }
                 }
             }

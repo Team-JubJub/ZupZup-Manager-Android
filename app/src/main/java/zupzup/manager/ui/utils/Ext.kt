@@ -15,3 +15,18 @@ fun Int.toTimeString(): String {
     }
     return timeString
 }
+
+fun Int.toPriceString(): String {
+    val numberStr = this.toString()
+    val length = numberStr.length
+    val result = StringBuilder()
+    for (i in 0 until length) {
+        val digit = numberStr[i]
+        result.append(digit)
+
+        if ((length - i - 1) % 3 == 0 && i != length - 1) {
+            result.append(',')
+        }
+    }
+    return result.toString()
+}

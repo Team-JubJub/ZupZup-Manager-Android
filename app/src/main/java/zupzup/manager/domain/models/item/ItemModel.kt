@@ -15,6 +15,9 @@ data class ItemModel(
     private var _modifiedStock = itemCount
     val modifiedStock get() = _modifiedStock
 
+    fun restoreModifiedStock() {
+        _modifiedStock = itemCount
+    }
     fun plusModifiedAmount() {
         _modifiedStock = _modifiedStock.plus(1)
     }

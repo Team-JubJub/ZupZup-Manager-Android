@@ -21,6 +21,7 @@ class HeaderInterceptor @Inject constructor(
                 }
             }.build()
 
+
 //        Log.d("TAG", "Header 인터셉터 작동")
         return chain.proceed(request)
     }

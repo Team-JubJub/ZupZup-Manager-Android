@@ -97,7 +97,7 @@ class ItemViewModel @Inject constructor(
 
                 "InfoMode" -> _managementUiState.emit(ManagementState.InfoMode)
                 else -> {
-                    restoreItemDetailBody()
+                    //restoreItemDetailBody()
                     _managementUiState.emit(ManagementState.DefaultMode)
                 }
             }
@@ -151,8 +151,11 @@ class ItemViewModel @Inject constructor(
             }
         }
     }
-    private fun restoreItemDetailBody() {
+    fun restoreItemDetailBody() {
         viewModelScope.launch {
+            prevItemDetailBody.forEach {
+                it.restoreModifiedStock()
+            }
             _itemDetailBody.emit(prevItemDetailBody.toList())
         }
     }
