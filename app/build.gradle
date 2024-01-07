@@ -116,4 +116,7 @@ dependencies {
 
     // Swipe Refresh Layout
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
+
+    // kakao 채널
+    implementation "com.kakao.sdk:v2-talk:2.19.0" // 카카오 채널
 }

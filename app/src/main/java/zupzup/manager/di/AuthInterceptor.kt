@@ -16,7 +16,7 @@ class AuthInterceptor @Inject constructor(
     override fun intercept(chain: Interceptor.Chain): Response {
         val request = chain.request();
         val response = chain.proceed(request);
-//        Log.d("TAG", "Auth 인터셉터 작동")
+        Log.d("TAG", "Auth 인터셉터 작동")
 
         when (response.code) {
             401 -> {

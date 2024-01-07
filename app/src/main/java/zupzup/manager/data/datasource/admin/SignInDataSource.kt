@@ -6,6 +6,6 @@ import retrofit2.Response
 
 interface SignInDataSource {
     suspend fun login(id: String, pw: String, deviceToken: String): Response<SignInResponse>
-    suspend fun logout(accessToken: String, refreshToken: String): Response<SignOutResponse>
+    suspend fun logout(accessToken : String, refreshToken : String, deviceToken : String): Response<SignOutResponse>
     suspend fun leaveZupzup(id: Long): Response<String>
 }

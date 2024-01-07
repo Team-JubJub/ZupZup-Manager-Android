@@ -14,6 +14,8 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
+import com.kakao.sdk.common.util.KakaoCustomTabsClient
+import com.kakao.sdk.talk.TalkApiClient
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import zupzup.manager.R
@@ -55,6 +57,15 @@ class SettingFragment : Fragment() {
                 settingViewModel.getStoreInfo(User.getStoreId())
             }
             storeMatterBottomSheet!!.show(parentFragmentManager, null)
+        }
+
+        override fun kakaoTalkChannelBtnClicked() {
+            // 카카오톡 채널 채팅 URL
+            val url = TalkApiClient.instance.chatChannelUrl("_qMxbxlG")
+
+            // CustomTabs 로 열기
+            KakaoCustomTabsClient.openWithDefault(requireContext(), url)
+
         }
     }
 
@@ -98,8 +109,8 @@ class SettingFragment : Fragment() {
                 launch {
                     settingViewModel.openStatus.collect {
                         Log.d("TAG", "initCollect:$it ")
-                        if(it) {
-                          binding.toggleBtn.setImageResource(R.drawable.ic_switch_on)
+                        if (it) {
+                            binding.toggleBtn.setImageResource(R.drawable.ic_switch_on)
                         } else {
                             binding.toggleBtn.setImageResource(R.drawable.ic_switch_off)
                         }
@@ -152,5 +163,7 @@ class SettingFragment : Fragment() {
         fun signout()
         fun navigateToLeave()
         fun modifyStoreMatter()
+
+        fun kakaoTalkChannelBtnClicked()
     }
 }

@@ -7,10 +7,10 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
+import dagger.hilt.android.AndroidEntryPoint
 import zupzup.manager.R
 import zupzup.manager.databinding.ActivityMainBinding
 import zupzup.manager.ui.item.ItemFragment
-import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity(), ItemFragment.NavigationBarVisibilityListener {
@@ -47,21 +47,27 @@ class MainActivity : AppCompatActivity(), ItemFragment.NavigationBarVisibilityLi
                 R.id.frag_orderList -> {
                     showBottomNav()
                 }
+
                 R.id.frag_orderDetail -> {
                     hideBottomNav()
                 }
+
                 R.id.frag_item -> {
                     showBottomNav()
                 }
+
                 R.id.frag_item_detail -> {
                     hideBottomNav()
                 }
+
                 R.id.frag_setting -> {
                     showBottomNav()
                 }
+
                 R.id.frag_store -> {
                     hideBottomNav()
                 }
+
                 R.id.frag_leave -> {
                     hideBottomNav()
                 }

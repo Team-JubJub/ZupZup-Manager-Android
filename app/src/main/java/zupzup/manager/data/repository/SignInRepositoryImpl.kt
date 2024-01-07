@@ -53,9 +53,10 @@ class SignInRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun logout(accessToken: String, refreshToken: String): Result<String> {
+    override suspend fun logout(accessToken : String, refreshToken : String, deviceToken: String): Result<String> {
         return try {
-            val response = signInDataSource.logout(accessToken, refreshToken)
+            val response = signInDataSource.logout(accessToken, refreshToken, deviceToken)
+            Log.d("TAG", "logout result :${response.code()} ")
             Result.success(response.body().toString())
         } catch (e: Exception) {
             Result.failure(e)

@@ -1,5 +1,6 @@
 package zupzup.manager.di
 
+import android.util.Log
 import okhttp3.Interceptor
 import okhttp3.Response
 import zupzup.manager.data.datasource.admin.SharedPreferenceDataSource
@@ -10,9 +11,11 @@ class HeaderInterceptor @Inject constructor(
 ) : Interceptor {
 
     override fun intercept(chain: Interceptor.Chain): Response {
+        Log.d("TAG", "Header intercept: ")
         val request = chain.request().newBuilder()
             .addHeader("accessToken", sharedPreferenceDataSource.getAccessToken())
             .apply {
+                Log.d("TAG", "apply : ${chain.request().url}")
                 if (isNeedBothAccessRefreshRequest(chain.request().url.toString())) {
                     addHeader(
                         "refreshToken",
@@ -28,7 +31,7 @@ class HeaderInterceptor @Inject constructor(
 
     private fun isNeedBothAccessRefreshRequest(url: String): Boolean {
         return when (url) {
-            "https://zupzuptest.com:8080/mobile/sign-out" -> true
+            "${Constants.testBaseUrl}mobile/sign-out" -> true
             else -> false
         }
     }

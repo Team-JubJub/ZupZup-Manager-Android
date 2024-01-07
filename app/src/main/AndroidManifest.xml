@@ -43,6 +43,7 @@
             android:exported="true">
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />
+                <data android:host="channel" android:scheme="kakaobe2d5f8a77d7e275a6e9f7511946a25f" />
             </intent-filter>
         </activity>
 

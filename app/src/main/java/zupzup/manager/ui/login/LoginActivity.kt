@@ -35,6 +35,7 @@ class LoginActivity : AppCompatActivity() {
                 Toast.makeText(this@LoginActivity, "아이디, 비밀번호를 입력해주세요.", Toast.LENGTH_SHORT).show()
             } else {
                 MyFirebaseMessagingService().getFirebaseToken { deviceToken ->
+                    User.setDeviceToken(deviceToken)
                     loginViewModel.signIn(id, pw, deviceToken)
                 }
             }

@@ -273,6 +273,7 @@
 
                 <include
                     android:id="@+id/service_center"
+                    android:onClick="@{_ -> clickListener.kakaoTalkChannelBtnClicked()}"
                     layout="@layout/layout_account_menu"
                     app:titleText="@{`고객 센터`}" />
 

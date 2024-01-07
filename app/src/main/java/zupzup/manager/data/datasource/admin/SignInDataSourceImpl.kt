@@ -2,6 +2,7 @@ package zupzup.manager.data.datasource.admin
 
 import retrofit2.Response
 import zupzup.manager.data.dto.admin.parameter.SignInRequest
+import zupzup.manager.data.dto.admin.parameter.SignOutRequest
 import zupzup.manager.data.dto.admin.response.SignInResponse
 import zupzup.manager.data.dto.admin.response.SignOutResponse
 import zupzup.manager.data.service.SignInService
@@ -27,11 +28,13 @@ class SignInDataSourceImpl @Inject constructor(
 
     override suspend fun logout(
         accessToken: String,
-        refreshToken: String
+        refreshToken: String,
+        deviceToken: String
     ): Response<SignOutResponse> {
         return signInService.signOut(
             accessToken = accessToken,
-            refreshToken = refreshToken
+            refreshToken = refreshToken,
+            body = SignOutRequest(deviceToken)
         )
     }
 

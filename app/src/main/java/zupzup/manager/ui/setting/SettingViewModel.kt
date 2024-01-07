@@ -59,7 +59,7 @@ class SettingViewModel @Inject constructor(
 
     suspend fun signOut() {
         viewModelScope.launch {
-            signOutUseCase(User.getAccessToken(), User.getRefreshToken())
+            signOutUseCase(User.getAccessToken(), User.getRefreshToken(), User.getDeviceToken())
         }.join()
 
         viewModelScope.launch {
