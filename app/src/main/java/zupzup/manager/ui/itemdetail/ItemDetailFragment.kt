@@ -286,7 +286,6 @@ class ItemDetailFragment : Fragment() {
             lifecycleOwner = viewLifecycleOwner
             clickListener = itemDetailClickListener
             item = ItemDetailFragmentArgs.fromBundle(requireArguments()).item
-            Log.d("TAG", "initBinding: $item ")
         }
     }
 }

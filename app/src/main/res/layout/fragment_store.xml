@@ -84,6 +84,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="192dp"
                     android:background="@drawable/img_edit"
+                    app:storeImageUrl="@{store.storeImageUrl}"
                     android:onClick="@{_ -> clickListener.selectImage()}"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"/>

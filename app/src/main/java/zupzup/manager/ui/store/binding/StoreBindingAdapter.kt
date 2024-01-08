@@ -3,6 +3,7 @@ package zupzup.manager.ui.store.binding
 import android.os.Build
 import android.util.Log
 import android.view.View
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.TimePicker
@@ -12,10 +13,29 @@ import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.core.view.setPadding
 import androidx.databinding.BindingAdapter
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import zupzup.manager.R
 import zupzup.manager.domain.models.store.ModifyStoreModel
 import zupzup.manager.ui.common.fromDpToPx
 import zupzup.manager.ui.store.StoreFragment
+
+@BindingAdapter("storeImageUrl")
+fun bindStoreImageUrlToImageView(
+    imageView: ImageView,
+    storeImageUrl: String
+) {
+    Glide
+        .with(imageView)
+        .load(storeImageUrl)
+        .transform(
+            CenterCrop()
+        )
+        // disk 캐싱 추가
+        .diskCacheStrategy(DiskCacheStrategy.ALL)
+        .into(imageView)
+}
 
 @BindingAdapter("modifyList", "tvWeek", "clickListener")
 fun bindModifyButton(
@@ -39,7 +59,7 @@ fun bindModifyButton(
         val timeIntervals = timeFormats.map {
             textView.text.takeIf { it.isNotBlank() }
                 ?.split(":")
-                ?.map{it.toIntOrNull()}
+                ?.map { it.toIntOrNull() }
         }
         // 영업 시간 or 할인 시간 유효성 검사하는데, null 값 있으면 그 부분은 검사하지 않고 넘어감
         // ex) 영업 종료 시간은 비었는데, 시작 시간만 설정한 경우 => ok
@@ -48,7 +68,9 @@ fun bindModifyButton(
         val isInvalid = if (timeIntervals.all { it?.size == 2 }) {
             val checkInvalidity = { index1: Int, index2: Int ->
                 (timeIntervals[index1]?.get(0) ?: 0) > (timeIntervals[index2]?.get(0) ?: 0) ||
-                        ((timeIntervals[index1]?.get(0) ?: 0) == (timeIntervals[index2]?.get(0) ?: 0) && (timeIntervals[index1]?.get(1) ?: 0) >= (timeIntervals[index2]?.get(1) ?: 0))
+                        ((timeIntervals[index1]?.get(0) ?: 0) == (timeIntervals[index2]?.get(0)
+                            ?: 0) && (timeIntervals[index1]?.get(1)
+                            ?: 0) >= (timeIntervals[index2]?.get(1) ?: 0))
             }
 
             val invalidMessage = when {
@@ -92,7 +114,15 @@ fun bindModifyButton(
 }
 
 @RequiresApi(Build.VERSION_CODES.M)
-@BindingAdapter("linearLayout", "anotherTime", "timePicker", "anotherTimePicker", "timeLayout", "line", "modifyButton")
+@BindingAdapter(
+    "linearLayout",
+    "anotherTime",
+    "timePicker",
+    "anotherTimePicker",
+    "timeLayout",
+    "line",
+    "modifyButton"
+)
 fun bindTimePickerWithTextView(
     textView: TextView,
     linearLayout: LinearLayout,
@@ -159,17 +189,23 @@ fun bindTimePickerWithTextView(
             }
             if (hourOfDay < anotherHour || (hourOfDay == anotherHour && minute <= anotherMinute)) {
                 val adjustedHour = if (anotherHour == 0 && anotherMinute == 0) 23 else anotherHour
-                val adjustedMinute = if (anotherHour == 0 && anotherMinute == 0) 59 else anotherMinute
+                val adjustedMinute =
+                    if (anotherHour == 0 && anotherMinute == 0) 59 else anotherMinute
                 timePicker.hour = adjustedHour
                 timePicker.minute = adjustedMinute
 
                 modifyButton.isClickable = false
-                modifyButton.background = ContextCompat.getDrawable(timeLayout.context, R.drawable.frame_rectangle_corner_14_neutralgray_150)
+                modifyButton.background = ContextCompat.getDrawable(
+                    timeLayout.context,
+                    R.drawable.frame_rectangle_corner_14_neutralgray_150
+                )
                 Toast.makeText(timePicker.context, "이전 시간을 선택할 수 없습니다.", Toast.LENGTH_SHORT).show()
-            }
-            else {
+            } else {
                 modifyButton.isClickable = true
-                val drawable = ContextCompat.getDrawable(timeLayout.context, R.drawable.frame_rectangle_corner_14_tangerine_300)
+                val drawable = ContextCompat.getDrawable(
+                    timeLayout.context,
+                    R.drawable.frame_rectangle_corner_14_tangerine_300
+                )
                 modifyButton.background = drawable
             }
             // 영업시간 타임피커와 시작시간 타임피커인 경우, 이후 시간을 선택할 수 없도록 제한함
@@ -180,21 +216,27 @@ fun bindTimePickerWithTextView(
             }
             if (hourOfDay > anotherHour || (hourOfDay == anotherHour && minute >= anotherMinute)) {
                 val adjustedHour = if (anotherHour == 23 && anotherMinute == 59) 0 else anotherHour
-                val adjustedMinute = if (anotherHour == 23 && anotherMinute == 59) 0 else anotherMinute
+                val adjustedMinute =
+                    if (anotherHour == 23 && anotherMinute == 59) 0 else anotherMinute
                 timePicker.hour = adjustedHour
                 timePicker.minute = adjustedMinute
 
                 modifyButton.isClickable = false
-                modifyButton.background = ContextCompat.getDrawable(timeLayout.context, R.drawable.frame_rectangle_corner_14_neutralgray_150)
+                modifyButton.background = ContextCompat.getDrawable(
+                    timeLayout.context,
+                    R.drawable.frame_rectangle_corner_14_neutralgray_150
+                )
                 Toast.makeText(timePicker.context, "이후 시간을 선택할 수 없습니다.", Toast.LENGTH_SHORT).show()
-            }
-            else {
+            } else {
                 modifyButton.isClickable = true
-                val drawable = ContextCompat.getDrawable(timeLayout.context, R.drawable.frame_rectangle_corner_14_tangerine_300)
+                val drawable = ContextCompat.getDrawable(
+                    timeLayout.context,
+                    R.drawable.frame_rectangle_corner_14_tangerine_300
+                )
                 modifyButton.background = drawable
             }
         }
-}
+    }
 }
 
 @BindingAdapter("closedDay", "sun", "mon", "tue", "wed", "thu", "fri", "sat")

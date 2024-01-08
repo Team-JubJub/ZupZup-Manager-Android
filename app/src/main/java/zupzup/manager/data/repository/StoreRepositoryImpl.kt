@@ -1,5 +1,6 @@
 package zupzup.manager.data.repository
 
+import android.util.Log
 import zupzup.manager.data.datasource.store.StoreDataSource
 import zupzup.manager.data.dto.mapper.DtoMapper.toDto
 import zupzup.manager.domain.models.store.ModifyStoreModel
@@ -51,13 +52,15 @@ class StoreRepositoryImpl @Inject constructor(
     ): Result<StoreModel> {
         return try {
             val response = storeDataSource.modifyStoreDetail(storeId, store.toDto(), image)
-            val store: StoreModel? = if (response.isSuccessful) {
+            Log.d("TAG", "modifyStoreDetail: $response")
+            val storeModel: StoreModel? = if (response.isSuccessful) {
                 response.body()?.toStoreModel()
             } else {
                 null
             }
-            Result.success(store!!)
+            Result.success(storeModel!!)
         } catch (e: Exception) {
+            Log.d("TAG", "modifyStoreDetail: $e")
             Result.failure(e)
         }
     }
