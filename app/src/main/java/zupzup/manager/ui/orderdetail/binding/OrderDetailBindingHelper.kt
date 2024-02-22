@@ -12,16 +12,16 @@ class OrderDetailBindingHelper @Inject constructor(
     private val plusOrderItemConfirmedAmount: (itemId: Long) -> Unit,
     private val minusOrderItemConfirmedAmount: (itemId: Long) -> Unit,
 ) {
-    fun createOrderConfirmBottomSheet(
+    fun createOrderModel(
         orderDetailHeader: OrderDetailHeaderModel,
-        orderDetailBody: List<OrderDetailViewType>
-    ) {
+        orderDetailBody: List<OrderDetailViewType>,
+    ): OrderModel {
         val customerInfo =
             orderDetailBody.find { it.viewType == ViewType.CUSTOMER_INFO.ordinal } as OrderDetailViewType.OrderCustomerInfoViewType
         val orderList = orderDetailBody.filter { it.viewType == ViewType.ORDER_ITEM.ordinal }
             .map { it as OrderDetailViewType.OrderItemViewType }
 
-        val confirmedOrderModel = OrderModel(
+        return OrderModel(
             orderId = orderDetailHeader.orderId,
             storeId = orderDetailHeader.storeId,
             customer = customerInfo.customer,
@@ -36,11 +36,23 @@ class OrderDetailBindingHelper @Inject constructor(
                 OrderSpecificModel(
                     itemId = it.orderItem.itemId,
                     itemName = it.orderItem.itemName,
+                    imageUrl = it.orderItem.imageUrl,
                     itemPrice = it.orderItem.itemPrice,
+                    salePrice = it.orderItem.salePrice,
                     itemCount = it.getConfirmedAmount()
                 )
             }
         )
+    }
+
+    fun createOrderConfirmBottomSheet(
+        orderDetailHeader: OrderDetailHeaderModel,
+        orderDetailBody: List<OrderDetailViewType>
+    ) {
+        val orderList = orderDetailBody.filter { it.viewType == ViewType.ORDER_ITEM.ordinal }
+            .map { it as OrderDetailViewType.OrderItemViewType }
+
+        val confirmedOrderModel = createOrderModel(orderDetailHeader, orderDetailBody)
         onCreateOrderConfirmBottomSheetButtonClick(
             confirmedOrderModel,
             orderList.find { it.orderItem.itemCount != it.getConfirmedAmount() } != null

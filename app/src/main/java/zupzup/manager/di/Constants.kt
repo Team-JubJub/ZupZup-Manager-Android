@@ -6,4 +6,7 @@ object Constants {
 
     const val testOrderRef = "TestOrder"
     const val testStoreRef = "TestStore"
+
+    const val testBaseUrl = "https://zupzuptest.com:8080/"
+    const val officialBaseUrl = "https://zupzupofficial.com:8080/"
 }

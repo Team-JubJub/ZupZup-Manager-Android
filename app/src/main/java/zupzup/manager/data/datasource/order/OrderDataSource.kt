@@ -13,7 +13,7 @@ interface OrderDataSource {
 
     suspend fun rejectOrder(storeId: Long, orderId: Long): Response<PatchOrderResponse>
 
-    suspend fun cancelOrder(storeId: Long, orderId: Long): Response<PatchOrderResponse>
+    suspend fun cancelOrder(storeId: Long, orderId: Long, orderList: OrderSpecificListRequest): Response<PatchOrderResponse>
 
     suspend fun completeOrder(storeId: Long, orderId: Long): Response<PatchOrderResponse>
 }

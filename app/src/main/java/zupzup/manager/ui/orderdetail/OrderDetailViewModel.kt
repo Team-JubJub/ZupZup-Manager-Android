@@ -148,14 +148,16 @@ class OrderDetailViewModel @Inject constructor(
         }
     }
 
-    fun cancelOrder(orderId: Long) {
+    fun cancelOrder(orderModel: OrderModel) {
         viewModelScope.launch {
             _orderProcessingUiState.emit(UiEventState.Processing)
-            cancelOrderUseCase(User.getStoreId(), orderId).collect {
-                it.onSuccess {
-                    _orderProcessingUiState.emit(UiEventState.Complete)
-                }.onFailure {
-                    _orderProcessingUiState.emit(UiEventState.Fail("에러가 발생했습니다."))
+            with(orderModel){
+                cancelOrderUseCase(User.getStoreId(), orderId, orderList).collect {
+                    it.onSuccess {
+                        _orderProcessingUiState.emit(UiEventState.Complete)
+                    }.onFailure {
+                        _orderProcessingUiState.emit(UiEventState.Fail("에러가 발생했습니다."))
+                    }
                 }
             }
         }

@@ -36,12 +36,12 @@
 
     <style name="LoginEditTextStyle" parent="Widget.Design.TextInputLayout">
         <item name="colorControlNormal">@color/transparent</item>// unFocus 상태일때 밑줄 색.
-        <item name="boxStrokeColor">@color/pure_black</item>// Focus 상태일때 밑줄 색.
+        <item name="boxStrokeColor">@color/transparent</item>// Focus 상태일때 밑줄 색.
         <item name="android:textCursorDrawable">@color/pure_black</item>// cursor 색.
-        <item name="android:textColorHint">@color/pure_black</item>// hint 색
-        <item name="hintTextColor">@color/pure_black</item>// floating hint 색
-        <item name="helperText">@color/pure_black</item>// xml 에서 한 속성을 여기서도 할 수 있습니다.
-        <item name="helperTextTextColor">@color/transparent</item>
+        <item name="android:textColorHint">@color/ivory_gray_400</item>// hint 색
+        <item name="hintTextColor">@color/ivory_gray_400</item>// floating hint 색
+<!--        <item name="helperText">@color/pure_black</item>// xml 에서 한 속성을 여기서도 할 수 있습니다.-->
+<!--        <item name="helperTextTextColor">@color/transparent</item>-->
         <item name="errorTextColor">@color/warning1</item>
     </style>
 

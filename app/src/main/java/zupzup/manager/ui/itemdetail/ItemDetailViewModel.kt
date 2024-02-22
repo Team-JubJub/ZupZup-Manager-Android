@@ -45,6 +45,7 @@ class ItemDetailViewModel @Inject constructor(
 
     // 제품 등록
     suspend fun addItem(item: ItemAddModel, image: File?): String {
+        Log.d("TAG", "addItem: $item")
         var result = ""
         viewModelScope.launch {
             val photo: MultipartBody.Part? = if (image != null) {

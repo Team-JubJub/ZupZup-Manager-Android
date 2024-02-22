@@ -84,6 +84,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="192dp"
                     android:background="@drawable/img_edit"
+                    app:storeImageUrl="@{store.storeImageUrl}"
                     android:onClick="@{_ -> clickListener.selectImage()}"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"/>
@@ -125,8 +126,10 @@
                         android:orientation="horizontal">
 
                         <LinearLayout
+                            android:id="@+id/llOpenTime"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_marginEnd="20dp"
                             android:layout_weight="1"
                             android:orientation="vertical">
                             <TextView
@@ -141,6 +144,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="@{store.openTime}"
                                 tools:text="09:00"
+                                app:linearLayout="@{llOpenTime}"
                                 app:anotherTime="@{closeTime.text.toString()}"
                                 app:timePicker="@{openTimePicker}"
                                 app:anotherTimePicker="@{closeTimePicker}"
@@ -151,6 +155,7 @@
                         </LinearLayout>
 
                         <LinearLayout
+                            android:id="@+id/llCloseTime"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -167,6 +172,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="@{store.closeTime}"
                                 tools:text="21:00"
+                                app:linearLayout="@{llCloseTime}"
                                 app:anotherTime="@{openTime.text.toString()}"
                                 app:timePicker="@{closeTimePicker}"
                                 app:anotherTimePicker="@{openTimePicker}"
@@ -221,9 +227,11 @@
                         android:orientation="horizontal">
 
                         <LinearLayout
+                            android:id="@+id/llSaleTimeStart"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
+                            android:layout_marginEnd="20dp"
                             android:orientation="vertical">
                             <TextView
                                 android:layout_width="wrap_content"
@@ -237,6 +245,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="@{store.saleTimeStart}"
                                 tools:text="09:00"
+                                app:linearLayout="@{llSaleTimeStart}"
                                 app:anotherTime="@{saleEndTime.text.toString()}"
                                 app:timePicker="@{saleStartTimePicker}"
                                 app:anotherTimePicker="@{saleEndTimePicker}"
@@ -247,6 +256,7 @@
                         </LinearLayout>
 
                         <LinearLayout
+                            android:id="@+id/llSaleTimeClose"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -263,6 +273,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="@{store.saleTimeEnd}"
                                 tools:text="21:00"
+                                app:linearLayout="@{llSaleTimeClose}"
                                 app:anotherTime="@{saleStartTime.text.toString()}"
                                 app:timePicker="@{saleEndTimePicker}"
                                 app:anotherTimePicker="@{saleStartTimePicker}"
@@ -405,7 +416,8 @@
             android:background="@drawable/frame_rectangle_corner_14_tangerine_300"
             style="@style/UIHeadline"
             android:text="수정 완료"
-            app:modifyList="@{java.util.Arrays.asList(openTime.getText().toString(), closeTime.getText().toString(), saleStartTime.getText().toString(), saleEndTime.getText().toString(), tvWeek.text)}"
+            app:modifyList="@{java.util.Arrays.asList(openTime, closeTime, saleStartTime, saleEndTime)}"
+            app:tvWeek="@{tvWeek.text.toString()}"
             app:clickListener="@{clickListener}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

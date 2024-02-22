@@ -19,7 +19,9 @@ object DtoMapper {
             OrderSpecificDto(
                 itemId = it.itemId,
                 itemName = it.itemName,
+                imageUrl = it.imageUrl,
                 itemPrice = it.itemPrice,
+                salePrice = it.salePrice,
                 itemCount = it.itemCount
             )
         }
@@ -61,7 +63,7 @@ object DtoMapper {
             closeTime = closeTime,
             saleTimeStart = saleTimeStart,
             saleTimeEnd = saleTimeEnd,
-            closedDay = closedDay!!
+            closedDay = closedDay ?: ""
         )
     }
 

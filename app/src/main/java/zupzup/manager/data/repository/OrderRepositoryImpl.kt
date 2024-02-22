@@ -2,6 +2,7 @@ package zupzup.manager.data.repository
 
 import zupzup.manager.data.datasource.order.OrderDataSource
 import zupzup.manager.data.dto.mapper.DtoMapper.toDto
+import zupzup.manager.data.dto.order.parameter.OrderSpecificListRequest
 import zupzup.manager.domain.models.order.OrderModel
 import zupzup.manager.domain.models.order.OrderSpecificModel
 import zupzup.manager.domain.repository.OrderRepository
@@ -16,11 +17,19 @@ class OrderRepositoryImpl @Inject constructor(
     ): Result<List<OrderModel>> {
         return try{
             val response = orderDataSource.getOrderList(storeId)
-            var orderList = listOf<OrderModel>()
-            if (response.isSuccessful){
-                orderList = response.body()!!.orderList.map { dto -> dto.toOrderModel()}
+            if (response.isSuccessful) {
+                val responseBody = response.body()
+                if (responseBody != null) {
+                    val orderList = responseBody.orders.map { dto -> dto.toOrderModel() }
+                    Result.success(orderList)
+                } else {
+                    // 서버가 204 응답을 보낸 경우, 빈 리스트 반환
+                    Result.success(emptyList())
+                }
+            } else {
+                // 서버에서 에러 응답을 받은 경우
+                Result.failure(Exception("서버에서 오류 응답을 받았습니다."))
             }
-            Result.success(orderList)
         } catch (e: Exception) {
             Result.failure(e)
         }
@@ -53,10 +62,11 @@ class OrderRepositoryImpl @Inject constructor(
 
     override suspend fun cancelOrder(
         storeId: Long,
-        orderId: Long
+        orderId: Long,
+        orderList: List<OrderSpecificModel>
     ): Result<Int> {
         return try {
-            orderDataSource.cancelOrder(storeId, orderId)
+            orderDataSource.cancelOrder(storeId, orderId, orderList.toDto())
             Result.success(0)
         } catch (e: Exception) {
             Result.failure(e)

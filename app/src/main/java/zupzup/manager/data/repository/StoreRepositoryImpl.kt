@@ -1,11 +1,11 @@
 package zupzup.manager.data.repository
 
+import okhttp3.MultipartBody
 import zupzup.manager.data.datasource.store.StoreDataSource
 import zupzup.manager.data.dto.mapper.DtoMapper.toDto
 import zupzup.manager.domain.models.store.ModifyStoreModel
 import zupzup.manager.domain.models.store.StoreModel
 import zupzup.manager.domain.repository.StoreRepository
-import okhttp3.MultipartBody
 import javax.inject.Inject
 
 class StoreRepositoryImpl @Inject constructor(
@@ -51,12 +51,12 @@ class StoreRepositoryImpl @Inject constructor(
     ): Result<StoreModel> {
         return try {
             val response = storeDataSource.modifyStoreDetail(storeId, store.toDto(), image)
-            val store: StoreModel? = if (response.isSuccessful) {
+            val storeModel: StoreModel? = if (response.isSuccessful) {
                 response.body()?.toStoreModel()
             } else {
                 null
             }
-            Result.success(store!!)
+            Result.success(storeModel!!)
         } catch (e: Exception) {
             Result.failure(e)
         }

@@ -1,16 +1,20 @@
 package zupzup.manager.ui.store
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.launch
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody.Companion.asRequestBody
 import zupzup.manager.domain.DataResult
 import zupzup.manager.domain.models.store.ModifyStoreModel
 import zupzup.manager.domain.models.store.StoreModel
 import zupzup.manager.domain.usecase.store.ModifyStoreDetailUseCase
 import zupzup.manager.ui.common.User
-import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.launch
-import okhttp3.MultipartBody
+import java.io.File
 import javax.inject.Inject
 
 @HiltViewModel
@@ -29,13 +33,19 @@ class StoreViewModel @Inject constructor(
         return _storeInfo.value != null && _storeInfo.value != store
     }
 
-    fun modifyStoreDetail(modifyStoreModel: ModifyStoreModel, image: MultipartBody.Part?) {
+    suspend fun modifyStoreDetail(modifyStoreModel: ModifyStoreModel, image: File?) {
         viewModelScope.launch {
-            modifyStoreDetailUseCase(User.getStoreId(), modifyStoreModel, image).collect {
+            val photo: MultipartBody.Part? = if (image != null) {
+                val fileBody = image.asRequestBody("image/*".toMediaTypeOrNull())
+                MultipartBody.Part.createFormData("image", image.name, fileBody)
+            } else null
+
+            modifyStoreDetailUseCase(User.getStoreId(), modifyStoreModel, photo).collect {
                 if (it is DataResult.Success) {
+                    Log.d("TAG", "modifyStoreDetail: $it")
                     _storeInfo.emit(it.data)
                 }
             }
-        }
+        }.join()
     }
 }

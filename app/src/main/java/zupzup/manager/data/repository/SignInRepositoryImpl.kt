@@ -16,9 +16,9 @@ class SignInRepositoryImpl @Inject constructor(
     private val sharedPreferenceDataSource: SharedPreferenceDataSource,
     @NetworkModule.ZupZupRetrofitObject private val zupzupRetrofitObject: Retrofit
 ) : SignInRepository {
-    override suspend fun login(id: String, pw: String): Result<AdminModel> {
+    override suspend fun login(id: String, pw: String, deviceToken: String): Result<AdminModel> {
         return try {
-            val response = signInDataSource.login(id, pw)
+            val response = signInDataSource.login(id, pw, deviceToken)
             val admin: AdminModel
             if (response.isSuccessful) {
                 with(response.body()!!) {
@@ -53,12 +53,19 @@ class SignInRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun logout(accessToken: String, refreshToken: String): Result<String> {
+    override suspend fun logout(accessToken : String, refreshToken : String, deviceToken: String): Result<String> {
         return try {
-            val response = signInDataSource.logout(accessToken, refreshToken)
-            if (response.isSuccessful) {
-                sharedPreferenceDataSource.deleteData()
-            }
+            val response = signInDataSource.logout(accessToken, refreshToken, deviceToken)
+            Log.d("TAG", "logout result :${response.code()} ")
+            Result.success(response.body().toString())
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
+    }
+
+    override suspend fun leave(id: Long): Result<String> {
+        return try {
+            val response = signInDataSource.leaveZupzup(id)
             Result.success(response.body().toString())
         } catch (e: Exception) {
             Result.failure(e)

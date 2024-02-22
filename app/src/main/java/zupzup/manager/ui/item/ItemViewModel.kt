@@ -1,5 +1,6 @@
 package zupzup.manager.ui.item
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -27,8 +28,12 @@ class ItemViewModel @Inject constructor(
         getItemList()
     }
 
+    private var prevItemDetailBody = listOf<ItemModel>()
+
     private var _itemDetailBody = MutableStateFlow<List<ItemModel>>(listOf())
     val itemDetailBody = _itemDetailBody.asStateFlow()
+    val empty: Boolean
+        get() = itemDetailBody.value.isEmpty()
 
     private var _managementUiState = MutableStateFlow<ManagementState>(ManagementState.DefaultMode)
     val managementUiState = _managementUiState.asStateFlow()
@@ -85,9 +90,16 @@ class ItemViewModel @Inject constructor(
     fun changeState(state: String) {
         viewModelScope.launch {
             when (state) {
-                "AmountMode" -> _managementUiState.emit(ManagementState.AmountMode)
+                "AmountMode" -> {
+                    prevItemDetailBody = itemDetailBody.value.toList()
+                    _managementUiState.emit(ManagementState.AmountMode)
+                }
+
                 "InfoMode" -> _managementUiState.emit(ManagementState.InfoMode)
-                else -> _managementUiState.emit(ManagementState.DefaultMode)
+                else -> {
+                    //restoreItemDetailBody()
+                    _managementUiState.emit(ManagementState.DefaultMode)
+                }
             }
         }
     }
@@ -137,6 +149,14 @@ class ItemViewModel @Inject constructor(
 
                 _itemDetailBody.emit(updatedItemList.toList())
             }
+        }
+    }
+    fun restoreItemDetailBody() {
+        viewModelScope.launch {
+            prevItemDetailBody.forEach {
+                it.restoreModifiedStock()
+            }
+            _itemDetailBody.emit(prevItemDetailBody.toList())
         }
     }
 }

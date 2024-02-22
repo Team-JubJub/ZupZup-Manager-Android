@@ -1,10 +1,7 @@
 package zupzup.manager.ui.itemdetail.binding
 
-import android.graphics.Bitmap
-import android.graphics.drawable.BitmapDrawable
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
@@ -17,8 +14,6 @@ import zupzup.manager.domain.models.item.ItemAddModel
 import zupzup.manager.domain.models.item.ItemModel
 import zupzup.manager.domain.models.item.ItemModifyModel
 import zupzup.manager.ui.itemdetail.ItemDetailClickListener
-import java.io.File
-import java.io.FileOutputStream
 
 @BindingAdapter("clickListener", "itemList", "item")
 fun bindItemAddOrModifyButton(
@@ -26,7 +21,7 @@ fun bindItemAddOrModifyButton(
     clickListener: ItemDetailClickListener,
     itemList: List<*>,
     item: ItemModel?
-){
+) {
     button.setOnClickListener {
         val itemNameEditText = itemList[0] as EditText
         val itemPriceEditText = itemList[1] as EditText
@@ -35,8 +30,10 @@ fun bindItemAddOrModifyButton(
 
         val regex = Regex("[^0-9]")
         val itemName = itemNameEditText.text.toString()
-        val itemPrice = regex.replace(itemPriceEditText.text.toString(), "").toInt()
-        val salePrice = regex.replace(salePriceEditText.text.toString(), "").toInt()
+        val itemPriceStr = regex.replace(itemPriceEditText.text.toString(), "")
+        val itemPrice = if(itemPriceStr == "") 0 else itemPriceStr.toInt()
+        val salePriceStr = regex.replace(salePriceEditText.text.toString(), "")
+        val salePrice = if(salePriceStr == "") 0 else salePriceStr.toInt()
         val itemCount = itemCountEditText.text.toString().toInt()
 
         val itemModel: Any = if (item == null) {
@@ -55,7 +52,7 @@ fun bindItemAddOrModifyButton(
 
 @BindingAdapter("detailImgUrl")
 fun bindDetailImageUrlToImageView(imageView: ImageView, imgUrl: String?) {
-    if(imgUrl != null) {
+    if (imgUrl != null) {
         Glide
             .with(imageView.context)
             .load(imgUrl)
@@ -75,7 +72,7 @@ fun bindTwoAmountSame(
     amount: EditText,
     amount2: TextView,
     item: ItemModel?
-){
+) {
     if (item != null) {
         amount.setText(item.itemCount.toString())
     } else {
@@ -84,9 +81,11 @@ fun bindTwoAmountSame(
     amount.addTextChangedListener(object : TextWatcher {
         override fun beforeTextChanged(s: CharSequence?, p1: Int, p2: Int, p3: Int) {
         }
+
         override fun onTextChanged(s: CharSequence?, p1: Int, p2: Int, p3: Int) {
             amount2.text = s.toString()
         }
+
         override fun afterTextChanged(s: Editable?) {
         }
 
@@ -108,7 +107,8 @@ fun bindBindingHelperToAmountButtonInDetail(
                     clickListener.onPlusItemModifiedAmountBtnClick(itemId)
                     tvConfirmedAmount.text =
                         tvConfirmedAmount.text.toString().toInt().plus(1).toString()
-                    tvConfirmedAmount2.text = tvConfirmedAmount2.text.toString().toInt().plus(1).toString()
+                    tvConfirmedAmount2.text =
+                        tvConfirmedAmount2.text.toString().toInt().plus(1).toString()
                 }
             }
 
@@ -117,7 +117,8 @@ fun bindBindingHelperToAmountButtonInDetail(
                     clickListener.onMinusItemModifiedAmountBtnClick(itemId)
                     tvConfirmedAmount.text =
                         tvConfirmedAmount.text.toString().toInt().minus(1).toString()
-                    tvConfirmedAmount2.text = tvConfirmedAmount2.text.toString().toInt().minus(1).toString()
+                    tvConfirmedAmount2.text =
+                        tvConfirmedAmount2.text.toString().toInt().minus(1).toString()
                 }
             }
         }

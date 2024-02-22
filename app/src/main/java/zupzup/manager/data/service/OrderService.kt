@@ -29,13 +29,14 @@ interface OrderService {
         @Path("orderId") orderId: Long
     ): Response<PatchOrderResponse>
 
-    @PATCH("seller/{storeId}/order/confirmed-order/{orderId}/complete")
+    @PATCH("seller/{storeId}/order/confirmed-order/{orderId}/cancel")
     suspend fun cancelOrder(
         @Path("storeId") storeId: Long,
-        @Path("orderId") orderId: Long
+        @Path("orderId") orderId: Long,
+        @Body body: OrderSpecificListRequest
     ): Response<PatchOrderResponse>
 
-    @PATCH("seller/{storeId}/order/confirmed-order/{orderId}/cancel")
+    @PATCH("seller/{storeId}/order/confirmed-order/{orderId}/complete")
     suspend fun completeOrder(
         @Path("storeId") storeId: Long,
         @Path("orderId") orderId: Long

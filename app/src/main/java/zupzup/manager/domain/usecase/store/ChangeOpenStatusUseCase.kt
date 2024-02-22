@@ -1,5 +1,6 @@
 package zupzup.manager.domain.usecase.store
 
+import android.util.Log
 import zupzup.manager.domain.DataResult
 import zupzup.manager.domain.repository.StoreRepository
 import kotlinx.coroutines.Dispatchers

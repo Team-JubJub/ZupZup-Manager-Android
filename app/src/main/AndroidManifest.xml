@@ -9,6 +9,12 @@
     <!--  TODO : 갤러리 열 때 권한 허용 import가 안 됨  -->
     <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
 
+    <!-- Android 13 PUSH 대응 -->
+    <uses-permission
+        android:name="android.permission.POST_NOTIFICATIONS"
+        android:minSdkVersion="33" />
+
+
     <application
         android:name=".ui.application.ZupZupManagerApplication"
         android:allowBackup="true"
@@ -37,8 +43,19 @@
             android:exported="true">
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />
+                <data android:host="channel" android:scheme="kakaobe2d5f8a77d7e275a6e9f7511946a25f" />
             </intent-filter>
         </activity>
+
+        <service
+            android:name=".ui.fcm.MyFirebaseMessagingService"
+            android:enabled="true"
+            android:exported="true"
+            android:stopWithTask="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
     </application>
 
 </manifest>

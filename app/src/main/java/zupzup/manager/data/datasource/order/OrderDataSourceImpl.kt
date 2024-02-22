@@ -31,10 +31,11 @@ class OrderDataSourceImpl @Inject constructor(
         )
     }
 
-    override suspend fun cancelOrder(storeId: Long, orderId: Long): Response<PatchOrderResponse> {
+    override suspend fun cancelOrder(storeId: Long, orderId: Long, orderList: OrderSpecificListRequest): Response<PatchOrderResponse> {
         return orderService.cancelOrder(
             storeId = storeId,
-            orderId = orderId
+            orderId = orderId,
+            body = orderList
         )
     }
 

@@ -31,7 +31,11 @@ class OrderListViewModel @Inject constructor(
         viewModelScope.launch {
             getOrderListUseCase(storeId).collect {
                 if (it is DataResult.Success) {
-                    _orderListUiState.emit(UiState.Success(it.data))
+                    if (it.data.isEmpty()) {
+                        _orderListUiState.emit(UiState.Empty)
+                    } else {
+                        _orderListUiState.emit(UiState.Success(it.data))
+                    }
                 } else {
                     _orderListUiState.emit(UiState.Error("에러입니다."))
                 }

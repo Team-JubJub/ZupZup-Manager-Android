@@ -79,8 +79,8 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
                     android:layout_centerInParent="true"
-                    app:managementMode="@{viewModel.managementUiState}"
-                    android:text="제품 관리" />
+                    android:text="제품 관리"
+                    app:managementMode="@{viewModel.managementUiState}" />
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -122,6 +122,35 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"/>
+
+            <LinearLayout
+                android:id="@+id/linearLayout_emptyIcon"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/image_empty"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_empty_product"
+                    app:layout_constraintTop_toTopOf="@id/rcv_order_list"
+                    app:layout_constraintBottom_toBottomOf="@id/rcv_order_list"
+                    app:layout_constraintStart_toStartOf="@id/rcv_order_list"
+                    app:layout_constraintEnd_toEndOf="@id/rcv_order_list" />
+
+                <TextView
+                    style="@style/UIHeadline"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:textAlignment="center"
+                    android:text="아직 등록된 제품이 없어요!\n우측 상단의 버튼을 눌러보세요." />
+            </LinearLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
