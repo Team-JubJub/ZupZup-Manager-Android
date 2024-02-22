@@ -20,7 +20,7 @@ import javax.inject.Singleton
 object NetworkModule {
 
     private const val lunaSoftBaseUrl = "https://jupiter.lunasoft.co.kr/"
-    private const val manageBaseUrl = "https://zupzuptest.com:8080/"
+    private const val manageBaseUrl = Constants.officialBaseUrl
 
     @Qualifier
     @Retention(AnnotationRetention.BINARY)

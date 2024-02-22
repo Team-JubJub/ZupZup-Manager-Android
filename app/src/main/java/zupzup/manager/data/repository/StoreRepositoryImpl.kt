@@ -1,12 +1,11 @@
 package zupzup.manager.data.repository
 
-import android.util.Log
+import okhttp3.MultipartBody
 import zupzup.manager.data.datasource.store.StoreDataSource
 import zupzup.manager.data.dto.mapper.DtoMapper.toDto
 import zupzup.manager.domain.models.store.ModifyStoreModel
 import zupzup.manager.domain.models.store.StoreModel
 import zupzup.manager.domain.repository.StoreRepository
-import okhttp3.MultipartBody
 import javax.inject.Inject
 
 class StoreRepositoryImpl @Inject constructor(
@@ -52,7 +51,6 @@ class StoreRepositoryImpl @Inject constructor(
     ): Result<StoreModel> {
         return try {
             val response = storeDataSource.modifyStoreDetail(storeId, store.toDto(), image)
-            Log.d("TAG", "modifyStoreDetail: $response")
             val storeModel: StoreModel? = if (response.isSuccessful) {
                 response.body()?.toStoreModel()
             } else {
@@ -60,7 +58,6 @@ class StoreRepositoryImpl @Inject constructor(
             }
             Result.success(storeModel!!)
         } catch (e: Exception) {
-            Log.d("TAG", "modifyStoreDetail: $e")
             Result.failure(e)
         }
     }

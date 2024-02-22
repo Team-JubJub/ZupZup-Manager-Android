@@ -49,7 +49,6 @@ class SettingViewModel @Inject constructor(
     fun changeStoreStatus(isOpened: Boolean) {
         viewModelScope.launch {
             changeOpenStatusUseCase(User.getStoreId(), isOpened).collect {
-                Log.d("TAG", "changeOpenStatus:$it ")
                 if (it is DataResult.Success) {
                     _openStatus.emit(isOpened)
                 }

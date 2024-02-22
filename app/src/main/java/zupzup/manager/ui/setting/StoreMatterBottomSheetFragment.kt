@@ -32,18 +32,15 @@ class StoreMatterBottomSheetFragment(
             AlertDialog.Builder(requireContext())
                 .setTitle("가게 소개 수정하기")
                 .setMessage("가게 소개글 수정을 완료합니다.")
-                .setPositiveButton("확인", object : DialogInterface.OnClickListener {
-                    override fun onClick(dialog: DialogInterface, which: Int) {
-                        Log.d("가게 소개 수정", "확인")
-                        settingViewModel.modifyStoreMatter(storeMatter)
-                    }
-                })
-                .setNegativeButton("취소", object : DialogInterface.OnClickListener {
-                    override fun onClick(dialog: DialogInterface, which: Int) {
-                        Log.d("가게 소개 수정", "취소")
-                        dismiss()
-                    }
-                })
+                .setPositiveButton("확인"
+                ) { dialog, which ->
+                    Log.d("가게 소개 수정", "확인")
+                    settingViewModel.modifyStoreMatter(storeMatter)
+                }
+                .setNegativeButton("취소"
+                ) { dialog, which ->
+                    Log.d("가게 소개 수정", "취소")
+                }
                 .create()
                 .show()
         }

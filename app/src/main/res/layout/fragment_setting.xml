@@ -137,10 +137,11 @@
                     <TextView
                         android:id="@+id/tv_store_name"
                         style="@style/UIH3"
+                        tools:text="가게 이름 가게 이름"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
-                        android:text="@{viewModel.storeInfo.sellerName}" />
+                        android:text="@{viewModel.storeInfo.storeName}" />
 
                     <LinearLayout
                         android:layout_width="match_parent"

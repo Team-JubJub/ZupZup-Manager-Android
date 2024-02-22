@@ -42,6 +42,7 @@ class StoreViewModel @Inject constructor(
 
             modifyStoreDetailUseCase(User.getStoreId(), modifyStoreModel, photo).collect {
                 if (it is DataResult.Success) {
+                    Log.d("TAG", "modifyStoreDetail: $it")
                     _storeInfo.emit(it.data)
                 }
             }

@@ -63,7 +63,7 @@ object DtoMapper {
             closeTime = closeTime,
             saleTimeStart = saleTimeStart,
             saleTimeEnd = saleTimeEnd,
-            closedDay = closedDay!!
+            closedDay = closedDay ?: ""
         )
     }
 

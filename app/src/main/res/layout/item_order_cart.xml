@@ -30,13 +30,13 @@
 
         <TextView
             android:id="@+id/tv_item_name"
+            style="@style/UIHeadline"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="10dp"
             android:ellipsize="end"
             android:maxLines="1"
             android:text="@{order.orderItem.itemName}"
-            style="@style/UIHeadline"
             app:layout_constraintEnd_toStartOf="@id/btn_minus"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -44,12 +44,12 @@
 
         <TextView
             android:id="@+id/tv_item_price"
+            style="@style/UISubhead"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:text="@{String.valueOf(order.orderItem.itemPrice) + '원'}"
+            android:text="@{String.valueOf(order.orderItem.salePrice) + '원'}"
             android:textColor="@color/tangerine_300"
-            style="@style/UISubhead"
             app:layout_constraintStart_toStartOf="@id/tv_item_name"
             app:layout_constraintTop_toBottomOf="@id/tv_item_name"
             tools:text="3000원" />
@@ -74,11 +74,11 @@
 
         <TextView
             android:id="@+id/tv_item_amount"
+            style="@style/UIBody"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
             android:text="@{String.valueOf(order.getConfirmedAmount())}"
-            style="@style/UIBody"
             app:layout_constraintBottom_toBottomOf="@id/btn_plus"
             app:layout_constraintEnd_toStartOf="@id/btn_plus"
             app:layout_constraintTop_toTopOf="@id/btn_plus"
