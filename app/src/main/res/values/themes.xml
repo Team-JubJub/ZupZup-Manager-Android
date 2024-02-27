@@ -1,0 +1,48 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Theme.ZupZupManager" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/main</item>
+        <item name="colorPrimaryVariant">@color/pure_white</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
+        <!-- Customize your theme here. -->
+        <item name="android:windowBackground">@color/pure_white</item>
+    </style>
+
+    <style name="Theme.App.Starting" parent="Theme.SplashScreen">
+        <!-- Set the splash screen background, animated icon, and animation duration. -->
+        <item name="windowSplashScreenBackground">@color/pure_white</item>
+        <!-- Use windowSplashScreenAnimatedIcon to add either a drawable or an
+             animated drawable. One of these is required. -->
+        <item name="windowSplashScreenAnimatedIcon">@mipmap/ic_splash_logo</item>
+        <!-- Required for animated icons -->
+        <!-- Set the theme of the Activity that directly follows your splash screen. -->
+        <!-- Required -->
+        <item name="postSplashScreenTheme">@style/Theme.ZupZupManager</item>
+    </style>
+
+    <style name="BottomSheetStyle">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowTitleStyle">@null</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
+        <item name="android:windowSoftInputMode">stateUnspecified|adjustPan</item>
+        <item name="android:background">@color/transparent</item>
+        <item name="android:windowBackground">@color/transparent</item>
+    </style>
+
+    <style name="LoginEditTextStyle" parent="Widget.Design.TextInputLayout">
+        <item name="colorControlNormal">@color/transparent</item>// unFocus 상태일때 밑줄 색.
+        <item name="boxStrokeColor">@color/transparent</item>// Focus 상태일때 밑줄 색.
+        <item name="android:textCursorDrawable">@color/pure_black</item>// cursor 색.
+        <item name="android:textColorHint">@color/ivory_gray_400</item>// hint 색
+        <item name="hintTextColor">@color/ivory_gray_400</item>// floating hint 색
+<!--        <item name="helperText">@color/pure_black</item>// xml 에서 한 속성을 여기서도 할 수 있습니다.-->
+<!--        <item name="helperTextTextColor">@color/transparent</item>-->
+        <item name="errorTextColor">@color/warning1</item>
+    </style>
+
+</resources>

@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="zupzup.manager.ui.login.LoginViewModel" />
+
+        <variable
+            name="loginBtnOnClick"
+            type="zupzup.manager.ui.login.LoginActivity.LoginButtonClickListener" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.login.LoginActivity">
+
+        <!--            <ProgressBar-->
+        <!--                android:id="@+id/login_event_progress"-->
+        <!--                android:layout_width="wrap_content"-->
+        <!--                android:layout_height="wrap_content"-->
+        <!--                android:indeterminateTint="@color/main"-->
+        <!--                android:visibility="gone"-->
+        <!--                app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--                app:layout_constraintEnd_toEndOf="parent"-->
+        <!--                app:layout_constraintStart_toStartOf="parent"-->
+        <!--                app:layout_constraintTop_toTopOf="parent" />-->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <ImageView
+                android:id="@+id/iv_login_image"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="120dp"
+                android:src="@drawable/ic_logo"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/text_layout_id"
+                style="@style/LoginEditTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:imeOptions="actionNext"
+                android:theme="@style/LoginEditTextStyle"
+                app:endIconMode="clear_text"
+                app:endIconTint="@color/main"
+                app:hintEnabled="false">
+
+                <EditText
+                    android:id="@+id/etv_id"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:background="@drawable/frame_stroke_corner_8_ivorygray_300"
+                    android:fontFamily="@font/pretendard_regular"
+                    android:hint="아이디를 입력해주세요"
+                    android:inputType="text"
+                    android:letterSpacing="-0.025"
+                    android:maxLines="1"
+                    android:onEditorAction="@{() -> etvPw.requestFocus()}"
+                    android:paddingStart="16dp"
+                    android:textColor="@color/ivory_gray_500"
+                    android:textColorHint="@color/ivory_gray_400"
+                    android:textSize="17dp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/text_layout_pw"
+                style="@style/LoginEditTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="8dp"
+                android:imeOptions="actionDone"
+                android:theme="@style/LoginEditTextStyle"
+                app:endIconMode="clear_text"
+                app:endIconTint="@color/main"
+                app:hintEnabled="false">
+
+                <EditText
+                    android:id="@+id/etv_pw"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:background="@drawable/frame_stroke_corner_8_ivorygray_300"
+                    android:fontFamily="@font/pretendard_regular"
+                    android:hint="비밀번호를 입력해주세요"
+                    android:inputType="textPassword"
+                    android:letterSpacing="-0.025"
+                    android:maxLines="1"
+                    android:onEditorAction="@{() -> loginBtnOnClick.onClickLoginButton(etvId.getText().toString(), etvPw.getText().toString())}"
+                    android:paddingStart="16dp"
+                    android:textColor="@color/ivory_gray_500"
+                    android:textColorHint="@color/ivory_gray_400"
+                    android:textSize="17dp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_login"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="80dp"
+                android:background="@drawable/frame_rectangle_corner_14_main"
+                android:onClick="@{_ -> loginBtnOnClick.onClickLoginButton(etvId.getText().toString(), etvPw.getText().toString())}"
+                android:text="로그인"
+                android:textSize="17sp"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:background="@drawable/ic_or" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="60dp">
+
+                <TextView
+                    android:id="@+id/tv_find_id"
+                    style="@style/UIBody"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick="@{_ -> loginBtnOnClick.findIdWebView()}"
+                    android:text="아이디 찾기"
+                    android:textColor="@color/neutral_gray_600"
+                    android:textSize="13dp" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="20dp"
+                    android:background="@drawable/ic_divider" />
+
+                <TextView
+                    android:id="@+id/tv_find_pwd"
+                    style="@style/UIBody"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick="@{_ -> loginBtnOnClick.findPwdWebView()}"
+                    android:text="비밀번호 찾기"
+                    android:textColor="@color/neutral_gray_600"
+                    android:textSize="13dp" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="20dp"
+                    android:background="@drawable/ic_divider" />
+
+                <TextView
+                    android:id="@+id/tv_join"
+                    style="@style/UIBody"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick="@{_ -> loginBtnOnClick.signUpWebView()}"
+                    android:text="회원가입"
+                    android:textColor="@color/neutral_gray_600"
+                    android:textSize="13dp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <FrameLayout
+            android:id="@+id/fragment_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

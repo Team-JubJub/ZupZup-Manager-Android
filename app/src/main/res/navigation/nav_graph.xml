@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/frag_orderList">
+
+    <fragment
+        android:id="@+id/frag_orderList"
+        android:name="zupzup.manager.ui.orderlist.OrderListFragment"
+        android:label="OrderListFragment"
+        tools:layout="@layout/fragment_order_list">
+        <action
+            android:id="@+id/action_frag_orderList_to_frag_orderDetail"
+            app:destination="@id/frag_orderDetail" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/frag_orderDetail"
+        android:name="zupzup.manager.ui.orderdetail.OrderDetailFragment"
+        android:label="OrderDetailFragment"
+        tools:layout="@layout/fragment_order_detail">
+        <argument
+            android:name="order"
+            app:argType="zupzup.manager.domain.models.order.OrderModel"
+            app:nullable="false"/>
+    </fragment>
+    <fragment
+        android:id="@+id/frag_item"
+        android:name="zupzup.manager.ui.item.ItemFragment"
+        android:label="ManagementFragment"
+        tools:layout="@layout/fragment_item" >
+        <action
+            android:id="@+id/action_frag_item_to_itemDetailFragment"
+            app:destination="@id/frag_item_detail"/>
+    </fragment>
+    <fragment
+        android:id="@+id/frag_item_detail"
+        android:name="zupzup.manager.ui.itemdetail.ItemDetailFragment"
+        android:label="ItemDetailFragment"
+        tools:layout="@layout/fragment_item_detail">
+        <argument
+            android:name="item"
+            android:defaultValue="@null"
+            app:argType="zupzup.manager.domain.models.item.ItemModel"
+            app:nullable="true"/>
+    </fragment>
+    <fragment
+        android:id="@+id/frag_setting"
+        android:name="zupzup.manager.ui.setting.SettingFragment"
+        android:label="SettingFragment"
+        tools:layout="@layout/fragment_setting">
+        <action
+            android:id="@+id/action_frag_setting_to_storeFragment"
+            app:destination="@id/frag_store" />
+        <action
+            android:id="@+id/action_frag_setting_to_leaveFragment"
+            app:destination="@id/frag_leave" />
+    </fragment>
+    <fragment
+        android:id="@+id/frag_leave"
+        android:name="zupzup.manager.ui.setting.LeaveFragment"
+        android:label="StoreFragment"
+        tools:layout="@layout/fragment_store">
+        <argument
+            android:name="sellerName"/>
+    </fragment>
+    <fragment
+        android:id="@+id/frag_store"
+        android:name="zupzup.manager.ui.store.StoreFragment"
+        android:label="StoreFragment"
+        tools:layout="@layout/fragment_store">
+        <argument
+            android:name="store"
+            app:argType="zupzup.manager.domain.models.store.StoreModel"/>
+    </fragment>
+</navigation>

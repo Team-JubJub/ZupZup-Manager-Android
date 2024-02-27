@@ -1,0 +1,68 @@
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="app/src/main/res/drawable-v24/frame_rectangle_bottom_corner_12_warmgray3.xml" value="0.1655" />
+        <entry key="app/src/main/res/drawable-v24/frame_rectangle_bottom_corner_12_warmgray_3.xml" value="0.1655" />
+        <entry key="app/src/main/res/drawable-v24/frame_rectangle_corner_12_text_white.xml" value="0.155" />
+        <entry key="app/src/main/res/drawable-v24/frame_rectangle_corner_14_green.xml" value="0.1655" />
+        <entry key="app/src/main/res/drawable-v24/frame_rectangle_corner_14_main.xml" value="0.1655" />
+        <entry key="app/src/main/res/drawable-v24/frame_rectangle_corner_14_purple.xml" value="0.1655" />
+        <entry key="app/src/main/res/drawable-v24/frame_rectangle_corner_14_text_white.xml" value="0.155" />
+        <entry key="app/src/main/res/drawable-v24/frame_rectangle_corner_14_warmgray_3.xml" value="0.1655" />
+        <entry key="app/src/main/res/drawable-v24/frame_rectangle_corner_14_warning_1.xml" value="0.1655" />
+        <entry key="app/src/main/res/drawable-v24/frame_rectangle_corner_99_warmgray_5.xml" value="0.1655" />
+        <entry key="app/src/main/res/drawable-v24/frame_rectangle_corner_9_warmgray_1.xml" value="0.1655" />
+        <entry key="app/src/main/res/drawable-v24/frame_rectangle_top_corner_12_text_white.xml" value="0.1645" />
+        <entry key="app/src/main/res/drawable-v24/frame_rectangle_top_corner_12_warmgray3.xml" value="0.1655" />
+        <entry key="app/src/main/res/drawable-v24/frame_rectangle_top_corner_12_warmgray_2.xml" value="0.1215" />
+        <entry key="app/src/main/res/drawable-v24/frame_rectangle_top_corner_12_warmgray_3.xml" value="0.1655" />
+        <entry key="app/src/main/res/drawable-v24/frame_ㅐㅍ미_white.xml" value="0.1655" />
+        <entry key="app/src/main/res/drawable-v24/ic_clock_white.xml" value="0.1655" />
+        <entry key="app/src/main/res/drawable/bottom_tab_select_image.xml" value="0.1255" />
+        <entry key="app/src/main/res/drawable/frame_rectangle_bottom_corner_12_gray_re.xml" value="0.1655" />
+        <entry key="app/src/main/res/drawable/frame_rectangle_bottom_corner_12_warmgray_4.xml" value="0.1655" />
+        <entry key="app/src/main/res/drawable/frame_rectangle_corner_99_white.xml" value="0.1655" />
+        <entry key="app/src/main/res/drawable/frame_rectangle_top_corner_12_warmgray2.xml" value="0.1655" />
+        <entry key="app/src/main/res/drawable/frame_rectangle_top_corner_12_warmgray_3.xml" value="0.1655" />
+        <entry key="app/src/main/res/drawable/frame_upper.xml" value="0.1655" />
+        <entry key="app/src/main/res/drawable/ic_back_button.xml" value="0.1655" />
+        <entry key="app/src/main/res/drawable/ic_clock.xml" value="0.1965" />
+        <entry key="app/src/main/res/drawable/ic_edittext_clear_main_20.xml" value="0.1855" />
+        <entry key="app/src/main/res/drawable/ic_user.xml" value="0.1655" />
+        <entry key="app/src/main/res/drawable/test.xml" value="0.155" />
+        <entry key="app/src/main/res/drawable/upper.xml" value="0.155" />
+        <entry key="app/src/main/res/layout/activity_login.xml" value="0.1152236938476563" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.1941624479473762" />
+        <entry key="app/src/main/res/layout/fragment_management.xml" value="0.13632246376811594" />
+        <entry key="app/src/main/res/layout/fragment_management_detail.xml" value="0.15603230794270834" />
+        <entry key="app/src/main/res/layout/fragment_merchandise_detail.xml" value="0.10520833333333333" />
+        <entry key="app/src/main/res/layout/fragment_progress_dialog.xml" value="0.14583333333333334" />
+        <entry key="app/src/main/res/layout/fragment_reservation_confirm_bottom_sheet_list_dialog.xml" value="0.17346014492753623" />
+        <entry key="app/src/main/res/layout/fragment_reservation_confirm_bottomsheet.xml" value="0.23009796142578123" />
+        <entry key="app/src/main/res/layout/fragment_reservation_detail.xml" value="0.21663272138954945" />
+        <entry key="app/src/main/res/layout/fragment_reservation_list.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_reservation_list_filter.xml" value="0.20108695652173914" />
+        <entry key="app/src/main/res/layout/fragment_reservation_list_page.xml" value="0.20108695652173914" />
+        <entry key="app/src/main/res/layout/item_description.xml" value="0.20728366133095563" />
+        <entry key="app/src/main/res/layout/item_description_header.xml" value="0.19610507246376813" />
+        <entry key="app/src/main/res/layout/item_management_merchandise_info.xml" value="0.13632246376811594" />
+        <entry key="app/src/main/res/layout/item_management_merchandise_modify.xml" value="0.13632246376811594" />
+        <entry key="app/src/main/res/layout/item_merchandise_modify.xml" value="0.13632246376811594" />
+        <entry key="app/src/main/res/layout/item_reservation_card.xml" value="0.18165970668997816" />
+        <entry key="app/src/main/res/layout/item_reservation_cart.xml" value="0.3262069702148439" />
+        <entry key="app/src/main/res/layout/item_reservation_confirm_bottom_sheet_cart.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/item_reservation_customer_info.xml" value="0.31084899902343754" />
+        <entry key="app/src/main/res/layout/test2.xml" value="0.524612183501755" />
+        <entry key="app/src/main/res/menu/main_bottom_nav.xml" value="0.2520833333333333" />
+      </map>
+    </option>
+  </component>
+  <component name="ExternalStorageConfigurationManager" enabled="true" />
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_17" default="true" project-jdk-name="jbr-17" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>

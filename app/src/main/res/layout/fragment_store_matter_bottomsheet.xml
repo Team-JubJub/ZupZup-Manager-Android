@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="storeMatter"
+            type="java.lang.String" />
+
+        <variable
+            name="clickListener"
+            type="zupzup.manager.ui.setting.StoreMatterBottomSheetFragment.StoreMatterClickListener" />
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/frame_rectangle_top_corner_12_warmgray_2"
+        android:paddingHorizontal="16dp"
+        android:paddingTop="24dp"
+        android:paddingBottom="17dp"
+        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+
+        <TextView
+            android:id="@+id/tv_bottom_sheet_title"
+            style="@style/UIHeadline"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="가게 소개"
+            android:textAlignment="center"/>
+
+        <EditText
+            android:id="@+id/et_store_matter"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_marginTop="50dp"
+            android:padding="16dp"
+            android:gravity="top|start"
+            tools:text="안녕하세요. 저희 집은 150년 비법 간독대진갈비만을 취급하는 한신참치김치찌개입니다. 저희 집은 대대로 마카롱을 만들어왔구요, 저는 약과를 좋아합니다. 간독대진갈비한신김치찌개마카롱약과전문점, 많은 사랑 부탁드립니다."
+            android:text="@{storeMatter}"
+            android:background="@drawable/frame_stroke_corner_16_black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_bottom_sheet_title" />
+
+        <TextView
+            android:id="@+id/btn_complete_modify"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingVertical="17dp"
+            android:gravity="center_horizontal"
+            android:background="@drawable/frame_rectangle_corner_14_tangerine_300"
+            android:onClick="@{() -> clickListener.modifyStoreMatter(etStoreMatter.getText().toString())}"
+            style="@style/UIHeadline"
+            android:text="수정 완료"
+            android:layout_alignParentBottom="true"/>
+    </RelativeLayout>
+</layout>
