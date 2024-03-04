@@ -74,7 +74,7 @@ fun bindOrderTotalPriceToTextView(
     orderList: List<OrderSpecificModel>?
 ) {
     if (orderList != null) {
-        textView.text = orderList.sumOf { it.itemPrice * it.itemCount }.toDecimalFormat()
+        textView.text = orderList.sumOf { it.salePrice * it.itemCount }.toDecimalFormat()
     }
 }
 

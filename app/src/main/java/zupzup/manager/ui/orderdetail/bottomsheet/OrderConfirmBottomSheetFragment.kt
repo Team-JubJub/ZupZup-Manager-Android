@@ -6,17 +6,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import zupzup.manager.R
 import zupzup.manager.databinding.FragmentOrderConfirmBottomsheetBinding
 import zupzup.manager.domain.models.order.OrderModel
 import zupzup.manager.ui.common.toDecimalFormat
 import zupzup.manager.ui.orderdetail.OrderDetailFragmentClickListener
-import com.google.android.material.bottomsheet.BottomSheetDialog
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 class OrderConfirmBottomSheetFragment(
     private val confirmedOrder: OrderModel,
-    private val isPartialConfirm : Boolean,
+    private val isPartialConfirm: Boolean,
     private val orderHandler: OrderDetailFragmentClickListener
 ) : BottomSheetDialogFragment() {
 
@@ -52,7 +52,7 @@ class OrderConfirmBottomSheetFragment(
             val tvName: TextView = layout.findViewById(R.id.tv_item_name)
             val tvItemPrice: TextView = layout.findViewById(R.id.tv_item_price)
             tvName.text = "${it.itemName} ${it.itemCount}개"
-            tvItemPrice.text = (it.itemPrice * it.itemCount).toDecimalFormat()
+            tvItemPrice.text = (it.salePrice * it.itemCount).toDecimalFormat()
             binding.linearLayoutCartListContainer.addView(layout)
         }
     }
