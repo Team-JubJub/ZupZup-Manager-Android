@@ -16,6 +16,7 @@
             name="filter"
             type="String" />
     </data>
+
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/refresh"
         android:layout_width="match_parent"
@@ -27,38 +28,38 @@
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rcv_order_list"
+                emptyIconLayout="@{linearLayoutEmptyIcon}"
+                filter="@{filter}"
+                uiState="@{viewModel.orderListUiState}"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="0dp"
                 android:adapter="@{adapter}"
-                app:filter="@{filter}"
-                app:emptyIconLayout="@{linearLayoutEmptyIcon}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:uiState="@{viewModel.orderListUiState}" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <LinearLayout
                 android:id="@+id/linearLayout_emptyIcon"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                app:uiState="@{viewModel.orderListUiState}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                app:layout_constraintTop_toTopOf="parent"
+                app:uiState="@{viewModel.orderListUiState}">
 
                 <ImageView
                     android:id="@+id/image_empty"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:src="@drawable/ic_empty_order"
-                    app:layout_constraintTop_toTopOf="@id/rcv_order_list"
                     app:layout_constraintBottom_toBottomOf="@id/rcv_order_list"
+                    app:layout_constraintEnd_toEndOf="@id/rcv_order_list"
                     app:layout_constraintStart_toStartOf="@id/rcv_order_list"
-                    app:layout_constraintEnd_toEndOf="@id/rcv_order_list" />
+                    app:layout_constraintTop_toTopOf="@id/rcv_order_list" />
 
                 <TextView
                     android:id="@+id/tv_empty_text"
@@ -66,8 +67,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
-                    android:textAlignment="center"
                     android:text="지금은 신규 주문이 없어요"
+                    android:textAlignment="center"
                     android:textColor="@color/ivory_gray_500" />
             </LinearLayout>
 
