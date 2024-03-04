@@ -5,9 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import zupzup.manager.databinding.FragmentOrderListBinding
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
+import zupzup.manager.databinding.FragmentOrderListBinding
 
 @AndroidEntryPoint
 class OrderListFragment : Fragment() {
